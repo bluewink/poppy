@@ -1,11 +1,11 @@
 import React, { Fragment, useEffect } from 'react';
 import styled from 'styled-components';
-import Address from './pages/Address';
+import Detail from './pages/Detail';
 
 export default function App() {
   return (
     <MobileSize>
-      <Address />
+      <Detail />
     </MobileSize>
   );
 }
