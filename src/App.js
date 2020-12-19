@@ -13,7 +13,7 @@ export default function App() {
 const MobileSize = styled.div`
   background-color: #f2f2f2;
   width: 100%;
-  max-width: 36rem;
+  max-width: 27rem;
   height: fit-content;
   min-height: 100vh;
   margin: 0px auto;
