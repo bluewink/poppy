@@ -1,25 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Fragment, useEffect } from 'react';
+import styled from 'styled-components';
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <MobileSize>
+      <div>Poppy</div>
+    </MobileSize>
   );
 }
 
-export default App;
+const MobileSize = styled.div`
+  background-color: #f2f2f2;
+  width: 100%;
+  max-width: 36rem;
+  height: fit-content;
+  min-height: 100vh;
+  margin: 0px auto;
+  position: relative;
+  z-index: 100;
+`;
