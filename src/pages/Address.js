@@ -113,6 +113,7 @@ const AddressButton = styled.button`
   border: 1px solid #dadada;
   box-sizing: border-box;
   border-radius: 10px;
+  outline: 0;
 
   z-index: 0;
 `;
