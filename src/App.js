@@ -1,10 +1,11 @@
 import React, { Fragment, useEffect } from 'react';
 import styled from 'styled-components';
+import Address from './pages/Address';
 
 export default function App() {
   return (
     <MobileSize>
-      <div>Poppy</div>
+      <Address />
     </MobileSize>
   );
 }
