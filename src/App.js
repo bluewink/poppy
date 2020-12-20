@@ -3,10 +3,12 @@ import styled from 'styled-components';
 import Detail from './pages/Detail';
 import Address from './pages/Address';
 import Confirm from './pages/Confirm';
+import Done from './pages/Done';
+
 export default function App() {
   return (
     <MobileSize>
-      <Confirm />
+      <Done />
     </MobileSize>
   );
 }
