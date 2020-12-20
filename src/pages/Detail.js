@@ -1,9 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import { img1, img2 } from '../resources/images';
 
 export default function Detail() {
+  const [moreText, setMoreText] = useState('더보기');
+  const [moreSwitch, setMoreSwitch] = useState(false);
+  const handleMore = () => {
+    if (moreSwitch) {
+      setMoreSwitch(false);
+      setMoreText('더보기');
+    } else {
+      setMoreSwitch(true);
+      setMoreText('줄어들기');
+    }
+  };
   return (
     <Wrapper>
       <Header></Header>
@@ -21,12 +32,78 @@ export default function Detail() {
           안녕하세요 이웃집 뽀삐 돌봄 이웃 홍*동 입니다. 저는 지금 사랑스러운 저의 반려견인 뽀삐(푸들, 4살)와 살고
           있습니다. 남자아이고, 중성화 했어요. 저희 뽀삐는 순한 성격이라 웬만한 친구들과 사이좋게 지내요. 성격이 안 맞는
           친구를 만나면 관심을 주지 않아요. 뽀삐와 시간을 보내면서 저는 반려견을 키우면서 책임감에 대한 ...{' '}
-          <MoreButton>더보기</MoreButton>
+          <MoreText>
+            {moreSwitch
+              ? '이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅'
+              : ''}
+          </MoreText>
+          <MoreButton onClick={handleMore}>{moreText}</MoreButton>
         </IntroduceText>
       </IntroduceBox>
+      <FeeBox>
+        <FeeTitle>요금 소개</FeeTitle>
+        <FeeTable>
+          <TitleRow>
+            <FirstColumnTitle>반려견 크기 </FirstColumnTitle>
+            <SecondColumnTitle>
+              <DayCostTitle>당일</DayCostTitle>
+              <MonthCostTitle>1박</MonthCostTitle>
+            </SecondColumnTitle>
+          </TitleRow>
+          <ElementRow>
+            <FirstColumn>
+              <WhichDog>소형견</WhichDog> <WhichWeight>7키로 미만</WhichWeight>
+            </FirstColumn>
+            <SecondColumn>
+              <DayCost>10,000원</DayCost>
+              <MonthCost>20,000원</MonthCost>
+            </SecondColumn>
+          </ElementRow>
+          <LineView />
+          <ElementRow>
+            <FirstColumn>
+              <WhichDog>중형견</WhichDog> <WhichWeight>7키로~15키로</WhichWeight>
+            </FirstColumn>
+            <SecondColumn>
+              <DayCost>10,000원</DayCost>
+              <MonthCost>20,000원</MonthCost>
+            </SecondColumn>
+          </ElementRow>
+          <LineView />
+          <ElementRow>
+            <FirstColumn>
+              <WhichDog>대형견</WhichDog> <WhichWeight>15키로 이상</WhichWeight>
+            </FirstColumn>
+            <SecondColumn>
+              <DayCost>10,000원</DayCost>
+              <MonthCost>20,000원</MonthCost>
+            </SecondColumn>
+          </ElementRow>
+        </FeeTable>
+      </FeeBox>
+      <CalendarBox>
+        <CalendarTitle>이용 가능 날짜</CalendarTitle>
+      </CalendarBox>
     </Wrapper>
   );
 }
+
+const CalendarBox = styled.div`
+  margin: 50px 0 20px 25px;
+`;
+const CalendarTitle = styled.div`
+  font-family: Noto Sans KR;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 20px;
+
+  display: flex;
+  align-items: center;
+  letter-spacing: -1px;
+
+  color: #505050;
+`;
 
 const Wrapper = styled.div``;
 
@@ -130,3 +207,151 @@ const MoreButton = styled.button`
   border: 0;
   outline: 0;
 `;
+
+const FeeBox = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  margin: 40px 25px;
+`;
+
+const FeeTitle = styled.div`
+  margin: 0 0 12px 0;
+
+  font-family: Noto Sans KR;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 20px;
+  /* or 111% */
+
+  display: flex;
+  align-items: center;
+  letter-spacing: -1px;
+
+  /* 찐회색 */
+
+  color: #505050;
+`;
+
+const FeeTable = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const TitleRow = styled.div`
+  margin: 0 0 8px 0;
+  display: flex;
+  justify-content: space-between;
+`;
+
+const ElementRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const FirstColumnTitle = styled.div`
+  font-family: Noto Sans KR;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+
+  display: flex;
+  justify-content: space-between;
+  letter-spacing: -1px;
+
+  color: #505050;
+`;
+
+const SecondColumnTitle = styled.div`
+  font-family: Noto Sans KR;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+
+  display: flex;
+  align-items: center;
+  letter-spacing: -1px;
+
+  color: #505050;
+`;
+
+const FirstColumn = styled.div`
+  font-family: Noto Sans KR;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+
+  display: flex;
+  align-items: center;
+  letter-spacing: -1px;
+
+  color: #505050;
+`;
+
+const SecondColumn = styled.div`
+  font-family: Noto Sans KR;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 20px;
+  /* or 143% */
+
+  display: flex;
+  align-items: center;
+  text-align: center;
+
+  /* gray */
+
+  color: #9d9d9d;
+`;
+
+const LineView = styled.div`
+  margin-bottom: 4px;
+  height: 5px;
+  background-color: #fff8eb;
+`;
+
+const WhichDog = styled.span`
+  padding: 0 16px 0 0;
+
+  font-family: Noto Sans KR;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+
+  letter-spacing: -1px;
+
+  color: #000000;
+`;
+
+const WhichWeight = styled.span`
+  font-family: Noto Sans KR;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 20px;
+
+  letter-spacing: -1px;
+
+  color: #b6b6b6;
+`;
+const DayCostTitle = styled.div`
+  padding: 0 25px;
+`;
+const MonthCostTitle = styled.div`
+  padding: 0 25px;
+`;
+const DayCost = styled.div`
+  padding: 0 5px;
+`;
+
+const MonthCost = styled.div`
+  padding: 0 5px;
+`;
+
+const MoreText = styled.span``;
