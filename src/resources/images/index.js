@@ -9,3 +9,4 @@ export { default as detailIc3 } from './detailIc3.png';
 export { default as detailIc4 } from './detailIc4.png';
 export { default as detailIc5 } from './detailIc5.png';
 export { default as detailIc6 } from './detailIc6.png';
+export { default as confirmIc1 } from './confirmIc1.png';
