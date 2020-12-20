@@ -325,6 +325,8 @@ const FirstColumnTitle = styled.div`
   letter-spacing: -1px;
 
   color: #505050;
+
+  width: 50%;
 `;
 
 const SecondColumnTitle = styled.div`
@@ -353,6 +355,8 @@ const FirstColumn = styled.div`
   letter-spacing: -1px;
 
   color: #505050;
+
+  width: 50%;
 `;
 
 const SecondColumn = styled.div`
