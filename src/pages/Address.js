@@ -88,7 +88,7 @@ const AddressLabel = styled.div`
   top: 210px;
 
   font-family: DMSans;
-  font-size: 18px;
+  font-size: 14px;
   font-weight: bold;
 `;
 
