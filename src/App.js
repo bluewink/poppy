@@ -6,7 +6,7 @@ import Address from './pages/Address';
 export default function App() {
   return (
     <MobileSize>
-      <Address />
+      <Detail />
     </MobileSize>
   );
 }
