@@ -91,7 +91,7 @@ const SearchPageDate = styled.div`
 `;
 
 const FilterBox = styled.div`
-   position: absolute;
+  position: absolute;
   left: 200px;
   right: 34.13%;
   top: 250px;
