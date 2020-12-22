@@ -15,7 +15,7 @@ export default function App() {
       <MobileSize>
         <div>Poppy</div>
         <Header />
-        <Search />
+
         <Route path={["/landingpage", "/"]} exact component ={Landing} />
         <Route path="/takeoffer" exact component={Search} />
         <Route path="/address" exact component={Address} />
