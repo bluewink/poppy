@@ -1,4 +1,16 @@
-export { default as TextUnderLine } from './TextUnderLine.png';
+export { default as TextUnderLine } from "./TextUnderLine.png";
+export { default as HeaderLogoPng } from "./headerLogo.png";
+export { default as LandingPageVector } from "./LandingPageVector.png";
+export { default as PoppyLogoPng } from "./PoppyLogo.png";
+export { default as Poppy } from "./Poppy.png";
+export { default as LandingPageDogPng2 } from "./LandingPageDog2.png";
+export { default as PoppyBackPng } from "./PoppyBack.png";
+export { default as LocationIcon } from "./LocationIcon.png";
+export { default as SearchTabIcon } from "./SearchTabIcon.png";
+export { default as OfferPic1 } from "./OfferPic1.png";
+export { default as CalendarIcon } from "./CalendarIcon.png";
+
+
 export { default as LocationIc } from './LocationIc.png';
 export { default as LocationBackground } from './LocationBackground.png';
 export { default as img1 } from './img1.png';
