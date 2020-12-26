@@ -1,32 +1,39 @@
-import React from "react";
-import styled from "styled-components";
-import { HeaderLogoPng } from "../resources/images";
+import React from 'react';
+import styled from 'styled-components';
+import { poppy_logoIc, hamburgerIc } from '../resources/images';
 
 export default function Header() {
   return (
-    <div>
-      <TopHeader>
-        <HeaderLogo src={HeaderLogoPng} />
-      </TopHeader>
-    </div>
+    <TopHeader>
+      <HamburgerButton>
+        <Hamburger src={hamburgerIc} />
+      </HamburgerButton>
+      <HeaderLogo src={poppy_logoIc} />
+    </TopHeader>
   );
 }
 
 const TopHeader = styled.div`
-  position: absolute;
-  /* width: 375px; */
+  position: sticky;
+  top: 0;
+  z-index: 100;
   width: 100%;
-  height: 128px;
-  left: 0px;
-  top: -47px;
-  background: #f38f71;
-  box-shadow: 0px 4px 10px rgba(191, 170, 114, 0.35);
+  padding-top: 10px;
+  background: #ffffff;
+
+  display: flex;
 `;
 
+const HamburgerButton = styled.button`
+  border: 0;
+  outline: 0;
+  background-color: #ffffff;
+
+  display: block;
+`;
+
+const Hamburger = styled.img``;
+
 const HeaderLogo = styled.img`
-  position: absolute;
-  width: 114px;
-  height: 32px;
-  left: 38%;
-  top: 75px;
+  margin: 0 auto;
 `;
