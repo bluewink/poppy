@@ -13,9 +13,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <MobileSize>
-        <div>Poppy</div>
         <Header />
-
         <Route path={['/landingpage', '/']} exact component={Landing} />
         <Route path="/takeoffer" exact component={Search} />
         <Route path="/address" exact component={Address} />

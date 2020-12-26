@@ -43,7 +43,6 @@ export default function Detail() {
 
   return (
     <Wrapper>
-      <Header></Header>
       <Thumbnail src={img1} />
       <ProfileBox>
         <ProfileThumbnail src={img2} />
@@ -169,13 +168,6 @@ export default function Detail() {
 }
 
 const Wrapper = styled.div``;
-
-const Header = styled.div`
-  width: 100%;
-  height: 60px;
-
-  background-color: #f38f71;
-`;
 
 const Thumbnail = styled.img`
   width: 100%;
