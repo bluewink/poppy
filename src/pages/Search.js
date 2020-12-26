@@ -48,6 +48,34 @@ export default function Search() {
       oneSleep: "20,000",
       oneDay: "30,000",
     },
+    {
+      location: "연희동 300m",
+      title: "초코 집으로 초대합니다~",
+      score: "4.4(125)",
+      oneSleep: "20,000",
+      oneDay: "30,000",
+    },
+    {
+      location: "연희동 300m",
+      title: "초코 집으로 초대합니다~",
+      score: "4.4(125)",
+      oneSleep: "20,000",
+      oneDay: "30,000",
+    },
+    {
+      location: "연희동 300m",
+      title: "초코 집으로 초대합니다~",
+      score: "4.4(125)",
+      oneSleep: "20,000",
+      oneDay: "30,000",
+    },
+    {
+      location: "연희동 300m",
+      title: "초코 집으로 초대합니다~",
+      score: "4.4(125)",
+      oneSleep: "20,000",
+      oneDay: "30,000",
+    },
   ];
   const PRO_OFFER_LIST = [
     {
@@ -146,7 +174,7 @@ const SearchPageAddress = styled.div`
   left: 20px;
   top: 200px;
   bottom: 75%; */
-  width: 185px;
+  width: 45%;
   height: 36px;
   display: flex;
   align-items: center;
@@ -171,7 +199,7 @@ const SearchPageDate = styled.div`
   /* position: absolute;
   left: 20px;
   top: 230px; */
-  width: 185px;
+  width: 45%;
   height: 36px;
   display: flex;
   align-items: center;

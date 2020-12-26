@@ -11,7 +11,7 @@ export default function OfferCell({ offerList }) {
         return (
           <CellWrapper>
             <OfferPicture src={OfferPic1} />
-            <OfferLocation>{offer.location}</OfferLocation>
+            <OfferLocation> {offer.location}</OfferLocation>
             <OfferInfo>
               <OfferTitle>{offer.title}</OfferTitle>
               <OfferScore>
@@ -19,6 +19,7 @@ export default function OfferCell({ offerList }) {
                   rating={score}
                   starDimension="15px"
                   starSpacing="0px"
+                  starRatedColor="#ff9777"
                 ></StarRatings>
                 {offer.score}
               </OfferScore>
@@ -89,7 +90,7 @@ const OfferLocation = styled.div`
   display: flex;
   top: 90px;
   left: 15px;
-  width: 140px;
+  width: 133px;
   height: 20px;
   font-family: WorkSans;
   font-size: 11px;
@@ -100,7 +101,7 @@ const OfferLocation = styled.div`
   letter-spacing: -0.5px;
   text-align: left;
   color: #ffffff;
-
+  padding-left: 5px;
   background-color: rgba(0, 0, 0, 0.62);
 `;
 const OfferTitle = styled.div`
