@@ -9,7 +9,7 @@ import DaumAPI from '../components/DaumAPI';
 export default function Address() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [addressText, setAddressText] = useState('');
-
+  const [nextBool, setNextBool] = useState(false);
   const closeModal = () => {
     setIsModalOpen(false);
   };
@@ -41,15 +41,13 @@ export default function Address() {
             건물명 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<Example>예)역삼동푸르지오,텐즈힐</Example>
           </ExampleTitle>
           <NextBox>
-            <Link to="/takeoffer">
-              <NextButton>확인</NextButton>
-            </Link>
+            <Link to="/takeoffer">{nextBool && <NextButton>확인</NextButton>}</Link>
           </NextBox>
           <PoppyImage src={address_poppy} />
         </>
       )}
 
-      <DaumAPI isOpen={isModalOpen} close={closeModal} {...{ setAddressText }} />
+      <DaumAPI isOpen={isModalOpen} close={closeModal} {...{ setAddressText, setNextBool }} />
     </Wrapper>
   );
 }

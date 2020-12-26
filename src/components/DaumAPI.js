@@ -1,7 +1,7 @@
 import React from 'react';
 import DaumPostcode from 'react-daum-postcode';
 
-export default function DaumAPI({ isOpen, close, setAddressText }) {
+export default function DaumAPI({ isOpen, close, setAddressText, setNextBool }) {
   const handleComplete = (data) => {
     let fullAddress = data.address;
     let extraAddress = '';
@@ -18,8 +18,9 @@ export default function DaumAPI({ isOpen, close, setAddressText }) {
 
     console.log(fullAddress); // e.g. '서울 성동구 왕십리로2길 20 (성수동1가)'
 
-    close();
     setAddressText(fullAddress);
+    setNextBool(true);
+    close();
   };
 
   return (
