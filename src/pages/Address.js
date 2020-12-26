@@ -41,7 +41,16 @@ export default function Address() {
             건물명 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<Example>예)역삼동푸르지오,텐즈힐</Example>
           </ExampleTitle>
           <NextBox>
-            <Link to="/takeoffer">{nextBool && <NextButton>확인</NextButton>}</Link>
+            <Link
+              to={{
+                pathname: '/takeoffer',
+                state: {
+                  address: addressText,
+                },
+              }}
+            >
+              {nextBool && <NextButton>확인</NextButton>}
+            </Link>
           </NextBox>
           <PoppyImage src={address_poppy} />
         </>

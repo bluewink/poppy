@@ -2,7 +2,17 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Header from '../components/Header';
 
-import { img1, img2, detailIc1, detailIc2, detailIc3, detailIc4, detailIc5, detailIc6 } from '../resources/images';
+import {
+  img1,
+  img2,
+  detailIc1,
+  detailIc2,
+  detailIc3,
+  detailIc4,
+  detailIc5,
+  detailIc6,
+  detail_photo_1,
+} from '../resources/images';
 import NextButton from '../components/NextButton';
 
 // References: https://velog.io/@jeonghoheo/React-Hooks리액트-훅스의-기본-Part-1-2jjxpaobgg
@@ -45,12 +55,14 @@ export default function Detail() {
   return (
     <Wrapper>
       <Header isAddress={false} />
-      <Thumbnail src={img1} />
+      <Thumbnail src={detail_photo_1} />
       <ProfileBox>
         <ProfileThumbnail src={img2} />
         <ProfileTextBox>
           <ProfileTitle>안심하고 맡겨주세요:)</ProfileTitle>
-          <ProfileAddress>서울시 마포구 상수동</ProfileAddress>
+          <ProfileContent>
+            이현숙 <ProfileAddress> 서울시 마포구 상수동</ProfileAddress>
+          </ProfileContent>
         </ProfileTextBox>
       </ProfileBox>
       <IntroduceBox>
@@ -186,7 +198,10 @@ const ProfileBox = styled.div`
 
 const ProfileThumbnail = styled.img`
   margin-left: 20px;
-  padding: 5px;
+  width: 56px;
+  height: 56px;
+
+  margin-right: 5px;
   border-radius: 50px;
 `;
 
@@ -207,21 +222,41 @@ const ProfileTitle = styled.div`
   letter-spacing: -1px;
 `;
 
-const ProfileAddress = styled.div`
+const ProfileContent = styled.div`
   font-family: Noto Sans KR;
   font-style: normal;
-  font-weight: normal;
+  font-weight: 500;
   font-size: 14px;
   line-height: 24px;
 
   letter-spacing: -1px;
 `;
 
+const ProfileAddress = styled.span`
+  margin-left: 6px;
+
+  font-family: Noto Sans KR;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+
+  letter-spacing: -1px;
+
+  color: #9d9d9d;
+`;
+
 const IntroduceBox = styled.div`
   display: flex;
   flex-direction: column;
 
-  margin: 22px 25px;
+  margin: 18px 0;
+  padding: 22px 25px;
+  border-radius: 8px;
+
+  box-shadow: 0px 1px 3px rgba(129, 129, 129, 0.18);
+  box-shadow: inset 0 1px 2px 0 rgba(139, 136, 136, 0.17);
+
+  background-color: #fafafa;
 `;
 
 const IntroduceTitle = styled.div`

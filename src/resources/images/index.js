@@ -27,3 +27,4 @@ export { default as hamburgerIc } from './hamburgerIc.png';
 export { default as poppy_logoIc } from './poppy_logoIc.png';
 export { default as survey_poppy } from './survey_poppy.png';
 export { default as confirmIc } from './confirmIc.png';
+export { default as detail_photo_1 } from './detail_photo_1.png';
