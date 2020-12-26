@@ -136,16 +136,16 @@ const Example = styled.span`
   color: #c1c1c1;
 `;
 
-const NextBox = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
 const PoppyImage = styled.img`
   position: absolute;
   right: 0;
   bottom: 0;
+`;
+
+const NextBox = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const NextButton = styled.button`

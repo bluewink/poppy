@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import Header from '../components/Header';
+import { Link } from 'react-router-dom';
 
-import { confirmIc1 } from '../resources/images';
-import NextButton from '../components/NextButton';
+import Header from '../components/Header';
+import { confirmIc1, confirmIc } from '../resources/images';
+
 export default function Confirm() {
   return (
     <Wrapper>
@@ -13,31 +14,43 @@ export default function Confirm() {
           예약을 <br />
           확정해주세요!
         </PageTitle>
-        <ReservationBox>
-          <Icon src={confirmIc1} />
-          <InformationTitle>예약 정보</InformationTitle>
-          <InformationGroup>
-            <InformationSubTitle>
-              돌봄 이웃: <Lighter>홍길동</Lighter>
-            </InformationSubTitle>
-            <InformationSubTitle>
-              이용할 서비스: <Lighter>당일 케어</Lighter>
-            </InformationSubTitle>
-            <InformationSubTitle>
-              날짜: <Lighter>2020년 12월 21일 (당일)</Lighter>
-            </InformationSubTitle>
-            <InformationSubTitle>
-              요금: <Lighter>20,000원</Lighter>
-            </InformationSubTitle>
-          </InformationGroup>
+        <ReservationBox image={confirmIc}>
+          {/* <ReservationBackground src={confirmIc} /> */}
+          <PaddingBox>
+            <Icon src={confirmIc1} />
+            <InformationTitle>예약 정보</InformationTitle>
+            <InformationGroup>
+              <InformationSubTitle>
+                돌봄 이웃: <Lighter>홍길동</Lighter>
+              </InformationSubTitle>
+              <InformationSubTitle>
+                이용할 서비스: <Lighter>소형견 / 당일 케어</Lighter>
+              </InformationSubTitle>
+              <InformationSubTitle>
+                날짜: <Lighter>2020년 12월 21일 </Lighter>
+              </InformationSubTitle>
+              <InformationSubTitle>
+                요금: <Lighter>20,000원</Lighter>
+              </InformationSubTitle>
+            </InformationGroup>
+          </PaddingBox>
         </ReservationBox>
-        <WarnLabel>예약 정보를 다시 한 번 확인해 주세요.</WarnLabel>
+
+        <NextBox>
+          <WarnLabel>예약 정보를 다시 한 번 확인해 주세요.</WarnLabel>
+          <Link to="/survey">
+            <NextButton>예약 확정</NextButton>
+          </Link>
+        </NextBox>
       </>
-      <NB>예약 확정하기</NB>
-      {/* <NextButton y={1000} name="에약 확정하기" /> */}
     </Wrapper>
   );
 }
+
+const ReservationBackground = styled.img`
+  position: relative;
+  top: 200px;
+`;
 
 const InformationGroup = styled.div`
   margin-top: 20px;
@@ -75,27 +88,19 @@ const Icon = styled.img``;
 
 const ReservationBox = styled.div`
   margin: 50px 20px 0 20px;
-  padding: 24px;
+
+  background-image: url('confirmIc.png')
 
   border-radius: 23px;
   box-shadow: 0 0 11px 0 rgba(192, 146, 113, 0.24);
   background-color: #ffffff;
+  
 `;
 
-const WarnLabel = styled.div`
-  margin: 0 auto;
-  margin-top: 120px;
-
-  // font-family: DM Sans;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 13px;
-  line-height: 20px;
-  text-align: center;
-  letter-spacing: -1px;
-
-  color: #cbc9c9;
+const PaddingBox = styled.div`
+  padding: 24px;
 `;
+
 const Wrapper = styled.div`
   height: 100%;
 `;
@@ -114,21 +119,42 @@ const PageTitle = styled.div`
   color: #131313;
 `;
 
-const NB = styled.button`
+const NextBox = styled.div`
   position: absolute;
   bottom: 0;
-  width: 100%;
-  height: 60px;
+  left: 50%;
+  transform: translate(-50%, -50%);
 
-  border: 0;
-  outline: 0;
-  padding: 11px 100px 9px 91px;
-  box-shadow: 0 4px 10px 0 rgba(191, 170, 114, 0.35);
-  background-color: #f38f71;
+  display: flex;
+  flex-direction: column;
 
-  // Text
-  // font-family: DMSans;
-  font-size: 20px;
+  align-items: center;
+  justify-content: center;
+`;
+
+const WarnLabel = styled.div`
+  font-family: DM Sans;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 20px;
+  text-align: center;
+  letter-spacing: -1px;
+
+  color: #cbc9c9;
+`;
+
+const NextButton = styled.button`
+  margin: 9px auto;
+  text-decoration: none;
+
+  outline: none;
+  border: none;
+
+  padding: 0 25px;
+
+  font-family: DMSans;
+  font-size: 18px;
   font-weight: bold;
   font-stretch: normal;
   font-style: normal;
@@ -136,4 +162,8 @@ const NB = styled.button`
   letter-spacing: normal;
   text-align: center;
   color: #ffffff;
+
+  border-radius: 5px;
+  box-shadow: 0 4px 10px 0 rgba(191, 170, 114, 0.35);
+  background-color: #ff9777;
 `;
