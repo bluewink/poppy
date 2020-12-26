@@ -1,17 +1,14 @@
-import React from "react";
-import styled, { css } from "styled-components";
-import {
-  LandingPageVector,
-  PoppyLogoPng,
-  Poppy,
-  LandingPageDogPng2,
-} from "../resources/images";
+import React from 'react';
+import styled, { css } from 'styled-components';
+
+import Header from '../components/Header';
+import { LandingPageVector, PoppyLogoPng, Poppy, LandingPageDogPng2 } from '../resources/images';
 
 export default function Landing() {
   return (
     <>
-      <VectorBackground src={LandingPageVector}></VectorBackground>{" "}
-      <PoppyLogo src={PoppyLogoPng} />
+      <Header isAddress={false} />
+      <VectorBackground src={LandingPageVector}></VectorBackground> <PoppyLogo src={PoppyLogoPng} />
       <LandingPageHeader>
         우리 동네 반려견
         <br />

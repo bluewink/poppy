@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import Header from '../components/Header';
 
 import { img1, img2, detailIc1, detailIc2, detailIc3, detailIc4, detailIc5, detailIc6 } from '../resources/images';
 import NextButton from '../components/NextButton';
@@ -43,6 +44,7 @@ export default function Detail() {
 
   return (
     <Wrapper>
+      <Header isAddress={false} />
       <Thumbnail src={img1} />
       <ProfileBox>
         <ProfileThumbnail src={img2} />

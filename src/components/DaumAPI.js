@@ -25,14 +25,7 @@ export default function DaumAPI({ isOpen, close, setAddressText }) {
   return (
     <>
       {isOpen && (
-        <DaumPostcode
-          onComplete={handleComplete}
-          animation={false}
-          width="300"
-          height="400"
-          autoClose={true}
-          autoResize={true}
-        />
+        <DaumPostcode style={''} onComplete={handleComplete} animation={false} autoClose={true} autoResize={true} />
       )}
     </>
   );

@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
+import Header from '../components/Header';
 import NextButton from '../components/NextButton';
 
 export default function Confirm() {
   return (
     <Wrapper>
-      <Header></Header>
+      <Header isAddress={false} />
       <PageTitle>
         예약해주셔서 <br />
         감사합니다!
@@ -25,13 +26,6 @@ export default function Confirm() {
 
 const Wrapper = styled.div`
   height: 100%;
-`;
-
-const Header = styled.div`
-  width: 100%;
-  height: 60px;
-
-  background-color: #f38f71;
 `;
 
 const PageTitle = styled.div`
