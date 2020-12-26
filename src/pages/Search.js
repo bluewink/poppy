@@ -1,30 +1,26 @@
-import React, { useState, useEffect } from "react";
-import styled, { css } from "styled-components";
-import axios from "axios";
-import {
-  PoppyBackPng,
-  LocationIcon,
-  SearchTabIcon,
-  CalendarIcon,
-} from "../resources/images";
-import OfferCell from "../components/OfferCell";
-import DatePicker from "react-datepicker";
-export default function Search() {
+import React, { useState, useEffect } from 'react';
+import styled, { css } from 'styled-components';
+import axios from 'axios';
+import { PoppyBackPng, LocationIcon, SearchTabIcon, CalendarIcon } from '../resources/images';
+import OfferCell from '../components/OfferCell';
+import DatePicker from 'react-datepicker';
+
+export default function Search({ location }) {
+  console.log(location.state.address);
   // http://ec2-3-35-187-250.ap-northeast-2.compute.amazonaws.com:8000/?address=
   //headers: {"Access-Control-Allow-Origin": "*"}
   const [startDate, setStartDate] = useState(new Date());
   useEffect(() => {
     const dataToSend = {
-      method: "get",
-      url:
-        "http://ec2-3-35-187-250.ap-northeast-2.compute.amazonaws.com:8000/?address=서울시 마포구 신수동",
+      method: 'get',
+      url: 'http://ec2-3-35-187-250.ap-northeast-2.compute.amazonaws.com:8000/?address=서울시 마포구 신수동',
     };
     const fetchAddressData = async () => {
       try {
         const res = await axios(dataToSend);
         console.log(res);
       } catch (e) {
-        console.log("fetch failed!!!");
+        console.log('fetch failed!!!');
         console.log(e);
       }
     };
@@ -35,18 +31,18 @@ export default function Search() {
 
   const NEIGHBOR_OFFER_LIST = [
     {
-      location: "상수동 300m",
-      title: "안심하고 맡겨주세요 :)",
-      score: "4.8(148)",
-      oneSleep: "20,000",
-      oneDay: "45,000",
+      location: '상수동 300m',
+      title: '안심하고 맡겨주세요 :)',
+      score: '4.8(148)',
+      oneSleep: '20,000',
+      oneDay: '45,000',
     },
     {
-      location: "연희동 300m",
-      title: "초코 집으로 초대합니다~",
-      score: "4.4(125)",
-      oneSleep: "20,000",
-      oneDay: "30,000",
+      location: '연희동 300m',
+      title: '초코 집으로 초대합니다~',
+      score: '4.4(125)',
+      oneSleep: '20,000',
+      oneDay: '30,000',
     },
     {
       location: "연희동 300m",
@@ -79,18 +75,18 @@ export default function Search() {
   ];
   const PRO_OFFER_LIST = [
     {
-      location: "가츠동 300m",
-      title: "펫시팅 경력 20년",
-      score: "4.5(152)",
-      oneSleep: "20,000",
-      oneDay: "55,000",
+      location: '가츠동 300m',
+      title: '펫시팅 경력 20년',
+      score: '4.5(152)',
+      oneSleep: '20,000',
+      oneDay: '55,000',
     },
     {
-      location: "상수동 300m",
-      title: "소형견 전문 펫시터!",
-      score: "4.3(163)",
-      oneSleep: "20,000",
-      oneDay: "50,000",
+      location: '상수동 300m',
+      title: '소형견 전문 펫시터!',
+      score: '4.3(163)',
+      oneSleep: '20,000',
+      oneDay: '50,000',
     },
   ];
 
@@ -227,8 +223,7 @@ const FilterBox = styled.div`
   top: 185px;
   width: 100%;
   height: 38px;
-  box-shadow: inset 0 1px 2px 0 rgba(165, 159, 150, 0.22),
-    0 1px 2px 0 rgba(170, 170, 170, 0.31);
+  box-shadow: inset 0 1px 2px 0 rgba(165, 159, 150, 0.22), 0 1px 2px 0 rgba(170, 170, 170, 0.31);
   background-color: #f9f9f9;
 
   display: flex;
