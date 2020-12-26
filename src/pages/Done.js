@@ -36,7 +36,7 @@ const Wrapper = styled.div`
 const PageTitle = styled.div`
   margin: 24px 16px;
 
-  font-family: NotoSansKR;
+  font-family: 'Noto Sans KR', sans-serif;
   font-size: 24px;
   font-weight: bold;
   font-stretch: normal;
@@ -50,7 +50,7 @@ const PageTitle = styled.div`
 const SubLabel = styled.div`
   margin: 42px 20px;
 
-  font-family: NotoSansKR;
+  font-family: 'Noto Sans KR', sans-serif;
   font-size: 17px;
   font-weight: normal;
   font-stretch: normal;
@@ -91,7 +91,7 @@ const NextButton = styled.button`
 
   padding: 0 25px;
 
-  font-family: DMSans;
+  font-family: 'DM Sans', sans-serif;
   font-size: 18px;
   font-weight: bold;
   font-stretch: normal;

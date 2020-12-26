@@ -232,160 +232,6 @@ export default function Detail() {
   );
 }
 
-const BestReviewDate = styled.div`
-  font-family: WorkSans;
-  font-size: 14px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-
-  letter-spacing: -0.5px;
-  text-align: right;
-  color: #2c2c2c;
-`;
-
-const BestColumn = styled.div``;
-
-const BestArticle = styled.div`
-  margin: 0 10px;
-`;
-
-const BestReviewDetail = styled.div`
-  display: flex;
-
-  margin: 17px 0 10px 9px;
-`;
-
-const BestReviewText = styled.div`
-  margin-left: 9px;
-  width: 100%;
-
-  display: flex;
-  justify-content: space-between;
-`;
-
-const BestReviewName = styled.div``;
-
-const BestReviewStar = styled.img``;
-
-const BestReviewImage = styled.img`
-  width: 40px;
-  height: 40px;
-`;
-
-const BestReview = styled.div`
-  margin: 25px 0 10px 10px;
-`;
-const BestTitle = styled.span`
-  padding: 2px 11px 2px 11px;
-  border-radius: 8px;
-  background-color: #ff9777;
-
-  font-family: NotoSansKR;
-  font-size: 15px;
-  font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.17;
-  letter-spacing: -1px;
-  text-align: left;
-  color: #ffffff;
-`;
-const BestReviewArticle = styled.div`
-  margin-top: 9px;
-
-  padding: 15px 18px 38px 19px;
-  border-radius: 8px;
-  box-shadow: 0 1px 3px 0 rgba(129, 129, 129, 0.18);
-  background-color: #ffffff;
-
-  font-family: Noto Sans KR;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 15px;
-  line-height: 22px;
-
-  letter-spacing: -1px;
-
-  color: #9d9d9d;
-`;
-
-const StarReviewScore = styled.div`
-  margin-top: 25px;
-
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-
-  align-items: flex-end;
-`;
-
-const StarImage = styled.img`
-  width: 53px;
-  height: 53px;
-
-  border-radius: 2.5px;
-`;
-
-const ReviewScore = styled.div`
-  margin-left: 5px;
-  // font-family: WorkSans;
-
-  font-size: 48px;
-  font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 0.42;
-  letter-spacing: -1px;
-  text-align: left;
-  color: var(--black);
-`;
-
-const GrayScore = styled.span`
-  margin: 0 1px 4px 0;
-  font-family: NotoSansKR;
-  font-size: 18px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.11;
-  letter-spacing: -2.5px;
-  text-align: left;
-  color: #9d9d9d;
-`;
-
-const ReviewBox = styled.div`
-  padding: 27px 17px 36px 15px;
-  background-color: #fafafa;
-`;
-
-const ReviewTitle = styled.div`
-  margin-left: 10px;
-
-  font-family: NotoSansKR;
-  font-size: 18px;
-  font-weight: bold;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.11;
-  letter-spacing: -1px;
-  text-align: left;
-  color: #505050;
-`;
-
-const ReviewNumber = styled.span`
-  margin-left: 3px;
-
-  font-size: 14px;
-  font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.43;
-  letter-spacing: normal;
-  text-align: left;
-  color: #505050;
-`;
-
 const Wrapper = styled.div``;
 
 const Thumbnail = styled.img`
@@ -739,7 +585,7 @@ const LineView = styled.div`
 const WhichDog = styled.span`
   padding: 0 16px 0 0;
 
-  font-family: NotoSansKR;
+  font-family: 'Noto Sans KR', sans-serif;
   font-size: 16px;
   font-weight: 500;
   font-stretch: normal;
@@ -751,7 +597,7 @@ const WhichDog = styled.span`
 `;
 
 const WhichWeight = styled.span`
-  font-family: WorkSans;
+  font-family: 'Work Sans', sans-serif;
   font-size: 14px;
   font-weight: normal;
   letter-spacing: normal;
@@ -783,7 +629,7 @@ const ServiceCellIcon = styled.img`
 const ServiceCellTitle = styled.div`
   margin-left: 4px;
 
-  font-family: NotoSansKR;
+  font-family: 'Noto Sans KR', sans-serif;
   font-size: 14px;
   font-weight: 500;
   font-stretch: normal;
@@ -856,7 +702,7 @@ const WarningSign = styled.div`
   display: flex;
   align-items: center;
 
-  font-family: NotoSansKR;
+  font-family: 'Noto Sans KR', sans-serif;
   font-size: 14px;
   font-weight: normal;
   font-stretch: normal;
@@ -877,12 +723,14 @@ const WarningImage = styled.img`
 const ExpertBox = styled.div`
   display: flex;
   flex-direction: column;
+
+  margin-bottom: 25px;
 `;
 
 const ExpertTitle = styled.div`
   margin: 15px 25px 0 25px;
 
-  font-family: NotoSansKR;
+  font-family: 'Noto Sans KR', sans-serif;
   font-size: 18px;
   font-weight: bold;
   font-stretch: normal;
@@ -908,7 +756,7 @@ const ExpertTable = styled.div`
 const ExpertColumn = styled.div``;
 
 const ExpertCard = styled.div`
-  font-family: NotoSansKR;
+  font-family: 'Noto Sans KR', sans-serif;
   font-size: 16px;
   font-weight: bold;
   font-stretch: normal;
@@ -934,7 +782,7 @@ const ExpertDate = styled.div`
 `;
 
 const ExpertPlace = styled.div`
-  font-family: NotoSansKR;
+  font-family: 'Noto Sans KR', sans-serif;
   font-size: 12px;
   font-weight: 500;
   font-stretch: normal;
@@ -962,7 +810,7 @@ const NextButton = styled.button`
 
   padding: 0 25px;
 
-  font-family: DMSans;
+  font-family: 'DM Sans', sans-serif;
   font-size: 18px;
   font-weight: bold;
   font-stretch: normal;
@@ -975,4 +823,158 @@ const NextButton = styled.button`
   border-radius: 5px;
   box-shadow: 0 4px 10px 0 rgba(191, 170, 114, 0.35);
   background-color: #ff9777;
+`;
+
+const BestReviewDate = styled.div`
+  font-family: Work Sans;
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+
+  letter-spacing: -0.5px;
+  text-align: right;
+  color: #2c2c2c;
+`;
+
+const BestColumn = styled.div``;
+
+const BestArticle = styled.div`
+  margin: 0 10px;
+`;
+
+const BestReviewDetail = styled.div`
+  display: flex;
+
+  margin: 17px 0 10px 9px;
+`;
+
+const BestReviewText = styled.div`
+  margin-left: 9px;
+  width: 100%;
+
+  display: flex;
+  justify-content: space-between;
+`;
+
+const BestReviewName = styled.div``;
+
+const BestReviewStar = styled.img``;
+
+const BestReviewImage = styled.img`
+  width: 40px;
+  height: 40px;
+`;
+
+const BestReview = styled.div`
+  margin: 25px 0 10px 10px;
+`;
+const BestTitle = styled.span`
+  padding: 2px 11px 2px 11px;
+  border-radius: 8px;
+  background-color: #ff9777;
+
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.17;
+  letter-spacing: -1px;
+  text-align: left;
+  color: #ffffff;
+`;
+const BestReviewArticle = styled.div`
+  margin-top: 9px;
+
+  padding: 15px 18px 38px 19px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px 0 rgba(129, 129, 129, 0.18);
+  background-color: #ffffff;
+
+  font-family: Noto Sans KR;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 22px;
+
+  letter-spacing: -1px;
+
+  color: #9d9d9d;
+`;
+
+const StarReviewScore = styled.div`
+  margin-top: 25px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  align-items: flex-end;
+`;
+
+const StarImage = styled.img`
+  width: 53px;
+  height: 53px;
+
+  border-radius: 2.5px;
+`;
+
+const ReviewScore = styled.div`
+  margin-left: 5px;
+
+  font-size: 48px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 0.42;
+  letter-spacing: -1px;
+  text-align: left;
+  color: var(--black);
+`;
+
+const GrayScore = styled.span`
+  margin: 0 1px 4px 0;
+
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 18px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.11;
+  letter-spacing: -2.5px;
+  text-align: left;
+  color: #9d9d9d;
+`;
+
+const ReviewBox = styled.div`
+  padding: 27px 17px 36px 15px;
+  background-color: #fafafa;
+`;
+
+const ReviewTitle = styled.div`
+  margin-left: 10px;
+
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.11;
+  letter-spacing: -1px;
+  text-align: left;
+  color: #505050;
+`;
+
+const ReviewNumber = styled.span`
+  margin-left: 3px;
+
+  font-size: 14px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.43;
+  letter-spacing: normal;
+  text-align: left;
+  color: #505050;
 `;
