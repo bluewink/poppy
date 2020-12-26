@@ -32,7 +32,8 @@ export default function Confirm() {
         </ReservationBox>
         <WarnLabel>예약 정보를 다시 한 번 확인해 주세요.</WarnLabel>
       </>
-      <NextButton y={1000} name="에약 확정하기" />
+      <NB>예약 확정하기</NB>
+      {/* <NextButton y={1000} name="에약 확정하기" /> */}
     </Wrapper>
   );
 }
@@ -82,10 +83,9 @@ const ReservationBox = styled.div`
 
 const WarnLabel = styled.div`
   margin: 0 auto;
-  margin-top: 305px;
-  margin-bottom: 40px;
+  margin-top: 120px;
 
-  font-family: DM Sans;
+  // font-family: DM Sans;
   font-style: normal;
   font-weight: 500;
   font-size: 13px;
@@ -118,4 +118,28 @@ const PageTitle = styled.div`
   letter-spacing: -1px;
 
   color: #131313;
+`;
+
+const NB = styled.button`
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 60px;
+
+  border: 0;
+  outline: 0;
+  padding: 11px 100px 9px 91px;
+  box-shadow: 0 4px 10px 0 rgba(191, 170, 114, 0.35);
+  background-color: #f38f71;
+
+  // Text
+  // font-family: DMSans;
+  font-size: 20px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 2.4;
+  letter-spacing: normal;
+  text-align: center;
+  color: #ffffff;
 `;

@@ -18,7 +18,7 @@ const Name = styled.button`
   background-color: #f38f71;
 
   // Text
-  font-family: DMSans;
+  // font-family: DMSans;
   font-size: 20px;
   font-weight: bold;
   font-stretch: normal;
