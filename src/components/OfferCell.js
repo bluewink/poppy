@@ -1,33 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import { OfferPic1 } from "../resources/images";
+
+import StarRatings from "react-star-ratings";
 export default function OfferCell({ offerList }) {
-  /*
-  {messageList.map((message, index) => {
-          return (
-            <MessageRow key={index} sending={!message.user}>
-              <Img
-                src={
-                  message.user
-                    ? require(`./images/${FRIENDLIST[userIndex].user}.jpg`)
-                    : require(`./images/sangbeen.jpg`)
-                }
-              />
-              <Message>{message.content}</Message>
-            </MessageRow>
-          );
-        })}
-        */
   return (
     <Wrapper>
       {offerList.map((offer, index) => {
+        const score = parseFloat(offer.score);
         return (
           <CellWrapper>
             <OfferPicture src={OfferPic1} />
             <OfferLocation>{offer.location}</OfferLocation>
             <OfferInfo>
               <OfferTitle>{offer.title}</OfferTitle>
-              <OfferScore>{offer.score}</OfferScore>
+              <OfferScore>
+                <StarRatings
+                  rating={score}
+                  starDimension="15px"
+                  starSpacing="0px"
+                ></StarRatings>
+                {offer.score}
+              </OfferScore>
               <OfferPriceBox>
                 <OfferPriceRow>
                   <OfferPriceDescription>당일 </OfferPriceDescription>
@@ -141,8 +135,7 @@ const OfferPriceBox = styled.div`
   flex-direction: column; */
   display: flex;
   flex-direction: column;
-
-  margin-left: 170px;
+  margin-left: 50%;
   width: 110px;
   /* height: 20px; */
 `;

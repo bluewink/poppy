@@ -8,16 +8,16 @@ import {
   CalendarIcon,
 } from "../resources/images";
 import OfferCell from "../components/OfferCell";
+import DatePicker from "react-datepicker";
 export default function Search() {
   // http://ec2-3-35-187-250.ap-northeast-2.compute.amazonaws.com:8000/?address=
   //headers: {"Access-Control-Allow-Origin": "*"}
-
+  const [startDate, setStartDate] = useState(new Date());
   useEffect(() => {
     const dataToSend = {
       method: "get",
-
       url:
-        "http://ec2-3-35-187-250.ap-northeast-2.compute.amazonaws.com:8000/?address=서울시 동작구 동작동",
+        "http://ec2-3-35-187-250.ap-northeast-2.compute.amazonaws.com:8000/?address=서울시 마포구 신수동",
     };
     const fetchAddressData = async () => {
       try {
@@ -92,6 +92,11 @@ export default function Search() {
         </SearchPageAddress>
         <SearchPageDate>
           <img src={CalendarIcon} /> 12.20(목) - 12.22(금)
+          {/* <DatePicker
+          selected={date}
+          onSelect={handleDateSelect}
+          onChange={handleDateChange}
+          /> */}
         </SearchPageDate>
       </SearchOptionBox>
 
