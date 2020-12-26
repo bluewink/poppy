@@ -31,6 +31,7 @@ export default function Landing() {
         믿을 수 있는 이웃 반려인에게 <br />
         가격 부담없이 강아지를 맡길 수 있어요.
       </LandingPageDescription>
+      <Gradient0 />
       <LandingPageDog1 src={LandingPageDogPng1} />
       <LandingPageTitle second>2.</LandingPageTitle>
       <LandingPageHeader second>
@@ -46,6 +47,8 @@ export default function Landing() {
         <br /> 이웃집 뽀삐가 특별한 선물을 드려요.
       </LandingPageDescription>
       <LandingPageDog2 src={LandingPageDogPng2} />
+      <Gradient1 />
+      <Gradient2 />
     </Wrapper>
   );
 }
@@ -153,13 +156,6 @@ const LandingPageDescription = styled.div`
     props.second &&
     css`
       top: 880.61px;
-      background: linear-gradient(
-        180deg,
-        rgba(255, 255, 255, 0) 0%,
-        #ffffff 48.44%,
-        #ffffff 67.71%,
-        rgba(255, 255, 255, 0) 100%
-      );
     `}
 `;
 const LandingPageDog1 = styled.img`
@@ -180,4 +176,50 @@ const LandingPageDog2 = styled.img`
   margin-left: 0px;
   top: 750px;
   z-index: -1;
+`;
+
+const Gradient0 = styled.div`
+  position: absolute;
+  top: 400px;
+  width: 100%;
+  height: 150px;
+  z-index: -3;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0) 0%,
+    #ffffff 48.44%,
+    #ffffff 67.71%,
+    rgba(255, 255, 255, 0) 100%
+  );
+`;
+
+const Gradient1 = styled.div`
+  position: absolute;
+  top: 850px;
+  width: 100%;
+  height: 250px;
+  z-index: -1;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0) 0%,
+    #ffffff 48.44%,
+    #ffffff 67.71%,
+    rgba(255, 255, 255, 0) 100%
+  );
+`;
+
+const Gradient2 = styled.div`
+  position: absolute;
+  top: 730px;
+  width: 100%;
+  height: 50px;
+  z-index: -1;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0) 0%,
+    #ffffff 48.44%,
+    #ffffff 80.71%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  opacity: 0.3;
 `;
