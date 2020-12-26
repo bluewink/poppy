@@ -17,8 +17,8 @@ export default function Confirm() {
         추첨을 통하여 <br />
         <Bold>기프티콘</Bold>을 선물로 드립니다.
       </SubLabel>
-      <EmptyBox />
-      <NextButton y={1000} name="설문 진행하기" />
+      {/* <EmptyBox /> */}
+      <NB>설문 진행하기</NB>
     </Wrapper>
   );
 }
@@ -67,4 +67,28 @@ const Bold = styled.span`
 
 const EmptyBox = styled.div`
   height: 400px;
+`;
+
+const NB = styled.button`
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 60px;
+
+  border: 0;
+  outline: 0;
+  padding: 11px 100px 9px 91px;
+  box-shadow: 0 4px 10px 0 rgba(191, 170, 114, 0.35);
+  background-color: #f38f71;
+
+  // Text
+  // font-family: DMSans;
+  font-size: 20px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 2.4;
+  letter-spacing: normal;
+  text-align: center;
+  color: #ffffff;
 `;

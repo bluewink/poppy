@@ -1,13 +1,13 @@
-import React, { Fragment, useEffect } from "react";
-import styled from "styled-components";
-import Header from "./components/Header";
-import Landing from "./pages/Landing.js";
-import Search from "./pages/Search.js";
-import Address from "./pages/Address";
-import Confirm from "./pages/Confirm";
-import Done from "./pages/Done";
-import Detail from "./pages/Detail";
-import {BrowserRouter, Route} from "react-router-dom";
+import React, { Fragment, useEffect } from 'react';
+import styled from 'styled-components';
+import Header from './components/Header';
+import Landing from './pages/Landing.js';
+import Search from './pages/Search.js';
+import Address from './pages/Address';
+import Confirm from './pages/Confirm';
+import Done from './pages/Done';
+import Detail from './pages/Detail';
+import { BrowserRouter, Route } from 'react-router-dom';
 
 export default function App() {
   return (
@@ -16,7 +16,7 @@ export default function App() {
         <div>Poppy</div>
         <Header />
 
-        <Route path={["/landingpage", "/"]} exact component ={Landing} />
+        <Route path={['/landingpage', '/']} exact component={Landing} />
         <Route path="/takeoffer" exact component={Search} />
         <Route path="/address" exact component={Address} />
         <Route path="/confirm" exact component={Confirm} />
@@ -28,7 +28,7 @@ export default function App() {
 }
 
 const MobileSize = styled.div`
-  background-color: #f2f2f2;
+  background-color: #ffffff;
   width: 100%;
   max-width: 27rem;
   height: fit-content;
@@ -36,4 +36,5 @@ const MobileSize = styled.div`
   margin: 0px auto;
   position: relative;
   z-index: 100;
+  border: 0.1px solid black;
 `;
