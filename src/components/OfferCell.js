@@ -1,144 +1,166 @@
-import React from 'react'
+import React, { useState } from "react";
 import styled, { css } from "styled-components";
-import {  OfferPic1 } from "../resources/images";
-export default function OfferCell( {offerList}) {
+import { OfferPic1 } from "../resources/images";
 
-     /*
-  {messageList.map((message, index) => {
-          return (
-            <MessageRow key={index} sending={!message.user}>
-              <Img
-                src={
-                  message.user
-                    ? require(`./images/${FRIENDLIST[userIndex].user}.jpg`)
-                    : require(`./images/sangbeen.jpg`)
-                }
-              />
-              <Message>{message.content}</Message>
-            </MessageRow>
-          );
-        })}
-        */
-    return (
-        <Wrapper>
-            {offerList.map((offer, index) =>{
-                return (
-                    <CellWrapper>
-                        <OfferPicture src={OfferPic1} />
-                        <OfferInfo>
-                            <OfferLocation>
-                            {offer.location}
-                            </OfferLocation>
-                            <OfferTitle>
-                            {offer.title}
-                            </OfferTitle>
-                            <OfferInfoRow>
-                                <OfferScore>
-                                    {offer.score}
-                                </OfferScore>
-                                <div></div>
-                                <OfferPrice>
-                                    {offer.price}
-                                </OfferPrice>
-                            </OfferInfoRow>
-                        </OfferInfo>
-                    </CellWrapper>
-                );
-            })}
-        </Wrapper>
-    )
+import StarRatings from "react-star-ratings";
+export default function OfferCell({ offerList }) {
+  return (
+    <Wrapper>
+      {offerList.map((offer, index) => {
+        const score = parseFloat(offer.score);
+        return (
+          <CellWrapper>
+            <OfferPicture src={OfferPic1} />
+            <OfferLocation>{offer.location}</OfferLocation>
+            <OfferInfo>
+              <OfferTitle>{offer.title}</OfferTitle>
+              <OfferScore>
+                <StarRatings
+                  rating={score}
+                  starDimension="15px"
+                  starSpacing="0px"
+                ></StarRatings>
+                {offer.score}
+              </OfferScore>
+              <OfferPriceBox>
+                <OfferPriceRow>
+                  <OfferPriceDescription>당일 </OfferPriceDescription>
+                  <OfferPrice>{offer.oneDay}</OfferPrice>
+                  <OfferPriceDescription>원 </OfferPriceDescription>
+                </OfferPriceRow>
+
+                <OfferPriceRow>
+                  <OfferPriceDescription>일박 </OfferPriceDescription>
+                  <OfferPrice>{offer.oneSleep}</OfferPrice>
+                  <OfferPriceDescription>원 </OfferPriceDescription>
+                </OfferPriceRow>
+              </OfferPriceBox>
+            </OfferInfo>
+          </CellWrapper>
+        );
+      })}
+    </Wrapper>
+  );
 }
 
 const Wrapper = styled.div`
-  width: 90%;
+  width: 100%;
   height: 100%;
-  background-color:rgba(0,0,0,0.02);
-  border-radius:12px;
-  
+  background-color: rgba(0, 0, 0, 0.02);
+  border-radius: 12px;
 `;
 
 const CellWrapper = styled.div`
-  display:flex;
-  padding-bottom:20px;
+  display: flex;
+  position: relative;
+  padding-bottom: 20px;
+  height: 120px;
+
+  background: #ffffff;
+  margin: 10px 0;
 `;
 
 const OfferPicture = styled.img`
-
-  display:flex;
-  width: 100px;
-  height: 75px;
+  display: flex;
+  width: 140px;
+  height: 95px;
   padding-top: 15px;
   padding-left: 15px;
+  /* border-radius: 10px; */
 `;
 
 const OfferInfo = styled.div`
-  display:flex;
-  flex-direction:column;
-  /* justify-content:space-around; */
+  display: flex;
+  flex-direction: column;
+
   padding-left: 15px;
-  width:100%;
+  width: 100%;
 `;
 const OfferInfoRow = styled.div`
+  padding-top: 17px;
 
-  padding-top:17px;
-
-  display:flex;
-  justify-content:space-between;
-  padding-right:15px;
+  display: flex;
+  justify-content: space-between;
+  padding-right: 15px;
 `;
 
 const OfferLocation = styled.div`
-  padding-top:15px;
-
-  font-family: Noto Sans KR;
+  position: absolute;
+  display: flex;
+  top: 90px;
+  left: 15px;
+  width: 140px;
+  height: 20px;
+  font-family: WorkSans;
+  font-size: 11px;
+  font-weight: 500;
+  font-stretch: normal;
   font-style: normal;
-  font-weight: normal;
-  font-size: 12px;
-  line-height: 20px;
-  /* or 167% */
+  line-height: 1.82;
+  letter-spacing: -0.5px;
+  text-align: left;
+  color: #ffffff;
 
-  letter-spacing: -1px;
-
-  color: #BEBEBE;
+  background-color: rgba(0, 0, 0, 0.62);
 `;
 const OfferTitle = styled.div`
-  font-family: Noto Sans KR;
-  font-style: normal;
-  font-weight: 500;
+  margin-top: 15px;
+  font-family: NotoSansKR;
   font-size: 16px;
-  line-height: 20px;
-  /* or 125% */
-
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.25;
   letter-spacing: -1px;
-
-  color: #131313;
+  text-align: left;
+  color: #2c2c2c;
 `;
 const OfferScore = styled.div`
-  display:flex;
-  
-  font-family: Noto Sans KR;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 17px;
-  
-  letter-spacing: 0.15px;
+  display: flex;
 
-  color: #383838;
+  font-family: WorkSans;
+  font-size: 13px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.15px;
+  text-align: left;
+  color: #505050;
 `;
 
-
-const OfferPrice = styled.div`
-  display:flex;
- 
-  font-family: Noto Sans KR;
+const OfferPriceBox = styled.div`
+  /* margin-top: 10px; */
+  /* display: flex;
+  flex-direction: column; */
+  display: flex;
+  flex-direction: column;
+  margin-left: 50%;
+  width: 110px;
+  /* height: 20px; */
+`;
+const OfferPriceRow = styled.div`
+  height: 20px;
+`;
+const OfferPrice = styled.span`
+  font-family: WorkSans;
+  font-size: 18px;
+  font-weight: 600;
+  font-stretch: normal;
   font-style: normal;
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 133.5%;
-  /* or 16px */
-
+  line-height: 1.33;
   letter-spacing: 0.15px;
-
-  color: #787878;
+  text-align: right;
+  color: #2c2c2c;
+`;
+const OfferPriceDescription = styled.span`
+  font-family: NotoSansKR;
+  font-size: 12px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 3.42;
+  letter-spacing: -1px;
+  text-align: right;
+  color: #bebebe;
 `;

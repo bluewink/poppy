@@ -1,13 +1,15 @@
 import React, { Fragment, useState } from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import Header from '../components/Header';
 
-import { TextUnderLine, LocationIc, LocationBackground } from '../resources/images';
+import { TextUnderLine, LocationIc, LocationBackground, address_poppy } from '../resources/images';
 import DaumAPI from '../components/DaumAPI';
 
 export default function Address() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [addressText, setAddressText] = useState('');
-
+  const [nextBool, setNextBool] = useState(false);
   const closeModal = () => {
     setIsModalOpen(false);
   };
@@ -18,32 +20,43 @@ export default function Address() {
 
   return (
     <Wrapper>
-      <Background src={LocationBackground} />
-      <>
-        <UnderLineImageView src={TextUnderLine} />
-        <Title>
-          현 지역이
-          <br />
-          어디인가요?
-        </Title>
-      </>
-      <>
-        <LocationImageView src={LocationIc} />
-        <AddressLabel>{addressText}</AddressLabel>
-        <UnderLineView />
-        <AddressButton onClick={openModal}>검색</AddressButton>
-      </>
-      <>
-        <ExampleTitle>
-          도로명 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<Example>예)무학로33,도산대로 8길23</Example>
-          <br></br>
-          동주소 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<Example>예)논현동11-1</Example>
-          <br></br>
-          건물명 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<Example>예)역삼동푸르지오,텐즈힐</Example>
-        </ExampleTitle>
-      </>
-      <NextButton>확인</NextButton>
-      <DaumAPI isOpen={isModalOpen} close={closeModal} {...{ setAddressText }} />
+      {!isModalOpen && (
+        <>
+          <Header isAddress={true} />
+          <Title>
+            현 지역이
+            <br />
+            어디인가요?
+          </Title>
+          <AddressBox>
+            <AddressInput type="text" value={addressText} disabled />
+
+            <AddressButton onClick={openModal}>주소검색</AddressButton>
+          </AddressBox>
+          <ExampleTitle>
+            도로명 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<Example>예)무학로33,도산대로 8길23</Example>
+            <br></br>
+            동주소 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<Example>예)논현동11-1</Example>
+            <br></br>
+            건물명 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<Example>예)역삼동푸르지오,텐즈힐</Example>
+          </ExampleTitle>
+          <NextBox>
+            <Link
+              to={{
+                pathname: '/takeoffer',
+                state: {
+                  address: addressText,
+                },
+              }}
+            >
+              {nextBool && <NextButton>확인</NextButton>}
+            </Link>
+          </NextBox>
+          <PoppyImage src={address_poppy} />
+        </>
+      )}
+
+      <DaumAPI isOpen={isModalOpen} close={closeModal} {...{ setAddressText, setNextBool }} />
     </Wrapper>
   );
 }
@@ -51,11 +64,7 @@ export default function Address() {
 const Wrapper = styled.div``;
 
 const Title = styled.div`
-  position: absolute;
-  left: 20px;
-  top: 110px;
-
-  z-index: 0;
+  margin: 14px 16px;
 
   font-style: normal;
   font-weight: bold;
@@ -66,62 +75,60 @@ const Title = styled.div`
   color: #131313;
 `;
 
-const UnderLineImageView = styled.img`
-  position: absolute;
-  left: -29px;
-  top: 160px;
+const AddressInput = styled.input`
+  margin: 18px 6px 0px 17px;
 
-  z-index: 0;
-`;
+  width: 62%;
+  padding: 10px 9px 10px 26px;
+  border-radius: 5px;
 
-const LocationImageView = styled.img`
-  position: absolute;
-  width: 24px;
-  height: 24px;
-  left: 12px;
-  top: 208px;
-`;
+  border: 1px solid #d1d1d1;
+  box-sizing: border-box;
+  border-radius: 5px;
 
-const AddressLabel = styled.div`
-  position: absolute;
-  left: 38px;
-  top: 210px;
+  background-color: white;
 
-  font-family: DMSans;
+  font-family: NotoSansKR;
   font-size: 14px;
-  font-weight: bold;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.43;
+  letter-spacing: -1px;
+  text-align: left;
+  color: #505050;
 `;
 
-const UnderLineView = styled.div`
-  position: absolute;
-  width: 233px;
-  height: 0px;
-  left: 17px;
-  top: 238px;
+const AddressBox = styled.div`
+  display: flex;
 
-  border: 1px solid #aaaaaa;
+  justify-content: flex-start;
+  align-content: center;
+  align-items: flex-end;
 `;
 
 const AddressButton = styled.button`
-  position: absolute;
-  width: 60px;
-  height: 28px;
-  left: 256px;
-  top: 209px;
+  padding: 10px 15px;
 
-  background: #ffffff;
-  border: 1px solid #dadada;
+  background: #f2f2f2;
+
+  border: 1px solid #d1d1d1;
   box-sizing: border-box;
-  border-radius: 10px;
-  outline: 0;
+  border-radius: 5px;
 
-  z-index: 0;
+  font-family: NotoSansKR;
+  font-size: 14px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.43;
+  letter-spacing: -0.5px;
+  text-align: center;
+  color: #2c2c2c;
 `;
 
 const ExampleTitle = styled.div`
-  position: absolute;
-  left: 17px;
-  top: 260px;
+  margin: 9px 16.1px;
 
   font-family: NotoSansKR;
   font-size: 12px;
@@ -138,24 +145,29 @@ const Example = styled.span`
   color: #c1c1c1;
 `;
 
-const Background = styled.img`
-  width: 100%;
+const PoppyImage = styled.img`
+  position: absolute;
+  right: 0;
+  bottom: 0;
+`;
+
+const NextBox = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const NextButton = styled.button`
-  position: sticky;
-  bottom: 0;
-  width: 100%;
-  height: 60px;
+  margin: 23px auto;
+  text-decoration: none;
 
-  border: 0;
-  padding: 11px 100px 9px 91px;
-  box-shadow: 0 4px 10px 0 rgba(191, 170, 114, 0.35);
-  background-color: #f38f71;
+  outline: none;
+  border: none;
 
-  // Text
+  padding: 0 25px;
+
   font-family: DMSans;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: bold;
   font-stretch: normal;
   font-style: normal;
@@ -163,4 +175,8 @@ const NextButton = styled.button`
   letter-spacing: normal;
   text-align: center;
   color: #ffffff;
+
+  border-radius: 5px;
+  box-shadow: 0 4px 10px 0 rgba(191, 170, 114, 0.35);
+  background-color: #ff9777;
 `;

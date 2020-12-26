@@ -1,100 +1,126 @@
-import React, {useState} from "react";
-import styled, { css } from "styled-components";
-import { PoppyBackPng,LocationIcon, SearchTabIcon, CalendarIcon } from "../resources/images";
-import OfferCell from "../components/OfferCell";
-export default function Search() {
+import React, { useState, useEffect } from 'react';
+import styled, { css } from 'styled-components';
+import axios from 'axios';
+import { PoppyBackPng, LocationIcon, SearchTabIcon, CalendarIcon } from '../resources/images';
+import OfferCell from '../components/OfferCell';
+import DatePicker from 'react-datepicker';
+
+export default function Search({ location }) {
+  console.log(location.state.address);
+  // http://ec2-3-35-187-250.ap-northeast-2.compute.amazonaws.com:8000/?address=
+  //headers: {"Access-Control-Allow-Origin": "*"}
+  const [startDate, setStartDate] = useState(new Date());
+  useEffect(() => {
+    const dataToSend = {
+      method: 'get',
+      url: 'http://ec2-3-35-187-250.ap-northeast-2.compute.amazonaws.com:8000/?address=서울시 마포구 신수동',
+    };
+    const fetchAddressData = async () => {
+      try {
+        const res = await axios(dataToSend);
+        console.log(res);
+      } catch (e) {
+        console.log('fetch failed!!!');
+        console.log(e);
+      }
+    };
+    fetchAddressData();
+  }, []);
 
   const [neighbor, setNeighbor] = useState(1);
 
-
-  const NEIGHBOR_OFFER_LIST = [{
-    location: "서울시 마포구 3.5km",
-    title: "안심하고 맡겨주세요 :)",
-    score : "4.8(148)",
-    price : "1박 \ 45,000"
-  },
-  {
-    location: "서울시 서대문구 2.5km",
-    title: "초코 집으로 초대합니다~",
-    score : "4.4(125)",
-    price : "1박 \ 30,000"
-  }
+  const NEIGHBOR_OFFER_LIST = [
+    {
+      location: '상수동 300m',
+      title: '안심하고 맡겨주세요 :)',
+      score: '4.8(148)',
+      oneSleep: '20,000',
+      oneDay: '45,000',
+    },
+    {
+      location: '연희동 300m',
+      title: '초코 집으로 초대합니다~',
+      score: '4.4(125)',
+      oneSleep: '20,000',
+      oneDay: '30,000',
+    },
   ];
   const PRO_OFFER_LIST = [
     {
-      location: "서울시 영등포구 1.5km",
-      title: "펫시팅 경력 20년",
-      score : "4.5(152)",
-      price : "1박 \ 55,000"
+      location: '가츠동 300m',
+      title: '펫시팅 경력 20년',
+      score: '4.5(152)',
+      oneSleep: '20,000',
+      oneDay: '55,000',
     },
     {
-      location: "서울시 종로구 2.5km",
-      title: "소형견 전문 펫시터!",
-      score : "4.3(163)",
-      price : "1박 \ 50,000"
-    }
+      location: '상수동 300m',
+      title: '소형견 전문 펫시터!',
+      score: '4.3(163)',
+      oneSleep: '20,000',
+      oneDay: '50,000',
+    },
   ];
 
   let offerList = [];
   //이웃 반려인 전체보기
-  if(neighbor)
-    offerList = NEIGHBOR_OFFER_LIST;
-  else{
+  if (neighbor) offerList = NEIGHBOR_OFFER_LIST;
+  else {
     offerList = PRO_OFFER_LIST;
   }
-  const handleNeighborTabClick = () =>{
+  const handleNeighborTabClick = () => {
     setNeighbor(1);
-  }
-  const handleProTabClick = ()=>{
+  };
+  const handleProTabClick = () => {
     setNeighbor(0);
-  }
+  };
 
   return (
     <div>
-      <PoppyBack src={PoppyBackPng} />
       <SearchPageHeader>
-        우리 강아지   를 돌봐줄
+        우리 강아지를 돌봐줄
         <br />
         이웃을 찾아보세요.
       </SearchPageHeader>
-      <SearchPageAddress >
-      <img src={LocationIcon} /> 서울특별시 마포구 상수동
-      </SearchPageAddress>
-      <SearchPageDate>
-      <img src={CalendarIcon} />  12월 20일 - 12월 22일
-      </SearchPageDate>
-      <FilterBox >
-        <> 거리순 </>
-        <> 가격순 </>
-      </FilterBox>
+      <SearchOptionBox>
+        <SearchPageAddress>
+          <img src={LocationIcon} /> 마포구 상수동
+        </SearchPageAddress>
+        <SearchPageDate>
+          <img src={CalendarIcon} /> 12.20(목) - 12.22(금)
+          {/* <DatePicker
+          selected={date}
+          onSelect={handleDateSelect}
+          onChange={handleDateChange}
+          /> */}
+        </SearchPageDate>
+      </SearchOptionBox>
+
       <SearchTabBox>
-        <SearchTab onClick={handleNeighborTabClick}>
-          이웃 반려인 전체 보기
-          <div>
-            { neighbor ? <img src={SearchTabIcon} /> : null}
-          </div>
+        <SearchTab clicked={neighbor} onClick={handleNeighborTabClick}>
+          이웃 반려인
+          {/* <div>{neighbor ? <img src={SearchTabIcon} /> : null}</div> */}
         </SearchTab>
-        <SearchTab onClick={handleProTabClick}>
-          전문 펫시터 전체 보기
-          <div>
-          { !neighbor ? <img src={SearchTabIcon} /> : null}
-          </div>
+        <SearchTab clicked={!neighbor} onClick={handleProTabClick}>
+          전문 펫시터
+          {/* <div>{!neighbor ? <img src={SearchTabIcon} /> : null}</div> */}
         </SearchTab>
       </SearchTabBox>
+      <FilterBox>
+        <FilterOption> 거리순 </FilterOption>
+      </FilterBox>
       <OfferList>
-        <OfferCell {...{offerList}} >
-        </OfferCell>
+        <OfferCell {...{ offerList }}></OfferCell>
       </OfferList>
-      
     </div>
   );
 }
 
 const SearchPageHeader = styled.div`
   position: absolute;
-  left: 4.27%;
+  left: 20px;
   top: 100px;
-
+  display: flex;
   /* 대제목_24pt_Bold */
 
   font-family: Noto Sans KR;
@@ -110,77 +136,94 @@ const SearchPageHeader = styled.div`
 
   white-space: pre-wrap;
 `;
-const PoppyBack = styled.img`
-  position: absolute;
-  width: 24px;
-  height: 24px;
-  left: 140px;
-  top: 107px;
-`;
+
 const SearchPageAddress = styled.div`
-  position: absolute;
+  /* position: absolute;
   left: 20px;
   top: 200px;
-  bottom: 75%;
+  bottom: 75%; */
+  width: 185px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  /* margin: 19px 6.8px 17px 17px; */
+  /* padding: 9px 59.7px 9px 7px; */
 
-  font-family: Noto Sans KR;
-  font-style: normal;
+  font-family: NotoSansKR;
+  font-size: 13px;
   font-weight: normal;
-  font-size: 16px;
-  line-height: 22px;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.54;
+  letter-spacing: -1px;
+  text-align: left;
+  color: #505050;
   /* identical to box height, or 141% */
 
-  letter-spacing: -0.5px;
-
-  color: #898989;
+  border-radius: 2px;
+  border: solid 1px lightgray;
 `;
 const SearchPageDate = styled.div`
-  position: absolute;
+  /* position: absolute;
   left: 20px;
-  top: 230px;
+  top: 230px; */
+  width: 185px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  /* margin: 19px 0 17px 3px; */
+  /* padding: 10px 1.2px 10px 8px; */
 
-  font-family: Noto Sans KR;
-  font-style: normal;
+  font-family: WorkSans;
+  font-size: 13px;
   font-weight: normal;
-  font-size: 16px;
-  line-height: 22px;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.54;
+  letter-spacing: normal;
+  text-align: left;
+  color: #505050;
+
   /* identical to box height, or 141% */
 
-  letter-spacing: -0.5px;
-
-  color: #898989;
+  border-radius: 2px;
+  border: solid 1px lightgray;
 `;
 
 const FilterBox = styled.div`
-  position: absolute;
-  left: 315px;
-  top: 235px;
+  position: relative;
+  top: 185px;
+  width: 100%;
+  height: 38px;
+  box-shadow: inset 0 1px 2px 0 rgba(165, 159, 150, 0.22), 0 1px 2px 0 rgba(170, 170, 170, 0.31);
+  background-color: #f9f9f9;
 
-  font-family: Noto Sans KR;
-  font-style: normal;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  font-family: NotoSansKR;
+  font-size: 13px;
   font-weight: normal;
-  font-size: 14px;
-  line-height: 22px;
-
-  letter-spacing: -0.5px;
-
-  color: #898989;
-
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.54;
+  letter-spacing: -1px;
+  text-align: right;
+  color: gray;
+`;
+const FilterOption = styled.div`
+  margin-right: 20px;
 `;
 
-const Empty = styled.div`
-
-
-
-`;
+const Empty = styled.div``;
 
 const SearchTabBox = styled.div`
-
   position: relative;
-  top: 250px;
-  
-  display:flex;
-  justify-content:space-around;
+  top: 185px;
+
+  display: flex;
+  justify-content: space-around;
   font-family: Noto Sans KR;
   font-style: normal;
   font-weight: 500;
@@ -196,15 +239,33 @@ const SearchTabBox = styled.div`
 
 const SearchTab = styled.div`
   display: flex;
-  flex-direction:column;
+  flex-direction: column;
+  width: 50%;
+  /* font-weight: lighter; */
+  color: gray;
 
+  ${(props) =>
+    props.clicked &&
+    css`
+      color: black;
+      font-weight: bold;
+      border-bottom: 1px solid black;
+      padding-bottom: 5px;
+    `};
 `;
 
 const OfferList = styled.div`
-  position:relative;
-  top:260px;
-  display:flex;
-  justify-content:center;
+  position: relative;
+  top: 190px;
+  display: flex;
+  justify-content: center;
+`;
 
-  
+const SearchOptionBox = styled.div`
+  position: relative;
+  margin-left: 20px;
+  margin-right: 20px;
+  top: 170px;
+  display: flex;
+  justify-content: space-around;
 `;
