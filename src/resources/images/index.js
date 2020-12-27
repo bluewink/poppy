@@ -28,3 +28,10 @@ export { default as poppy_logoIc } from "./poppy_logoIc.png";
 export { default as survey_poppy } from "./survey_poppy.png";
 export { default as confirmIc } from "./confirmIc.png";
 export { default as detail_photo_1 } from "./detail_photo_1.png";
+export { default as detail_view_photo_1 } from "./detail_view_photo_1.png";
+export { default as detail_warning_sign } from "./detail_warning_sign.png";
+export { default as detail_star } from "./detail_star.png";
+
+export { default as detail_five_start } from "./detail_five_start.png";
+
+export { default as detail_no_one } from "./detail_no_one.png";
