@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 import Header from '../components/Header';
+import ARTICLE_DATA from '../resources/Json/article.json';
 
 import {
   img2,
@@ -20,32 +22,80 @@ import {
   detail_five_start,
 } from '../resources/images';
 
-// References: https://velog.io/@jeonghoheo/React-Hooks리액트-훅스의-기본-Part-1-2jjxpaobgg
-// Scroll을 움직이면 h1의 스타일을 변화해주기 위한 함수.
-const useScroll = () => {
-  // state를 생성합니다.
-  const [state, setState] = useState({
-    x: 0,
-    y: 0,
-  });
-  // scroll의 값을 가져와 state를 갱신합니다.
-  const onScroll = () => {
-    setState({ y: window.scrollY, x: window.scrollX });
-  };
-  useEffect(() => {
-    // scroll 이벤트를 만들어줍니다. 스크롤을 움직일때 마다
-    // onScroll 함수가 실행됩니다.
-    window.addEventListener('scroll', onScroll);
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-  return state;
-};
+const EXPERT_API = 'http://ec2-3-35-187-250.ap-northeast-2.compute.amazonaws.com:8000/expert/';
+const NEIGHBOR_API = 'http://ec2-3-35-187-250.ap-northeast-2.compute.amazonaws.com:8000/non_expert/';
 
-export default function Detail() {
+export default function Detail({ location }) {
+  //takeoffer에서 넘어온 data
+  const address = location.state.address;
+  const isExpert = location.state.expert;
+  const index = location.state.type;
+
+  // changed information
+  const [server, setServer] = useState(false);
+  const [roomImg, setRoomImg] = useState('');
+  const [comment, setComment] = useState({
+    content: '',
+    date: '',
+    name: '장*나',
+  });
+  const [content, setContent] = useState();
+  const [moreContent, setMoreContent] = useState();
+  // const
+  const [title, setTitle] = useState();
+  const [name, setName] = useState();
+  const [puppy, setPuppy] = useState([
+    {
+      age: '12살',
+      breed: '닥스훈트',
+      character: '나이 때문인지 느긋하고 온순해요~ 다른 강아지들과 잘 어울려요ㅎㅎ',
+      img:
+        'https://github.com/AlphaTechnic/poppy_project_testing_backend/blob/master/PoppyTest/img/dog_expert3.png?raw=true ',
+      name: '구름',
+    },
+  ]);
+  const [certification, setCertification] = useState([
+    {
+      acquisition_date: '2016. 9. 27',
+      name: '반려동물관리사 1급',
+    },
+  ]);
+  const [score, setScore] = useState({
+    num: 11,
+    score: 4.8,
+  });
+
+  const fetchDatas = async () => {
+    try {
+      const response = await axios({
+        method: 'get',
+        url: isExpert ? EXPERT_API + index : NEIGHBOR_API + index,
+      });
+      console.log(response);
+
+      setComment(response.data.comment);
+      setRoomImg(response.data.room_img);
+      setContent(response.data.content.slice(0, 150));
+      setMoreContent(response.data.content);
+      setTitle(response.data.title);
+      setName(response.data.name);
+      setScore(response.data.score);
+      setPuppy(response.data.puppy);
+      if (isExpert) {
+        setCertification(response.data.certification);
+      }
+    } catch (e) {
+      console.log('fetch failed!!!');
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
+    fetchDatas();
+  }, []);
+
   const [moreText, setMoreText] = useState('더보기');
   const [moreSwitch, setMoreSwitch] = useState(false);
-
-  const { y } = useScroll();
 
   const handleMore = () => {
     if (moreSwitch) {
@@ -60,13 +110,13 @@ export default function Detail() {
   return (
     <Wrapper>
       <Header isAddress={false} />
-      <Thumbnail src={detail_photo_1} />
+      <Thumbnail src={roomImg} />
       <ProfileBox>
         <ProfileThumbnail src={img2} />
         <ProfileTextBox>
-          <ProfileTitle>안심하고 맡겨주세요:)</ProfileTitle>
+          <ProfileTitle>{title}</ProfileTitle>
           <ProfileContent>
-            이현숙 <ProfileAddress> 서울시 마포구 상수동</ProfileAddress>
+            {name} <ProfileAddress>{address}</ProfileAddress>
           </ProfileContent>
         </ProfileTextBox>
       </ProfileBox>
@@ -74,30 +124,29 @@ export default function Detail() {
       <IntroduceBox>
         <IntroduceTitle>이웃 소개</IntroduceTitle>
         <IntroduceText>
-          안녕하세요 이웃집 뽀삐 돌봄 이웃 홍*동 입니다. 저는 지금 사랑스러운 저의 반려견인 뽀삐(푸들, 4살)와 살고
-          있습니다. 남자아이고, 중성화 했어요. 저희 뽀삐는 순한 성격이라 웬만한 친구들과 사이좋게 지내요. 성격이 안 맞는
-          친구를 만나면 관심을 주지 않아요. 뽀삐와 시간을 보내면서 저는 반려견을 키우면서 책임감에 대한 ...{' '}
-          <MoreText>
-            {moreSwitch
-              ? '이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅'
-              : ''}
-          </MoreText>
+          {moreSwitch ? moreContent : content}
           <MoreButton onClick={handleMore}>{moreText}</MoreButton>
         </IntroduceText>
       </IntroduceBox>
       <ShadowView></ShadowView>
       <FamilyBox>
         <FamilyTitle>가족 소개</FamilyTitle>
-        <FamilyTable>
-          <FamilyCell>
-            <DogImage src={detail_view_photo_1} />
-            <DogText>
-              <DogName>또리</DogName>
-              <DogSubDetail>말티즈 · 7살</DogSubDetail>
-              <DogIntroduce>활발하고 강아지들과 잘 어울려요.</DogIntroduce>
-            </DogText>
-          </FamilyCell>
-        </FamilyTable>
+        {puppy.map((dog) => {
+          return (
+            <FamilyTable>
+              <FamilyCell>
+                <DogImage src={dog.img} />
+                <DogText>
+                  <DogName>{dog.name}</DogName>
+                  <DogSubDetail>
+                    {dog.breed} · {dog.age}
+                  </DogSubDetail>
+                  <DogIntroduce>{dog.character}</DogIntroduce>
+                </DogText>
+              </FamilyCell>
+            </FamilyTable>
+          );
+        })}
       </FamilyBox>
       <FeeBox>
         <FeeTitle>요금 소개</FeeTitle>
@@ -180,25 +229,33 @@ export default function Detail() {
           </ServiceRow>
         </ServiceTable>
       </ServiceBox>
-      <ExpertBox>
-        <ExpertTitle>전문 자격증</ExpertTitle>
-        <ExpertTable>
-          <ExpertColumn>
-            <ExpertCard>반려동물관리사 1급</ExpertCard>
-            <ExpertDate>취득일 2019. 5. 7</ExpertDate>
-          </ExpertColumn>
-          <ExpertPlace>한국반려동물관리협회</ExpertPlace>
-        </ExpertTable>
-      </ExpertBox>
+      {isExpert === 0 ? (
+        <EmptyBox />
+      ) : (
+        <ExpertBox>
+          <ExpertTitle>전문 자격증</ExpertTitle>
+          {certification.map((certi) => {
+            return (
+              <ExpertTable>
+                <ExpertColumn>
+                  <ExpertCard>{certi.name}</ExpertCard>
+                  <ExpertDate>취득일 {certi.acquisition_date}</ExpertDate>
+                </ExpertColumn>
+                <ExpertPlace>한국반려동물관리협회</ExpertPlace>
+              </ExpertTable>
+            );
+          })}
+        </ExpertBox>
+      )}
       <ShadowView></ShadowView>
       <ReviewBox>
         <ReviewTitle>
-          돌봄 후기<ReviewNumber>(17)</ReviewNumber>
+          돌봄 후기<ReviewNumber>({score.num})</ReviewNumber>
         </ReviewTitle>
         <StarReviewScore>
           <StarImage src={detail_star} />
           <ReviewScore>
-            4.4 <GrayScore>/ 5</GrayScore>
+            {score.score} <GrayScore>/ 5</GrayScore>
           </ReviewScore>
         </StarReviewScore>
         <BestReview>
@@ -208,18 +265,13 @@ export default function Detail() {
               <BestReviewImage src={detail_no_one} />
               <BestReviewText>
                 <BestColumn>
-                  <BestReviewName>이*선</BestReviewName>
+                  <BestReviewName>{comment.name}</BestReviewName>
                   <BestReviewStar src={detail_five_start} />
                 </BestColumn>
-                <BestReviewDate>2020-12-21</BestReviewDate>
+                <BestReviewDate>{comment.date}</BestReviewDate>
               </BestReviewText>
             </BestReviewDetail>
-            <BestArticle>
-              처음 맡길 뿐더러 사랑이가 노견이라서 다른 곳에서 잘 안받아줬는데 시터님께서 누구보다 반갑게 맞아주셔서
-              너무 감사했습니다! 사랑이 피부, 관절 세세하게 신경써주시고 생각도 하지 못했는데, 사진 선물 너무
-              감사드립니다. 너무 좋은 시간 보내고 온 것 같아요.. 잘 맡겼다는 생각이 드네요^^ 앞으로도 연락 드려야
-              겠어요!
-            </BestArticle>
+            <BestArticle>{comment.content}</BestArticle>
           </BestReviewArticle>
         </BestReview>
       </ReviewBox>
@@ -231,161 +283,7 @@ export default function Detail() {
     </Wrapper>
   );
 }
-
-const BestReviewDate = styled.div`
-  font-family: WorkSans;
-  font-size: 14px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-
-  letter-spacing: -0.5px;
-  text-align: right;
-  color: #2c2c2c;
-`;
-
-const BestColumn = styled.div``;
-
-const BestArticle = styled.div`
-  margin: 0 10px;
-`;
-
-const BestReviewDetail = styled.div`
-  display: flex;
-
-  margin: 17px 0 10px 9px;
-`;
-
-const BestReviewText = styled.div`
-  margin-left: 9px;
-  width: 100%;
-
-  display: flex;
-  justify-content: space-between;
-`;
-
-const BestReviewName = styled.div``;
-
-const BestReviewStar = styled.img``;
-
-const BestReviewImage = styled.img`
-  width: 40px;
-  height: 40px;
-`;
-
-const BestReview = styled.div`
-  margin: 25px 0 10px 10px;
-`;
-const BestTitle = styled.span`
-  padding: 2px 11px 2px 11px;
-  border-radius: 8px;
-  background-color: #ff9777;
-
-  font-family: NotoSansKR;
-  font-size: 15px;
-  font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.17;
-  letter-spacing: -1px;
-  text-align: left;
-  color: #ffffff;
-`;
-const BestReviewArticle = styled.div`
-  margin-top: 9px;
-
-  padding: 15px 18px 38px 19px;
-  border-radius: 8px;
-  box-shadow: 0 1px 3px 0 rgba(129, 129, 129, 0.18);
-  background-color: #ffffff;
-
-  font-family: Noto Sans KR;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 15px;
-  line-height: 22px;
-
-  letter-spacing: -1px;
-
-  color: #9d9d9d;
-`;
-
-const StarReviewScore = styled.div`
-  margin-top: 25px;
-
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-
-  align-items: flex-end;
-`;
-
-const StarImage = styled.img`
-  width: 53px;
-  height: 53px;
-
-  border-radius: 2.5px;
-`;
-
-const ReviewScore = styled.div`
-  margin-left: 5px;
-  // font-family: WorkSans;
-
-  font-size: 48px;
-  font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 0.42;
-  letter-spacing: -1px;
-  text-align: left;
-  color: var(--black);
-`;
-
-const GrayScore = styled.span`
-  margin: 0 1px 4px 0;
-  font-family: NotoSansKR;
-  font-size: 18px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.11;
-  letter-spacing: -2.5px;
-  text-align: left;
-  color: #9d9d9d;
-`;
-
-const ReviewBox = styled.div`
-  padding: 27px 17px 36px 15px;
-  background-color: #fafafa;
-`;
-
-const ReviewTitle = styled.div`
-  margin-left: 10px;
-
-  font-family: NotoSansKR;
-  font-size: 18px;
-  font-weight: bold;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.11;
-  letter-spacing: -1px;
-  text-align: left;
-  color: #505050;
-`;
-
-const ReviewNumber = styled.span`
-  margin-left: 3px;
-
-  font-size: 14px;
-  font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.43;
-  letter-spacing: normal;
-  text-align: left;
-  color: #505050;
-`;
-
+const EmptyBox = styled.div``;
 const Wrapper = styled.div``;
 
 const Thumbnail = styled.img`
@@ -739,7 +637,7 @@ const LineView = styled.div`
 const WhichDog = styled.span`
   padding: 0 16px 0 0;
 
-  font-family: NotoSansKR;
+  font-family: 'Noto Sans KR', sans-serif;
   font-size: 16px;
   font-weight: 500;
   font-stretch: normal;
@@ -751,7 +649,7 @@ const WhichDog = styled.span`
 `;
 
 const WhichWeight = styled.span`
-  font-family: WorkSans;
+  font-family: 'Work Sans', sans-serif;
   font-size: 14px;
   font-weight: normal;
   letter-spacing: normal;
@@ -783,7 +681,7 @@ const ServiceCellIcon = styled.img`
 const ServiceCellTitle = styled.div`
   margin-left: 4px;
 
-  font-family: NotoSansKR;
+  font-family: 'Noto Sans KR', sans-serif;
   font-size: 14px;
   font-weight: 500;
   font-stretch: normal;
@@ -856,7 +754,7 @@ const WarningSign = styled.div`
   display: flex;
   align-items: center;
 
-  font-family: NotoSansKR;
+  font-family: 'Noto Sans KR', sans-serif;
   font-size: 14px;
   font-weight: normal;
   font-stretch: normal;
@@ -877,12 +775,14 @@ const WarningImage = styled.img`
 const ExpertBox = styled.div`
   display: flex;
   flex-direction: column;
+
+  margin-bottom: 40px;
 `;
 
 const ExpertTitle = styled.div`
   margin: 15px 25px 0 25px;
 
-  font-family: NotoSansKR;
+  font-family: 'Noto Sans KR', sans-serif;
   font-size: 18px;
   font-weight: bold;
   font-stretch: normal;
@@ -894,7 +794,7 @@ const ExpertTitle = styled.div`
 `;
 
 const ExpertTable = styled.div`
-  margin: 14px 16px;
+  margin: 14px 16px 0 16px;
 
   padding: 16px 18px 15px 20px;
   border-radius: 10px;
@@ -908,7 +808,7 @@ const ExpertTable = styled.div`
 const ExpertColumn = styled.div``;
 
 const ExpertCard = styled.div`
-  font-family: NotoSansKR;
+  font-family: 'Noto Sans KR', sans-serif;
   font-size: 16px;
   font-weight: bold;
   font-stretch: normal;
@@ -934,7 +834,7 @@ const ExpertDate = styled.div`
 `;
 
 const ExpertPlace = styled.div`
-  font-family: NotoSansKR;
+  font-family: 'Noto Sans KR', sans-serif;
   font-size: 12px;
   font-weight: 500;
   font-stretch: normal;
@@ -962,7 +862,7 @@ const NextButton = styled.button`
 
   padding: 0 25px;
 
-  font-family: DMSans;
+  font-family: 'DM Sans', sans-serif;
   font-size: 18px;
   font-weight: bold;
   font-stretch: normal;
@@ -975,4 +875,158 @@ const NextButton = styled.button`
   border-radius: 5px;
   box-shadow: 0 4px 10px 0 rgba(191, 170, 114, 0.35);
   background-color: #ff9777;
+`;
+
+const BestReviewDate = styled.div`
+  font-family: Work Sans;
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+
+  letter-spacing: -0.5px;
+  text-align: right;
+  color: #2c2c2c;
+`;
+
+const BestColumn = styled.div``;
+
+const BestArticle = styled.div`
+  margin: 0 10px;
+`;
+
+const BestReviewDetail = styled.div`
+  display: flex;
+
+  margin: 17px 0 10px 9px;
+`;
+
+const BestReviewText = styled.div`
+  margin-left: 9px;
+  width: 100%;
+
+  display: flex;
+  justify-content: space-between;
+`;
+
+const BestReviewName = styled.div``;
+
+const BestReviewStar = styled.img``;
+
+const BestReviewImage = styled.img`
+  width: 40px;
+  height: 40px;
+`;
+
+const BestReview = styled.div`
+  margin: 25px 0 10px 10px;
+`;
+const BestTitle = styled.span`
+  padding: 2px 11px 2px 11px;
+  border-radius: 8px;
+  background-color: #ff9777;
+
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.17;
+  letter-spacing: -1px;
+  text-align: left;
+  color: #ffffff;
+`;
+const BestReviewArticle = styled.div`
+  margin-top: 9px;
+
+  padding: 15px 18px 38px 19px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px 0 rgba(129, 129, 129, 0.18);
+  background-color: #ffffff;
+
+  font-family: Noto Sans KR;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 22px;
+
+  letter-spacing: -1px;
+
+  color: #9d9d9d;
+`;
+
+const StarReviewScore = styled.div`
+  margin-top: 25px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  align-items: flex-end;
+`;
+
+const StarImage = styled.img`
+  width: 53px;
+  height: 53px;
+
+  border-radius: 2.5px;
+`;
+
+const ReviewScore = styled.div`
+  margin-left: 5px;
+
+  font-size: 48px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 0.42;
+  letter-spacing: -1px;
+  text-align: left;
+  color: var(--black);
+`;
+
+const GrayScore = styled.span`
+  margin: 0 1px 4px 0;
+
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 18px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.11;
+  letter-spacing: -2.5px;
+  text-align: left;
+  color: #9d9d9d;
+`;
+
+const ReviewBox = styled.div`
+  padding: 27px 17px 36px 15px;
+  background-color: #fafafa;
+`;
+
+const ReviewTitle = styled.div`
+  margin-left: 10px;
+
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.11;
+  letter-spacing: -1px;
+  text-align: left;
+  color: #505050;
+`;
+
+const ReviewNumber = styled.span`
+  margin-left: 3px;
+
+  font-size: 14px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.43;
+  letter-spacing: normal;
+  text-align: left;
+  color: #505050;
 `;

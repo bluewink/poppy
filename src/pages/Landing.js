@@ -1,8 +1,15 @@
-import React from 'react';
-import styled, { css } from 'styled-components';
+import React from "react";
+import styled, { css } from "styled-components";
 
-import Header from '../components/Header';
-import { LandingPageVector, PoppyLogoPng, Poppy, LandingPageDogPng2, LandingPageDogPng1 } from '../resources/images';
+import Header from "../components/Header";
+import {
+  LandingPageVector,
+  PoppyLogoPng,
+  Poppy,
+  LandingPageDogPng2,
+  LandingPageDogPng1,
+} from "../resources/images";
+import { Link } from "react-router-dom";
 
 export default function Landing() {
   return (
@@ -46,6 +53,11 @@ export default function Landing() {
       <LandingPageDog2 src={LandingPageDogPng2} />
       <Gradient1 />
       <Gradient2 />
+      <NextButtonBox>
+        <Link to="/address">
+          <NextButton>돌보미 찾기</NextButton>
+        </Link>
+      </NextButtonBox>
     </Wrapper>
   );
 }
@@ -219,4 +231,35 @@ const Gradient2 = styled.div`
     rgba(255, 255, 255, 0) 100%
   );
   opacity: 0.3;
+`;
+const NextButton = styled.button`
+  width: 150.2px;
+  height: 46.9px;
+
+  text-decoration: none;
+
+  outline: none;
+  border: none;
+
+  padding: 0 25px;
+
+  font-family: DMSans;
+  font-size: 18px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 2.4;
+  letter-spacing: normal;
+  text-align: center;
+  color: #ffffff;
+
+  border-radius: 5px;
+  box-shadow: 0 4px 10px 0 rgba(191, 170, 114, 0.35);
+  background-color: #ff9777;
+`;
+const NextButtonBox = styled.div`
+  position: relative;
+  top: 1050px;
+  display: flex;
+  justify-content: center;
 `;

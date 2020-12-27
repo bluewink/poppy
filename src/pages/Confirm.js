@@ -153,7 +153,7 @@ const NextButton = styled.button`
 
   padding: 0 25px;
 
-  font-family: DMSans;
+  font-family: 'DM Sans', sans-serif;
   font-size: 18px;
   font-weight: bold;
   font-stretch: normal;

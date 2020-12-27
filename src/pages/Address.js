@@ -88,7 +88,7 @@ const AddressInput = styled.input`
 
   background-color: white;
 
-  font-family: NotoSansKR;
+  font-family: 'Noto Sans KR', sans-serif;
   font-size: 14px;
   font-weight: normal;
   font-stretch: normal;
@@ -116,7 +116,7 @@ const AddressButton = styled.button`
   box-sizing: border-box;
   border-radius: 5px;
 
-  font-family: NotoSansKR;
+  font-family: 'Noto Sans KR', sans-serif;
   font-size: 14px;
   font-weight: 500;
   font-stretch: normal;
@@ -130,7 +130,7 @@ const AddressButton = styled.button`
 const ExampleTitle = styled.div`
   margin: 9px 16.1px;
 
-  font-family: NotoSansKR;
+  font-family: 'Noto Sans KR', sans-serif;
   font-size: 12px;
   font-weight: normal;
   font-stretch: normal;
@@ -166,7 +166,7 @@ const NextButton = styled.button`
 
   padding: 0 25px;
 
-  font-family: DMSans;
+  font-family: 'DM Sans', sans-serif;
   font-size: 18px;
   font-weight: bold;
   font-stretch: normal;
