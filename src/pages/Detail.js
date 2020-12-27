@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 import Header from '../components/Header';
+import ARTICLE_DATA from '../resources/Json/article.json';
 
 import {
   img2,
@@ -44,6 +45,19 @@ const useScroll = () => {
 export default function Detail() {
   const [moreText, setMoreText] = useState('더보기');
   const [moreSwitch, setMoreSwitch] = useState(false);
+
+  // changed information
+  const [roomImg, setRoomImg] = useState();
+  const [title, setTitle] = useState();
+  const [name, setName] = useState();
+  const [content, setContent] = useState();
+
+  const [dogName, setDogName] = useState();
+  const [dogAge, setDogAge] = useState();
+  const [dogIntroduce, setDogIntroduce] = useState();
+
+  const [comment, setComment] = useState();
+  const [score, setScore] = useState();
 
   const { y } = useScroll();
 

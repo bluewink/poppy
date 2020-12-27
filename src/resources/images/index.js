@@ -35,3 +35,5 @@ export { default as detail_star } from './detail_star.png';
 export { default as detail_five_start } from './detail_five_start.png';
 
 export { default as detail_no_one } from './detail_no_one.png';
+
+export { default as dog1 } from './dog1.png';
