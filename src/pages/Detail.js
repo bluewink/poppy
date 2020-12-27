@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 import Header from '../components/Header';
 import ARTICLE_DATA from '../resources/Json/article.json';
@@ -19,7 +19,7 @@ import {
   detail_star,
   detail_no_one,
   detail_five_start,
-} from '../resources/images';
+} from "../resources/images";
 
 // References: https://velog.io/@jeonghoheo/React-Hooks리액트-훅스의-기본-Part-1-2jjxpaobgg
 // Scroll을 움직이면 h1의 스타일을 변화해주기 위한 함수.
@@ -36,14 +36,17 @@ const useScroll = () => {
   useEffect(() => {
     // scroll 이벤트를 만들어줍니다. 스크롤을 움직일때 마다
     // onScroll 함수가 실행됩니다.
-    window.addEventListener('scroll', onScroll);
-    return () => window.removeEventListener('scroll', onScroll);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
   return state;
 };
 
-export default function Detail() {
-  const [moreText, setMoreText] = useState('더보기');
+export default function Detail({ location }) {
+  //takeoffer에서 넘어온 data
+  console.log(location.state);
+
+  const [moreText, setMoreText] = useState("더보기");
   const [moreSwitch, setMoreSwitch] = useState(false);
 
   // changed information
@@ -64,10 +67,10 @@ export default function Detail() {
   const handleMore = () => {
     if (moreSwitch) {
       setMoreSwitch(false);
-      setMoreText('더보기');
+      setMoreText("더보기");
     } else {
       setMoreSwitch(true);
-      setMoreText('줄어들기');
+      setMoreText("줄어들기");
     }
   };
 
@@ -88,13 +91,15 @@ export default function Detail() {
       <IntroduceBox>
         <IntroduceTitle>이웃 소개</IntroduceTitle>
         <IntroduceText>
-          안녕하세요 이웃집 뽀삐 돌봄 이웃 홍*동 입니다. 저는 지금 사랑스러운 저의 반려견인 뽀삐(푸들, 4살)와 살고
-          있습니다. 남자아이고, 중성화 했어요. 저희 뽀삐는 순한 성격이라 웬만한 친구들과 사이좋게 지내요. 성격이 안 맞는
-          친구를 만나면 관심을 주지 않아요. 뽀삐와 시간을 보내면서 저는 반려견을 키우면서 책임감에 대한 ...{' '}
+          안녕하세요 이웃집 뽀삐 돌봄 이웃 홍*동 입니다. 저는 지금 사랑스러운
+          저의 반려견인 뽀삐(푸들, 4살)와 살고 있습니다. 남자아이고, 중성화
+          했어요. 저희 뽀삐는 순한 성격이라 웬만한 친구들과 사이좋게 지내요.
+          성격이 안 맞는 친구를 만나면 관심을 주지 않아요. 뽀삐와 시간을
+          보내면서 저는 반려견을 키우면서 책임감에 대한 ...{" "}
           <MoreText>
             {moreSwitch
-              ? '이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅'
-              : ''}
+              ? "이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅"
+              : ""}
           </MoreText>
           <MoreButton onClick={handleMore}>{moreText}</MoreButton>
         </IntroduceText>
@@ -136,7 +141,8 @@ export default function Detail() {
 
           <ElementRow>
             <FirstColumn>
-              <WhichDog>중형견</WhichDog> <WhichWeight>7키로~15키로</WhichWeight>
+              <WhichDog>중형견</WhichDog>{" "}
+              <WhichWeight>7키로~15키로</WhichWeight>
             </FirstColumn>
             <SecondColumn>
               <DayCost>10,000원</DayCost>
@@ -229,10 +235,11 @@ export default function Detail() {
               </BestReviewText>
             </BestReviewDetail>
             <BestArticle>
-              처음 맡길 뿐더러 사랑이가 노견이라서 다른 곳에서 잘 안받아줬는데 시터님께서 누구보다 반갑게 맞아주셔서
-              너무 감사했습니다! 사랑이 피부, 관절 세세하게 신경써주시고 생각도 하지 못했는데, 사진 선물 너무
-              감사드립니다. 너무 좋은 시간 보내고 온 것 같아요.. 잘 맡겼다는 생각이 드네요^^ 앞으로도 연락 드려야
-              겠어요!
+              처음 맡길 뿐더러 사랑이가 노견이라서 다른 곳에서 잘 안받아줬는데
+              시터님께서 누구보다 반갑게 맞아주셔서 너무 감사했습니다! 사랑이
+              피부, 관절 세세하게 신경써주시고 생각도 하지 못했는데, 사진 선물
+              너무 감사드립니다. 너무 좋은 시간 보내고 온 것 같아요.. 잘
+              맡겼다는 생각이 드네요^^ 앞으로도 연락 드려야 겠어요!
             </BestArticle>
           </BestReviewArticle>
         </BestReview>
@@ -599,7 +606,7 @@ const LineView = styled.div`
 const WhichDog = styled.span`
   padding: 0 16px 0 0;
 
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   font-size: 16px;
   font-weight: 500;
   font-stretch: normal;
@@ -611,7 +618,7 @@ const WhichDog = styled.span`
 `;
 
 const WhichWeight = styled.span`
-  font-family: 'Work Sans', sans-serif;
+  font-family: "Work Sans", sans-serif;
   font-size: 14px;
   font-weight: normal;
   letter-spacing: normal;
@@ -643,7 +650,7 @@ const ServiceCellIcon = styled.img`
 const ServiceCellTitle = styled.div`
   margin-left: 4px;
 
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   font-size: 14px;
   font-weight: 500;
   font-stretch: normal;
@@ -716,7 +723,7 @@ const WarningSign = styled.div`
   display: flex;
   align-items: center;
 
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   font-size: 14px;
   font-weight: normal;
   font-stretch: normal;
@@ -744,7 +751,7 @@ const ExpertBox = styled.div`
 const ExpertTitle = styled.div`
   margin: 15px 25px 0 25px;
 
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   font-size: 18px;
   font-weight: bold;
   font-stretch: normal;
@@ -770,7 +777,7 @@ const ExpertTable = styled.div`
 const ExpertColumn = styled.div``;
 
 const ExpertCard = styled.div`
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   font-size: 16px;
   font-weight: bold;
   font-stretch: normal;
@@ -796,7 +803,7 @@ const ExpertDate = styled.div`
 `;
 
 const ExpertPlace = styled.div`
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   font-size: 12px;
   font-weight: 500;
   font-stretch: normal;
@@ -824,7 +831,7 @@ const NextButton = styled.button`
 
   padding: 0 25px;
 
-  font-family: 'DM Sans', sans-serif;
+  font-family: "DM Sans", sans-serif;
   font-size: 18px;
   font-weight: bold;
   font-stretch: normal;
@@ -888,7 +895,7 @@ const BestTitle = styled.span`
   border-radius: 8px;
   background-color: #ff9777;
 
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   font-size: 15px;
   font-weight: 500;
   font-stretch: normal;
@@ -950,7 +957,7 @@ const ReviewScore = styled.div`
 const GrayScore = styled.span`
   margin: 0 1px 4px 0;
 
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   font-size: 18px;
   font-weight: normal;
   font-stretch: normal;
@@ -969,7 +976,7 @@ const ReviewBox = styled.div`
 const ReviewTitle = styled.div`
   margin-left: 10px;
 
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   font-size: 18px;
   font-weight: bold;
   font-stretch: normal;
