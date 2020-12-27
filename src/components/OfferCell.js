@@ -1,43 +1,72 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import styled, { css } from "styled-components";
 import { OfferPic1 } from "../resources/images";
-
+import { Link } from "react-router-dom";
 import StarRatings from "react-star-ratings";
 export default function OfferCell({ offerList }) {
+  useEffect(() => {}, [offerList]);
+
+  console.log("offerCell ", offerList);
+
+  const parseAddress = (address) => {
+    const words = address.split(" ");
+
+    return words[words.length - 1];
+  };
+
   return (
     <Wrapper>
       {offerList.map((offer, index) => {
-        const score = parseFloat(offer.score);
+        const score = parseFloat(offer.score.score);
         return (
-          <CellWrapper>
-            <OfferPicture src={OfferPic1} />
-            <OfferLocation> {offer.location}</OfferLocation>
-            <OfferInfo>
-              <OfferTitle>{offer.title}</OfferTitle>
-              <OfferScore>
-                <StarRatings
-                  rating={score}
-                  starDimension="15px"
-                  starSpacing="0px"
-                  starRatedColor="#ff9777"
-                ></StarRatings>
-                {offer.score}
-              </OfferScore>
-              <OfferPriceBox>
-                <OfferPriceRow>
-                  <OfferPriceDescription>당일 </OfferPriceDescription>
-                  <OfferPrice>{offer.oneDay}</OfferPrice>
-                  <OfferPriceDescription>원 </OfferPriceDescription>
-                </OfferPriceRow>
+          <Link
+            to={{
+              pathname: "/takeofferdetail",
+              state: {
+                address: offer.address,
+                expert: offer.expert_or_not,
+                type: offer.type,
+              },
+            }}
+            style={{ textDecoration: "none" }}
+          >
+            <CellWrapper>
+              <OfferPicture src={offer.room_img} />
+              <OfferLocation>
+                {" "}
+                {parseAddress(offer.address)} {offer.distance}{" "}
+              </OfferLocation>
+              <OfferInfo>
+                <OfferTitle>{offer.title}</OfferTitle>
+                <OfferScore>
+                  <StarRatings
+                    rating={score}
+                    starDimension="15px"
+                    starSpacing="0px"
+                    starRatedColor="#ff9777"
+                  ></StarRatings>
+                  {offer.score.score}({offer.score.num})
+                </OfferScore>
+                <OfferPriceBox>
+                  <OfferPriceRow>
+                    <OfferPriceDescription>당일 </OfferPriceDescription>
+                    <OfferPrice>{offer.small_dog_cost[0]}</OfferPrice>
+                    <OfferPriceDescription style={{ color: "#2c2c2c" }}>
+                      원{" "}
+                    </OfferPriceDescription>
+                  </OfferPriceRow>
 
-                <OfferPriceRow>
-                  <OfferPriceDescription>일박 </OfferPriceDescription>
-                  <OfferPrice>{offer.oneSleep}</OfferPrice>
-                  <OfferPriceDescription>원 </OfferPriceDescription>
-                </OfferPriceRow>
-              </OfferPriceBox>
-            </OfferInfo>
-          </CellWrapper>
+                  <OfferPriceRow>
+                    <OfferPriceDescription>일박 </OfferPriceDescription>
+                    <OfferPrice>{offer.small_dog_cost[1]}</OfferPrice>
+                    <OfferPriceDescription style={{ color: "#2c2c2c" }}>
+                      원{" "}
+                    </OfferPriceDescription>
+                  </OfferPriceRow>
+                </OfferPriceBox>
+              </OfferInfo>
+            </CellWrapper>
+          </Link>
         );
       })}
     </Wrapper>
@@ -137,13 +166,18 @@ const OfferPriceBox = styled.div`
   display: flex;
   flex-direction: column;
   margin-left: 50%;
+  margin-top: 7px;
   width: 110px;
   /* height: 20px; */
 `;
 const OfferPriceRow = styled.div`
-  height: 20px;
+  height: 25px;
+  display: flex;
+  align-items: center;
 `;
-const OfferPrice = styled.span`
+const OfferPrice = styled.div`
+  margin-left: 5px;
+
   font-family: WorkSans;
   font-size: 18px;
   font-weight: 600;
@@ -154,7 +188,8 @@ const OfferPrice = styled.span`
   text-align: right;
   color: #2c2c2c;
 `;
-const OfferPriceDescription = styled.span`
+const OfferPriceDescription = styled.div`
+  padding-top: 4px;
   font-family: NotoSansKR;
   font-size: 12px;
   font-weight: normal;

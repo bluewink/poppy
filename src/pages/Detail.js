@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import Header from '../components/Header';
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
+import Header from "../components/Header";
 
 import {
   img1,
@@ -12,8 +12,8 @@ import {
   detailIc5,
   detailIc6,
   detail_photo_1,
-} from '../resources/images';
-import NextButton from '../components/NextButton';
+} from "../resources/images";
+import NextButton from "../components/NextButton";
 
 // References: https://velog.io/@jeonghoheo/React-Hooks리액트-훅스의-기본-Part-1-2jjxpaobgg
 // Scroll을 움직이면 h1의 스타일을 변화해주기 위한 함수.
@@ -30,14 +30,17 @@ const useScroll = () => {
   useEffect(() => {
     // scroll 이벤트를 만들어줍니다. 스크롤을 움직일때 마다
     // onScroll 함수가 실행됩니다.
-    window.addEventListener('scroll', onScroll);
-    return () => window.removeEventListener('scroll', onScroll);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
   return state;
 };
 
-export default function Detail() {
-  const [moreText, setMoreText] = useState('더보기');
+export default function Detail({ location }) {
+  //takeoffer에서 넘어온 data
+  console.log(location.state);
+
+  const [moreText, setMoreText] = useState("더보기");
   const [moreSwitch, setMoreSwitch] = useState(false);
 
   const { y } = useScroll();
@@ -45,10 +48,10 @@ export default function Detail() {
   const handleMore = () => {
     if (moreSwitch) {
       setMoreSwitch(false);
-      setMoreText('더보기');
+      setMoreText("더보기");
     } else {
       setMoreSwitch(true);
-      setMoreText('줄어들기');
+      setMoreText("줄어들기");
     }
   };
 
@@ -68,13 +71,15 @@ export default function Detail() {
       <IntroduceBox>
         <IntroduceTitle>이웃 소개</IntroduceTitle>
         <IntroduceText>
-          안녕하세요 이웃집 뽀삐 돌봄 이웃 홍*동 입니다. 저는 지금 사랑스러운 저의 반려견인 뽀삐(푸들, 4살)와 살고
-          있습니다. 남자아이고, 중성화 했어요. 저희 뽀삐는 순한 성격이라 웬만한 친구들과 사이좋게 지내요. 성격이 안 맞는
-          친구를 만나면 관심을 주지 않아요. 뽀삐와 시간을 보내면서 저는 반려견을 키우면서 책임감에 대한 ...{' '}
+          안녕하세요 이웃집 뽀삐 돌봄 이웃 홍*동 입니다. 저는 지금 사랑스러운
+          저의 반려견인 뽀삐(푸들, 4살)와 살고 있습니다. 남자아이고, 중성화
+          했어요. 저희 뽀삐는 순한 성격이라 웬만한 친구들과 사이좋게 지내요.
+          성격이 안 맞는 친구를 만나면 관심을 주지 않아요. 뽀삐와 시간을
+          보내면서 저는 반려견을 키우면서 책임감에 대한 ...{" "}
           <MoreText>
             {moreSwitch
-              ? '이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅'
-              : ''}
+              ? "이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅"
+              : ""}
           </MoreText>
           <MoreButton onClick={handleMore}>{moreText}</MoreButton>
         </IntroduceText>
@@ -101,7 +106,8 @@ export default function Detail() {
           <LineView />
           <ElementRow>
             <FirstColumn>
-              <WhichDog>중형견</WhichDog> <WhichWeight>7키로~15키로</WhichWeight>
+              <WhichDog>중형견</WhichDog>{" "}
+              <WhichWeight>7키로~15키로</WhichWeight>
             </FirstColumn>
             <SecondColumn>
               <DayCost>10,000원</DayCost>

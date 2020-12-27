@@ -1,101 +1,64 @@
-import React, { useState, useEffect } from 'react';
-import styled, { css } from 'styled-components';
-import axios from 'axios';
-import { PoppyBackPng, LocationIcon, SearchTabIcon, CalendarIcon } from '../resources/images';
-import OfferCell from '../components/OfferCell';
-import DatePicker from 'react-datepicker';
+import React, { useState, useEffect } from "react";
+import styled, { css } from "styled-components";
+import axios from "axios";
+
+import {
+  PoppyBackPng,
+  LocationIcon,
+  SearchTabIcon,
+  CalendarIcon,
+} from "../resources/images";
+import OfferCell from "../components/OfferCell";
+import Header from "../components/Header";
+import DatePicker from "react-datepicker";
 
 export default function Search({ location }) {
-  console.log(location.state.address);
-  // http://ec2-3-35-187-250.ap-northeast-2.compute.amazonaws.com:8000/?address=
-  //headers: {"Access-Control-Allow-Origin": "*"}
-  const [startDate, setStartDate] = useState(new Date());
-  useEffect(() => {
-    const dataToSend = {
-      method: 'get',
-      url: 'http://ec2-3-35-187-250.ap-northeast-2.compute.amazonaws.com:8000/?address=서울시 마포구 신수동',
-    };
-    const fetchAddressData = async () => {
-      try {
-        const res = await axios(dataToSend);
-        console.log(res);
-      } catch (e) {
-        console.log('fetch failed!!!');
-        console.log(e);
-      }
-    };
-    fetchAddressData();
-  }, []);
+  // console.log(location.state.address);
+
+  //http://ec2-3-35-187-250.ap-northeast-2.compute.amazonaws.com:8000/expert/?order_by=distance&&address=
 
   const [neighbor, setNeighbor] = useState(1);
+  const [offerList, setOfferList] = useState([]);
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(null);
+  const handleDateChange = (dates) => {
+    const [start, end] = dates;
+    setStartDate(start);
+    setEndDate(end);
+  };
 
-  const NEIGHBOR_OFFER_LIST = [
-    {
-      location: '상수동 300m',
-      title: '안심하고 맡겨주세요 :)',
-      score: '4.8(148)',
-      oneSleep: '20,000',
-      oneDay: '45,000',
-    },
-    {
-      location: '연희동 300m',
-      title: '초코 집으로 초대합니다~',
-      score: '4.4(125)',
-      oneSleep: '20,000',
-      oneDay: '30,000',
-    },
-    {
-      location: "연희동 300m",
-      title: "초코 집으로 초대합니다~",
-      score: "4.4(125)",
-      oneSleep: "20,000",
-      oneDay: "30,000",
-    },
-    {
-      location: "연희동 300m",
-      title: "초코 집으로 초대합니다~",
-      score: "4.4(125)",
-      oneSleep: "20,000",
-      oneDay: "30,000",
-    },
-    {
-      location: "연희동 300m",
-      title: "초코 집으로 초대합니다~",
-      score: "4.4(125)",
-      oneSleep: "20,000",
-      oneDay: "30,000",
-    },
-    {
-      location: "연희동 300m",
-      title: "초코 집으로 초대합니다~",
-      score: "4.4(125)",
-      oneSleep: "20,000",
-      oneDay: "30,000",
-    },
-  ];
-  const PRO_OFFER_LIST = [
-    {
-      location: '가츠동 300m',
-      title: '펫시팅 경력 20년',
-      score: '4.5(152)',
-      oneSleep: '20,000',
-      oneDay: '55,000',
-    },
-    {
-      location: '상수동 300m',
-      title: '소형견 전문 펫시터!',
-      score: '4.3(163)',
-      oneSleep: '20,000',
-      oneDay: '50,000',
-    },
-  ];
+  // let neighborOfferList = [];
+  // let proOfferList = [];
+  let res;
+  let tmpList = [];
+  // let offerList = [];
 
-  let offerList = [];
+  const EXPERT_API =
+    "http://ec2-3-35-187-250.ap-northeast-2.compute.amazonaws.com:8000/expert/?order_by=distance&&address=";
+  const NEIGHBOR_API =
+    "http://ec2-3-35-187-250.ap-northeast-2.compute.amazonaws.com:8000/non_expert/?order_by=distance&&address=";
+
+  // const sortData = (list) => {
+  //   list.forEach((elem) => {
+  //     // console.log(elem);
+  //     // console.log("forEach!!");
+  //     if (elem.expert_or_not === 0) {
+  //       neighborOfferList.push(elem);
+  //     } else {
+  //       proOfferList.push(elem);
+  //     }
+  //   });
+
   //이웃 반려인 전체보기
-  if (neighbor) offerList = NEIGHBOR_OFFER_LIST;
-  else {
-    offerList = PRO_OFFER_LIST;
-  }
+  // if (neighbor) offerList = neighborOfferList;
+  // else {
+  //   offerList = proOfferList;
+  // }
+
+  useEffect(() => {
+    fetchAddressData();
+  }, [neighbor]);
+
   const handleNeighborTabClick = () => {
     setNeighbor(1);
   };
@@ -103,8 +66,43 @@ export default function Search({ location }) {
     setNeighbor(0);
   };
 
+  const parseAddress = (address) => {
+    const words = address.split(" ");
+    return words[1] + " " + words[2];
+  };
+
+  const dataToSend = {
+    method: "get",
+    url: neighbor
+      ? NEIGHBOR_API + location.state.address
+      : EXPERT_API + location.state.address,
+  };
+  const fetchAddressData = async () => {
+    try {
+      res = await axios(dataToSend);
+      tmpList = neighbor ? res.data.non_experts : res.data.experts;
+      setOfferList(tmpList);
+      console.log(offerList);
+    } catch (e) {
+      console.log("fetch failed!!!");
+      console.log(e);
+    }
+    // offerList = await res.data.petsitters;
+
+    // sortData(listFromServer);
+  };
+
+  // fetchAddressData();
+
+  // console.log("offerlist!", offerList);
+
+  if (offerList.length === 0) {
+    return <>...loading...</>;
+  }
+
   return (
     <div>
+      <Header isAddress={false} />
       <SearchPageHeader>
         우리 강아지를 돌봐줄
         <br />
@@ -112,18 +110,20 @@ export default function Search({ location }) {
       </SearchPageHeader>
       <SearchOptionBox>
         <SearchPageAddress>
-          <img src={LocationIcon} /> 마포구 상수동
+          <img src={LocationIcon} /> {parseAddress(location.state.address)}
         </SearchPageAddress>
         <SearchPageDate>
           <img src={CalendarIcon} /> 12.20(목) - 12.22(금)
-          {/* <DatePicker
-          selected={date}
-          onSelect={handleDateSelect}
-          onChange={handleDateChange}
-          /> */}
         </SearchPageDate>
       </SearchOptionBox>
-
+      {/* <DatePicker
+        selected={startDate}
+        onChange={handleDateChange}
+        startDate={startDate}
+        endDate={endDate}
+        selectsRange
+        withPortal
+      /> */}
       <SearchTabBox>
         <SearchTab clicked={neighbor} onClick={handleNeighborTabClick}>
           이웃 반려인
@@ -137,6 +137,7 @@ export default function Search({ location }) {
       <FilterBox>
         <FilterOption> 거리순 </FilterOption>
       </FilterBox>
+
       <OfferList>
         <OfferCell {...{ offerList }}></OfferCell>
       </OfferList>
@@ -145,9 +146,8 @@ export default function Search({ location }) {
 }
 
 const SearchPageHeader = styled.div`
-  position: absolute;
-  left: 20px;
-  top: 100px;
+  margin-left: 20px;
+  margin-top: 20px;
   display: flex;
   /* 대제목_24pt_Bold */
 
@@ -220,10 +220,11 @@ const SearchPageDate = styled.div`
 
 const FilterBox = styled.div`
   position: relative;
-  top: 185px;
+  top: 65px;
   width: 100%;
   height: 38px;
-  box-shadow: inset 0 1px 2px 0 rgba(165, 159, 150, 0.22), 0 1px 2px 0 rgba(170, 170, 170, 0.31);
+  box-shadow: inset 0 1px 2px 0 rgba(165, 159, 150, 0.22),
+    0 1px 2px 0 rgba(170, 170, 170, 0.31);
   background-color: #f9f9f9;
 
   display: flex;
@@ -248,7 +249,7 @@ const Empty = styled.div``;
 
 const SearchTabBox = styled.div`
   position: relative;
-  top: 185px;
+  top: 65px;
 
   display: flex;
   justify-content: space-around;
@@ -284,7 +285,7 @@ const SearchTab = styled.div`
 
 const OfferList = styled.div`
   position: relative;
-  top: 190px;
+  top: 70px;
   display: flex;
   justify-content: center;
 `;
@@ -293,7 +294,7 @@ const SearchOptionBox = styled.div`
   position: relative;
   margin-left: 20px;
   margin-right: 20px;
-  top: 170px;
+  top: 50px;
   display: flex;
   justify-content: space-around;
 `;
