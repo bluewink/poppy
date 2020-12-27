@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 import Header from '../components/Header';
 import ARTICLE_DATA from '../resources/Json/article.json';
@@ -21,52 +22,75 @@ import {
   detail_five_start,
 } from '../resources/images';
 
-// References: https://velog.io/@jeonghoheo/React-Hooks리액트-훅스의-기본-Part-1-2jjxpaobgg
-// Scroll을 움직이면 h1의 스타일을 변화해주기 위한 함수.
-const useScroll = () => {
-  // state를 생성합니다.
-  const [state, setState] = useState({
-    x: 0,
-    y: 0,
-  });
-  // scroll의 값을 가져와 state를 갱신합니다.
-  const onScroll = () => {
-    setState({ y: window.scrollY, x: window.scrollX });
-  };
-  useEffect(() => {
-    // scroll 이벤트를 만들어줍니다. 스크롤을 움직일때 마다
-    // onScroll 함수가 실행됩니다.
-    window.addEventListener('scroll', onScroll);
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-  return state;
-};
+const EXPERT_API = 'http://ec2-3-35-187-250.ap-northeast-2.compute.amazonaws.com:8000/expert/';
+const NEIGHBOR_API = 'http://ec2-3-35-187-250.ap-northeast-2.compute.amazonaws.com:8000/non_expert/';
 
 export default function Detail({ location }) {
   //takeoffer에서 넘어온 data
   const address = location.state.address;
-  const isExpert = location.state.export;
+  const isExpert = location.state.expert;
   const index = location.state.type;
-  useEffect(() => {}, []);
-
-  const [moreText, setMoreText] = useState('더보기');
-  const [moreSwitch, setMoreSwitch] = useState(false);
 
   // changed information
-  const [roomImg, setRoomImg] = useState();
+  const [server, setServer] = useState(false);
+  const [roomImg, setRoomImg] = useState('');
+  const [comment, setComment] = useState({
+    content: '',
+    date: '',
+    name: '장*나',
+  });
+  const [content, setContent] = useState();
+  const [moreContent, setMoreContent] = useState();
   // const
   const [title, setTitle] = useState();
   const [name, setName] = useState();
-  const [content, setContent] = useState();
-
+  const [puppy, setPuppy] = useState([
+    {
+      age: '12살',
+      breed: '닥스훈트',
+      character: '나이 때문인지 느긋하고 온순해요~ 다른 강아지들과 잘 어울려요ㅎㅎ',
+      img:
+        'https://github.com/AlphaTechnic/poppy_project_testing_backend/blob/master/PoppyTest/img/dog_expert3.png?raw=true ',
+      name: '구름',
+    },
+  ]);
   const [dogName, setDogName] = useState();
   const [dogAge, setDogAge] = useState();
   const [dogIntroduce, setDogIntroduce] = useState();
 
-  const [comment, setComment] = useState();
-  const [score, setScore] = useState();
+  const [score, setScore] = useState({
+    num: 11,
+    score: 4.8,
+  });
 
-  const { y } = useScroll();
+  const fetchDatas = async () => {
+    try {
+      const response = await axios({
+        method: 'get',
+        url: isExpert ? EXPERT_API + index : NEIGHBOR_API + index,
+      });
+      console.log(response);
+
+      setComment(response.data.comment);
+      setRoomImg(response.data.room_img);
+      setContent(response.data.content.slice(0, 150));
+      setMoreContent(response.data.content);
+      setTitle(response.data.title);
+      setName(response.data.name);
+      setScore(response.data.score);
+      setPuppy(response.data.puppy);
+    } catch (e) {
+      console.log('fetch failed!!!');
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
+    fetchDatas();
+  }, []);
+
+  const [moreText, setMoreText] = useState('더보기');
+  const [moreSwitch, setMoreSwitch] = useState(false);
 
   const handleMore = () => {
     if (moreSwitch) {
@@ -81,13 +105,13 @@ export default function Detail({ location }) {
   return (
     <Wrapper>
       <Header isAddress={false} />
-      <Thumbnail src={detail_photo_1} />
+      <Thumbnail src={roomImg} />
       <ProfileBox>
         <ProfileThumbnail src={img2} />
         <ProfileTextBox>
-          <ProfileTitle>안심하고 맡겨주세요:)</ProfileTitle>
+          <ProfileTitle>{title}</ProfileTitle>
           <ProfileContent>
-            이현숙 <ProfileAddress>{address}</ProfileAddress>
+            {name} <ProfileAddress>{address}</ProfileAddress>
           </ProfileContent>
         </ProfileTextBox>
       </ProfileBox>
@@ -95,30 +119,29 @@ export default function Detail({ location }) {
       <IntroduceBox>
         <IntroduceTitle>이웃 소개</IntroduceTitle>
         <IntroduceText>
-          안녕하세요 이웃집 뽀삐 돌봄 이웃 홍*동 입니다. 저는 지금 사랑스러운 저의 반려견인 뽀삐(푸들, 4살)와 살고
-          있습니다. 남자아이고, 중성화 했어요. 저희 뽀삐는 순한 성격이라 웬만한 친구들과 사이좋게 지내요. 성격이 안 맞는
-          친구를 만나면 관심을 주지 않아요. 뽀삐와 시간을 보내면서 저는 반려견을 키우면서 책임감에 대한 ...{' '}
-          <MoreText>
-            {moreSwitch
-              ? '이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅이웃집뽀삐화이팅'
-              : ''}
-          </MoreText>
+          {moreSwitch ? moreContent : content}
           <MoreButton onClick={handleMore}>{moreText}</MoreButton>
         </IntroduceText>
       </IntroduceBox>
       <ShadowView></ShadowView>
       <FamilyBox>
         <FamilyTitle>가족 소개</FamilyTitle>
-        <FamilyTable>
-          <FamilyCell>
-            <DogImage src={detail_view_photo_1} />
-            <DogText>
-              <DogName>또리</DogName>
-              <DogSubDetail>말티즈 · 7살</DogSubDetail>
-              <DogIntroduce>활발하고 강아지들과 잘 어울려요.</DogIntroduce>
-            </DogText>
-          </FamilyCell>
-        </FamilyTable>
+        {puppy.map((dog) => {
+          return (
+            <FamilyTable>
+              <FamilyCell>
+                <DogImage src={dog.img} />
+                <DogText>
+                  <DogName>{dog.name}</DogName>
+                  <DogSubDetail>
+                    {dog.breed} · {dog.age}
+                  </DogSubDetail>
+                  <DogIntroduce>{dog.character}</DogIntroduce>
+                </DogText>
+              </FamilyCell>
+            </FamilyTable>
+          );
+        })}
       </FamilyBox>
       <FeeBox>
         <FeeTitle>요금 소개</FeeTitle>
@@ -214,12 +237,12 @@ export default function Detail({ location }) {
       <ShadowView></ShadowView>
       <ReviewBox>
         <ReviewTitle>
-          돌봄 후기<ReviewNumber>(17)</ReviewNumber>
+          돌봄 후기<ReviewNumber>({score.num})</ReviewNumber>
         </ReviewTitle>
         <StarReviewScore>
           <StarImage src={detail_star} />
           <ReviewScore>
-            4.4 <GrayScore>/ 5</GrayScore>
+            {score.score} <GrayScore>/ 5</GrayScore>
           </ReviewScore>
         </StarReviewScore>
         <BestReview>
@@ -229,18 +252,13 @@ export default function Detail({ location }) {
               <BestReviewImage src={detail_no_one} />
               <BestReviewText>
                 <BestColumn>
-                  <BestReviewName>이*선</BestReviewName>
+                  <BestReviewName>{comment.name}</BestReviewName>
                   <BestReviewStar src={detail_five_start} />
                 </BestColumn>
-                <BestReviewDate>2020-12-21</BestReviewDate>
+                <BestReviewDate>{comment.date}</BestReviewDate>
               </BestReviewText>
             </BestReviewDetail>
-            <BestArticle>
-              처음 맡길 뿐더러 사랑이가 노견이라서 다른 곳에서 잘 안받아줬는데 시터님께서 누구보다 반갑게 맞아주셔서
-              너무 감사했습니다! 사랑이 피부, 관절 세세하게 신경써주시고 생각도 하지 못했는데, 사진 선물 너무
-              감사드립니다. 너무 좋은 시간 보내고 온 것 같아요.. 잘 맡겼다는 생각이 드네요^^ 앞으로도 연락 드려야
-              겠어요!
-            </BestArticle>
+            <BestArticle>{comment.content}</BestArticle>
           </BestReviewArticle>
         </BestReview>
       </ReviewBox>
