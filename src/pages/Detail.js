@@ -54,10 +54,12 @@ export default function Detail({ location }) {
       name: '구름',
     },
   ]);
-  const [dogName, setDogName] = useState();
-  const [dogAge, setDogAge] = useState();
-  const [dogIntroduce, setDogIntroduce] = useState();
-
+  const [certification, setCertification] = useState([
+    {
+      acquisition_date: '2016. 9. 27',
+      name: '반려동물관리사 1급',
+    },
+  ]);
   const [score, setScore] = useState({
     num: 11,
     score: 4.8,
@@ -79,6 +81,9 @@ export default function Detail({ location }) {
       setName(response.data.name);
       setScore(response.data.score);
       setPuppy(response.data.puppy);
+      if (isExpert) {
+        setCertification(response.data.certification);
+      }
     } catch (e) {
       console.log('fetch failed!!!');
       console.log(e);
@@ -224,16 +229,24 @@ export default function Detail({ location }) {
           </ServiceRow>
         </ServiceTable>
       </ServiceBox>
-      <ExpertBox>
-        <ExpertTitle>전문 자격증</ExpertTitle>
-        <ExpertTable>
-          <ExpertColumn>
-            <ExpertCard>반려동물관리사 1급</ExpertCard>
-            <ExpertDate>취득일 2019. 5. 7</ExpertDate>
-          </ExpertColumn>
-          <ExpertPlace>한국반려동물관리협회</ExpertPlace>
-        </ExpertTable>
-      </ExpertBox>
+      {isExpert === 0 ? (
+        <EmptyBox />
+      ) : (
+        <ExpertBox>
+          <ExpertTitle>전문 자격증</ExpertTitle>
+          {certification.map((certi) => {
+            return (
+              <ExpertTable>
+                <ExpertColumn>
+                  <ExpertCard>{certi.name}</ExpertCard>
+                  <ExpertDate>취득일 {certi.acquisition_date}</ExpertDate>
+                </ExpertColumn>
+                <ExpertPlace>한국반려동물관리협회</ExpertPlace>
+              </ExpertTable>
+            );
+          })}
+        </ExpertBox>
+      )}
       <ShadowView></ShadowView>
       <ReviewBox>
         <ReviewTitle>
@@ -270,7 +283,7 @@ export default function Detail({ location }) {
     </Wrapper>
   );
 }
-
+const EmptyBox = styled.div``;
 const Wrapper = styled.div``;
 
 const Thumbnail = styled.img`
@@ -763,7 +776,7 @@ const ExpertBox = styled.div`
   display: flex;
   flex-direction: column;
 
-  margin-bottom: 25px;
+  margin-bottom: 40px;
 `;
 
 const ExpertTitle = styled.div`
@@ -781,7 +794,7 @@ const ExpertTitle = styled.div`
 `;
 
 const ExpertTable = styled.div`
-  margin: 14px 16px;
+  margin: 14px 16px 0 16px;
 
   padding: 16px 18px 15px 20px;
   border-radius: 10px;
