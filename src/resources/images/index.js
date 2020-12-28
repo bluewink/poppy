@@ -10,7 +10,6 @@ export { default as LocationIcon } from './LocationIcon.png';
 export { default as SearchTabIcon } from './SearchTabIcon.png';
 export { default as OfferPic1 } from './OfferPic1.png';
 export { default as CalendarIcon } from './CalendarIcon.png';
-
 export { default as LocationIc } from './LocationIc.png';
 export { default as LocationBackground } from './LocationBackground.png';
 export { default as img1 } from './img1.png';
@@ -34,3 +33,4 @@ export { default as detail_star } from './detail_star.png';
 export { default as detail_five_start } from './detail_five_start.png';
 export { default as detail_no_one } from './detail_no_one.png';
 export { default as dog1 } from './dog1.png';
+export { default as detailButtonIc } from './detailButtonIc.png';

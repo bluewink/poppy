@@ -16,7 +16,6 @@ export default function Confirm({ location }) {
           확정해주세요!
         </PageTitle>
         <ReservationBox image={confirmIc}>
-          {/* <ReservationBackground src={confirmIc} /> */}
           <PaddingBox>
             <Icon src={confirmIc1} />
             <InformationTitle>예약 정보</InformationTitle>
