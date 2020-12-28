@@ -6,7 +6,7 @@ import Header from '../components/Header';
 import { confirmIc1, confirmIc } from '../resources/images';
 
 export default function Confirm({ location }) {
-  const { name, date, cost } = location.state;
+  const { name, date, oneDay, diffDate, cost } = location.state;
 
   return (
     <Wrapper>
@@ -25,7 +25,7 @@ export default function Confirm({ location }) {
                 돌봄 이웃: <Lighter>{name}</Lighter>
               </InformationSubTitle>
               <InformationSubTitle>
-                이용할 서비스: <Lighter>소형견 / 당일 케어</Lighter>
+                이용할 서비스: <Lighter>소형견 /{oneDay ? ' 당일케어' : diffDate + ' 박돌봄'}</Lighter>
               </InformationSubTitle>
               <InformationSubTitle>
                 날짜: <Lighter>{date} </Lighter>

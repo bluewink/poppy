@@ -34,7 +34,7 @@ export default function Detail({ location }) {
   const [server, setServer] = useState(false);
   const [diffDate, setDiffDate] = useState(1);
   const [dates, setDates] = useState('');
-  const [oneDay, setOneDay] = useState(0);
+  const [oneDay, setOneDay] = useState(true);
   const [roomImg, setRoomImg] = useState('');
   const [comment, setComment] = useState({
     content: '',
@@ -100,10 +100,6 @@ export default function Detail({ location }) {
   };
 
   useEffect(() => {
-    const string = 'Wed Dec 23 2020 12:00:06';
-
-    console.log(string.split(' ')[2]);
-
     console.log(endDate);
     console.log(startDate.getDay());
     console.log(startDate.getFullYear());
@@ -120,15 +116,13 @@ export default function Detail({ location }) {
       const e_month = endDate.getMonth();
       const e_day = endDate.getDay();
 
-      setDiffDate(Math.abs(moment([e_year, e_month, e_day]).diff(moment([year, month, day]), 'days')));
-
       if (e_year === year && e_month === month && e_day === day) {
         setDates(year + '년' + month + '월' + day + '일');
       } else {
-        setDates(year + '년' + month + '월' + day + '일 ~ ' + e_year + '년' + month + '월' + day + '일');
+        setDates(year + '년' + month + '월' + day + '일 ~ ' + e_year + '년' + e_month + '월' + e_day + '일');
+        setDiffDate(Math.abs(moment([e_year, e_month, e_day]).diff(moment([year, month, day]), 'days')));
+        setOneDay(false);
       }
-
-      setOneDay(1);
     }
 
     fetchDatas();
@@ -328,6 +322,7 @@ export default function Detail({ location }) {
               name: name,
               date: dates,
               cost: diffDate * smallCost[0],
+              diffDate: diffDate,
             },
           }}
         >
