@@ -1,12 +1,17 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
 
-import Header from '../components/Header';
-import { confirmIc1, confirmIc } from '../resources/images';
+import Header from "../components/Header";
+import { confirmIc1, confirmIc } from "../resources/images";
 
 export default function Confirm({ location }) {
   const { name, date, oneDay, diffDate, cost } = location.state;
+  console.log("diff Date", diffDate);
+
+  const numberWithCommas = (price) => {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
 
   return (
     <Wrapper>
@@ -25,13 +30,16 @@ export default function Confirm({ location }) {
                 돌봄 이웃: <Lighter>{name}</Lighter>
               </InformationSubTitle>
               <InformationSubTitle>
-                이용할 서비스: <Lighter>소형견 /{oneDay ? ' 당일케어' : diffDate + ' 박돌봄'}</Lighter>
+                이용할 서비스:{" "}
+                <Lighter>
+                  소형견 /{oneDay ? " 당일케어" : diffDate + " 박돌봄"}
+                </Lighter>
               </InformationSubTitle>
               <InformationSubTitle>
                 날짜: <Lighter>{date} </Lighter>
               </InformationSubTitle>
               <InformationSubTitle>
-                요금: <Lighter>{cost}</Lighter>
+                요금: <Lighter>{numberWithCommas(cost)}원</Lighter>
               </InformationSubTitle>
             </InformationGroup>
           </PaddingBox>
@@ -149,7 +157,7 @@ const NextButton = styled.button`
 
   padding: 0 25px;
 
-  font-family: 'DM Sans', sans-serif;
+  font-family: "DM Sans", sans-serif;
   font-size: 18px;
   font-weight: bold;
   font-stretch: normal;

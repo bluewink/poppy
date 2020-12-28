@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
-import moment from 'moment';
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
+import axios from "axios";
+import moment from "moment";
 
-import Header from '../components/Header';
-import ARTICLE_DATA from '../resources/Json/article.json';
+import Header from "../components/Header";
+import ARTICLE_DATA from "../resources/Json/article.json";
 
 import {
   img2,
@@ -20,10 +20,12 @@ import {
   detail_no_one,
   detail_five_start,
   detailButtonIc,
-} from '../resources/images';
+} from "../resources/images";
 
-const EXPERT_API = 'http://ec2-3-35-187-250.ap-northeast-2.compute.amazonaws.com:8000/expert/';
-const NEIGHBOR_API = 'http://ec2-3-35-187-250.ap-northeast-2.compute.amazonaws.com:8000/non_expert/';
+const EXPERT_API =
+  "http://ec2-3-35-187-250.ap-northeast-2.compute.amazonaws.com:8000/expert/";
+const NEIGHBOR_API =
+  "http://ec2-3-35-187-250.ap-northeast-2.compute.amazonaws.com:8000/non_expert/";
 
 export default function Detail({ location }) {
   //takeoffer에서 넘어온 data
@@ -33,36 +35,37 @@ export default function Detail({ location }) {
   // changed information
   const [server, setServer] = useState(false);
   const [diffDate, setDiffDate] = useState(1);
-  const [dates, setDates] = useState('');
+  const [dates, setDates] = useState("");
   const [oneDay, setOneDay] = useState(true);
-  const [roomImg, setRoomImg] = useState('');
+  const [roomImg, setRoomImg] = useState("");
   const [comment, setComment] = useState({
-    content: '',
-    date: '',
-    name: '장*나',
+    content: "",
+    date: "",
+    name: "장*나",
   });
   const [content, setContent] = useState();
   const [moreContent, setMoreContent] = useState();
   const [title, setTitle] = useState();
   const [name, setName] = useState();
-  const [largeCost, setLargeCost] = useState(['40,000원', '50,000원']);
-  const [middleCost, setMiddleCost] = useState(['40,000원', '50,000원']);
-  const [smallCost, setSmallCost] = useState(['40,000원', '50,000원']);
+  const [largeCost, setLargeCost] = useState(["40,000원", "50,000원"]);
+  const [middleCost, setMiddleCost] = useState(["40,000원", "50,000원"]);
+  const [smallCost, setSmallCost] = useState(["40,000원", "50,000원"]);
 
   const [puppy, setPuppy] = useState([
     {
-      age: '12살',
-      breed: '닥스훈트',
-      character: '나이 때문인지 느긋하고 온순해요~ 다른 강아지들과 잘 어울려요ㅎㅎ',
+      age: "12살",
+      breed: "닥스훈트",
+      character:
+        "나이 때문인지 느긋하고 온순해요~ 다른 강아지들과 잘 어울려요ㅎㅎ",
       img:
-        'https://github.com/AlphaTechnic/poppy_project_testing_backend/blob/master/PoppyTest/img/dog_expert3.png?raw=true ',
-      name: '구름',
+        "https://github.com/AlphaTechnic/poppy_project_testing_backend/blob/master/PoppyTest/img/dog_expert3.png?raw=true ",
+      name: "구름",
     },
   ]);
   const [certification, setCertification] = useState([
     {
-      acquisition_date: '2016. 9. 27',
-      name: '반려동물관리사 1급',
+      acquisition_date: "2016. 9. 27",
+      name: "반려동물관리사 1급",
     },
   ]);
   const [score, setScore] = useState({
@@ -73,7 +76,7 @@ export default function Detail({ location }) {
   const fetchDatas = async () => {
     try {
       const response = await axios({
-        method: 'get',
+        method: "get",
         url: isExpert ? EXPERT_API + type : NEIGHBOR_API + type,
       });
 
@@ -94,33 +97,46 @@ export default function Detail({ location }) {
         setCertification(response.data.certification);
       }
     } catch (e) {
-      console.log('fetch failed!!!');
+      console.log("fetch failed!!!");
       console.log(e);
     }
   };
 
   useEffect(() => {
-    console.log(endDate);
-    console.log(startDate.getDay());
-    console.log(startDate.getFullYear());
-    console.log(startDate.getMonth());
-
     const year = startDate.getFullYear();
-    const month = startDate.getMonth();
-    const day = startDate.getDay();
+    const month = startDate.getMonth() + 1;
+    const day = startDate.getDate();
 
-    setDates(year + '년' + month + '월' + day + '일');
+    setDates(year + "년" + month + "월" + day + "일");
 
     if (endDate !== null) {
       const e_year = endDate.getFullYear();
-      const e_month = endDate.getMonth();
-      const e_day = endDate.getDay();
+      const e_month = endDate.getMonth() + 1;
+      const e_day = endDate.getDate();
 
       if (e_year === year && e_month === month && e_day === day) {
-        setDates(year + '년' + month + '월' + day + '일');
+        setDates(year + "년" + month + "월" + day + "일");
       } else {
-        setDates(year + '년' + month + '월' + day + '일 ~ ' + e_year + '년' + e_month + '월' + e_day + '일');
-        setDiffDate(Math.abs(moment([e_year, e_month, e_day]).diff(moment([year, month, day]), 'days')));
+        setDates(
+          year +
+            "년" +
+            month +
+            "월" +
+            day +
+            "일 ~ " +
+            e_year +
+            "년" +
+            e_month +
+            "월" +
+            e_day +
+            "일"
+        );
+        const startDateMoment = moment(startDate);
+        const endDateMoment = moment(endDate);
+        const diff = endDateMoment.diff(startDateMoment, "days") + 1;
+
+        setDiffDate(Math.abs(diff));
+
         setOneDay(false);
       }
     }
@@ -128,16 +144,20 @@ export default function Detail({ location }) {
     fetchDatas();
   }, []);
 
-  const [moreText, setMoreText] = useState('더보기');
+  const [moreText, setMoreText] = useState("더보기");
   const [moreSwitch, setMoreSwitch] = useState(false);
+
+  const numberWithCommas = (price) => {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
 
   const handleMore = () => {
     if (moreSwitch) {
       setMoreSwitch(false);
-      setMoreText('더보기');
+      setMoreText("더보기");
     } else {
       setMoreSwitch(true);
-      setMoreText('줄어들기');
+      setMoreText("줄어들기");
     }
   };
 
@@ -198,18 +218,19 @@ export default function Detail({ location }) {
               <WhichDog>소형견</WhichDog> <WhichWeight>7키로 미만</WhichWeight>
             </FirstColumn>
             <SecondColumn>
-              <DayCost>{smallCost[0]}</DayCost>
-              <MonthCost>{smallCost[1]}</MonthCost>
+              <DayCost>{numberWithCommas(smallCost[0])}원</DayCost>
+              <MonthCost>{numberWithCommas(smallCost[1])}원</MonthCost>
             </SecondColumn>
           </ElementRow>
 
           <ElementRow>
             <FirstColumn>
-              <WhichDog>중형견</WhichDog> <WhichWeight>7키로~15키로</WhichWeight>
+              <WhichDog>중형견</WhichDog>{" "}
+              <WhichWeight>7키로~15키로</WhichWeight>
             </FirstColumn>
             <SecondColumn>
-              <DayCost>{middleCost[0]}</DayCost>
-              <MonthCost>{middleCost[1]}</MonthCost>
+              <DayCost>{numberWithCommas(middleCost[0])}원</DayCost>
+              <MonthCost>{numberWithCommas(middleCost[1])}원</MonthCost>
             </SecondColumn>
           </ElementRow>
 
@@ -218,8 +239,8 @@ export default function Detail({ location }) {
               <WhichDog>대형견</WhichDog> <WhichWeight>15키로 이상</WhichWeight>
             </FirstColumn>
             <SecondColumn>
-              <DayCost>{largeCost[0]}</DayCost>
-              <MonthCost>{largeCost[1]}</MonthCost>
+              <DayCost>{numberWithCommas(largeCost[0])}원</DayCost>
+              <MonthCost>{numberWithCommas(largeCost[1])}원</MonthCost>
             </SecondColumn>
           </ElementRow>
         </FeeTable>
@@ -316,7 +337,7 @@ export default function Detail({ location }) {
       <NextBox>
         <Link
           to={{
-            pathname: '/confirm',
+            pathname: "/confirm",
             state: {
               oneDay: oneDay,
               name: name,
@@ -691,7 +712,7 @@ const LineView = styled.div`
 const WhichDog = styled.span`
   padding: 0 16px 0 0;
 
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   font-size: 16px;
   font-weight: 500;
   font-stretch: normal;
@@ -703,7 +724,7 @@ const WhichDog = styled.span`
 `;
 
 const WhichWeight = styled.span`
-  font-family: 'Work Sans', sans-serif;
+  font-family: "Work Sans", sans-serif;
   font-size: 14px;
   font-weight: normal;
   letter-spacing: normal;
@@ -735,7 +756,7 @@ const ServiceCellIcon = styled.img`
 const ServiceCellTitle = styled.div`
   margin-left: 4px;
 
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   font-size: 14px;
   font-weight: 500;
   font-stretch: normal;
@@ -808,7 +829,7 @@ const WarningSign = styled.div`
   display: flex;
   align-items: center;
 
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   font-size: 14px;
   font-weight: normal;
   font-stretch: normal;
@@ -836,7 +857,7 @@ const ExpertBox = styled.div`
 const ExpertTitle = styled.div`
   margin: 15px 25px 0 25px;
 
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   font-size: 18px;
   font-weight: bold;
   font-stretch: normal;
@@ -862,7 +883,7 @@ const ExpertTable = styled.div`
 const ExpertColumn = styled.div``;
 
 const ExpertCard = styled.div`
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   font-size: 16px;
   font-weight: bold;
   font-stretch: normal;
@@ -888,7 +909,7 @@ const ExpertDate = styled.div`
 `;
 
 const ExpertPlace = styled.div`
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   font-size: 12px;
   font-weight: 500;
   font-stretch: normal;
@@ -916,7 +937,7 @@ const NextButton = styled.button`
 
   padding: 0 25px;
 
-  font-family: 'DM Sans', sans-serif;
+  font-family: "DM Sans", sans-serif;
   font-size: 18px;
   font-weight: bold;
   font-stretch: normal;
@@ -980,7 +1001,7 @@ const BestTitle = styled.span`
   border-radius: 8px;
   background-color: #ff9777;
 
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   font-size: 15px;
   font-weight: 500;
   font-stretch: normal;
@@ -1042,7 +1063,7 @@ const ReviewScore = styled.div`
 const GrayScore = styled.span`
   margin: 0 1px 4px 0;
 
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   font-size: 18px;
   font-weight: normal;
   font-stretch: normal;
@@ -1064,7 +1085,7 @@ const ReviewTitle = styled.div`
   justify-content: space-between;
   margin-left: 10px;
 
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   font-size: 18px;
   font-weight: bold;
   font-stretch: normal;

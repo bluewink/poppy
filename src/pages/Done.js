@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
 
-import Header from '../components/Header';
-import { survey_poppy } from '../resources/images';
+import Header from "../components/Header";
+import { survey_poppy } from "../resources/images";
 
 export default function Confirm() {
   return (
@@ -21,9 +21,12 @@ export default function Confirm() {
       </SubLabel>
       <PoppyImage src={survey_poppy} />
       <NextBox>
-        <Link to="/">
+        <a
+          target="_blank"
+          href="https://docs.google.com/forms/d/e/1FAIpQLSeo49pXpxFmNd7lx2wSVk1RHdFieODjTyGLdRpyYBvGIehKAA/viewform?usp=sf_link"
+        >
           <NextButton>설문하기</NextButton>
-        </Link>
+        </a>
       </NextBox>
     </Wrapper>
   );
@@ -36,7 +39,7 @@ const Wrapper = styled.div`
 const PageTitle = styled.div`
   margin: 24px 16px;
 
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   font-size: 24px;
   font-weight: bold;
   font-stretch: normal;
@@ -50,7 +53,7 @@ const PageTitle = styled.div`
 const SubLabel = styled.div`
   margin: 42px 20px;
 
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   font-size: 17px;
   font-weight: normal;
   font-stretch: normal;
@@ -91,7 +94,7 @@ const NextButton = styled.button`
 
   padding: 0 25px;
 
-  font-family: 'DM Sans', sans-serif;
+  font-family: "DM Sans", sans-serif;
   font-size: 18px;
   font-weight: bold;
   font-stretch: normal;

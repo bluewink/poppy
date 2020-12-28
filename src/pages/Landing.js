@@ -2,13 +2,7 @@ import React, { useState } from "react";
 import styled, { css } from "styled-components";
 
 import Header from "../components/Header";
-import {
-  LandingPageVector,
-  PoppyLogoPng,
-  Poppy,
-  LandingPageDogPng2,
-  LandingPageDogPng1,
-} from "../resources/images";
+import { Poppy, LandingPageBackgroundPng } from "../resources/images";
 import { Link } from "react-router-dom";
 
 export default function Landing() {
@@ -35,8 +29,8 @@ export default function Landing() {
         믿을 수 있는 이웃 반려인에게 <br />
         가격 부담없이 강아지를 맡길 수 있어요.
       </LandingPageDescription>
-      <Gradient0 />
-      <LandingPageDog1 src={LandingPageDogPng1} />
+
+      <LandingPageBackground src={LandingPageBackgroundPng} />
       <LandingPageTitle second>2.</LandingPageTitle>
       <LandingPageHeader second>
         혼자 외롭게 집을 지키는 <br />
@@ -50,9 +44,7 @@ export default function Landing() {
         명예 이웃(가명)이 되면
         <br /> 이웃집 뽀삐가 특별한 선물을 드려요.
       </LandingPageDescription>
-      <LandingPageDog2 src={LandingPageDogPng2} />
-      <Gradient1 />
-      <Gradient2 />
+
       <NextButtonBox>
         <Link to="/address">
           <NextButton>돌보미 찾기</NextButton>
@@ -74,7 +66,7 @@ const LandingPageHeader = styled.div`
   /* left: 15px; */
   top: 122.08px;
 
-  font-family: NotoSansKR;
+  font-family: "Noto Sans KR";
   font-size: 22px;
   font-weight: bold;
   font-stretch: normal;
@@ -100,16 +92,17 @@ const LandingPageHeader = styled.div`
 `;
 const LandingPageTitle = styled.div`
   margin-left: 10px;
+
   position: absolute;
   width: 169px;
   height: 55px;
   /* left: 14px; */
   top: 197px;
 
-  font-family: Noto Sans KR;
+  font-family: "Noto Sans KR";
   font-style: normal;
   font-weight: bold;
-  font-size: 32px;
+  font-size: 36px;
   line-height: 42px;
   /* or 118% */
 
@@ -121,11 +114,13 @@ const LandingPageTitle = styled.div`
     props.first &&
     css`
       top: 297.3px;
+      font-family: Work Sans;
     `}
   ${(props) =>
     props.second &&
     css`
       top: 724.37px;
+      font-family: Work Sans;
     `}
 `;
 const PoppyImg = styled.img`
@@ -133,7 +128,7 @@ const PoppyImg = styled.img`
   position: absolute;
   width: 37.33px;
   height: 63px;
-  left: 155px;
+  left: 175px;
   top: 176px;
 `;
 
@@ -145,7 +140,7 @@ const LandingPageDescription = styled.div`
   /* left: 9px; */
   top: 408px;
 
-  font-family: Noto Sans KR;
+  font-family: "Noto Sans KR";
   font-style: normal;
   font-weight: 500;
   font-size: 18px;
@@ -162,68 +157,16 @@ const LandingPageDescription = styled.div`
       top: 841px;
     `}
 `;
-const LandingPageDog1 = styled.img`
+const LandingPageBackground = styled.img`
   position: absolute;
   width: 100%;
 
   margin-left: 0px;
   /* left: 0px; */
-  top: 440px;
+  top: 358px;
   z-index: -10;
 `;
 
-const LandingPageDog2 = styled.img`
-  position: absolute;
-  width: 100%;
-
-  /* left: 0px; */
-  margin-left: 0px;
-  top: 730px;
-  z-index: -1;
-`;
-
-const Gradient0 = styled.div`
-  position: absolute;
-  top: 358px;
-  width: 100%;
-  height: 188px;
-  z-index: -3;
-  background: linear-gradient(
-    180deg,
-    #ffffff 0%,
-    #ffffff 41.67%,
-    rgba(255, 255, 255, 0) 100%
-  );
-`;
-
-const Gradient1 = styled.div`
-  position: absolute;
-  top: 900px;
-  width: 100%;
-  height: 188px;
-  z-index: -1;
-  background: linear-gradient(
-    180deg,
-    #ffffff 0%,
-    #ffffff 41.67%,
-    rgba(255, 255, 255, 0) 100%
-  );
-`;
-
-const Gradient2 = styled.div`
-  position: absolute;
-  top: 747px;
-  width: 100%;
-  height: 194px;
-  z-index: -1;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0) 0%,
-    #ffffff 48.44%,
-    #ffffff 67.71%,
-    rgba(255, 255, 255, 0) 100%
-  );
-`;
 const NextButton = styled.button`
   width: 150.2px;
   height: 46.9px;

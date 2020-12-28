@@ -1,19 +1,19 @@
-import React, { Fragment, useEffect } from 'react';
-import styled from 'styled-components';
-import Landing from './pages/Landing.js';
-import Search from './pages/Search.js';
-import Address from './pages/Address';
-import Confirm from './pages/Confirm';
-import Done from './pages/Done';
-import Detail from './pages/Detail';
-import { BrowserRouter, Route } from 'react-router-dom';
-import DaumAPI from './components/DaumAPI.js';
+import React, { Fragment, useEffect } from "react";
+import styled from "styled-components";
+import Landing from "./pages/Landing.js";
+import Search from "./pages/Search.js";
+import Address from "./pages/Address";
+import Confirm from "./pages/Confirm";
+import Done from "./pages/Done";
+import Detail from "./pages/Detail";
+import { BrowserRouter, Route } from "react-router-dom";
+import DaumAPI from "./components/DaumAPI.js";
 
 export default function App() {
   return (
     <BrowserRouter>
       <MobileSize>
-        <Route path={['/landingpage', '/']} exact component={Landing} />
+        <Route path={["/landingpage", "/"]} exact component={Landing} />
         <Route path="/takeoffer" exact component={Search} />
         <Route path="/address" exact component={Address} />
         <Route path="/confirm" exact component={Confirm} />
