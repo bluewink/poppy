@@ -18,7 +18,7 @@ export default function Search({ location }) {
   const [endDate, setEndDate] = useState(null);
   const [selectionComplete, toggleSelectionComplete] = useState(false);
 
-  const SearchDateCustomInput = ({ value, onClick }) => (
+  const SearchDateCustomInput = ({ onClick }) => (
     <SearchPageDatePicker>
       <img src={CalendarIcon} style={{ paddingRight: "3px" }} />
       {/* <div onClick={onClick}>{value}</div> */}
@@ -113,6 +113,7 @@ export default function Search({ location }) {
 
   // console.log(startDate);
   // console.log(endDate);
+
   if (offerList.length === 0) {
     return <>...loading...</>;
   }
