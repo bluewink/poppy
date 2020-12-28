@@ -7,6 +7,7 @@ import { confirmIc1, confirmIc } from '../resources/images';
 
 export default function Confirm({ location }) {
   const { name, date, cost } = location.state;
+
   return (
     <Wrapper>
       <>

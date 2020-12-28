@@ -71,7 +71,6 @@ export default function Detail({ location }) {
         method: 'get',
         url: isExpert ? EXPERT_API + type : NEIGHBOR_API + type,
       });
-      console.log(response);
 
       setComment(response.data.comment);
       setRoomImg(response.data.room_img);
@@ -85,6 +84,7 @@ export default function Detail({ location }) {
       setMiddleCost(response.data.middle_dog_cost);
       setSmallCost(response.data.small_dog_cost);
       setServer(true);
+
       if (isExpert) {
         setCertification(response.data.certification);
       }
@@ -95,8 +95,8 @@ export default function Detail({ location }) {
   };
 
   useEffect(() => {
-    console.log(isExpert);
-    console.log(location.state);
+    const string = 'Wed Dec 23 2020 12:00:06';
+    console.log(string.split(' ')[2]);
     fetchDatas();
   }, []);
 
