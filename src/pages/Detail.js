@@ -14,8 +14,6 @@ import {
   detailIc4,
   detailIc5,
   detailIc6,
-  detail_photo_1,
-  detail_view_photo_1,
   detail_warning_sign,
   detail_star,
   detail_no_one,
@@ -27,10 +25,7 @@ const NEIGHBOR_API = 'http://ec2-3-35-187-250.ap-northeast-2.compute.amazonaws.c
 
 export default function Detail({ location }) {
   //takeoffer에서 넘어온 data
-  const address = location.state.address;
-  const isExpert = location.state.expert;
-  const index = location.state.type;
-
+  const { address, isExpert, type, date, cost } = location.state;
   // changed information
   const [server, setServer] = useState(false);
   const [roomImg, setRoomImg] = useState('');
@@ -44,6 +39,9 @@ export default function Detail({ location }) {
   // const
   const [title, setTitle] = useState();
   const [name, setName] = useState();
+  const [largeCost, setLargeCost] = useState(['40,000원', '50,000원']);
+  const [middleCost, setMiddleCost] = useState(['40,000원', '50,000원']);
+  const [smallCost, setSmallCost] = useState(['40,000원', '50,000원']);
   const [puppy, setPuppy] = useState([
     {
       age: '12살',
@@ -69,7 +67,7 @@ export default function Detail({ location }) {
     try {
       const response = await axios({
         method: 'get',
-        url: isExpert ? EXPERT_API + index : NEIGHBOR_API + index,
+        url: isExpert ? EXPERT_API + type : NEIGHBOR_API + type,
       });
       console.log(response);
 
@@ -81,6 +79,10 @@ export default function Detail({ location }) {
       setName(response.data.name);
       setScore(response.data.score);
       setPuppy(response.data.puppy);
+      setLargeCost(response.data.large_dog_cost);
+      setMiddleCost(response.data.middle_dog_cost);
+      setSmallCost(response.data.small_dog_cost);
+
       if (isExpert) {
         setCertification(response.data.certification);
       }
@@ -164,8 +166,8 @@ export default function Detail({ location }) {
               <WhichDog>소형견</WhichDog> <WhichWeight>7키로 미만</WhichWeight>
             </FirstColumn>
             <SecondColumn>
-              <DayCost>10,000원</DayCost>
-              <MonthCost>20,000원</MonthCost>
+              <DayCost>{smallCost[0]}</DayCost>
+              <MonthCost>{smallCost[1]}</MonthCost>
             </SecondColumn>
           </ElementRow>
 
@@ -174,8 +176,8 @@ export default function Detail({ location }) {
               <WhichDog>중형견</WhichDog> <WhichWeight>7키로~15키로</WhichWeight>
             </FirstColumn>
             <SecondColumn>
-              <DayCost>10,000원</DayCost>
-              <MonthCost>20,000원</MonthCost>
+              <DayCost>{middleCost[0]}</DayCost>
+              <MonthCost>{middleCost[1]}</MonthCost>
             </SecondColumn>
           </ElementRow>
 
@@ -184,8 +186,8 @@ export default function Detail({ location }) {
               <WhichDog>대형견</WhichDog> <WhichWeight>15키로 이상</WhichWeight>
             </FirstColumn>
             <SecondColumn>
-              <DayCost>10,000원</DayCost>
-              <MonthCost>20,000원</MonthCost>
+              <DayCost>{largeCost[0]}</DayCost>
+              <MonthCost>{largeCost[1]}</MonthCost>
             </SecondColumn>
           </ElementRow>
         </FeeTable>
@@ -276,7 +278,16 @@ export default function Detail({ location }) {
         </BestReview>
       </ReviewBox>
       <NextBox>
-        <Link to="/confirm">
+        <Link
+          to={{
+            pathname: '/confirm',
+            state: {
+              name: name,
+              date: date,
+              cost: smallCost[0],
+            },
+          }}
+        >
           <NextButton>예약하기</NextButton>
         </Link>
       </NextBox>

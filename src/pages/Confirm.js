@@ -5,7 +5,8 @@ import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import { confirmIc1, confirmIc } from '../resources/images';
 
-export default function Confirm() {
+export default function Confirm({ location }) {
+  const { name, date, cost } = location.state;
   return (
     <Wrapper>
       <>
@@ -21,16 +22,16 @@ export default function Confirm() {
             <InformationTitle>예약 정보</InformationTitle>
             <InformationGroup>
               <InformationSubTitle>
-                돌봄 이웃: <Lighter>홍길동</Lighter>
+                돌봄 이웃: <Lighter>{name}</Lighter>
               </InformationSubTitle>
               <InformationSubTitle>
                 이용할 서비스: <Lighter>소형견 / 당일 케어</Lighter>
               </InformationSubTitle>
               <InformationSubTitle>
-                날짜: <Lighter>2020년 12월 21일 </Lighter>
+                날짜: <Lighter>{date} </Lighter>
               </InformationSubTitle>
               <InformationSubTitle>
-                요금: <Lighter>20,000원</Lighter>
+                요금: <Lighter>{cost}</Lighter>
               </InformationSubTitle>
             </InformationGroup>
           </PaddingBox>
