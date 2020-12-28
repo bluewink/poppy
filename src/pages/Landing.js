@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled, { css } from "styled-components";
 
 import Header from "../components/Header";
@@ -62,22 +62,17 @@ export default function Landing() {
   );
 }
 
-const Wrapper = styled.div``;
-
-const PoppyLogo = styled.img`
-  position: absolute;
-  width: 105px;
-  height: 42px;
-  /* left: -2px; */
-  top: 122px;
+const Wrapper = styled.div`
+  height: 1000px;
 `;
+
 const LandingPageHeader = styled.div`
   position: absolute;
   margin-left: 10px;
   width: 100%;
   height: 68.36px;
   /* left: 15px; */
-  top: 152.08px;
+  top: 122.08px;
 
   font-family: NotoSansKR;
   font-size: 22px;
@@ -95,12 +90,12 @@ const LandingPageHeader = styled.div`
       width: 100%;
       height: 72px;
       /* left: 16px; */
-      top: 373.75px;
+      top: 333.75px;
     `}
   ${(props) =>
     props.second &&
     css`
-      top: 798.44px;
+      top: 766.44px;
     `}
 `;
 const LandingPageTitle = styled.div`
@@ -109,7 +104,7 @@ const LandingPageTitle = styled.div`
   width: 169px;
   height: 55px;
   /* left: 14px; */
-  top: 227px;
+  top: 197px;
 
   font-family: Noto Sans KR;
   font-style: normal;
@@ -125,12 +120,12 @@ const LandingPageTitle = styled.div`
   ${(props) =>
     props.first &&
     css`
-      top: 326.3px;
+      top: 297.3px;
     `}
   ${(props) =>
     props.second &&
     css`
-      top: 751.37px;
+      top: 724.37px;
     `}
 `;
 const PoppyImg = styled.img`
@@ -138,8 +133,8 @@ const PoppyImg = styled.img`
   position: absolute;
   width: 37.33px;
   height: 63px;
-  left: 170px;
-  top: 206px;
+  left: 155px;
+  top: 176px;
 `;
 
 const LandingPageDescription = styled.div`
@@ -148,7 +143,7 @@ const LandingPageDescription = styled.div`
   width: 100%;
   height: 303.99px;
   /* left: 9px; */
-  top: 455px;
+  top: 408px;
 
   font-family: Noto Sans KR;
   font-style: normal;
@@ -164,49 +159,62 @@ const LandingPageDescription = styled.div`
   ${(props) =>
     props.second &&
     css`
-      top: 880.61px;
+      top: 841px;
     `}
 `;
 const LandingPageDog1 = styled.img`
   position: absolute;
   width: 100%;
-  height: 565px;
+
   margin-left: 0px;
   /* left: 0px; */
-  top: 470px;
+  top: 440px;
   z-index: -10;
 `;
 
 const LandingPageDog2 = styled.img`
   position: absolute;
   width: 100%;
-  height: 565px;
+
   /* left: 0px; */
   margin-left: 0px;
-  top: 750px;
+  top: 730px;
   z-index: -1;
 `;
 
 const Gradient0 = styled.div`
   position: absolute;
-  top: 400px;
+  top: 358px;
   width: 100%;
-  height: 150px;
+  height: 188px;
   z-index: -3;
   background: linear-gradient(
     180deg,
-    rgba(255, 255, 255, 0) 0%,
-    #ffffff 48.44%,
-    #ffffff 67.71%,
+    #ffffff 0%,
+    #ffffff 41.67%,
     rgba(255, 255, 255, 0) 100%
   );
 `;
 
 const Gradient1 = styled.div`
   position: absolute;
-  top: 850px;
+  top: 900px;
   width: 100%;
-  height: 250px;
+  height: 188px;
+  z-index: -1;
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #ffffff 41.67%,
+    rgba(255, 255, 255, 0) 100%
+  );
+`;
+
+const Gradient2 = styled.div`
+  position: absolute;
+  top: 747px;
+  width: 100%;
+  height: 194px;
   z-index: -1;
   background: linear-gradient(
     180deg,
@@ -215,22 +223,6 @@ const Gradient1 = styled.div`
     #ffffff 67.71%,
     rgba(255, 255, 255, 0) 100%
   );
-`;
-
-const Gradient2 = styled.div`
-  position: absolute;
-  top: 730px;
-  width: 100%;
-  height: 50px;
-  z-index: -1;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0) 0%,
-    #ffffff 48.44%,
-    #ffffff 80.71%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  opacity: 0.3;
 `;
 const NextButton = styled.button`
   width: 150.2px;
@@ -259,7 +251,7 @@ const NextButton = styled.button`
 `;
 const NextButtonBox = styled.div`
   position: relative;
-  top: 1050px;
+  top: 100%;
   display: flex;
   justify-content: center;
 `;

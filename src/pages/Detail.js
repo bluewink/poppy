@@ -26,10 +26,12 @@ const NEIGHBOR_API = 'http://ec2-3-35-187-250.ap-northeast-2.compute.amazonaws.c
 
 export default function Detail({ location }) {
   //takeoffer에서 넘어온 data
-  const { address, type, date, cost } = location.state;
+  const { address, type, endDate, startDate } = location.state;
   const isExpert = location.state.expert;
+
   // changed information
   const [server, setServer] = useState(false);
+  const [diffDate, setDiffDate] = useState(Date);
   const [roomImg, setRoomImg] = useState('');
   const [comment, setComment] = useState({
     content: '',
@@ -38,12 +40,12 @@ export default function Detail({ location }) {
   });
   const [content, setContent] = useState();
   const [moreContent, setMoreContent] = useState();
-  // const
   const [title, setTitle] = useState();
   const [name, setName] = useState();
   const [largeCost, setLargeCost] = useState(['40,000원', '50,000원']);
   const [middleCost, setMiddleCost] = useState(['40,000원', '50,000원']);
   const [smallCost, setSmallCost] = useState(['40,000원', '50,000원']);
+
   const [puppy, setPuppy] = useState([
     {
       age: '12살',
@@ -96,7 +98,11 @@ export default function Detail({ location }) {
 
   useEffect(() => {
     const string = 'Wed Dec 23 2020 12:00:06';
+
     console.log(string.split(' ')[2]);
+
+    console.log(startDate);
+    console.log(endDate);
     fetchDatas();
   }, []);
 
@@ -291,7 +297,7 @@ export default function Detail({ location }) {
             pathname: '/confirm',
             state: {
               name: name,
-              date: date,
+              date: diffDate,
               cost: smallCost[0],
             },
           }}
