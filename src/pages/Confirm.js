@@ -47,11 +47,6 @@ export default function Confirm({ location }) {
   );
 }
 
-const ReservationBackground = styled.img`
-  position: relative;
-  top: 200px;
-`;
-
 const InformationGroup = styled.div`
   margin-top: 20px;
 `;
@@ -87,14 +82,14 @@ const Lighter = styled.span`
 const Icon = styled.img``;
 
 const ReservationBox = styled.div`
-  margin: 50px 20px 0 20px;
-
-  background-image: url('confirmIc.png')
-
+  margin: 50px auto 0 auto;
+  max-width: 341px;
+  max-height: 197px;
   border-radius: 23px;
   box-shadow: 0 0 11px 0 rgba(192, 146, 113, 0.24);
   background-color: #ffffff;
   
+  background-image: URL(https://user-images.githubusercontent.com/56102421/103185790-4963bc00-4901-11eb-81b2-98c3cf890c04.png); 
 `;
 
 const PaddingBox = styled.div`

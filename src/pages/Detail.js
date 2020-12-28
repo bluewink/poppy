@@ -18,6 +18,7 @@ import {
   detail_star,
   detail_no_one,
   detail_five_start,
+  detailButtonIc,
 } from '../resources/images';
 
 const EXPERT_API = 'http://ec2-3-35-187-250.ap-northeast-2.compute.amazonaws.com:8000/expert/';
@@ -25,7 +26,8 @@ const NEIGHBOR_API = 'http://ec2-3-35-187-250.ap-northeast-2.compute.amazonaws.c
 
 export default function Detail({ location }) {
   //takeoffer에서 넘어온 data
-  const { address, isExpert, type, date, cost } = location.state;
+  const { address, type, date, cost } = location.state;
+  const isExpert = location.state.expert;
   // changed information
   const [server, setServer] = useState(false);
   const [roomImg, setRoomImg] = useState('');
@@ -82,7 +84,7 @@ export default function Detail({ location }) {
       setLargeCost(response.data.large_dog_cost);
       setMiddleCost(response.data.middle_dog_cost);
       setSmallCost(response.data.small_dog_cost);
-
+      setServer(true);
       if (isExpert) {
         setCertification(response.data.certification);
       }
@@ -93,6 +95,8 @@ export default function Detail({ location }) {
   };
 
   useEffect(() => {
+    console.log(isExpert);
+    console.log(location.state);
     fetchDatas();
   }, []);
 
@@ -252,7 +256,11 @@ export default function Detail({ location }) {
       <ShadowView></ShadowView>
       <ReviewBox>
         <ReviewTitle>
-          돌봄 후기<ReviewNumber>({score.num})</ReviewNumber>
+          <ReviewTitleBox>
+            돌봄 후기
+            <ReviewNumber>({score.num})</ReviewNumber>
+          </ReviewTitleBox>
+          <ReviewMoreButton img={detailButtonIc} />
         </ReviewTitle>
         <StarReviewScore>
           <StarImage src={detail_star} />
@@ -294,6 +302,11 @@ export default function Detail({ location }) {
     </Wrapper>
   );
 }
+
+const ReviewMoreButton = styled.img`
+  // width: 22px;
+  // height: 22px;
+`;
 const EmptyBox = styled.div``;
 const Wrapper = styled.div``;
 
@@ -1016,6 +1029,9 @@ const ReviewBox = styled.div`
 `;
 
 const ReviewTitle = styled.div`
+  display: flex;
+  align-content: space-between;
+  justify-content: space-between;
   margin-left: 10px;
 
   font-family: 'Noto Sans KR', sans-serif;
@@ -1028,6 +1044,8 @@ const ReviewTitle = styled.div`
   text-align: left;
   color: #505050;
 `;
+
+const ReviewTitleBox = styled.div``;
 
 const ReviewNumber = styled.span`
   margin-left: 3px;
