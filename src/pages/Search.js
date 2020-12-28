@@ -8,20 +8,29 @@ import OfferCell from "../components/OfferCell";
 import Header from "../components/Header";
 import DatePicker, { registerLocale } from "react-datepicker";
 import { ko } from "date-fns/esm/locale";
+import moment from "moment";
+import "moment/locale/ko";
 export default function Search({ location }) {
   const [neighbor, setNeighbor] = useState(1);
   const [offerList, setOfferList] = useState([]);
 
   const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(null);
+  const [selectionComplete, toggleSelectionComplete] = useState(false);
+
   const SearchDateCustomInput = ({ value, onClick }) => (
     <SearchPageDatePicker>
       <img src={CalendarIcon} style={{ paddingRight: "3px" }} />
-      <div onClick={onClick}>{value}</div>
+      {/* <div onClick={onClick}>{value}</div> */}
+      <div onClick={onClick}>
+        {startDate ? moment(startDate).format("MM.DD(ddd)") : "??/??/????"} -{" "}
+        {endDate ? moment(endDate).format("MM.DD(ddd)") : null}
+      </div>
     </SearchPageDatePicker>
   );
 
   registerLocale("ko", ko);
-
+  moment.locale("ko");
   let res;
   let tmpList = [];
 
@@ -33,6 +42,44 @@ export default function Search({ location }) {
   useEffect(() => {
     fetchAddressData();
   }, [neighbor]);
+
+  const handleDateChange = (date) => {
+    if (!selectionComplete && !startDate) {
+      setStartDate(date);
+      return;
+    }
+
+    if (!selectionComplete && startDate && !endDate) {
+      setEndDate(date);
+      toggleSelectionComplete(true);
+
+      return;
+    }
+    if (selectionComplete && startDate && endDate) {
+      setStartDate(date);
+      setEndDate(undefined);
+      toggleSelectionComplete(false);
+      return;
+    }
+  };
+
+  const handleSelect = (date) => {
+    if (
+      !selectionComplete &&
+      startDate &&
+      !endDate &&
+      sameDay(date, startDate)
+    ) {
+      handleDateChange(date);
+    }
+  };
+  const sameDay = (d1, d2) => {
+    return (
+      d1.getFullYear() === d2.getFullYear() &&
+      d1.getMonth() === d2.getMonth() &&
+      d1.getDate() === d2.getDate()
+    );
+  };
 
   const handleNeighborTabClick = () => {
     setNeighbor(1);
@@ -64,6 +111,8 @@ export default function Search({ location }) {
     }
   };
 
+  // console.log(startDate);
+  // console.log(endDate);
   if (offerList.length === 0) {
     return <>...loading...</>;
   }
@@ -77,18 +126,22 @@ export default function Search({ location }) {
         이웃을 찾아보세요.
       </SearchPageHeader>
       <SearchOptionBox>
-        <SearchPageAddress>
-          <img src={LocationIcon} /> {parseAddress(location.state.address)}
-        </SearchPageAddress>
         <SearchPageDate>
           <DatePicker
             locale="ko"
-            selected={startDate}
-            onChange={(date) => setStartDate(date)}
+            shouldCloseOnSelect={!selectionComplete}
             customInput={<SearchDateCustomInput />}
-            dateFormat="yyyy.MM.dd(eee)"
+            selected={startDate}
+            onChange={handleDateChange}
+            onSelect={handleSelect}
+            selectsEnd={Boolean(startDate)}
+            startDate={startDate}
+            endDate={endDate}
           />
         </SearchPageDate>
+        <SearchPageAddress>
+          <img src={LocationIcon} /> {parseAddress(location.state.address)}
+        </SearchPageAddress>
       </SearchOptionBox>
 
       <SearchTabBox>
@@ -102,7 +155,11 @@ export default function Search({ location }) {
       <FilterBox>{/* <FilterOption> 거리순 </FilterOption> */}</FilterBox>
 
       <OfferList>
-        <OfferCell {...{ offerList }}></OfferCell>
+        <OfferCell
+          {...{ offerList }}
+          startDate={startDate}
+          endDate={endDate}
+        ></OfferCell>
       </OfferList>
     </div>
   );

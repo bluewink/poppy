@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
+import axios from "axios";
 
-import Header from '../components/Header';
-import ARTICLE_DATA from '../resources/Json/article.json';
+import Header from "../components/Header";
+import ARTICLE_DATA from "../resources/Json/article.json";
 
 import {
   img2,
@@ -20,12 +20,16 @@ import {
   detail_star,
   detail_no_one,
   detail_five_start,
-} from '../resources/images';
+} from "../resources/images";
 
-const EXPERT_API = 'http://ec2-3-35-187-250.ap-northeast-2.compute.amazonaws.com:8000/expert/';
-const NEIGHBOR_API = 'http://ec2-3-35-187-250.ap-northeast-2.compute.amazonaws.com:8000/non_expert/';
+const EXPERT_API =
+  "http://ec2-3-35-187-250.ap-northeast-2.compute.amazonaws.com:8000/expert/";
+const NEIGHBOR_API =
+  "http://ec2-3-35-187-250.ap-northeast-2.compute.amazonaws.com:8000/non_expert/";
 
 export default function Detail({ location }) {
+  console.log(location);
+
   //takeoffer에서 넘어온 data
   const address = location.state.address;
   const isExpert = location.state.expert;
@@ -33,11 +37,11 @@ export default function Detail({ location }) {
 
   // changed information
   const [server, setServer] = useState(false);
-  const [roomImg, setRoomImg] = useState('');
+  const [roomImg, setRoomImg] = useState("");
   const [comment, setComment] = useState({
-    content: '',
-    date: '',
-    name: '장*나',
+    content: "",
+    date: "",
+    name: "장*나",
   });
   const [content, setContent] = useState();
   const [moreContent, setMoreContent] = useState();
@@ -46,18 +50,19 @@ export default function Detail({ location }) {
   const [name, setName] = useState();
   const [puppy, setPuppy] = useState([
     {
-      age: '12살',
-      breed: '닥스훈트',
-      character: '나이 때문인지 느긋하고 온순해요~ 다른 강아지들과 잘 어울려요ㅎㅎ',
+      age: "12살",
+      breed: "닥스훈트",
+      character:
+        "나이 때문인지 느긋하고 온순해요~ 다른 강아지들과 잘 어울려요ㅎㅎ",
       img:
-        'https://github.com/AlphaTechnic/poppy_project_testing_backend/blob/master/PoppyTest/img/dog_expert3.png?raw=true ',
-      name: '구름',
+        "https://github.com/AlphaTechnic/poppy_project_testing_backend/blob/master/PoppyTest/img/dog_expert3.png?raw=true ",
+      name: "구름",
     },
   ]);
   const [certification, setCertification] = useState([
     {
-      acquisition_date: '2016. 9. 27',
-      name: '반려동물관리사 1급',
+      acquisition_date: "2016. 9. 27",
+      name: "반려동물관리사 1급",
     },
   ]);
   const [score, setScore] = useState({
@@ -68,7 +73,7 @@ export default function Detail({ location }) {
   const fetchDatas = async () => {
     try {
       const response = await axios({
-        method: 'get',
+        method: "get",
         url: isExpert ? EXPERT_API + index : NEIGHBOR_API + index,
       });
       console.log(response);
@@ -85,7 +90,7 @@ export default function Detail({ location }) {
         setCertification(response.data.certification);
       }
     } catch (e) {
-      console.log('fetch failed!!!');
+      console.log("fetch failed!!!");
       console.log(e);
     }
   };
@@ -94,16 +99,16 @@ export default function Detail({ location }) {
     fetchDatas();
   }, []);
 
-  const [moreText, setMoreText] = useState('더보기');
+  const [moreText, setMoreText] = useState("더보기");
   const [moreSwitch, setMoreSwitch] = useState(false);
 
   const handleMore = () => {
     if (moreSwitch) {
       setMoreSwitch(false);
-      setMoreText('더보기');
+      setMoreText("더보기");
     } else {
       setMoreSwitch(true);
-      setMoreText('줄어들기');
+      setMoreText("줄어들기");
     }
   };
 
@@ -171,7 +176,8 @@ export default function Detail({ location }) {
 
           <ElementRow>
             <FirstColumn>
-              <WhichDog>중형견</WhichDog> <WhichWeight>7키로~15키로</WhichWeight>
+              <WhichDog>중형견</WhichDog>{" "}
+              <WhichWeight>7키로~15키로</WhichWeight>
             </FirstColumn>
             <SecondColumn>
               <DayCost>10,000원</DayCost>
@@ -637,7 +643,7 @@ const LineView = styled.div`
 const WhichDog = styled.span`
   padding: 0 16px 0 0;
 
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   font-size: 16px;
   font-weight: 500;
   font-stretch: normal;
@@ -649,7 +655,7 @@ const WhichDog = styled.span`
 `;
 
 const WhichWeight = styled.span`
-  font-family: 'Work Sans', sans-serif;
+  font-family: "Work Sans", sans-serif;
   font-size: 14px;
   font-weight: normal;
   letter-spacing: normal;
@@ -681,7 +687,7 @@ const ServiceCellIcon = styled.img`
 const ServiceCellTitle = styled.div`
   margin-left: 4px;
 
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   font-size: 14px;
   font-weight: 500;
   font-stretch: normal;
@@ -754,7 +760,7 @@ const WarningSign = styled.div`
   display: flex;
   align-items: center;
 
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   font-size: 14px;
   font-weight: normal;
   font-stretch: normal;
@@ -782,7 +788,7 @@ const ExpertBox = styled.div`
 const ExpertTitle = styled.div`
   margin: 15px 25px 0 25px;
 
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   font-size: 18px;
   font-weight: bold;
   font-stretch: normal;
@@ -808,7 +814,7 @@ const ExpertTable = styled.div`
 const ExpertColumn = styled.div``;
 
 const ExpertCard = styled.div`
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   font-size: 16px;
   font-weight: bold;
   font-stretch: normal;
@@ -834,7 +840,7 @@ const ExpertDate = styled.div`
 `;
 
 const ExpertPlace = styled.div`
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   font-size: 12px;
   font-weight: 500;
   font-stretch: normal;
@@ -862,7 +868,7 @@ const NextButton = styled.button`
 
   padding: 0 25px;
 
-  font-family: 'DM Sans', sans-serif;
+  font-family: "DM Sans", sans-serif;
   font-size: 18px;
   font-weight: bold;
   font-stretch: normal;
@@ -926,7 +932,7 @@ const BestTitle = styled.span`
   border-radius: 8px;
   background-color: #ff9777;
 
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   font-size: 15px;
   font-weight: 500;
   font-stretch: normal;
@@ -988,7 +994,7 @@ const ReviewScore = styled.div`
 const GrayScore = styled.span`
   margin: 0 1px 4px 0;
 
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   font-size: 18px;
   font-weight: normal;
   font-stretch: normal;
@@ -1007,7 +1013,7 @@ const ReviewBox = styled.div`
 const ReviewTitle = styled.div`
   margin-left: 10px;
 
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   font-size: 18px;
   font-weight: bold;
   font-stretch: normal;

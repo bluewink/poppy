@@ -3,10 +3,8 @@ import styled, { css } from "styled-components";
 import { OfferPic1 } from "../resources/images";
 import { Link } from "react-router-dom";
 import StarRatings from "react-star-ratings";
-export default function OfferCell({ offerList }) {
+export default function OfferCell({ offerList, startDate, endDate }) {
   useEffect(() => {}, [offerList]);
-
-  console.log("offerCell ", offerList);
 
   const parseAddress = (address) => {
     const words = address.split(" ");
@@ -26,6 +24,8 @@ export default function OfferCell({ offerList }) {
                 address: offer.address,
                 expert: offer.expert_or_not,
                 type: offer.type,
+                startDate: startDate,
+                endDate: endDate,
               },
             }}
             style={{ textDecoration: "none" }}
