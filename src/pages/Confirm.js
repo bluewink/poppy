@@ -5,7 +5,9 @@ import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import { confirmIc1, confirmIc } from '../resources/images';
 
-export default function Confirm() {
+export default function Confirm({ location }) {
+  const { name, date, oneDay, diffDate, cost } = location.state;
+
   return (
     <Wrapper>
       <>
@@ -15,22 +17,21 @@ export default function Confirm() {
           확정해주세요!
         </PageTitle>
         <ReservationBox image={confirmIc}>
-          {/* <ReservationBackground src={confirmIc} /> */}
           <PaddingBox>
             <Icon src={confirmIc1} />
             <InformationTitle>예약 정보</InformationTitle>
             <InformationGroup>
               <InformationSubTitle>
-                돌봄 이웃: <Lighter>홍길동</Lighter>
+                돌봄 이웃: <Lighter>{name}</Lighter>
               </InformationSubTitle>
               <InformationSubTitle>
-                이용할 서비스: <Lighter>소형견 / 당일 케어</Lighter>
+                이용할 서비스: <Lighter>소형견 /{oneDay ? ' 당일케어' : diffDate + ' 박돌봄'}</Lighter>
               </InformationSubTitle>
               <InformationSubTitle>
-                날짜: <Lighter>2020년 12월 21일 </Lighter>
+                날짜: <Lighter>{date} </Lighter>
               </InformationSubTitle>
               <InformationSubTitle>
-                요금: <Lighter>20,000원</Lighter>
+                요금: <Lighter>{cost}</Lighter>
               </InformationSubTitle>
             </InformationGroup>
           </PaddingBox>
@@ -46,11 +47,6 @@ export default function Confirm() {
     </Wrapper>
   );
 }
-
-const ReservationBackground = styled.img`
-  position: relative;
-  top: 200px;
-`;
 
 const InformationGroup = styled.div`
   margin-top: 20px;
@@ -87,14 +83,14 @@ const Lighter = styled.span`
 const Icon = styled.img``;
 
 const ReservationBox = styled.div`
-  margin: 50px 20px 0 20px;
-
-  background-image: url('confirmIc.png')
-
+  margin: 50px auto 0 auto;
+  max-width: 341px;
+  max-height: 197px;
   border-radius: 23px;
   box-shadow: 0 0 11px 0 rgba(192, 146, 113, 0.24);
   background-color: #ffffff;
   
+  background-image: URL(https://user-images.githubusercontent.com/56102421/103185790-4963bc00-4901-11eb-81b2-98c3cf890c04.png); 
 `;
 
 const PaddingBox = styled.div`

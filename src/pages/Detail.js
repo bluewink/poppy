@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-import { Link } from "react-router-dom";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+import moment from 'moment';
 
-import Header from "../components/Header";
-import ARTICLE_DATA from "../resources/Json/article.json";
+import Header from '../components/Header';
+import ARTICLE_DATA from '../resources/Json/article.json';
 
 import {
   img2,
@@ -14,55 +15,54 @@ import {
   detailIc4,
   detailIc5,
   detailIc6,
-  detail_photo_1,
-  detail_view_photo_1,
   detail_warning_sign,
   detail_star,
   detail_no_one,
   detail_five_start,
-} from "../resources/images";
+  detailButtonIc,
+} from '../resources/images';
 
-const EXPERT_API =
-  "http://ec2-3-35-187-250.ap-northeast-2.compute.amazonaws.com:8000/expert/";
-const NEIGHBOR_API =
-  "http://ec2-3-35-187-250.ap-northeast-2.compute.amazonaws.com:8000/non_expert/";
+const EXPERT_API = 'http://ec2-3-35-187-250.ap-northeast-2.compute.amazonaws.com:8000/expert/';
+const NEIGHBOR_API = 'http://ec2-3-35-187-250.ap-northeast-2.compute.amazonaws.com:8000/non_expert/';
 
 export default function Detail({ location }) {
-  console.log(location);
-
   //takeoffer에서 넘어온 data
-  const address = location.state.address;
+  const { address, type, endDate, startDate } = location.state;
   const isExpert = location.state.expert;
-  const index = location.state.type;
 
   // changed information
   const [server, setServer] = useState(false);
-  const [roomImg, setRoomImg] = useState("");
+  const [diffDate, setDiffDate] = useState(1);
+  const [dates, setDates] = useState('');
+  const [oneDay, setOneDay] = useState(true);
+  const [roomImg, setRoomImg] = useState('');
   const [comment, setComment] = useState({
-    content: "",
-    date: "",
-    name: "장*나",
+    content: '',
+    date: '',
+    name: '장*나',
   });
   const [content, setContent] = useState();
   const [moreContent, setMoreContent] = useState();
-  // const
   const [title, setTitle] = useState();
   const [name, setName] = useState();
+  const [largeCost, setLargeCost] = useState(['40,000원', '50,000원']);
+  const [middleCost, setMiddleCost] = useState(['40,000원', '50,000원']);
+  const [smallCost, setSmallCost] = useState(['40,000원', '50,000원']);
+
   const [puppy, setPuppy] = useState([
     {
-      age: "12살",
-      breed: "닥스훈트",
-      character:
-        "나이 때문인지 느긋하고 온순해요~ 다른 강아지들과 잘 어울려요ㅎㅎ",
+      age: '12살',
+      breed: '닥스훈트',
+      character: '나이 때문인지 느긋하고 온순해요~ 다른 강아지들과 잘 어울려요ㅎㅎ',
       img:
-        "https://github.com/AlphaTechnic/poppy_project_testing_backend/blob/master/PoppyTest/img/dog_expert3.png?raw=true ",
-      name: "구름",
+        'https://github.com/AlphaTechnic/poppy_project_testing_backend/blob/master/PoppyTest/img/dog_expert3.png?raw=true ',
+      name: '구름',
     },
   ]);
   const [certification, setCertification] = useState([
     {
-      acquisition_date: "2016. 9. 27",
-      name: "반려동물관리사 1급",
+      acquisition_date: '2016. 9. 27',
+      name: '반려동물관리사 1급',
     },
   ]);
   const [score, setScore] = useState({
@@ -73,10 +73,9 @@ export default function Detail({ location }) {
   const fetchDatas = async () => {
     try {
       const response = await axios({
-        method: "get",
-        url: isExpert ? EXPERT_API + index : NEIGHBOR_API + index,
+        method: 'get',
+        url: isExpert ? EXPERT_API + type : NEIGHBOR_API + type,
       });
-      console.log(response);
 
       setComment(response.data.comment);
       setRoomImg(response.data.room_img);
@@ -86,29 +85,59 @@ export default function Detail({ location }) {
       setName(response.data.name);
       setScore(response.data.score);
       setPuppy(response.data.puppy);
+      setLargeCost(response.data.large_dog_cost);
+      setMiddleCost(response.data.middle_dog_cost);
+      setSmallCost(response.data.small_dog_cost);
+      setServer(true);
+
       if (isExpert) {
         setCertification(response.data.certification);
       }
     } catch (e) {
-      console.log("fetch failed!!!");
+      console.log('fetch failed!!!');
       console.log(e);
     }
   };
 
   useEffect(() => {
+    console.log(endDate);
+    console.log(startDate.getDay());
+    console.log(startDate.getFullYear());
+    console.log(startDate.getMonth());
+
+    const year = startDate.getFullYear();
+    const month = startDate.getMonth();
+    const day = startDate.getDay();
+
+    setDates(year + '년' + month + '월' + day + '일');
+
+    if (endDate !== null) {
+      const e_year = endDate.getFullYear();
+      const e_month = endDate.getMonth();
+      const e_day = endDate.getDay();
+
+      if (e_year === year && e_month === month && e_day === day) {
+        setDates(year + '년' + month + '월' + day + '일');
+      } else {
+        setDates(year + '년' + month + '월' + day + '일 ~ ' + e_year + '년' + e_month + '월' + e_day + '일');
+        setDiffDate(Math.abs(moment([e_year, e_month, e_day]).diff(moment([year, month, day]), 'days')));
+        setOneDay(false);
+      }
+    }
+
     fetchDatas();
   }, []);
 
-  const [moreText, setMoreText] = useState("더보기");
+  const [moreText, setMoreText] = useState('더보기');
   const [moreSwitch, setMoreSwitch] = useState(false);
 
   const handleMore = () => {
     if (moreSwitch) {
       setMoreSwitch(false);
-      setMoreText("더보기");
+      setMoreText('더보기');
     } else {
       setMoreSwitch(true);
-      setMoreText("줄어들기");
+      setMoreText('줄어들기');
     }
   };
 
@@ -169,19 +198,18 @@ export default function Detail({ location }) {
               <WhichDog>소형견</WhichDog> <WhichWeight>7키로 미만</WhichWeight>
             </FirstColumn>
             <SecondColumn>
-              <DayCost>10,000원</DayCost>
-              <MonthCost>20,000원</MonthCost>
+              <DayCost>{smallCost[0]}</DayCost>
+              <MonthCost>{smallCost[1]}</MonthCost>
             </SecondColumn>
           </ElementRow>
 
           <ElementRow>
             <FirstColumn>
-              <WhichDog>중형견</WhichDog>{" "}
-              <WhichWeight>7키로~15키로</WhichWeight>
+              <WhichDog>중형견</WhichDog> <WhichWeight>7키로~15키로</WhichWeight>
             </FirstColumn>
             <SecondColumn>
-              <DayCost>10,000원</DayCost>
-              <MonthCost>20,000원</MonthCost>
+              <DayCost>{middleCost[0]}</DayCost>
+              <MonthCost>{middleCost[1]}</MonthCost>
             </SecondColumn>
           </ElementRow>
 
@@ -190,8 +218,8 @@ export default function Detail({ location }) {
               <WhichDog>대형견</WhichDog> <WhichWeight>15키로 이상</WhichWeight>
             </FirstColumn>
             <SecondColumn>
-              <DayCost>10,000원</DayCost>
-              <MonthCost>20,000원</MonthCost>
+              <DayCost>{largeCost[0]}</DayCost>
+              <MonthCost>{largeCost[1]}</MonthCost>
             </SecondColumn>
           </ElementRow>
         </FeeTable>
@@ -256,7 +284,11 @@ export default function Detail({ location }) {
       <ShadowView></ShadowView>
       <ReviewBox>
         <ReviewTitle>
-          돌봄 후기<ReviewNumber>({score.num})</ReviewNumber>
+          <ReviewTitleBox>
+            돌봄 후기
+            <ReviewNumber>({score.num})</ReviewNumber>
+          </ReviewTitleBox>
+          <ReviewMoreButton img={detailButtonIc} />
         </ReviewTitle>
         <StarReviewScore>
           <StarImage src={detail_star} />
@@ -282,13 +314,29 @@ export default function Detail({ location }) {
         </BestReview>
       </ReviewBox>
       <NextBox>
-        <Link to="/confirm">
+        <Link
+          to={{
+            pathname: '/confirm',
+            state: {
+              oneDay: oneDay,
+              name: name,
+              date: dates,
+              cost: diffDate * smallCost[0],
+              diffDate: diffDate,
+            },
+          }}
+        >
           <NextButton>예약하기</NextButton>
         </Link>
       </NextBox>
     </Wrapper>
   );
 }
+
+const ReviewMoreButton = styled.img`
+  // width: 22px;
+  // height: 22px;
+`;
 const EmptyBox = styled.div``;
 const Wrapper = styled.div``;
 
@@ -643,7 +691,7 @@ const LineView = styled.div`
 const WhichDog = styled.span`
   padding: 0 16px 0 0;
 
-  font-family: "Noto Sans KR", sans-serif;
+  font-family: 'Noto Sans KR', sans-serif;
   font-size: 16px;
   font-weight: 500;
   font-stretch: normal;
@@ -655,7 +703,7 @@ const WhichDog = styled.span`
 `;
 
 const WhichWeight = styled.span`
-  font-family: "Work Sans", sans-serif;
+  font-family: 'Work Sans', sans-serif;
   font-size: 14px;
   font-weight: normal;
   letter-spacing: normal;
@@ -687,7 +735,7 @@ const ServiceCellIcon = styled.img`
 const ServiceCellTitle = styled.div`
   margin-left: 4px;
 
-  font-family: "Noto Sans KR", sans-serif;
+  font-family: 'Noto Sans KR', sans-serif;
   font-size: 14px;
   font-weight: 500;
   font-stretch: normal;
@@ -760,7 +808,7 @@ const WarningSign = styled.div`
   display: flex;
   align-items: center;
 
-  font-family: "Noto Sans KR", sans-serif;
+  font-family: 'Noto Sans KR', sans-serif;
   font-size: 14px;
   font-weight: normal;
   font-stretch: normal;
@@ -788,7 +836,7 @@ const ExpertBox = styled.div`
 const ExpertTitle = styled.div`
   margin: 15px 25px 0 25px;
 
-  font-family: "Noto Sans KR", sans-serif;
+  font-family: 'Noto Sans KR', sans-serif;
   font-size: 18px;
   font-weight: bold;
   font-stretch: normal;
@@ -814,7 +862,7 @@ const ExpertTable = styled.div`
 const ExpertColumn = styled.div``;
 
 const ExpertCard = styled.div`
-  font-family: "Noto Sans KR", sans-serif;
+  font-family: 'Noto Sans KR', sans-serif;
   font-size: 16px;
   font-weight: bold;
   font-stretch: normal;
@@ -840,7 +888,7 @@ const ExpertDate = styled.div`
 `;
 
 const ExpertPlace = styled.div`
-  font-family: "Noto Sans KR", sans-serif;
+  font-family: 'Noto Sans KR', sans-serif;
   font-size: 12px;
   font-weight: 500;
   font-stretch: normal;
@@ -868,7 +916,7 @@ const NextButton = styled.button`
 
   padding: 0 25px;
 
-  font-family: "DM Sans", sans-serif;
+  font-family: 'DM Sans', sans-serif;
   font-size: 18px;
   font-weight: bold;
   font-stretch: normal;
@@ -932,7 +980,7 @@ const BestTitle = styled.span`
   border-radius: 8px;
   background-color: #ff9777;
 
-  font-family: "Noto Sans KR", sans-serif;
+  font-family: 'Noto Sans KR', sans-serif;
   font-size: 15px;
   font-weight: 500;
   font-stretch: normal;
@@ -994,7 +1042,7 @@ const ReviewScore = styled.div`
 const GrayScore = styled.span`
   margin: 0 1px 4px 0;
 
-  font-family: "Noto Sans KR", sans-serif;
+  font-family: 'Noto Sans KR', sans-serif;
   font-size: 18px;
   font-weight: normal;
   font-stretch: normal;
@@ -1011,9 +1059,12 @@ const ReviewBox = styled.div`
 `;
 
 const ReviewTitle = styled.div`
+  display: flex;
+  align-content: space-between;
+  justify-content: space-between;
   margin-left: 10px;
 
-  font-family: "Noto Sans KR", sans-serif;
+  font-family: 'Noto Sans KR', sans-serif;
   font-size: 18px;
   font-weight: bold;
   font-stretch: normal;
@@ -1023,6 +1074,8 @@ const ReviewTitle = styled.div`
   text-align: left;
   color: #505050;
 `;
+
+const ReviewTitleBox = styled.div``;
 
 const ReviewNumber = styled.span`
   margin-left: 3px;

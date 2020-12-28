@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 
-import { TextUnderLine, LocationIc, LocationBackground, address_poppy } from '../resources/images';
+import { TextUnderLine, LocationBackground, address_poppy, LocationIcon } from '../resources/images';
 import DaumAPI from '../components/DaumAPI';
 
 export default function Address() {
@@ -28,9 +28,12 @@ export default function Address() {
             <br />
             어디인가요?
           </Title>
-          <AddressBox>
-            <AddressInput type="text" value={addressText} disabled />
 
+          <AddressBox>
+            <AddressInput>
+              <LocationIc src={LocationIcon} />
+              {addressText}
+            </AddressInput>
             <AddressButton onClick={openModal}>주소검색</AddressButton>
           </AddressBox>
           <ExampleTitle>
@@ -61,6 +64,11 @@ export default function Address() {
   );
 }
 
+const LocationIc = styled.img`
+  // width: 20px;
+  // height: 20px;
+`;
+
 const Wrapper = styled.div``;
 
 const Title = styled.div`
@@ -75,11 +83,16 @@ const Title = styled.div`
   color: #131313;
 `;
 
-const AddressInput = styled.input`
-  margin: 18px 6px 0px 17px;
+const AddressInput = styled.div`
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  align-content: center;
+  margin: 0px 6px 0px 17px;
+  word-break: nowrap;
 
   width: 62%;
-  padding: 10px 9px 10px 26px;
+  padding: 10px 9px 10px 5px;
   border-radius: 5px;
 
   border: 1px solid #d1d1d1;
@@ -97,6 +110,9 @@ const AddressInput = styled.input`
   letter-spacing: -1px;
   text-align: left;
   color: #505050;
+
+  overflow: hidden;
+  white-space: nowrap;
 `;
 
 const AddressBox = styled.div`

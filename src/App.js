@@ -34,5 +34,5 @@ const MobileSize = styled.div`
   margin: 0px auto;
   position: relative;
   z-index: 100;
-  border: 0.1px solid black;
+  border: 0.1px solid gray;
 `;
