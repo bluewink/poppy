@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import moment from 'moment';
 
 import Header from '../components/Header';
 import ARTICLE_DATA from '../resources/Json/article.json';
@@ -31,7 +32,9 @@ export default function Detail({ location }) {
 
   // changed information
   const [server, setServer] = useState(false);
-  const [diffDate, setDiffDate] = useState(Date);
+  const [diffDate, setDiffDate] = useState(1);
+  const [dates, setDates] = useState('');
+  const [oneDay, setOneDay] = useState(0);
   const [roomImg, setRoomImg] = useState('');
   const [comment, setComment] = useState({
     content: '',
@@ -101,8 +104,33 @@ export default function Detail({ location }) {
 
     console.log(string.split(' ')[2]);
 
-    console.log(startDate);
     console.log(endDate);
+    console.log(startDate.getDay());
+    console.log(startDate.getFullYear());
+    console.log(startDate.getMonth());
+
+    const year = startDate.getFullYear();
+    const month = startDate.getMonth();
+    const day = startDate.getDay();
+
+    setDates(year + '년' + month + '월' + day + '일');
+
+    if (endDate !== null) {
+      const e_year = endDate.getFullYear();
+      const e_month = endDate.getMonth();
+      const e_day = endDate.getDay();
+
+      setDiffDate(Math.abs(moment([e_year, e_month, e_day]).diff(moment([year, month, day]), 'days')));
+
+      if (e_year === year && e_month === month && e_day === day) {
+        setDates(year + '년' + month + '월' + day + '일');
+      } else {
+        setDates(year + '년' + month + '월' + day + '일 ~ ' + e_year + '년' + month + '월' + day + '일');
+      }
+
+      setOneDay(1);
+    }
+
     fetchDatas();
   }, []);
 
@@ -296,9 +324,10 @@ export default function Detail({ location }) {
           to={{
             pathname: '/confirm',
             state: {
+              oneDay: oneDay,
               name: name,
-              date: diffDate,
-              cost: smallCost[0],
+              date: dates,
+              cost: diffDate * smallCost[0],
             },
           }}
         >
