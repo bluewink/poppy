@@ -79,7 +79,7 @@ export default function Detail({ location }) {
 
       setComment(response.data.comment);
       setRoomImg(response.data.room_img);
-      setContent(response.data.content.slice(0, 150));
+      setContent(response.data.content.slice(0, 140) + '...');
       setMoreContent(response.data.content);
       setTitle(response.data.title);
       setName(response.data.name);
@@ -148,15 +148,15 @@ export default function Detail({ location }) {
       <ProfileBox>
         <ProfileThumbnail src={img2} />
         <ProfileTextBox>
-          <ProfileTitle>{title}</ProfileTitle>
           <ProfileContent>
-            {name} <ProfileAddress>{address}</ProfileAddress>
+            <ProfileTitle>{title}</ProfileTitle>
+            &nbsp;{name}&nbsp;&nbsp;<ProfileAddress>{address}</ProfileAddress>
           </ProfileContent>
         </ProfileTextBox>
       </ProfileBox>
       <ShadowView></ShadowView>
       <IntroduceBox>
-        <IntroduceTitle>이웃 소개</IntroduceTitle>
+        <IntroduceTitle>이웃집 돌보미 소개</IntroduceTitle>
         <IntroduceText>
           {moreSwitch ? moreContent : content}
           <MoreButton onClick={handleMore}>{moreText}</MoreButton>
@@ -165,9 +165,9 @@ export default function Detail({ location }) {
       <ShadowView></ShadowView>
       <FamilyBox>
         <FamilyTitle>가족 소개</FamilyTitle>
-        {puppy.map((dog) => {
-          return (
-            <FamilyTable>
+        <FamilyTable>
+          {puppy.map((dog) => {
+            return (
               <FamilyCell>
                 <DogImage src={dog.img} />
                 <DogText>
@@ -178,9 +178,9 @@ export default function Detail({ location }) {
                   <DogIntroduce>{dog.character}</DogIntroduce>
                 </DogText>
               </FamilyCell>
-            </FamilyTable>
-          );
-        })}
+            );
+          })}
+        </FamilyTable>
       </FamilyBox>
       <FeeBox>
         <FeeTitle>요금 소개</FeeTitle>
@@ -195,31 +195,56 @@ export default function Detail({ location }) {
           <LineView />
           <ElementRow>
             <FirstColumn>
-              <WhichDog>소형견</WhichDog> <WhichWeight>7키로 미만</WhichWeight>
+              <WhichDog>소형견</WhichDog>&nbsp;&nbsp;
+              <WhichWeight>
+                7kg&nbsp;<Noto>미만</Noto>
+              </WhichWeight>
             </FirstColumn>
             <SecondColumn>
-              <DayCost>{smallCost[0]}</DayCost>
-              <MonthCost>{smallCost[1]}</MonthCost>
+              <DayCost>
+                {smallCost[0]}
+                <Noto>원</Noto>
+              </DayCost>
+              <MonthCost>
+                {smallCost[1]}
+                <Noto>원</Noto>
+              </MonthCost>
             </SecondColumn>
           </ElementRow>
 
           <ElementRow>
             <FirstColumn>
-              <WhichDog>중형견</WhichDog> <WhichWeight>7키로~15키로</WhichWeight>
+              <WhichDog>중형견</WhichDog>&nbsp;&nbsp;
+              <WhichWeight>7kg ~ 15kg</WhichWeight>
             </FirstColumn>
             <SecondColumn>
-              <DayCost>{middleCost[0]}</DayCost>
-              <MonthCost>{middleCost[1]}</MonthCost>
+              <DayCost>
+                {middleCost[0]}
+                <Noto>원</Noto>
+              </DayCost>
+              <MonthCost>
+                {middleCost[1]}
+                <Noto>원</Noto>
+              </MonthCost>
             </SecondColumn>
           </ElementRow>
 
           <ElementRow>
             <FirstColumn>
-              <WhichDog>대형견</WhichDog> <WhichWeight>15키로 이상</WhichWeight>
+              <WhichDog>대형견</WhichDog>&nbsp;&nbsp;
+              <WhichWeight>
+                15kg&nbsp;<Noto>이상</Noto>
+              </WhichWeight>
             </FirstColumn>
             <SecondColumn>
-              <DayCost>{largeCost[0]}</DayCost>
-              <MonthCost>{largeCost[1]}</MonthCost>
+              <DayCost>
+                {largeCost[0]}
+                <Noto>원</Noto>
+              </DayCost>
+              <MonthCost>
+                {largeCost[1]}
+                <Noto>원</Noto>
+              </MonthCost>
             </SecondColumn>
           </ElementRow>
         </FeeTable>
@@ -354,11 +379,11 @@ const ProfileBox = styled.div`
 `;
 
 const ProfileThumbnail = styled.img`
-  margin-left: 20px;
+  margin-left: 19px;
   width: 56px;
   height: 56px;
 
-  margin-right: 5px;
+  margin-right: 8px;
   border-radius: 50px;
 `;
 
@@ -375,26 +400,30 @@ const ProfileTitle = styled.div`
   font-style: normal;
   font-weight: bold;
   font-size: 24px;
+  line-height: 33px;
 
   letter-spacing: -1px;
+
+  color: #2c2c2c;
 `;
 
 const ProfileContent = styled.div`
+  position: relative;
+  height: -7px;
+
   font-family: Noto Sans KR;
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
-  line-height: 24px;
-
   letter-spacing: -1px;
+
+  color: #505050;
 `;
 
 const ProfileAddress = styled.span`
-  margin-left: 6px;
-
   font-family: Noto Sans KR;
   font-style: normal;
-  font-weight: normal;
+  font-weight: 300;
   font-size: 14px;
 
   letter-spacing: -1px;
@@ -407,7 +436,8 @@ const IntroduceBox = styled.div`
   flex-direction: column;
 
   margin: 0;
-  padding: 22px 25px;
+  padding-top: 26px;
+  padding: 26px 24px;
 
   box-shadow: 0px 1px 3px rgba(129, 129, 129, 0.18);
   border-radius: 8px;
@@ -418,7 +448,7 @@ const IntroduceTitle = styled.div`
   font-family: Noto Sans KR;
   font-style: normal;
   font-weight: bold;
-  font-size: 18px;
+  font-size: 20px;
   line-height: 20px;
 
   letter-spacing: -1px;
@@ -427,15 +457,19 @@ const IntroduceTitle = styled.div`
 `;
 
 const IntroduceText = styled.div`
-  margin-top: 8px;
+  margin-top: 10px;
+  margin-left: 1px;
+  margin-bottom: 9px;
 
   font-family: Noto Sans KR;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 15px;
-  line-height: 22px;
-
+  font-size: 16px;
+  font-weight: 300;
+  font-stretch: normal;
+  font-style: regular;
+  line-height: 1.53;
   letter-spacing: -1px;
+  text-align: left;
+  /* gray */
 
   color: #9d9d9d;
 `;
@@ -443,9 +477,9 @@ const IntroduceText = styled.div`
 const MoreButton = styled.button`
   font-family: Noto Sans KR;
   font-style: normal;
-  font-weight: normal;
+  font-weight: 300;
   font-size: 15px;
-  line-height: 22px;
+  // line-height: 22px;
 
   letter-spacing: -1px;
 
@@ -466,9 +500,7 @@ const DogText = styled.div`
   flex-direction: column;
 `;
 
-const DogName = styled.div`
-  margin-bottom: 3px;
-
+const DogName = styled.span`
   font-family: Noto Sans KR;
   font-style: normal;
   font-weight: bold;
@@ -485,24 +517,27 @@ const DogName = styled.div`
   color: #ff9777;
 `;
 
-const DogSubDetail = styled.div`
+const DogSubDetail = styled.span`
   font-family: Noto Sans KR;
   font-style: normal;
-  font-weight: normal;
+  font-weight: 300;
   font-size: 14px;
-  line-height: 20px;
+  line-height: 20.5px;
+  /* or 146% */
 
   display: flex;
   align-items: center;
   letter-spacing: -0.02em;
 
-  color: #9d9d9d;
+  /* gray */
+
+  color: #505050;
 `;
 
-const DogIntroduce = styled.div`
+const DogIntroduce = styled.span`
   font-family: Noto Sans KR;
   font-style: normal;
-  font-weight: normal;
+  font-weight: 300;
   font-size: 14px;
   line-height: 18px;
   /* or 129% */
@@ -519,6 +554,7 @@ const DogIntroduce = styled.div`
 const FamilyCell = styled.div`
   padding: 15px;
 
+  margin-top: 10px;
   background: #fafafa;
   box-shadow: 0px 1px 3px rgba(129, 129, 129, 0.18);
   border-radius: 8px;
@@ -532,17 +568,21 @@ const DogImage = styled.img`
   width: 64px;
   height: 64px;
   border-radius: 50px;
-  margin-right: 10px;
+  margin-left: 3px;
+  margin-right: 11px;
+  margin-bottom: -1px;
 `;
 
 const FamilyBox = styled.div`
   display: flex;
   flex-direction: column;
 
-  margin: 40px 25px;
+  margin: 45px 16px 0 16px;
 `;
 
 const FamilyTitle = styled.div`
+  margin-left: 8px;
+
   font-family: Noto Sans KR;
   font-style: normal;
   font-weight: bold;
@@ -555,18 +595,18 @@ const FamilyTitle = styled.div`
 `;
 
 const FamilyTable = styled.div`
-  margin-top: 12px;
+  margin-top: 2px;
 `;
 
 const FeeBox = styled.div`
   display: flex;
   flex-direction: column;
 
-  margin: 40px 0 0 0;
+  margin: 49px 0 0 0;
 `;
 
 const FeeTitle = styled.div`
-  margin: 0 0 12px 25px;
+  margin: 0 0 0 24px;
 
   font-family: Noto Sans KR;
   font-style: normal;
@@ -588,7 +628,7 @@ const FeeTable = styled.div`
   display: flex;
   flex-direction: column;
 
-  margin: 0 16px;
+  margin: 15px 16px 0 16px;
   padding: 18px 20px 20px;
   border-radius: 8px;
 
@@ -597,7 +637,6 @@ const FeeTable = styled.div`
 `;
 
 const TitleRow = styled.div`
-  margin: 0 0 8px 0;
   display: flex;
   justify-content: space-between;
 `;
@@ -606,7 +645,7 @@ const ElementRow = styled.div`
   display: flex;
   justify-content: space-between;
 
-  margin: 3px 0;
+  margin: 8px 0 0 0x;
 `;
 
 const FirstColumnTitle = styled.div`
@@ -653,12 +692,16 @@ const FirstColumn = styled.div`
   line-height: 20px;
 
   display: flex;
-  align-items: center;
+  align-items: flex-end
+  
   letter-spacing: -1px;
 
+  vertical-align: text-bottom;
   color: #505050;
 
   width: 50%;
+
+  margin-top: 8px;
 `;
 
 const SecondColumn = styled.div`
@@ -670,7 +713,7 @@ const SecondColumn = styled.div`
   /* or 143% */
 
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: space-around;
 
   text-align: center;
@@ -683,30 +726,49 @@ const SecondColumn = styled.div`
 `;
 
 const LineView = styled.div`
-  border: 2px solid #efefef;
-
-  margin-bottom: 3px;
+  border: 0.1px solid #efefef;
+  margin-top: 10px;
 `;
 
 const WhichDog = styled.span`
-  padding: 0 16px 0 0;
-
   font-family: 'Noto Sans KR', sans-serif;
   font-size: 16px;
   font-weight: 500;
   font-stretch: normal;
-  font-style: normal;
-  line-height: 1.25;
+  font-style: 300;
   letter-spacing: -1px;
   text-align: left;
+  vertical-align: text-bottom;
   color: #ff9777;
 `;
 
-const WhichWeight = styled.span`
-  font-family: 'Work Sans', sans-serif;
+const WhichWeight = styled.div`
+  font-family: Work Sans;
+  font-style: normal;
+  font-weight: 300;
   font-size: 14px;
-  font-weight: normal;
-  letter-spacing: normal;
+  line-height: 20px;
+  /* or 143% */
+
+  letter-spacing: 0px;
+  display: flex;
+  align-items: center;
+
+  color: #b6b6b6;
+`;
+
+const Noto = styled.span`
+  font-family: Noto Sans KR;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 20px;
+  /* or 143% */
+
+  display: flex;
+  align-items: center;
+  letter-spacing: -1px;
+
   color: #b6b6b6;
 `;
 
@@ -715,11 +777,11 @@ const DayCostTitle = styled.div``;
 const MonthCostTitle = styled.div``;
 
 const DayCost = styled.div`
-  padding: 0 5px;
+  display: flex;
 `;
 
 const MonthCost = styled.div`
-  padding: 0 5px;
+  display: flex;
 `;
 
 const MoreText = styled.span``;
