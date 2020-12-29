@@ -17,6 +17,9 @@ export default function Header({ isAddress }) {
 }
 
 const TopHeader = styled.div`
+  width: 105px;
+  height: 55px;
+
   position: sticky;
   top: 0;
   z-index: ${(props) => (props.isAddress === true ? "0" : "100")};

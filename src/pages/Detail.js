@@ -454,7 +454,7 @@ const IntroduceText = styled.div`
   font-style: normal;
   font-weight: normal;
   font-size: 15px;
-  line-height: 22px;
+  line-height: 25px;
 
   letter-spacing: -1px;
 
