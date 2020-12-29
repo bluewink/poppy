@@ -100,27 +100,27 @@ export default function Detail({ location }) {
   };
 
   useEffect(() => {
-    console.log(endDate);
-    console.log(startDate.getDay());
-    console.log(startDate.getFullYear());
-    console.log(startDate.getMonth());
-
     const year = startDate.getFullYear();
-    const month = startDate.getMonth();
-    const day = startDate.getDay();
+    const month = startDate.getMonth() + 1;
+    const day = startDate.getDate();
 
     setDates(year + '년' + month + '월' + day + '일');
 
     if (endDate !== null) {
       const e_year = endDate.getFullYear();
-      const e_month = endDate.getMonth();
-      const e_day = endDate.getDay();
+      const e_month = endDate.getMonth() + 1;
+      const e_day = endDate.getDate();
 
       if (e_year === year && e_month === month && e_day === day) {
         setDates(year + '년' + month + '월' + day + '일');
       } else {
         setDates(year + '년' + month + '월' + day + '일 ~ ' + e_year + '년' + e_month + '월' + e_day + '일');
-        setDiffDate(Math.abs(moment([e_year, e_month, e_day]).diff(moment([year, month, day]), 'days')));
+        const startDateMoment = moment(startDate);
+        const endDateMoment = moment(endDate);
+        const diff = endDateMoment.diff(startDateMoment, 'days') + 1;
+
+        setDiffDate(Math.abs(diff));
+
         setOneDay(false);
       }
     }
@@ -130,6 +130,10 @@ export default function Detail({ location }) {
 
   const [moreText, setMoreText] = useState('더보기');
   const [moreSwitch, setMoreSwitch] = useState(false);
+
+  const numberWithCommas = (price) => {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  };
 
   const handleMore = () => {
     if (moreSwitch) {
@@ -202,11 +206,11 @@ export default function Detail({ location }) {
             </FirstColumn>
             <SecondColumn>
               <DayCost>
-                {smallCost[0]}
+                {numberWithCommas(smallCost[0])}
                 <Noto>원</Noto>
               </DayCost>
               <MonthCost>
-                {smallCost[1]}
+                {numberWithCommas(smallCost[1])}
                 <Noto>원</Noto>
               </MonthCost>
             </SecondColumn>
@@ -214,16 +218,15 @@ export default function Detail({ location }) {
 
           <ElementRow>
             <FirstColumn>
-              <WhichDog>중형견</WhichDog>&nbsp;&nbsp;
-              <WhichWeight>7kg ~ 15kg</WhichWeight>
+              <WhichDog>중형견</WhichDog> <WhichWeight>7키로~15키로</WhichWeight>
             </FirstColumn>
             <SecondColumn>
               <DayCost>
-                {middleCost[0]}
+                {numberWithCommas(middleCost[0])}
                 <Noto>원</Noto>
               </DayCost>
               <MonthCost>
-                {middleCost[1]}
+                {numberWithCommas(middleCost[1])}
                 <Noto>원</Noto>
               </MonthCost>
             </SecondColumn>
@@ -238,11 +241,11 @@ export default function Detail({ location }) {
             </FirstColumn>
             <SecondColumn>
               <DayCost>
-                {largeCost[0]}
+                {numberWithCommas(largeCost[0])}
                 <Noto>원</Noto>
               </DayCost>
               <MonthCost>
-                {largeCost[1]}
+                {numberWithCommas(largeCost[1])}
                 <Noto>원</Noto>
               </MonthCost>
             </SecondColumn>

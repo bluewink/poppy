@@ -7,6 +7,11 @@ import { confirmIc1, confirmIc } from '../resources/images';
 
 export default function Confirm({ location }) {
   const { name, date, oneDay, diffDate, cost } = location.state;
+  console.log('diff Date', diffDate);
+
+  const numberWithCommas = (price) => {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  };
 
   return (
     <Wrapper>
@@ -36,7 +41,7 @@ export default function Confirm({ location }) {
               <InformationSubTitle>
                 요금:{' '}
                 <Lighter>
-                  <WorkSans>{cost}</WorkSans>
+                  <WorkSans>{numberWithCommas(cost)}</WorkSans>원
                 </Lighter>
               </InformationSubTitle>
             </InformationGroup>

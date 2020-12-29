@@ -18,7 +18,7 @@ export default function Search({ location }) {
   const [endDate, setEndDate] = useState(null);
   const [selectionComplete, toggleSelectionComplete] = useState(false);
 
-  const SearchDateCustomInput = ({ value, onClick }) => (
+  const SearchDateCustomInput = ({ onClick }) => (
     <SearchPageDatePicker>
       <img src={CalendarIcon} style={{ paddingRight: "3px" }} />
       {/* <div onClick={onClick}>{value}</div> */}
@@ -113,12 +113,13 @@ export default function Search({ location }) {
 
   // console.log(startDate);
   // console.log(endDate);
+
   if (offerList.length === 0) {
     return <>...loading...</>;
   }
 
   return (
-    <div>
+    <Wrapper>
       <Header isAddress={false} />
       <SearchPageHeader>
         우리 강아지를 돌봐줄
@@ -126,6 +127,9 @@ export default function Search({ location }) {
         이웃을 찾아보세요.
       </SearchPageHeader>
       <SearchOptionBox>
+        <SearchPageAddress>
+          <img src={LocationIcon} /> {parseAddress(location.state.address)}
+        </SearchPageAddress>
         <SearchPageDate>
           <DatePicker
             locale="ko"
@@ -137,23 +141,20 @@ export default function Search({ location }) {
             selectsEnd={Boolean(startDate)}
             startDate={startDate}
             endDate={endDate}
+            popperPlacement="bottom-end"
           />
         </SearchPageDate>
-        <SearchPageAddress>
-          <img src={LocationIcon} /> {parseAddress(location.state.address)}
-        </SearchPageAddress>
       </SearchOptionBox>
 
       <SearchTabBox>
         <SearchTab clicked={neighbor} onClick={handleNeighborTabClick}>
-          이웃 반려인
+          <NeighborTab>이웃 반려인</NeighborTab>
         </SearchTab>
         <SearchTab clicked={!neighbor} onClick={handleProTabClick}>
-          전문 펫시터
+          <ProTab>전문 펫시터</ProTab>
         </SearchTab>
       </SearchTabBox>
       <FilterBox>{/* <FilterOption> 거리순 </FilterOption> */}</FilterBox>
-
       <OfferList>
         <OfferCell
           {...{ offerList }}
@@ -161,18 +162,23 @@ export default function Search({ location }) {
           endDate={endDate}
         ></OfferCell>
       </OfferList>
-    </div>
+    </Wrapper>
   );
 }
-
+const Wrapper = styled.div`
+  margin-left: 17px;
+`;
 const SearchPageHeader = styled.div`
-  margin-left: 20px;
-  margin-top: 20px;
+  width: 331px;
+  height: 69px;
+  /* margin-left: 20px; */
+  padding-top: 7px;
   display: flex;
 
-  font-family: Noto Sans KR;
+  font-family: "Noto Sans KR";
   font-style: normal;
-  font-weight: bold;
+  //bold
+  font-weight: 700;
   font-size: 24px;
   line-height: 35px;
 
@@ -184,14 +190,16 @@ const SearchPageHeader = styled.div`
 `;
 
 const SearchPageAddress = styled.div`
-  width: 45%;
+  width: 167.2px;
   height: 36px;
+  margin-right: 6.8px;
   display: flex;
   align-items: center;
 
-  font-family: NotoSansKR;
+  font-family: "Noto Sans KR";
   font-size: 13px;
-  font-weight: normal;
+  //regular
+  font-weight: 400;
   font-stretch: normal;
   font-style: normal;
   line-height: 1.54;
@@ -203,14 +211,15 @@ const SearchPageAddress = styled.div`
   border: solid 1px lightgray;
 `;
 const SearchPageDate = styled.div`
-  width: 45%;
+  width: 167.2px;
   height: 36px;
   display: flex;
   align-items: center;
 
-  font-family: WorkSans;
+  font-family: "Work Sans";
   font-size: 13px;
-  font-weight: normal;
+  //reg
+  font-weight: 400;
   font-stretch: normal;
   font-style: normal;
   line-height: 1.54;
@@ -227,9 +236,10 @@ const SearchPageDatePicker = styled.div`
   display: flex;
   align-items: center;
 
-  font-family: WorkSans;
+  font-family: "Work Sans", sans-serif;
   font-size: 13px;
-  font-weight: normal;
+  //reg
+  font-weight: 400;
   font-stretch: normal;
   font-style: normal;
   line-height: 1.54;
@@ -239,9 +249,10 @@ const SearchPageDatePicker = styled.div`
 `;
 
 const FilterBox = styled.div`
-  position: relative;
-  top: 65px;
-  width: 100%;
+  /* position: relative; */
+  /* top: 65px; */
+  margin-left: -17px;
+  width: 375px;
   height: 38px;
   box-shadow: inset 0 1px 2px 0 rgba(165, 159, 150, 0.22),
     0 1px 2px 0 rgba(170, 170, 170, 0.31);
@@ -251,9 +262,10 @@ const FilterBox = styled.div`
   flex-direction: column;
   justify-content: center;
 
-  font-family: NotoSansKR;
+  font-family: "Work Sans", sans-serif;
   font-size: 13px;
-  font-weight: normal;
+  //reg
+  font-weight: 400;
   font-stretch: normal;
   font-style: normal;
   line-height: 1.54;
@@ -266,16 +278,33 @@ const FilterOption = styled.div`
 `;
 
 const Empty = styled.div``;
+const NeighborTab = styled.div`
+  width: 110px;
+  height: 16px;
+  margin-left: 39px;
+  margin-right: 39px;
+  /* text-align: center; */
+`;
+const ProTab = styled.div`
+  width: 110px;
+  height: 16px;
+  margin-left: 38px;
+  margin-right: 39px;
+  /* text-align: center; */
+`;
 
 const SearchTabBox = styled.div`
-  position: relative;
-  top: 65px;
-
+  /* position: relative;
+  top: 65px; */
+  padding-top: 17px;
+  margin-left: -17px;
   display: flex;
   justify-content: space-around;
-  font-family: Noto Sans KR;
+  font-family: "Noto Sans KR";
   font-style: normal;
-  font-weight: 500;
+
+  //bold
+  font-weight: 700;
   font-size: 13px;
   line-height: 20px;
 
@@ -287,8 +316,8 @@ const SearchTabBox = styled.div`
 
 const SearchTab = styled.div`
   display: flex;
-  flex-direction: column;
-  width: 50%;
+  /* flex-direction: column; */
+  /* width: 50%; */
 
   color: gray;
 
@@ -296,24 +325,27 @@ const SearchTab = styled.div`
     props.clicked &&
     css`
       color: black;
-      font-weight: bold;
+      //bold
+      font-weight: 700;
       border-bottom: 1px solid black;
-      padding-bottom: 5px;
+      padding-bottom: 10px;
     `};
 `;
 
 const OfferList = styled.div`
-  position: relative;
-  top: 70px;
+  /* position: relative;
+  top: 70px; */
   display: flex;
   justify-content: center;
 `;
 
 const SearchOptionBox = styled.div`
-  position: relative;
-  margin-left: 20px;
-  margin-right: 20px;
-  top: 50px;
+  /* width: 100%; */
+  /* position: relative; */
+  padding-top: 19px;
+  /* margin-left: 20px; */
+  margin-right: 16.8px;
+  /* top: 50px; */
   display: flex;
-  justify-content: space-around;
+  /* justify-content: space-around; */
 `;
