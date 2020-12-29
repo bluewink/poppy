@@ -18,7 +18,7 @@ export default function Confirm({ location }) {
         </PageTitle>
         <ReservationBox image={confirmIc}>
           <PaddingBox>
-            <Icon src={confirmIc1} />
+            {/* <Icon src={confirmIc1} /> */}
             <InformationTitle>예약 정보</InformationTitle>
             <InformationGroup>
               <InformationSubTitle>
@@ -28,10 +28,16 @@ export default function Confirm({ location }) {
                 이용할 서비스: <Lighter>소형견 /{oneDay ? ' 당일케어' : diffDate + ' 박돌봄'}</Lighter>
               </InformationSubTitle>
               <InformationSubTitle>
-                날짜: <Lighter>{date} </Lighter>
+                날짜:{' '}
+                <Lighter>
+                  <WorkSans>{date}</WorkSans>
+                </Lighter>
               </InformationSubTitle>
               <InformationSubTitle>
-                요금: <Lighter>{cost}</Lighter>
+                요금:{' '}
+                <Lighter>
+                  <WorkSans>{cost}</WorkSans>
+                </Lighter>
               </InformationSubTitle>
             </InformationGroup>
           </PaddingBox>
@@ -69,7 +75,7 @@ const InformationSubTitle = styled.div`
   font-style: normal;
   font-weight: 500;
   font-size: 15px;
-  line-height: 25px;
+  line-height: 24px;
 
   letter-spacing: -1px;
 
@@ -77,10 +83,29 @@ const InformationSubTitle = styled.div`
 `;
 
 const Lighter = styled.span`
+  font-family: Noto Sans KR;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 24px;
+  /* or 163% */
+
+  letter-spacing: -1px;
   color: #838383;
 `;
 
-const Icon = styled.img``;
+const WorkSans = styled.span`
+  font-family: Work Sans;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 20px;
+  /* or 125% */
+
+  letter-spacing: -1px;
+
+  color: #9d9d9d;
+`;
 
 const ReservationBox = styled.div`
   margin: 50px auto 0 auto;
