@@ -1,16 +1,16 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import { Link } from "react-router-dom";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
-import Header from "../components/Header";
-import { confirmIc1, confirmIc } from "../resources/images";
+import Header from '../components/Header';
+import { confirmIc1, confirmIc } from '../resources/images';
 
 export default function Confirm({ location }) {
   const { name, date, oneDay, diffDate, cost } = location.state;
-  console.log("diff Date", diffDate);
+  console.log('diff Date', diffDate);
 
   const numberWithCommas = (price) => {
-    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   };
 
   return (
@@ -23,23 +23,26 @@ export default function Confirm({ location }) {
         </PageTitle>
         <ReservationBox image={confirmIc}>
           <PaddingBox>
-            <Icon src={confirmIc1} />
+            {/* <Icon src={confirmIc1} /> */}
             <InformationTitle>예약 정보</InformationTitle>
             <InformationGroup>
               <InformationSubTitle>
                 돌봄 이웃: <Lighter>{name}</Lighter>
               </InformationSubTitle>
               <InformationSubTitle>
-                이용할 서비스:{" "}
+                이용할 서비스: <Lighter>소형견 /{oneDay ? ' 당일케어' : diffDate + ' 박돌봄'}</Lighter>
+              </InformationSubTitle>
+              <InformationSubTitle>
+                날짜:{' '}
                 <Lighter>
-                  소형견 /{oneDay ? " 당일케어" : diffDate + " 박돌봄"}
+                  <WorkSans>{date}</WorkSans>
                 </Lighter>
               </InformationSubTitle>
               <InformationSubTitle>
-                날짜: <Lighter>{date} </Lighter>
-              </InformationSubTitle>
-              <InformationSubTitle>
-                요금: <Lighter>{numberWithCommas(cost)}원</Lighter>
+                요금:{' '}
+                <Lighter>
+                  <WorkSans>{numberWithCommas(cost)}</WorkSans>원
+                </Lighter>
               </InformationSubTitle>
             </InformationGroup>
           </PaddingBox>
@@ -77,7 +80,7 @@ const InformationSubTitle = styled.div`
   font-style: normal;
   font-weight: 500;
   font-size: 15px;
-  line-height: 25px;
+  line-height: 24px;
 
   letter-spacing: -1px;
 
@@ -85,10 +88,29 @@ const InformationSubTitle = styled.div`
 `;
 
 const Lighter = styled.span`
+  font-family: Noto Sans KR;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 24px;
+  /* or 163% */
+
+  letter-spacing: -1px;
   color: #838383;
 `;
 
-const Icon = styled.img``;
+const WorkSans = styled.span`
+  font-family: Work Sans;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 20px;
+  /* or 125% */
+
+  letter-spacing: -1px;
+
+  color: #9d9d9d;
+`;
 
 const ReservationBox = styled.div`
   margin: 50px auto 0 auto;
@@ -157,7 +179,7 @@ const NextButton = styled.button`
 
   padding: 0 25px;
 
-  font-family: "DM Sans", sans-serif;
+  font-family: 'DM Sans', sans-serif;
   font-size: 18px;
   font-weight: bold;
   font-stretch: normal;

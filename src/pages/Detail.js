@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-import { Link } from "react-router-dom";
-import axios from "axios";
-import moment from "moment";
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+import moment from 'moment';
 
-import Header from "../components/Header";
-import ARTICLE_DATA from "../resources/Json/article.json";
+import Header from '../components/Header';
+import ARTICLE_DATA from '../resources/Json/article.json';
 
 import {
   img2,
@@ -20,12 +20,10 @@ import {
   detail_no_one,
   detail_five_start,
   detailButtonIc,
-} from "../resources/images";
+} from '../resources/images';
 
-const EXPERT_API =
-  "http://ec2-3-35-187-250.ap-northeast-2.compute.amazonaws.com:8000/expert/";
-const NEIGHBOR_API =
-  "http://ec2-3-35-187-250.ap-northeast-2.compute.amazonaws.com:8000/non_expert/";
+const EXPERT_API = 'http://ec2-3-35-187-250.ap-northeast-2.compute.amazonaws.com:8000/expert/';
+const NEIGHBOR_API = 'http://ec2-3-35-187-250.ap-northeast-2.compute.amazonaws.com:8000/non_expert/';
 
 export default function Detail({ location }) {
   //takeoffer에서 넘어온 data
@@ -35,37 +33,36 @@ export default function Detail({ location }) {
   // changed information
   const [server, setServer] = useState(false);
   const [diffDate, setDiffDate] = useState(1);
-  const [dates, setDates] = useState("");
+  const [dates, setDates] = useState('');
   const [oneDay, setOneDay] = useState(true);
-  const [roomImg, setRoomImg] = useState("");
+  const [roomImg, setRoomImg] = useState('');
   const [comment, setComment] = useState({
-    content: "",
-    date: "",
-    name: "장*나",
+    content: '',
+    date: '',
+    name: '장*나',
   });
   const [content, setContent] = useState();
   const [moreContent, setMoreContent] = useState();
   const [title, setTitle] = useState();
   const [name, setName] = useState();
-  const [largeCost, setLargeCost] = useState(["40,000원", "50,000원"]);
-  const [middleCost, setMiddleCost] = useState(["40,000원", "50,000원"]);
-  const [smallCost, setSmallCost] = useState(["40,000원", "50,000원"]);
+  const [largeCost, setLargeCost] = useState(['40,000원', '50,000원']);
+  const [middleCost, setMiddleCost] = useState(['40,000원', '50,000원']);
+  const [smallCost, setSmallCost] = useState(['40,000원', '50,000원']);
 
   const [puppy, setPuppy] = useState([
     {
-      age: "12살",
-      breed: "닥스훈트",
-      character:
-        "나이 때문인지 느긋하고 온순해요~ 다른 강아지들과 잘 어울려요ㅎㅎ",
+      age: '12살',
+      breed: '닥스훈트',
+      character: '나이 때문인지 느긋하고 온순해요~ 다른 강아지들과 잘 어울려요ㅎㅎ',
       img:
-        "https://github.com/AlphaTechnic/poppy_project_testing_backend/blob/master/PoppyTest/img/dog_expert3.png?raw=true ",
-      name: "구름",
+        'https://github.com/AlphaTechnic/poppy_project_testing_backend/blob/master/PoppyTest/img/dog_expert3.png?raw=true ',
+      name: '구름',
     },
   ]);
   const [certification, setCertification] = useState([
     {
-      acquisition_date: "2016. 9. 27",
-      name: "반려동물관리사 1급",
+      acquisition_date: '2016. 9. 27',
+      name: '반려동물관리사 1급',
     },
   ]);
   const [score, setScore] = useState({
@@ -76,13 +73,13 @@ export default function Detail({ location }) {
   const fetchDatas = async () => {
     try {
       const response = await axios({
-        method: "get",
+        method: 'get',
         url: isExpert ? EXPERT_API + type : NEIGHBOR_API + type,
       });
 
       setComment(response.data.comment);
       setRoomImg(response.data.room_img);
-      setContent(response.data.content.slice(0, 150));
+      setContent(response.data.content.slice(0, 140) + '...');
       setMoreContent(response.data.content);
       setTitle(response.data.title);
       setName(response.data.name);
@@ -97,7 +94,7 @@ export default function Detail({ location }) {
         setCertification(response.data.certification);
       }
     } catch (e) {
-      console.log("fetch failed!!!");
+      console.log('fetch failed!!!');
       console.log(e);
     }
   };
@@ -107,7 +104,7 @@ export default function Detail({ location }) {
     const month = startDate.getMonth() + 1;
     const day = startDate.getDate();
 
-    setDates(year + "년" + month + "월" + day + "일");
+    setDates(year + '년' + month + '월' + day + '일');
 
     if (endDate !== null) {
       const e_year = endDate.getFullYear();
@@ -115,25 +112,12 @@ export default function Detail({ location }) {
       const e_day = endDate.getDate();
 
       if (e_year === year && e_month === month && e_day === day) {
-        setDates(year + "년" + month + "월" + day + "일");
+        setDates(year + '년' + month + '월' + day + '일');
       } else {
-        setDates(
-          year +
-            "년" +
-            month +
-            "월" +
-            day +
-            "일 ~ " +
-            e_year +
-            "년" +
-            e_month +
-            "월" +
-            e_day +
-            "일"
-        );
+        setDates(year + '년' + month + '월' + day + '일 ~ ' + e_year + '년' + e_month + '월' + e_day + '일');
         const startDateMoment = moment(startDate);
         const endDateMoment = moment(endDate);
-        const diff = endDateMoment.diff(startDateMoment, "days") + 1;
+        const diff = endDateMoment.diff(startDateMoment, 'days') + 1;
 
         setDiffDate(Math.abs(diff));
 
@@ -144,20 +128,20 @@ export default function Detail({ location }) {
     fetchDatas();
   }, []);
 
-  const [moreText, setMoreText] = useState("더보기");
+  const [moreText, setMoreText] = useState('더보기');
   const [moreSwitch, setMoreSwitch] = useState(false);
 
   const numberWithCommas = (price) => {
-    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   };
 
   const handleMore = () => {
     if (moreSwitch) {
       setMoreSwitch(false);
-      setMoreText("더보기");
+      setMoreText('더보기');
     } else {
       setMoreSwitch(true);
-      setMoreText("줄어들기");
+      setMoreText('줄어들기');
     }
   };
 
@@ -168,15 +152,15 @@ export default function Detail({ location }) {
       <ProfileBox>
         <ProfileThumbnail src={img2} />
         <ProfileTextBox>
-          <ProfileTitle>{title}</ProfileTitle>
           <ProfileContent>
-            {name} <ProfileAddress>{address}</ProfileAddress>
+            <ProfileTitle>{title}</ProfileTitle>
+            &nbsp;{name}&nbsp;&nbsp;<ProfileAddress>{address}</ProfileAddress>
           </ProfileContent>
         </ProfileTextBox>
       </ProfileBox>
       <ShadowView></ShadowView>
       <IntroduceBox>
-        <IntroduceTitle>이웃 소개</IntroduceTitle>
+        <IntroduceTitle>이웃집 돌보미 소개</IntroduceTitle>
         <IntroduceText>
           {moreSwitch ? moreContent : content}
           <MoreButton onClick={handleMore}>{moreText}</MoreButton>
@@ -185,9 +169,9 @@ export default function Detail({ location }) {
       <ShadowView></ShadowView>
       <FamilyBox>
         <FamilyTitle>가족 소개</FamilyTitle>
-        {puppy.map((dog) => {
-          return (
-            <FamilyTable>
+        <FamilyTable>
+          {puppy.map((dog) => {
+            return (
               <FamilyCell>
                 <DogImage src={dog.img} />
                 <DogText>
@@ -198,9 +182,9 @@ export default function Detail({ location }) {
                   <DogIntroduce>{dog.character}</DogIntroduce>
                 </DogText>
               </FamilyCell>
-            </FamilyTable>
-          );
-        })}
+            );
+          })}
+        </FamilyTable>
       </FamilyBox>
       <FeeBox>
         <FeeTitle>요금 소개</FeeTitle>
@@ -215,32 +199,55 @@ export default function Detail({ location }) {
           <LineView />
           <ElementRow>
             <FirstColumn>
-              <WhichDog>소형견</WhichDog> <WhichWeight>7키로 미만</WhichWeight>
+              <WhichDog>소형견</WhichDog>&nbsp;&nbsp;
+              <WhichWeight>
+                7kg&nbsp;<Noto>미만</Noto>
+              </WhichWeight>
             </FirstColumn>
             <SecondColumn>
-              <DayCost>{numberWithCommas(smallCost[0])}원</DayCost>
-              <MonthCost>{numberWithCommas(smallCost[1])}원</MonthCost>
+              <DayCost>
+                {numberWithCommas(smallCost[0])}
+                <Noto>원</Noto>
+              </DayCost>
+              <MonthCost>
+                {numberWithCommas(smallCost[1])}
+                <Noto>원</Noto>
+              </MonthCost>
             </SecondColumn>
           </ElementRow>
 
           <ElementRow>
             <FirstColumn>
-              <WhichDog>중형견</WhichDog>{" "}
-              <WhichWeight>7키로~15키로</WhichWeight>
+              <WhichDog>중형견</WhichDog> <WhichWeight>7키로~15키로</WhichWeight>
             </FirstColumn>
             <SecondColumn>
-              <DayCost>{numberWithCommas(middleCost[0])}원</DayCost>
-              <MonthCost>{numberWithCommas(middleCost[1])}원</MonthCost>
+              <DayCost>
+                {numberWithCommas(middleCost[0])}
+                <Noto>원</Noto>
+              </DayCost>
+              <MonthCost>
+                {numberWithCommas(middleCost[1])}
+                <Noto>원</Noto>
+              </MonthCost>
             </SecondColumn>
           </ElementRow>
 
           <ElementRow>
             <FirstColumn>
-              <WhichDog>대형견</WhichDog> <WhichWeight>15키로 이상</WhichWeight>
+              <WhichDog>대형견</WhichDog>&nbsp;&nbsp;
+              <WhichWeight>
+                15kg&nbsp;<Noto>이상</Noto>
+              </WhichWeight>
             </FirstColumn>
             <SecondColumn>
-              <DayCost>{numberWithCommas(largeCost[0])}원</DayCost>
-              <MonthCost>{numberWithCommas(largeCost[1])}원</MonthCost>
+              <DayCost>
+                {numberWithCommas(largeCost[0])}
+                <Noto>원</Noto>
+              </DayCost>
+              <MonthCost>
+                {numberWithCommas(largeCost[1])}
+                <Noto>원</Noto>
+              </MonthCost>
             </SecondColumn>
           </ElementRow>
         </FeeTable>
@@ -337,7 +344,7 @@ export default function Detail({ location }) {
       <NextBox>
         <Link
           to={{
-            pathname: "/confirm",
+            pathname: '/confirm',
             state: {
               oneDay: oneDay,
               name: name,
@@ -375,11 +382,11 @@ const ProfileBox = styled.div`
 `;
 
 const ProfileThumbnail = styled.img`
-  margin-left: 20px;
+  margin-left: 19px;
   width: 56px;
   height: 56px;
 
-  margin-right: 5px;
+  margin-right: 8px;
   border-radius: 50px;
 `;
 
@@ -396,26 +403,30 @@ const ProfileTitle = styled.div`
   font-style: normal;
   font-weight: bold;
   font-size: 24px;
+  line-height: 33px;
 
   letter-spacing: -1px;
+
+  color: #2c2c2c;
 `;
 
 const ProfileContent = styled.div`
+  position: relative;
+  height: -7px;
+
   font-family: Noto Sans KR;
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
-  line-height: 24px;
-
   letter-spacing: -1px;
+
+  color: #505050;
 `;
 
 const ProfileAddress = styled.span`
-  margin-left: 6px;
-
   font-family: Noto Sans KR;
   font-style: normal;
-  font-weight: normal;
+  font-weight: 300;
   font-size: 14px;
 
   letter-spacing: -1px;
@@ -428,7 +439,8 @@ const IntroduceBox = styled.div`
   flex-direction: column;
 
   margin: 0;
-  padding: 22px 25px;
+  padding-top: 26px;
+  padding: 26px 24px;
 
   box-shadow: 0px 1px 3px rgba(129, 129, 129, 0.18);
   border-radius: 8px;
@@ -439,7 +451,7 @@ const IntroduceTitle = styled.div`
   font-family: Noto Sans KR;
   font-style: normal;
   font-weight: bold;
-  font-size: 18px;
+  font-size: 20px;
   line-height: 20px;
 
   letter-spacing: -1px;
@@ -448,15 +460,19 @@ const IntroduceTitle = styled.div`
 `;
 
 const IntroduceText = styled.div`
-  margin-top: 8px;
+  margin-top: 10px;
+  margin-left: 1px;
+  margin-bottom: 9px;
 
   font-family: Noto Sans KR;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 15px;
-  line-height: 25px;
-
+  font-size: 16px;
+  font-weight: 300;
+  font-stretch: normal;
+  font-style: regular;
+  line-height: 1.53;
   letter-spacing: -1px;
+  text-align: left;
+  /* gray */
 
   color: #9d9d9d;
 `;
@@ -464,9 +480,9 @@ const IntroduceText = styled.div`
 const MoreButton = styled.button`
   font-family: Noto Sans KR;
   font-style: normal;
-  font-weight: normal;
+  font-weight: 300;
   font-size: 15px;
-  line-height: 22px;
+  // line-height: 22px;
 
   letter-spacing: -1px;
 
@@ -487,9 +503,7 @@ const DogText = styled.div`
   flex-direction: column;
 `;
 
-const DogName = styled.div`
-  margin-bottom: 3px;
-
+const DogName = styled.span`
   font-family: Noto Sans KR;
   font-style: normal;
   font-weight: bold;
@@ -506,24 +520,27 @@ const DogName = styled.div`
   color: #ff9777;
 `;
 
-const DogSubDetail = styled.div`
+const DogSubDetail = styled.span`
   font-family: Noto Sans KR;
   font-style: normal;
-  font-weight: normal;
+  font-weight: 300;
   font-size: 14px;
-  line-height: 20px;
+  line-height: 20.5px;
+  /* or 146% */
 
   display: flex;
   align-items: center;
   letter-spacing: -0.02em;
 
-  color: #9d9d9d;
+  /* gray */
+
+  color: #505050;
 `;
 
-const DogIntroduce = styled.div`
+const DogIntroduce = styled.span`
   font-family: Noto Sans KR;
   font-style: normal;
-  font-weight: normal;
+  font-weight: 300;
   font-size: 14px;
   line-height: 18px;
   /* or 129% */
@@ -540,6 +557,7 @@ const DogIntroduce = styled.div`
 const FamilyCell = styled.div`
   padding: 15px;
 
+  margin-top: 10px;
   background: #fafafa;
   box-shadow: 0px 1px 3px rgba(129, 129, 129, 0.18);
   border-radius: 8px;
@@ -553,17 +571,21 @@ const DogImage = styled.img`
   width: 64px;
   height: 64px;
   border-radius: 50px;
-  margin-right: 10px;
+  margin-left: 3px;
+  margin-right: 11px;
+  margin-bottom: -1px;
 `;
 
 const FamilyBox = styled.div`
   display: flex;
   flex-direction: column;
 
-  margin: 40px 25px;
+  margin: 45px 16px 0 16px;
 `;
 
 const FamilyTitle = styled.div`
+  margin-left: 8px;
+
   font-family: Noto Sans KR;
   font-style: normal;
   font-weight: bold;
@@ -576,18 +598,18 @@ const FamilyTitle = styled.div`
 `;
 
 const FamilyTable = styled.div`
-  margin-top: 12px;
+  margin-top: 2px;
 `;
 
 const FeeBox = styled.div`
   display: flex;
   flex-direction: column;
 
-  margin: 40px 0 0 0;
+  margin: 49px 0 0 0;
 `;
 
 const FeeTitle = styled.div`
-  margin: 0 0 12px 25px;
+  margin: 0 0 0 24px;
 
   font-family: Noto Sans KR;
   font-style: normal;
@@ -609,7 +631,7 @@ const FeeTable = styled.div`
   display: flex;
   flex-direction: column;
 
-  margin: 0 16px;
+  margin: 15px 16px 0 16px;
   padding: 18px 20px 20px;
   border-radius: 8px;
 
@@ -618,7 +640,6 @@ const FeeTable = styled.div`
 `;
 
 const TitleRow = styled.div`
-  margin: 0 0 8px 0;
   display: flex;
   justify-content: space-between;
 `;
@@ -627,7 +648,7 @@ const ElementRow = styled.div`
   display: flex;
   justify-content: space-between;
 
-  margin: 3px 0;
+  margin: 8px 0 0 0x;
 `;
 
 const FirstColumnTitle = styled.div`
@@ -674,12 +695,16 @@ const FirstColumn = styled.div`
   line-height: 20px;
 
   display: flex;
-  align-items: center;
+  align-items: flex-end
+  
   letter-spacing: -1px;
 
+  vertical-align: text-bottom;
   color: #505050;
 
   width: 50%;
+
+  margin-top: 8px;
 `;
 
 const SecondColumn = styled.div`
@@ -691,7 +716,7 @@ const SecondColumn = styled.div`
   /* or 143% */
 
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: space-around;
 
   text-align: center;
@@ -704,30 +729,49 @@ const SecondColumn = styled.div`
 `;
 
 const LineView = styled.div`
-  border: 2px solid #efefef;
-
-  margin-bottom: 3px;
+  border: 0.1px solid #efefef;
+  margin-top: 10px;
 `;
 
 const WhichDog = styled.span`
-  padding: 0 16px 0 0;
-
-  font-family: "Noto Sans KR", sans-serif;
+  font-family: 'Noto Sans KR', sans-serif;
   font-size: 16px;
   font-weight: 500;
   font-stretch: normal;
-  font-style: normal;
-  line-height: 1.25;
+  font-style: 300;
   letter-spacing: -1px;
   text-align: left;
+  vertical-align: text-bottom;
   color: #ff9777;
 `;
 
-const WhichWeight = styled.span`
-  font-family: "Work Sans", sans-serif;
+const WhichWeight = styled.div`
+  font-family: Work Sans;
+  font-style: normal;
+  font-weight: 300;
   font-size: 14px;
-  font-weight: normal;
-  letter-spacing: normal;
+  line-height: 20px;
+  /* or 143% */
+
+  letter-spacing: 0px;
+  display: flex;
+  align-items: center;
+
+  color: #b6b6b6;
+`;
+
+const Noto = styled.span`
+  font-family: Noto Sans KR;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 20px;
+  /* or 143% */
+
+  display: flex;
+  align-items: center;
+  letter-spacing: -1px;
+
   color: #b6b6b6;
 `;
 
@@ -736,11 +780,11 @@ const DayCostTitle = styled.div``;
 const MonthCostTitle = styled.div``;
 
 const DayCost = styled.div`
-  padding: 0 5px;
+  display: flex;
 `;
 
 const MonthCost = styled.div`
-  padding: 0 5px;
+  display: flex;
 `;
 
 const MoreText = styled.span``;
@@ -756,7 +800,7 @@ const ServiceCellIcon = styled.img`
 const ServiceCellTitle = styled.div`
   margin-left: 4px;
 
-  font-family: "Noto Sans KR", sans-serif;
+  font-family: 'Noto Sans KR', sans-serif;
   font-size: 14px;
   font-weight: 500;
   font-stretch: normal;
@@ -829,7 +873,7 @@ const WarningSign = styled.div`
   display: flex;
   align-items: center;
 
-  font-family: "Noto Sans KR", sans-serif;
+  font-family: 'Noto Sans KR', sans-serif;
   font-size: 14px;
   font-weight: normal;
   font-stretch: normal;
@@ -857,7 +901,7 @@ const ExpertBox = styled.div`
 const ExpertTitle = styled.div`
   margin: 15px 25px 0 25px;
 
-  font-family: "Noto Sans KR", sans-serif;
+  font-family: 'Noto Sans KR', sans-serif;
   font-size: 18px;
   font-weight: bold;
   font-stretch: normal;
@@ -883,7 +927,7 @@ const ExpertTable = styled.div`
 const ExpertColumn = styled.div``;
 
 const ExpertCard = styled.div`
-  font-family: "Noto Sans KR", sans-serif;
+  font-family: 'Noto Sans KR', sans-serif;
   font-size: 16px;
   font-weight: bold;
   font-stretch: normal;
@@ -909,7 +953,7 @@ const ExpertDate = styled.div`
 `;
 
 const ExpertPlace = styled.div`
-  font-family: "Noto Sans KR", sans-serif;
+  font-family: 'Noto Sans KR', sans-serif;
   font-size: 12px;
   font-weight: 500;
   font-stretch: normal;
@@ -937,7 +981,7 @@ const NextButton = styled.button`
 
   padding: 0 25px;
 
-  font-family: "DM Sans", sans-serif;
+  font-family: 'DM Sans', sans-serif;
   font-size: 18px;
   font-weight: bold;
   font-stretch: normal;
@@ -1001,7 +1045,7 @@ const BestTitle = styled.span`
   border-radius: 8px;
   background-color: #ff9777;
 
-  font-family: "Noto Sans KR", sans-serif;
+  font-family: 'Noto Sans KR', sans-serif;
   font-size: 15px;
   font-weight: 500;
   font-stretch: normal;
@@ -1063,7 +1107,7 @@ const ReviewScore = styled.div`
 const GrayScore = styled.span`
   margin: 0 1px 4px 0;
 
-  font-family: "Noto Sans KR", sans-serif;
+  font-family: 'Noto Sans KR', sans-serif;
   font-size: 18px;
   font-weight: normal;
   font-stretch: normal;
@@ -1085,7 +1129,7 @@ const ReviewTitle = styled.div`
   justify-content: space-between;
   margin-left: 10px;
 
-  font-family: "Noto Sans KR", sans-serif;
+  font-family: 'Noto Sans KR', sans-serif;
   font-size: 18px;
   font-weight: bold;
   font-stretch: normal;
