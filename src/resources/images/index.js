@@ -1,3 +1,4 @@
+export { default as serviceIc1 } from './serviceIc1.png';
 export { default as TextUnderLine } from './TextUnderLine.png';
 export { default as HeaderLogoPng } from './headerLogo.png';
 export { default as LandingPageVector } from './LandingPageVector.png';
@@ -7,10 +8,10 @@ export { default as LandingPageDogPng2 } from './LandingPageDog2.png';
 export { default as LandingPageDogPng1 } from './LandingPageDogPng1.png';
 export { default as PoppyBackPng } from './PoppyBack.png';
 export { default as LocationIcon } from './LocationIcon.png';
+export { default as LandingPageBackgroundPng } from './LandingPageBackgroundPng.png';
 export { default as SearchTabIcon } from './SearchTabIcon.png';
 export { default as OfferPic1 } from './OfferPic1.png';
 export { default as CalendarIcon } from './CalendarIcon.png';
-
 export { default as LocationIc } from './LocationIc.png';
 export { default as LocationBackground } from './LocationBackground.png';
 export { default as img1 } from './img1.png';
@@ -34,3 +35,6 @@ export { default as detail_star } from './detail_star.png';
 export { default as detail_five_start } from './detail_five_start.png';
 export { default as detail_no_one } from './detail_no_one.png';
 export { default as dog1 } from './dog1.png';
+export { default as detailButtonIc } from './detailButtonIc.png';
+export { default as FullStar } from './FullStar.png';
+export { default as EmptyStar } from './EmptyStar.png';

@@ -1,63 +1,93 @@
 import React, { useState, useEffect } from "react";
 import styled, { css } from "styled-components";
 import axios from "axios";
-
-import {
-  PoppyBackPng,
-  LocationIcon,
-  SearchTabIcon,
-  CalendarIcon,
-} from "../resources/images";
+import "react-datepicker/dist/react-datepicker.css";
+import "react-datepicker/dist/react-datepicker-cssmodules.css";
+import { LocationIcon, CalendarIcon } from "../resources/images";
 import OfferCell from "../components/OfferCell";
 import Header from "../components/Header";
-import DatePicker from "react-datepicker";
-
+import DatePicker, { registerLocale } from "react-datepicker";
+import { ko } from "date-fns/esm/locale";
+import moment from "moment";
+import "moment/locale/ko";
 export default function Search({ location }) {
-  // console.log(location.state.address);
-
-  //http://ec2-3-35-187-250.ap-northeast-2.compute.amazonaws.com:8000/expert/?order_by=distance&&address=
-
   const [neighbor, setNeighbor] = useState(1);
   const [offerList, setOfferList] = useState([]);
+
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(null);
-  const handleDateChange = (dates) => {
-    const [start, end] = dates;
-    setStartDate(start);
-    setEndDate(end);
-  };
+  const [selectionComplete, toggleSelectionComplete] = useState(false);
 
-  // let neighborOfferList = [];
-  // let proOfferList = [];
+  const SearchDateCustomInput = ({ onClick }) => (
+    <SearchPageDatePicker>
+      <img
+        src={CalendarIcon}
+        style={{
+          width: "16px",
+          height: "16px",
+          marginLeft: "8px",
+          marginRight: "4px",
+        }}
+      />
+
+      <div onClick={onClick}>
+        {startDate ? moment(startDate).format("MM.DD(ddd)") : "??/??/????"} -{" "}
+        {endDate ? moment(endDate).format("MM.DD(ddd)") : null}
+      </div>
+    </SearchPageDatePicker>
+  );
+
+  registerLocale("ko", ko);
+  moment.locale("ko");
   let res;
   let tmpList = [];
-  // let offerList = [];
 
   const EXPERT_API =
     "http://ec2-3-35-187-250.ap-northeast-2.compute.amazonaws.com:8000/expert/?order_by=distance&&address=";
   const NEIGHBOR_API =
     "http://ec2-3-35-187-250.ap-northeast-2.compute.amazonaws.com:8000/non_expert/?order_by=distance&&address=";
 
-  // const sortData = (list) => {
-  //   list.forEach((elem) => {
-  //     // console.log(elem);
-  //     // console.log("forEach!!");
-  //     if (elem.expert_or_not === 0) {
-  //       neighborOfferList.push(elem);
-  //     } else {
-  //       proOfferList.push(elem);
-  //     }
-  //   });
-
-  //이웃 반려인 전체보기
-  // if (neighbor) offerList = neighborOfferList;
-  // else {
-  //   offerList = proOfferList;
-  // }
-
   useEffect(() => {
     fetchAddressData();
   }, [neighbor]);
+
+  const handleDateChange = (date) => {
+    if (!selectionComplete && !startDate) {
+      setStartDate(date);
+      return;
+    }
+
+    if (!selectionComplete && startDate && !endDate) {
+      setEndDate(date);
+      toggleSelectionComplete(true);
+
+      return;
+    }
+    if (selectionComplete && startDate && endDate) {
+      setStartDate(date);
+      setEndDate(undefined);
+      toggleSelectionComplete(false);
+      return;
+    }
+  };
+
+  const handleSelect = (date) => {
+    if (
+      !selectionComplete &&
+      startDate &&
+      !endDate &&
+      sameDay(date, startDate)
+    ) {
+      handleDateChange(date);
+    }
+  };
+  const sameDay = (d1, d2) => {
+    return (
+      d1.getFullYear() === d2.getFullYear() &&
+      d1.getMonth() === d2.getMonth() &&
+      d1.getDate() === d2.getDate()
+    );
+  };
 
   const handleNeighborTabClick = () => {
     setNeighbor(1);
@@ -87,124 +117,121 @@ export default function Search({ location }) {
       console.log("fetch failed!!!");
       console.log(e);
     }
-    // offerList = await res.data.petsitters;
-
-    // sortData(listFromServer);
   };
-
-  // fetchAddressData();
-
-  // console.log("offerlist!", offerList);
 
   if (offerList.length === 0) {
     return <>...loading...</>;
   }
 
   return (
-    <div>
+    <Wrapper>
       <Header isAddress={false} />
       <SearchPageHeader>
-        우리 강아지를 돌봐줄
+        강아지를 돌봐줄
         <br />
         이웃을 찾아보세요.
       </SearchPageHeader>
       <SearchOptionBox>
         <SearchPageAddress>
-          <img src={LocationIcon} /> {parseAddress(location.state.address)}
+          <img
+            src={LocationIcon}
+            style={{
+              width: "18px",
+              height: "18px",
+              marginLeft: "7px",
+              marginRight: "1.7px",
+            }}
+          />{" "}
+          {parseAddress(location.state.address)}
         </SearchPageAddress>
         <SearchPageDate>
-          <img src={CalendarIcon} /> 12.20(목) - 12.22(금)
+          <DatePicker
+            locale="ko"
+            shouldCloseOnSelect={!selectionComplete}
+            customInput={<SearchDateCustomInput />}
+            selected={startDate}
+            onChange={handleDateChange}
+            onSelect={handleSelect}
+            selectsEnd={Boolean(startDate)}
+            startDate={startDate}
+            endDate={endDate}
+            popperPlacement="bottom-end"
+          />
         </SearchPageDate>
       </SearchOptionBox>
-      {/* <DatePicker
-        selected={startDate}
-        onChange={handleDateChange}
-        startDate={startDate}
-        endDate={endDate}
-        selectsRange
-        withPortal
-      /> */}
+
       <SearchTabBox>
         <SearchTab clicked={neighbor} onClick={handleNeighborTabClick}>
-          이웃 반려인
-          {/* <div>{neighbor ? <img src={SearchTabIcon} /> : null}</div> */}
+          <NeighborTab>이웃 반려인</NeighborTab>
         </SearchTab>
         <SearchTab clicked={!neighbor} onClick={handleProTabClick}>
-          전문 펫시터
-          {/* <div>{!neighbor ? <img src={SearchTabIcon} /> : null}</div> */}
+          <ProTab>전문 펫시터</ProTab>
         </SearchTab>
       </SearchTabBox>
-      <FilterBox>
-        <FilterOption> 거리순 </FilterOption>
-      </FilterBox>
-
+      <FilterBox>{/* <FilterOption> 거리순 </FilterOption> */}</FilterBox>
       <OfferList>
-        <OfferCell {...{ offerList }}></OfferCell>
+        <OfferCell
+          {...{ offerList }}
+          startDate={startDate}
+          endDate={endDate}
+        ></OfferCell>
       </OfferList>
-    </div>
+    </Wrapper>
   );
 }
-
+const Wrapper = styled.div`
+  margin-left: 17px;
+`;
 const SearchPageHeader = styled.div`
-  margin-left: 20px;
-  margin-top: 20px;
+  width: 331px;
+  height: 69px;
+  /* margin-left: 20px; */
+  padding-top: 7px;
   display: flex;
-  /* 대제목_24pt_Bold */
 
-  font-family: Noto Sans KR;
+  font-family: "Noto Sans KR";
   font-style: normal;
-  font-weight: bold;
+  //bold
+  font-weight: 700;
   font-size: 24px;
-  line-height: 35px;
-  /* or 146% */
+  line-height: 31px;
 
   letter-spacing: -1px;
 
-  color: #131313;
-
-  white-space: pre-wrap;
+  color: #2c2c2c;
 `;
 
 const SearchPageAddress = styled.div`
-  /* position: absolute;
-  left: 20px;
-  top: 200px;
-  bottom: 75%; */
-  width: 45%;
+  width: 167.2px;
   height: 36px;
+  margin-right: 6.8px;
   display: flex;
   align-items: center;
-  /* margin: 19px 6.8px 17px 17px; */
-  /* padding: 9px 59.7px 9px 7px; */
 
-  font-family: NotoSansKR;
+  font-family: "Noto Sans KR";
   font-size: 13px;
-  font-weight: normal;
+  //regular
+  font-weight: 400;
   font-stretch: normal;
   font-style: normal;
   line-height: 1.54;
   letter-spacing: -1px;
   text-align: left;
   color: #505050;
-  /* identical to box height, or 141% */
 
   border-radius: 2px;
   border: solid 1px lightgray;
 `;
 const SearchPageDate = styled.div`
-  /* position: absolute;
-  left: 20px;
-  top: 230px; */
-  width: 45%;
+  width: 167.2px;
   height: 36px;
   display: flex;
   align-items: center;
-  /* margin: 19px 0 17px 3px; */
-  /* padding: 10px 1.2px 10px 8px; */
 
-  font-family: WorkSans;
+  font-family: "Work Sans";
   font-size: 13px;
-  font-weight: normal;
+  //reg
+  font-weight: 400;
   font-stretch: normal;
   font-style: normal;
   line-height: 1.54;
@@ -212,16 +239,30 @@ const SearchPageDate = styled.div`
   text-align: left;
   color: #505050;
 
-  /* identical to box height, or 141% */
-
   border-radius: 2px;
   border: solid 1px lightgray;
 `;
+const SearchPageDatePicker = styled.div`
+  width: 100%;
+  height: 36px;
+  display: flex;
+  align-items: center;
+
+  font-family: "Work Sans", sans-serif;
+  font-size: 13px;
+  //reg
+  font-weight: 400;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.54;
+  letter-spacing: normal;
+  text-align: left;
+  color: #505050;
+`;
 
 const FilterBox = styled.div`
-  position: relative;
-  top: 65px;
-  width: 100%;
+  margin-left: -17px;
+
   height: 38px;
   box-shadow: inset 0 1px 2px 0 rgba(165, 159, 150, 0.22),
     0 1px 2px 0 rgba(170, 170, 170, 0.31);
@@ -231,9 +272,10 @@ const FilterBox = styled.div`
   flex-direction: column;
   justify-content: center;
 
-  font-family: NotoSansKR;
+  font-family: "Work Sans", sans-serif;
   font-size: 13px;
-  font-weight: normal;
+
+  font-weight: 400;
   font-stretch: normal;
   font-style: normal;
   line-height: 1.54;
@@ -246,19 +288,31 @@ const FilterOption = styled.div`
 `;
 
 const Empty = styled.div``;
+const NeighborTab = styled.div`
+  width: 110px;
+  height: 16px;
+  margin-left: 39px;
+  margin-right: 39px;
+`;
+const ProTab = styled.div`
+  width: 110px;
+  height: 16px;
+  margin-left: 38px;
+  margin-right: 39px;
+`;
 
 const SearchTabBox = styled.div`
-  position: relative;
-  top: 65px;
-
+  padding-top: 17px;
+  margin-left: -17px;
   display: flex;
   justify-content: space-around;
-  font-family: Noto Sans KR;
+  font-family: "Noto Sans KR";
   font-style: normal;
-  font-weight: 500;
-  font-size: 13px;
+
+  //bold
+  font-weight: 700;
+  font-size: 14px;
   line-height: 20px;
-  /* identical to box height, or 154% */
 
   text-align: center;
   letter-spacing: -1px;
@@ -268,33 +322,32 @@ const SearchTabBox = styled.div`
 
 const SearchTab = styled.div`
   display: flex;
-  flex-direction: column;
-  width: 50%;
-  /* font-weight: lighter; */
-  color: gray;
+
+  width: 100%;
+  color: #d1d1d1;
 
   ${(props) =>
     props.clicked &&
     css`
-      color: black;
-      font-weight: bold;
-      border-bottom: 1px solid black;
-      padding-bottom: 5px;
+      color: #2c2c2c;
+      //bold
+      font-weight: 700;
+      border-bottom: 2px solid black;
+      padding-bottom: 10px;
     `};
 `;
 
 const OfferList = styled.div`
-  position: relative;
-  top: 70px;
+  margin-left: -17px;
+  background-color: #f9f9f9;
   display: flex;
   justify-content: center;
 `;
 
 const SearchOptionBox = styled.div`
-  position: relative;
-  margin-left: 20px;
-  margin-right: 20px;
-  top: 50px;
+  padding-top: 19px;
+
+  margin-right: 16.8px;
+
   display: flex;
-  justify-content: space-around;
 `;

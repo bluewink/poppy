@@ -5,7 +5,14 @@ import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import { confirmIc1, confirmIc } from '../resources/images';
 
-export default function Confirm() {
+export default function Confirm({ location }) {
+  const { name, date, oneDay, diffDate, cost } = location.state;
+  console.log('diff Date', diffDate);
+
+  const numberWithCommas = (price) => {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  };
+
   return (
     <Wrapper>
       <>
@@ -15,22 +22,27 @@ export default function Confirm() {
           확정해주세요!
         </PageTitle>
         <ReservationBox image={confirmIc}>
-          {/* <ReservationBackground src={confirmIc} /> */}
           <PaddingBox>
-            <Icon src={confirmIc1} />
+            {/* <Icon src={confirmIc1} /> */}
             <InformationTitle>예약 정보</InformationTitle>
             <InformationGroup>
               <InformationSubTitle>
-                돌봄 이웃: <Lighter>홍길동</Lighter>
+                돌봄 이웃 : <Lighter>{name}</Lighter>
               </InformationSubTitle>
               <InformationSubTitle>
-                이용할 서비스: <Lighter>소형견 / 당일 케어</Lighter>
+                이용할 서비스 : <Lighter>소형견 / {oneDay ? ' 당일케어' : diffDate + ' 박돌봄'}</Lighter>
               </InformationSubTitle>
               <InformationSubTitle>
-                날짜: <Lighter>2020년 12월 21일 </Lighter>
+                날짜 :{' '}
+                <Lighter>
+                  <WorkSans>{date}</WorkSans>
+                </Lighter>
               </InformationSubTitle>
               <InformationSubTitle>
-                요금: <Lighter>20,000원</Lighter>
+                요금 :{' '}
+                <Lighter>
+                  <WorkSans>{numberWithCommas(cost)}</WorkSans>원
+                </Lighter>
               </InformationSubTitle>
             </InformationGroup>
           </PaddingBox>
@@ -47,13 +59,8 @@ export default function Confirm() {
   );
 }
 
-const ReservationBackground = styled.img`
-  position: relative;
-  top: 200px;
-`;
-
 const InformationGroup = styled.div`
-  margin-top: 20px;
+  margin-top: 14px;
 `;
 
 const InformationTitle = styled.div`
@@ -62,6 +69,7 @@ const InformationTitle = styled.div`
   font-weight: bold;
   font-size: 20px;
   line-height: 20px;
+  /* or 100% */
 
   letter-spacing: -1px;
 
@@ -73,7 +81,7 @@ const InformationSubTitle = styled.div`
   font-style: normal;
   font-weight: 500;
   font-size: 15px;
-  line-height: 25px;
+  line-height: 24px;
 
   letter-spacing: -1px;
 
@@ -81,24 +89,44 @@ const InformationSubTitle = styled.div`
 `;
 
 const Lighter = styled.span`
-  color: #838383;
+  font-family: Work Sans;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 20px;
+  /* or 133% */
+
+  letter-spacing: -1px;
+
+  color: #9d9d9d;
 `;
 
-const Icon = styled.img``;
+const WorkSans = styled.span`
+  font-family: Work Sans;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  /* or 125% */
+
+  letter-spacing: -1px;
+
+  color: #9d9d9d;
+`;
 
 const ReservationBox = styled.div`
-  margin: 50px 20px 0 20px;
-
-  background-image: url('confirmIc.png')
-
+  margin: 26px 16px 0 18px;
+  max-width: 341px;
+  height: 197px;
   border-radius: 23px;
   box-shadow: 0 0 11px 0 rgba(192, 146, 113, 0.24);
   background-color: #ffffff;
   
+  background-image: URL(https://user-images.githubusercontent.com/56102421/103185790-4963bc00-4901-11eb-81b2-98c3cf890c04.png); 
 `;
 
 const PaddingBox = styled.div`
-  padding: 24px;
+  padding: 29.81px 0 33px 25.31px;
 `;
 
 const Wrapper = styled.div`
@@ -106,13 +134,14 @@ const Wrapper = styled.div`
 `;
 
 const PageTitle = styled.div`
-  margin: 24px 16px;
+  margin: 0 16px;
+  margin-top: 3px;
 
   font-family: Noto Sans KR;
   font-style: normal;
   font-weight: bold;
   font-size: 24px;
-  line-height: 35px;
+  line-height: 31.5px;
 
   letter-spacing: -1px;
 
@@ -133,32 +162,39 @@ const NextBox = styled.div`
 `;
 
 const WarnLabel = styled.div`
-  font-family: DM Sans;
+  font-family: Noto Sans KR;
   font-style: normal;
-  font-weight: 500;
+  font-weight: 400;
   font-size: 13px;
   line-height: 20px;
-  text-align: center;
+  /* identical to box height, or 154% */
+
+  display: flex;
+  align-items: center;
   letter-spacing: -1px;
 
   color: #cbc9c9;
 `;
 
 const NextButton = styled.button`
-  margin: 9px auto;
+  margin: 7.21px auto;
   text-decoration: none;
-
-  outline: none;
-  border: none;
 
   padding: 0 25px;
 
-  font-family: 'DM Sans', sans-serif;
-  font-size: 18px;
+  width: 148px;
+
+  border: 1px solid #ff1d1d;
+
+  font-family: Noto Sans KR;
+  font-style: normal;
   font-weight: bold;
+  font-size: 20px;
+  line-height: 48px;
+
   font-stretch: normal;
   font-style: normal;
-  line-height: 2.4;
+
   letter-spacing: normal;
   text-align: center;
   color: #ffffff;
@@ -166,4 +202,7 @@ const NextButton = styled.button`
   border-radius: 5px;
   box-shadow: 0 4px 10px 0 rgba(191, 170, 114, 0.35);
   background-color: #ff9777;
+
+  outline: none;
+  border: none;
 `;
