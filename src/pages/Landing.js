@@ -49,7 +49,7 @@ export default function Landing() {
         만들어주세요.
         <br />
         <br />
-        명예 이웃(가명)이 되면
+        명예 이웃이 되면
         <br /> 이웃집 뽀삐가 특별한 선물을 드려요.
       </LandingPageDescription>
 
@@ -68,8 +68,6 @@ const Wrapper = styled.div`
 `;
 
 const LandingPageHeader = styled.div`
-  /* position: absolute; */
-  /* margin-left: 10px; */
   width: 100%;
   height: 68.4px;
   /* left: 15px; */
@@ -77,7 +75,7 @@ const LandingPageHeader = styled.div`
 
   font-family: "Noto Sans KR";
   font-size: 22px;
-  /* font-weight: 500; */
+
   font-weight: 700;
   font-stretch: normal;
   font-style: normal;
@@ -88,19 +86,15 @@ const LandingPageHeader = styled.div`
   ${(props) =>
     props.first &&
     css`
-      /* position: absolute; */
       width: 100%;
       height: 59px;
       padding-top: 6.1px;
-      /* left: 16px; */
-      /* margin-top: px; */
     `}
   ${(props) =>
     props.second &&
     css`
       padding-top: 6.1px;
       height: 59px;
-      /* top: 766.44px; */
     `}
 `;
 const LandingPageTitleBox = styled.div`
@@ -109,18 +103,11 @@ const LandingPageTitleBox = styled.div`
 `;
 
 const LandingPageTitle = styled.div`
-  /* margin-left: 10px; */
-
-  /* position: absolute; */
   width: 169px;
   height: 55px;
-  /* padding-top: 6.6px; */
-  /* left: 14px; */
-  /* top: 197px; */
 
   font-family: "Noto Sans KR";
   font-style: normal;
-  /* font-weight: 500; */
   font-weight: 700;
   font-size: 36px;
   line-height: 42px;
@@ -141,41 +128,29 @@ const LandingPageTitle = styled.div`
     props.second &&
     css`
       height: 36px;
-      /* top: 724.37px; */
+
       padding-top: 12.4px;
       font-family: "Work Sans";
     `}
 `;
 const PoppyImg = styled.img`
-  /* margin-left: 10px; */
-  /* position: absolute; */
   width: 38px;
   height: 42px;
   padding-left: 5px;
   padding-top: 3px;
-
-  /* display: inline-block; */
-  /* left: 175px;
-  top: 176px; */
 `;
 
 const LandingPageDescription = styled.div`
-  /* margin-left: 10px; */
-  /* position: absolute; */
   padding-top: 15.2px;
   width: 100%;
   height: 303.99px;
-  /* left: 9px; */
-  /* top: 408px; */
 
   font-family: "Noto Sans KR";
   font-style: normal;
-  /* font-weight: 400; */
   font-weight: 500;
 
   font-size: 18px;
   line-height: 29px;
-  /* or 164% */
 
   letter-spacing: -1px;
 
@@ -211,14 +186,12 @@ const NextButton = styled.button`
   outline: none;
   border: none;
 
-  /* width: 103.4px;
-  height: 44.9px; */
   width: 141.2px;
   height: 46.9px;
 
-  font-family: "DM Sans";
+  font-family: "Noto Sans KR";
   font-size: 20px;
-  /* font-weight: 500; */
+
   font-weight: 700;
   font-stretch: normal;
   font-style: normal;
@@ -232,9 +205,7 @@ const NextButton = styled.button`
   background-color: #ff9777;
 `;
 const NextButtonBox = styled.div`
-  /* position: relative;
-  top: 100%; */
-
+  margin-left: -15px;
   padding-top: 64.2px;
   display: flex;
   justify-content: center;
