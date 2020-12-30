@@ -20,8 +20,16 @@ export default function Search({ location }) {
 
   const SearchDateCustomInput = ({ onClick }) => (
     <SearchPageDatePicker>
-      <img src={CalendarIcon} style={{ paddingRight: "3px" }} />
-      {/* <div onClick={onClick}>{value}</div> */}
+      <img
+        src={CalendarIcon}
+        style={{
+          width: "16px",
+          height: "16px",
+          marginLeft: "8px",
+          marginRight: "4px",
+        }}
+      />
+
       <div onClick={onClick}>
         {startDate ? moment(startDate).format("MM.DD(ddd)") : "??/??/????"} -{" "}
         {endDate ? moment(endDate).format("MM.DD(ddd)") : null}
@@ -111,9 +119,6 @@ export default function Search({ location }) {
     }
   };
 
-  // console.log(startDate);
-  // console.log(endDate);
-
   if (offerList.length === 0) {
     return <>...loading...</>;
   }
@@ -122,13 +127,22 @@ export default function Search({ location }) {
     <Wrapper>
       <Header isAddress={false} />
       <SearchPageHeader>
-        우리 강아지를 돌봐줄
+        강아지를 돌봐줄
         <br />
         이웃을 찾아보세요.
       </SearchPageHeader>
       <SearchOptionBox>
         <SearchPageAddress>
-          <img src={LocationIcon} /> {parseAddress(location.state.address)}
+          <img
+            src={LocationIcon}
+            style={{
+              width: "18px",
+              height: "18px",
+              marginLeft: "7px",
+              marginRight: "1.7px",
+            }}
+          />{" "}
+          {parseAddress(location.state.address)}
         </SearchPageAddress>
         <SearchPageDate>
           <DatePicker
@@ -180,13 +194,11 @@ const SearchPageHeader = styled.div`
   //bold
   font-weight: 700;
   font-size: 24px;
-  line-height: 35px;
+  line-height: 31px;
 
   letter-spacing: -1px;
 
-  color: #131313;
-
-  white-space: pre-wrap;
+  color: #2c2c2c;
 `;
 
 const SearchPageAddress = styled.div`
@@ -249,10 +261,8 @@ const SearchPageDatePicker = styled.div`
 `;
 
 const FilterBox = styled.div`
-  /* position: relative; */
-  /* top: 65px; */
   margin-left: -17px;
-  width: 375px;
+
   height: 38px;
   box-shadow: inset 0 1px 2px 0 rgba(165, 159, 150, 0.22),
     0 1px 2px 0 rgba(170, 170, 170, 0.31);
@@ -264,7 +274,7 @@ const FilterBox = styled.div`
 
   font-family: "Work Sans", sans-serif;
   font-size: 13px;
-  //reg
+
   font-weight: 400;
   font-stretch: normal;
   font-style: normal;
@@ -283,19 +293,15 @@ const NeighborTab = styled.div`
   height: 16px;
   margin-left: 39px;
   margin-right: 39px;
-  /* text-align: center; */
 `;
 const ProTab = styled.div`
   width: 110px;
   height: 16px;
   margin-left: 38px;
   margin-right: 39px;
-  /* text-align: center; */
 `;
 
 const SearchTabBox = styled.div`
-  /* position: relative;
-  top: 65px; */
   padding-top: 17px;
   margin-left: -17px;
   display: flex;
@@ -305,7 +311,7 @@ const SearchTabBox = styled.div`
 
   //bold
   font-weight: 700;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 20px;
 
   text-align: center;
@@ -316,36 +322,32 @@ const SearchTabBox = styled.div`
 
 const SearchTab = styled.div`
   display: flex;
-  /* flex-direction: column; */
-  /* width: 50%; */
 
-  color: gray;
+  width: 100%;
+  color: #d1d1d1;
 
   ${(props) =>
     props.clicked &&
     css`
-      color: black;
+      color: #2c2c2c;
       //bold
       font-weight: 700;
-      border-bottom: 1px solid black;
+      border-bottom: 2px solid black;
       padding-bottom: 10px;
     `};
 `;
 
 const OfferList = styled.div`
-  /* position: relative;
-  top: 70px; */
+  margin-left: -17px;
+  background-color: #f9f9f9;
   display: flex;
   justify-content: center;
 `;
 
 const SearchOptionBox = styled.div`
-  /* width: 100%; */
-  /* position: relative; */
   padding-top: 19px;
-  /* margin-left: 20px; */
+
   margin-right: 16.8px;
-  /* top: 50px; */
+
   display: flex;
-  /* justify-content: space-around; */
 `;

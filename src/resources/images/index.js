@@ -35,3 +35,5 @@ export { default as detail_five_start } from "./detail_five_start.png";
 export { default as detail_no_one } from "./detail_no_one.png";
 export { default as dog1 } from "./dog1.png";
 export { default as detailButtonIc } from "./detailButtonIc.png";
+export { default as FullStar } from "./FullStar.png";
+export { default as EmptyStar } from "./EmptyStar.png";

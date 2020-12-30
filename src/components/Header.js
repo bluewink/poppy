@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { poppy_logoIc, hamburgerIc } from "../resources/images";
+import { PoppyLogoPng, hamburgerIc } from "../resources/images";
 
 export default function Header({ isAddress }) {
   return (
@@ -10,7 +10,7 @@ export default function Header({ isAddress }) {
           <Hamburger src={hamburgerIc} />
         </HamburgerButton>
       </Empty>
-      <HeaderLogo src={poppy_logoIc} />
+      <HeaderLogo src={PoppyLogoPng} />
       <Empty />
     </TopHeader>
   );
@@ -47,7 +47,10 @@ const Hamburger = styled.img`
   margin-left: 3px; */
 `;
 
-const HeaderLogo = styled.img``;
+const HeaderLogo = styled.img`
+  width: 105px;
+  height: 44px;
+`;
 
 const Empty = styled.div`
   flex: 1;
