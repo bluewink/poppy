@@ -104,7 +104,7 @@ export default function Detail({ location }) {
     const month = startDate.getMonth() + 1;
     const day = startDate.getDate();
 
-    setDates(year + '년' + month + '월' + day + '일');
+    setDates(year + '년 ' + month + '월 ' + day + '일 ');
 
     if (endDate !== null) {
       const e_year = endDate.getFullYear();
@@ -112,9 +112,9 @@ export default function Detail({ location }) {
       const e_day = endDate.getDate();
 
       if (e_year === year && e_month === month && e_day === day) {
-        setDates(year + '년' + month + '월' + day + '일');
+        setDates(year + '년 ' + month + '월 ' + day + '일');
       } else {
-        setDates(year + '년' + month + '월' + day + '일 ~ ' + e_year + '년' + e_month + '월' + e_day + '일');
+        setDates(year + '년 ' + month + '월 ' + day + '일 ~ ' + e_year + '년' + e_month + '월' + e_day + '일');
         const startDateMoment = moment(startDate);
         const endDateMoment = moment(endDate);
         const diff = endDateMoment.diff(startDateMoment, 'days') + 1;
@@ -201,7 +201,7 @@ export default function Detail({ location }) {
             <FirstColumn>
               <WhichDog>소형견</WhichDog>&nbsp;&nbsp;
               <WhichWeight>
-                7kg&nbsp;<Noto>미만</Noto>
+                7kg<Noto>미만</Noto>
               </WhichWeight>
             </FirstColumn>
             <SecondColumn>
@@ -218,7 +218,8 @@ export default function Detail({ location }) {
 
           <ElementRow>
             <FirstColumn>
-              <WhichDog>중형견</WhichDog> <WhichWeight>7키로~15키로</WhichWeight>
+              <WhichDog>중형견</WhichDog>&nbsp;&nbsp;
+              <WhichWeight>7kg~15kg</WhichWeight>
             </FirstColumn>
             <SecondColumn>
               <DayCost>
@@ -236,7 +237,7 @@ export default function Detail({ location }) {
             <FirstColumn>
               <WhichDog>대형견</WhichDog>&nbsp;&nbsp;
               <WhichWeight>
-                15kg&nbsp;<Noto>이상</Noto>
+                15kg<Noto>이상</Noto>
               </WhichWeight>
             </FirstColumn>
             <SecondColumn>
@@ -254,7 +255,7 @@ export default function Detail({ location }) {
       </FeeBox>
       <WarningSign>
         <WarningImage src={detail_warning_sign} />
-        현재는 소형견만 예약이 가능합니다.
+        <WarningLabel>현재는 소형견만 예약이 가능합니다.</WarningLabel>
       </WarningSign>
       <ServiceBox>
         <ServiceTitle>이용 가능 서비스</ServiceTitle>
@@ -404,6 +405,7 @@ const ProfileTitle = styled.div`
   font-weight: bold;
   font-size: 24px;
   line-height: 33px;
+  /* or 137% */
 
   letter-spacing: -1px;
 
@@ -780,14 +782,26 @@ const DayCostTitle = styled.div``;
 const MonthCostTitle = styled.div``;
 
 const DayCost = styled.div`
+  font-family: Work Sans;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 20px;
+  /* or 133% */
+
   display: flex;
+  align-items: center;
+  text-align: center;
+  letter-spacing: -1px;
+
+  /* gray */
+
+  color: #9d9d9d;
 `;
 
 const MonthCost = styled.div`
   display: flex;
 `;
-
-const MoreText = styled.span``;
 
 const ServiceCellIcon = styled.img`
   margin: 0 1px;
@@ -846,10 +860,13 @@ const ServiceSecondeColumn = styled.div`
   align-items: flex-end;
 `;
 const ServiceBox = styled.div`
-  margin: 40px 25px;
+  margin: 45px 16px 0 16px;
 `;
 
 const ServiceTitle = styled.div`
+  margin-top: 14px;
+  margin-left: 8px;
+
   font-family: Noto Sans KR;
   font-style: normal;
   font-weight: bold;
@@ -864,14 +881,15 @@ const ServiceTitle = styled.div`
 `;
 
 const WarningSign = styled.div`
-  margin: 12px 16px 0 16px;
-  padding: 5px 78px 5px 5px;
+  margin: 12px 16px 0 17px;
+  padding: 5px;
 
   border-radius: 6px;
   background-color: #fff8eb;
 
   display: flex;
   align-items: center;
+  align-content: center;
 
   font-family: 'Noto Sans KR', sans-serif;
   font-size: 14px;
@@ -884,11 +902,13 @@ const WarningSign = styled.div`
   color: #ff9777;
 `;
 
-const WarningImage = styled.img`
-  width: 16.5px;
-  height: 16.5px;
+const WarningLabel = styled.div`
+  margin: 3px 0 3px 2px;
+`;
 
-  margin-right: 4.8px;
+const WarningImage = styled.img`
+  width: 22px;
+  height: 22px;
 `;
 
 const ExpertBox = styled.div`

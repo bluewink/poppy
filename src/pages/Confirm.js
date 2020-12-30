@@ -27,19 +27,19 @@ export default function Confirm({ location }) {
             <InformationTitle>예약 정보</InformationTitle>
             <InformationGroup>
               <InformationSubTitle>
-                돌봄 이웃: <Lighter>{name}</Lighter>
+                돌봄 이웃 : <Lighter>{name}</Lighter>
               </InformationSubTitle>
               <InformationSubTitle>
-                이용할 서비스: <Lighter>소형견 /{oneDay ? ' 당일케어' : diffDate + ' 박돌봄'}</Lighter>
+                이용할 서비스 : <Lighter>소형견 / {oneDay ? ' 당일케어' : diffDate + ' 박돌봄'}</Lighter>
               </InformationSubTitle>
               <InformationSubTitle>
-                날짜:{' '}
+                날짜 :{' '}
                 <Lighter>
                   <WorkSans>{date}</WorkSans>
                 </Lighter>
               </InformationSubTitle>
               <InformationSubTitle>
-                요금:{' '}
+                요금 :{' '}
                 <Lighter>
                   <WorkSans>{numberWithCommas(cost)}</WorkSans>원
                 </Lighter>
@@ -60,7 +60,7 @@ export default function Confirm({ location }) {
 }
 
 const InformationGroup = styled.div`
-  margin-top: 20px;
+  margin-top: 14px;
 `;
 
 const InformationTitle = styled.div`
@@ -69,6 +69,7 @@ const InformationTitle = styled.div`
   font-weight: bold;
   font-size: 20px;
   line-height: 20px;
+  /* or 100% */
 
   letter-spacing: -1px;
 
@@ -88,21 +89,22 @@ const InformationSubTitle = styled.div`
 `;
 
 const Lighter = styled.span`
-  font-family: Noto Sans KR;
+  font-family: Work Sans;
   font-style: normal;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 15px;
-  line-height: 24px;
-  /* or 163% */
+  line-height: 20px;
+  /* or 133% */
 
   letter-spacing: -1px;
-  color: #838383;
+
+  color: #9d9d9d;
 `;
 
 const WorkSans = styled.span`
   font-family: Work Sans;
   font-style: normal;
-  font-weight: normal;
+  font-weight: 400;
   font-size: 16px;
   line-height: 20px;
   /* or 125% */
@@ -113,9 +115,9 @@ const WorkSans = styled.span`
 `;
 
 const ReservationBox = styled.div`
-  margin: 50px auto 0 auto;
+  margin: 26px 16px 0 18px;
   max-width: 341px;
-  max-height: 197px;
+  height: 197px;
   border-radius: 23px;
   box-shadow: 0 0 11px 0 rgba(192, 146, 113, 0.24);
   background-color: #ffffff;
@@ -124,7 +126,7 @@ const ReservationBox = styled.div`
 `;
 
 const PaddingBox = styled.div`
-  padding: 24px;
+  padding: 29.81px 0 33px 25.31px;
 `;
 
 const Wrapper = styled.div`
@@ -132,13 +134,14 @@ const Wrapper = styled.div`
 `;
 
 const PageTitle = styled.div`
-  margin: 24px 16px;
+  margin: 0 16px;
+  margin-top: 3px;
 
   font-family: Noto Sans KR;
   font-style: normal;
   font-weight: bold;
   font-size: 24px;
-  line-height: 35px;
+  line-height: 31.5px;
 
   letter-spacing: -1px;
 
@@ -159,32 +162,39 @@ const NextBox = styled.div`
 `;
 
 const WarnLabel = styled.div`
-  font-family: DM Sans;
+  font-family: Noto Sans KR;
   font-style: normal;
-  font-weight: 500;
+  font-weight: 400;
   font-size: 13px;
   line-height: 20px;
-  text-align: center;
+  /* identical to box height, or 154% */
+
+  display: flex;
+  align-items: center;
   letter-spacing: -1px;
 
   color: #cbc9c9;
 `;
 
 const NextButton = styled.button`
-  margin: 9px auto;
+  margin: 7.21px auto;
   text-decoration: none;
-
-  outline: none;
-  border: none;
 
   padding: 0 25px;
 
-  font-family: 'DM Sans', sans-serif;
-  font-size: 18px;
+  width: 148px;
+
+  border: 1px solid #ff1d1d;
+
+  font-family: Noto Sans KR;
+  font-style: normal;
   font-weight: bold;
+  font-size: 20px;
+  line-height: 48px;
+
   font-stretch: normal;
   font-style: normal;
-  line-height: 2.4;
+
   letter-spacing: normal;
   text-align: center;
   color: #ffffff;
@@ -192,4 +202,7 @@ const NextButton = styled.button`
   border-radius: 5px;
   box-shadow: 0 4px 10px 0 rgba(191, 170, 114, 0.35);
   background-color: #ff9777;
+
+  outline: none;
+  border: none;
 `;

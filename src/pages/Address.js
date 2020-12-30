@@ -211,6 +211,7 @@ const NextButton = styled.button`
   margin: 23px auto;
   text-decoration: none;
 
+  width: 96px;
   outline: none;
   border: none;
 
