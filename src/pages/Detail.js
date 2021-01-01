@@ -104,7 +104,7 @@ export default function Detail({ location }) {
     const month = startDate.getMonth() + 1;
     const day = startDate.getDate();
 
-    setDates(year + '년' + month + '월' + day + '일');
+    setDates(year + '년 ' + month + '월 ' + day + '일 ');
 
     if (endDate !== null) {
       const e_year = endDate.getFullYear();
@@ -112,9 +112,9 @@ export default function Detail({ location }) {
       const e_day = endDate.getDate();
 
       if (e_year === year && e_month === month && e_day === day) {
-        setDates(year + '년' + month + '월' + day + '일');
+        setDates(year + '년 ' + month + '월 ' + day + '일');
       } else {
-        setDates(year + '년' + month + '월' + day + '일 ~ ' + e_year + '년' + e_month + '월' + e_day + '일');
+        setDates(year + '년 ' + month + '월 ' + day + '일 ~ ' + e_year + '년' + e_month + '월' + e_day + '일');
         const startDateMoment = moment(startDate);
         const endDateMoment = moment(endDate);
         const diff = endDateMoment.diff(startDateMoment, 'days') + 1;
@@ -160,7 +160,7 @@ export default function Detail({ location }) {
       </ProfileBox>
       <ShadowView></ShadowView>
       <IntroduceBox>
-        <IntroduceTitle>이웃집 돌보미 소개</IntroduceTitle>
+        <IntroduceTitle>{isExpert === 0 ? '이웃집돌보미 소개' : '전문펫시터 소개'}</IntroduceTitle>
         <IntroduceText>
           {moreSwitch ? moreContent : content}
           <MoreButton onClick={handleMore}>{moreText}</MoreButton>
@@ -201,7 +201,7 @@ export default function Detail({ location }) {
             <FirstColumn>
               <WhichDog>소형견</WhichDog>&nbsp;&nbsp;
               <WhichWeight>
-                7kg&nbsp;<Noto>미만</Noto>
+                7kg<Noto>미만</Noto>
               </WhichWeight>
             </FirstColumn>
             <SecondColumn>
@@ -218,7 +218,8 @@ export default function Detail({ location }) {
 
           <ElementRow>
             <FirstColumn>
-              <WhichDog>중형견</WhichDog> <WhichWeight>7키로~15키로</WhichWeight>
+              <WhichDog>중형견</WhichDog>&nbsp;&nbsp;
+              <WhichWeight>7kg~15kg</WhichWeight>
             </FirstColumn>
             <SecondColumn>
               <DayCost>
@@ -236,7 +237,7 @@ export default function Detail({ location }) {
             <FirstColumn>
               <WhichDog>대형견</WhichDog>&nbsp;&nbsp;
               <WhichWeight>
-                15kg&nbsp;<Noto>이상</Noto>
+                15kg<Noto>이상</Noto>
               </WhichWeight>
             </FirstColumn>
             <SecondColumn>
@@ -254,12 +255,12 @@ export default function Detail({ location }) {
       </FeeBox>
       <WarningSign>
         <WarningImage src={detail_warning_sign} />
-        현재는 소형견만 예약이 가능합니다.
+        <WarningLabel>현재는 소형견만 예약이 가능합니다.</WarningLabel>
       </WarningSign>
       <ServiceBox>
         <ServiceTitle>이용 가능 서비스</ServiceTitle>
         <ServiceTable>
-          <ServiceRow>
+          {/* <ServiceRow>
             <ServiceFirstColumn>
               <ServiceCellIcon src={detailIc1} />
               <ServiceCellTitle>오래 맡겨주세요</ServiceCellTitle>
@@ -288,7 +289,7 @@ export default function Detail({ location }) {
               <ServiceCellIcon src={detailIc6} />
               <ServiceCellTitle>픽업 해드려요</ServiceCellTitle>
             </ServiceSecondeColumn>
-          </ServiceRow>
+          </ServiceRow> */}
         </ServiceTable>
       </ServiceBox>
       {isExpert === 0 ? (
@@ -316,12 +317,13 @@ export default function Detail({ location }) {
             돌봄 후기
             <ReviewNumber>({score.num})</ReviewNumber>
           </ReviewTitleBox>
-          <ReviewMoreButton img={detailButtonIc} />
+          {/* <ReviewMoreButton img={detailButtonIc} /> */}
         </ReviewTitle>
         <StarReviewScore>
           <StarImage src={detail_star} />
           <ReviewScore>
-            {score.score} <GrayScore>/ 5</GrayScore>
+            <Score>{score.score}</Score>
+            <GrayScore>&nbsp;/ 5</GrayScore>
           </ReviewScore>
         </StarReviewScore>
         <BestReview>
@@ -362,15 +364,17 @@ export default function Detail({ location }) {
 }
 
 const ReviewMoreButton = styled.img`
-  // width: 22px;
-  // height: 22px;
+  width: 22px;
+  height: 22px;
+  width: 22px;
+  height: 22px;
 `;
 const EmptyBox = styled.div``;
 const Wrapper = styled.div``;
 
 const Thumbnail = styled.img`
   width: 100%;
-
+  height: 215px;
   content: object-fit;
 `;
 
@@ -378,7 +382,7 @@ const ProfileBox = styled.div`
   display: flex;
   flex-direction: row;
   align-content: center;
-  margin: 15px 0 25px 0;
+  margin: 12px 0 25px 0;
 `;
 
 const ProfileThumbnail = styled.img`
@@ -404,6 +408,7 @@ const ProfileTitle = styled.div`
   font-weight: bold;
   font-size: 24px;
   line-height: 33px;
+  /* or 137% */
 
   letter-spacing: -1px;
 
@@ -439,8 +444,8 @@ const IntroduceBox = styled.div`
   flex-direction: column;
 
   margin: 0;
-  padding-top: 26px;
   padding: 26px 24px;
+  padding-top: 31px;
 
   box-shadow: 0px 1px 3px rgba(129, 129, 129, 0.18);
   border-radius: 8px;
@@ -780,14 +785,26 @@ const DayCostTitle = styled.div``;
 const MonthCostTitle = styled.div``;
 
 const DayCost = styled.div`
+  font-family: Work Sans;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 20px;
+  /* or 133% */
+
   display: flex;
+  align-items: center;
+  text-align: center;
+  letter-spacing: -1px;
+
+  /* gray */
+
+  color: #9d9d9d;
 `;
 
 const MonthCost = styled.div`
   display: flex;
 `;
-
-const MoreText = styled.span``;
 
 const ServiceCellIcon = styled.img`
   margin: 0 1px;
@@ -812,15 +829,15 @@ const ServiceCellTitle = styled.div`
 `;
 
 const ServiceTable = styled.div`
-  margin: 15px 0;
+  margin: 15px 0 49px 0;
 
-  padding: 20px 30px 20px 17px;
   border-radius: 8px;
   box-shadow: 0 1px 3px 0 rgba(129, 129, 129, 0.18);
   background-color: #fafafa;
 
-  display: flex;
-  flex-direction: column;
+  width: 343px;
+height: 159px;
+  background-image: URL(https://user-images.githubusercontent.com/56102421/103332770-b4062a80-4aae-11eb-986f-4ead13339c49.png); 
 `;
 
 const ServiceRow = styled.div`
@@ -845,11 +862,15 @@ const ServiceSecondeColumn = styled.div`
   align-content: center;
   align-items: flex-end;
 `;
+
 const ServiceBox = styled.div`
-  margin: 40px 25px;
+  margin: 45px 16px 0 16px;
 `;
 
 const ServiceTitle = styled.div`
+  margin-top: 14px;
+  margin-left: 8px;
+
   font-family: Noto Sans KR;
   font-style: normal;
   font-weight: bold;
@@ -864,14 +885,15 @@ const ServiceTitle = styled.div`
 `;
 
 const WarningSign = styled.div`
-  margin: 12px 16px 0 16px;
-  padding: 5px 78px 5px 5px;
+  margin: 12px 16px 0 17px;
+  padding: 5px;
 
   border-radius: 6px;
   background-color: #fff8eb;
 
   display: flex;
   align-items: center;
+  align-content: center;
 
   font-family: 'Noto Sans KR', sans-serif;
   font-size: 14px;
@@ -884,22 +906,25 @@ const WarningSign = styled.div`
   color: #ff9777;
 `;
 
-const WarningImage = styled.img`
-  width: 16.5px;
-  height: 16.5px;
+const WarningLabel = styled.div`
+  margin: 3px 0 3px 2px;
+`;
 
-  margin-right: 4.8px;
+const WarningImage = styled.img`
+  width: 22px;
+  height: 22px;
 `;
 
 const ExpertBox = styled.div`
+  margin: -2px 15px 0 16px;
   display: flex;
   flex-direction: column;
 
-  margin-bottom: 40px;
+  margin-bottom: 49px;
 `;
 
 const ExpertTitle = styled.div`
-  margin: 15px 25px 0 25px;
+  margin-left: 9px;
 
   font-family: 'Noto Sans KR', sans-serif;
   font-size: 18px;
@@ -913,7 +938,7 @@ const ExpertTitle = styled.div`
 `;
 
 const ExpertTable = styled.div`
-  margin: 14px 16px 0 16px;
+  margin: 14px 0 0 0;
 
   padding: 16px 18px 15px 20px;
   border-radius: 10px;
@@ -941,26 +966,29 @@ const ExpertCard = styled.div`
 const ExpertDate = styled.div`
   font-family: Noto Sans KR;
   font-style: normal;
-  font-weight: normal;
+  font-weight: 300;
   font-size: 13px;
   line-height: 24px;
+  /* or 188% */
 
   display: flex;
   align-items: center;
   letter-spacing: -0.5px;
-
   color: #9d9d9d;
 `;
 
 const ExpertPlace = styled.div`
-  font-family: 'Noto Sans KR', sans-serif;
-  font-size: 12px;
-  font-weight: 500;
-  font-stretch: normal;
+  font-family: Noto Sans KR;
   font-style: normal;
-  line-height: normal;
-  letter-spacing: -0.5px;
+  font-weight: 500;
+  font-size: 12px;
+  // line-height: 0px;
+
+  // display: flex;
+  // align-items: center;
   text-align: right;
+  letter-spacing: -0.5px;
+
   color: #505050;
 `;
 
@@ -973,7 +1001,7 @@ const NextBox = styled.div`
 `;
 
 const NextButton = styled.button`
-  margin: 0px auto 40px auto;
+  margin: 35px auto 34px auto;
   text-decoration: none;
 
   outline: none;
@@ -998,20 +1026,33 @@ const NextButton = styled.button`
 
 const BestReviewDate = styled.div`
   font-family: Work Sans;
-  font-size: 14px;
-  font-weight: normal;
-  font-stretch: normal;
   font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
 
-  letter-spacing: -0.5px;
+  display: flex;
+  align-items: center;
   text-align: right;
+  letter-spacing: -0.5px;
+
   color: #2c2c2c;
 `;
 
 const BestColumn = styled.div``;
 
 const BestArticle = styled.div`
-  margin: 0 10px;
+  margin: 0 12px 0 3px;
+
+  font-family: Noto Sans KR;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 22px;
+
+  letter-spacing: -1px;
+
+  color: #9d9d9d;
 `;
 
 const BestReviewDetail = styled.div`
@@ -1026,6 +1067,7 @@ const BestReviewText = styled.div`
 
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
 `;
 
 const BestReviewName = styled.div``;
@@ -1038,27 +1080,36 @@ const BestReviewImage = styled.img`
 `;
 
 const BestReview = styled.div`
-  margin: 25px 0 10px 10px;
+  margin: 29px 0 0 0;
 `;
+
 const BestTitle = styled.span`
-  padding: 2px 11px 2px 11px;
   border-radius: 8px;
   background-color: #ff9777;
 
-  font-family: 'Noto Sans KR', sans-serif;
-  font-size: 15px;
-  font-weight: 500;
-  font-stretch: normal;
+  margin-left: 9px;
+
+  width: 56px;
+  height: 24.6px;
+
+  font-family: Noto Sans KR;
   font-style: normal;
-  line-height: 1.17;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 17px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
   letter-spacing: -1px;
-  text-align: left;
+
   color: #ffffff;
 `;
-const BestReviewArticle = styled.div`
-  margin-top: 9px;
 
-  padding: 15px 18px 38px 19px;
+const BestReviewArticle = styled.div`
+  margin-top: 9.4px;
+
+  padding: 15px 18px 23px 19px;
   border-radius: 8px;
   box-shadow: 0 1px 3px 0 rgba(129, 129, 129, 0.18);
   background-color: #ffffff;
@@ -1074,6 +1125,8 @@ const BestReviewArticle = styled.div`
   color: #9d9d9d;
 `;
 
+const Score = styled.div``;
+
 const StarReviewScore = styled.div`
   margin-top: 25px;
 
@@ -1085,41 +1138,56 @@ const StarReviewScore = styled.div`
 `;
 
 const StarImage = styled.img`
-  width: 53px;
-  height: 53px;
+  width: 40.03px;
+  height: 38.32px;
 
   border-radius: 2.5px;
 `;
 
 const ReviewScore = styled.div`
-  margin-left: 5px;
+  position: relative;
 
-  font-size: 48px;
-  font-weight: 600;
-  font-stretch: normal;
+  margin-left: 5px;
+  height: 40px;
+
+  font-family: Work Sans;
   font-style: normal;
-  line-height: 0.42;
+  font-weight: 600;
+  font-size: 48px;
+  line-height: 20px;
+
+  display: flex;
+  align-content: flex-end;
+  align-items: center;
   letter-spacing: -1px;
-  text-align: left;
-  color: var(--black);
+
+  color: #000000;
 `;
 
-const GrayScore = styled.span`
-  margin: 0 1px 4px 0;
+const GrayScore = styled.div`
+  position: relative;
+  bottom: 0;
 
-  font-family: 'Noto Sans KR', sans-serif;
-  font-size: 18px;
-  font-weight: normal;
-  font-stretch: normal;
+  padding-top: 14px;
+
+  font-family: Work Sans;
   font-style: normal;
-  line-height: 1.11;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 20px;
+  /* or 100% */
+
+  display: flex;
+  align-items: flex-end;
   letter-spacing: -2.5px;
-  text-align: left;
+
+  /* gray */
+
   color: #9d9d9d;
 `;
 
 const ReviewBox = styled.div`
-  padding: 27px 17px 36px 15px;
+  padding: 27px 17px 0 15px;
   background-color: #fafafa;
 `;
 
@@ -1127,30 +1195,31 @@ const ReviewTitle = styled.div`
   display: flex;
   align-content: space-between;
   justify-content: space-between;
-  margin-left: 10px;
+  margin-left: 9px;
 
-  font-family: 'Noto Sans KR', sans-serif;
-  font-size: 18px;
-  font-weight: bold;
-  font-stretch: normal;
+  font-family: Noto Sans KR;
   font-style: normal;
-  line-height: 1.11;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 20px;
+
+  display: flex;
+  align-items: center;
   letter-spacing: -1px;
-  text-align: left;
+
   color: #505050;
 `;
 
 const ReviewTitleBox = styled.div``;
 
 const ReviewNumber = styled.span`
-  margin-left: 3px;
+  margin-left: 3px;s
 
-  font-size: 14px;
-  font-weight: 500;
-  font-stretch: normal;
+  font-family: Work Sans;
   font-style: normal;
-  line-height: 1.43;
-  letter-spacing: normal;
-  text-align: left;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+
   color: #505050;
 `;
