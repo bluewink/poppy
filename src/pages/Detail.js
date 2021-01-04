@@ -20,6 +20,8 @@ import {
   detail_no_one,
   detail_five_start,
   detailButtonIc,
+  ser,
+  star,
 } from '../resources/images';
 
 const EXPERT_API = 'http://ec2-3-35-187-250.ap-northeast-2.compute.amazonaws.com:8000/expert/';
@@ -259,7 +261,7 @@ export default function Detail({ location }) {
       </WarningSign>
       <ServiceBox>
         <ServiceTitle>이용 가능 서비스</ServiceTitle>
-        <ServiceTable>
+        <ServiceTable src={ser}>
           {/* <ServiceRow>
             <ServiceFirstColumn>
               <ServiceCellIcon src={detailIc1} />
@@ -320,7 +322,7 @@ export default function Detail({ location }) {
           {/* <ReviewMoreButton img={detailButtonIc} /> */}
         </ReviewTitle>
         <StarReviewScore>
-          <StarImage src={detail_star} />
+          <StarImage src={star} />
           <ReviewScore>
             <Score>{score.score}</Score>
             <GrayScore>&nbsp;/ 5</GrayScore>
@@ -392,6 +394,7 @@ const ProfileThumbnail = styled.img`
 
   margin-right: 8px;
   border-radius: 50px;
+  content: object-fit;
 `;
 
 const ProfileTextBox = styled.div`
@@ -579,6 +582,7 @@ const DogImage = styled.img`
   margin-left: 3px;
   margin-right: 11px;
   margin-bottom: -1px;
+  content: object-fit;
 `;
 
 const FamilyBox = styled.div`
@@ -828,16 +832,17 @@ const ServiceCellTitle = styled.div`
   color: #505050;
 `;
 
-const ServiceTable = styled.div`
+const ServiceTable = styled.img`
   margin: 15px 0 49px 0;
+  // margin: 15px auto 49px auto;
+  //   border-radius: 8px;
+  //   box-shadow: 0 1px 3px 0 rgba(129, 129, 129, 0.18);
+  //   background-color: #fafafa;
 
-  border-radius: 8px;
-  box-shadow: 0 1px 3px 0 rgba(129, 129, 129, 0.18);
-  background-color: #fafafa;
-
-  width: 343px;
-height: 159px;
-  background-image: URL(https://user-images.githubusercontent.com/56102421/103332770-b4062a80-4aae-11eb-986f-4ead13339c49.png); 
+  // position: relative;
+  width: 100%;
+  // height: 159px;
+  object-fit: contain;
 `;
 
 const ServiceRow = styled.div`

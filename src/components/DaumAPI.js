@@ -1,7 +1,7 @@
 import React from 'react';
 import DaumPostcode from 'react-daum-postcode';
 
-export default function DaumAPI({ isOpen, close, setAddressText, setNextBool }) {
+export default function DaumAPI({ isOpen, close, setAddressText, setNextBool, setMessageBool }) {
   const handleComplete = (data) => {
     let fullAddress = data.address;
     let extraAddress = '';
@@ -20,6 +20,7 @@ export default function DaumAPI({ isOpen, close, setAddressText, setNextBool }) 
 
     setAddressText(fullAddress);
     setNextBool(true);
+    setMessageBool(false);
     close();
   };
 

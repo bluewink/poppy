@@ -150,7 +150,7 @@ const PageTitle = styled.div`
 
 const NextBox = styled.div`
   position: absolute;
-  bottom: 0;
+  bottom: 6.7%;
   left: 50%;
   transform: translate(-50%, -50%);
 

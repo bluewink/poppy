@@ -112,7 +112,7 @@ const CellWrapper = styled.div`
   position: relative;
 
   height: 130px;
-  width: 358px;
+  /* width: 358px; */
   background-color: #ffffff;
   box-shadow: 0 1px 1px 0 rgba(190, 190, 190, 0.25);
 

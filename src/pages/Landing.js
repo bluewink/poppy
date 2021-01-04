@@ -7,58 +7,61 @@ import { Link } from "react-router-dom";
 
 export default function Landing() {
   return (
-    <Wrapper>
+    <>
       <Header isAddress={false} />
-      <LandingPageHeader>
-        우리 동네 반려견
-        <br />
-        돌봄 품앗이 플랫폼,
-      </LandingPageHeader>
-      <LandingPageTitleBox>
-        <LandingPageTitle>이웃집 뽀삐</LandingPageTitle>
+      <Wrapper>
+        <LandingPageHeader>
+          우리 동네 반려견
+          <br />
+          돌봄 품앗이 플랫폼,
+        </LandingPageHeader>
+        <LandingPageTitleBox>
+          <LandingPageTitle>이웃집 뽀삐</LandingPageTitle>
 
-        <PoppyImg src={Poppy} />
-      </LandingPageTitleBox>
-      <LandingPageTitle first>1.</LandingPageTitle>
-      <LandingPageHeader first>
-        가장 가까운 이웃 반려인에게 <br />
-        도움을 요청해요!
-      </LandingPageHeader>
-      <LandingPageDescription>
-        오랜 시간 혼자 집을 지키는 우리<br></br>
-        강아지에게 <span style={{ fontWeight: "700" }}>이웃 친구</span>를
-        만들어주세요.
-        <br /> <br />
-        이웃집 뽀삐에서 <br />
-        <span style={{ fontWeight: "700" }}>
-          믿을 수 있는 이웃
-        </span> 반려인에게 <br />
-        <span style={{ fontWeight: "700" }}>가격 부담없이</span> 강아지를 맡길
-        수 있어요.
-      </LandingPageDescription>
+          <PoppyImg src={Poppy} />
+        </LandingPageTitleBox>
+        <LandingPageTitle first>1.</LandingPageTitle>
+        <LandingPageHeader first>
+          가장 가까운 이웃 반려인에게 <br />
+          도움을 요청해요!
+        </LandingPageHeader>
+        <LandingPageDescription>
+          오랜 시간 혼자 집을 지키는 우리<br></br>
+          강아지에게 <span style={{ fontWeight: "700" }}>이웃 친구</span>를
+          만들어주세요.
+          <br /> <br />
+          이웃집 뽀삐에서 <br />
+          <span style={{ fontWeight: "700" }}>믿을 수 있는 이웃</span>{" "}
+          반려인에게 <br />
+          <span style={{ fontWeight: "700" }}>가격 부담없이</span> 강아지를 맡길
+          수 있어요.
+        </LandingPageDescription>
 
-      <LandingPageBackground src={LandingPageBackgroundPng} />
-      <LandingPageTitle second>2.</LandingPageTitle>
-      <LandingPageHeader second>
-        혼자 외롭게 집을 지키는 <br />
-        이웃집 강아지를 돌봐주세요!
-      </LandingPageHeader>
-      <LandingPageDescription second>
-        이웃집 강아지를 부담없이 돌봐주며 <br />
-        <span style={{ fontWeight: "700" }}>우리 강아지에게도 친구를</span>{" "}
-        만들어주세요.
-        <br />
-        <br />
-        명예 이웃이 되면
-        <br /> 이웃집 뽀삐가 특별한 선물을 드려요.
-      </LandingPageDescription>
+        <LandingPageBackground src={LandingPageBackgroundPng} />
+        <LandingPageTitle second>2.</LandingPageTitle>
+        <LandingPageHeader second>
+          혼자 외롭게 집을 지키는 <br />
+          이웃집 강아지를 돌봐주세요!
+        </LandingPageHeader>
+        <LandingPageDescription second>
+          이웃집 강아지를 부담없이 돌봐주며 <br />
+          <span style={{ fontWeight: "700" }}>
+            우리 강아지에게도 친구를
+          </span>{" "}
+          만들어주세요.
+          <br />
+          <br />
+          명예 이웃이 되면
+          <br /> 이웃집 뽀삐가 특별한 선물을 드려요.
+        </LandingPageDescription>
 
-      <NextButtonBox>
-        <Link to="/address">
-          <NextButton>돌보미 찾기</NextButton>
-        </Link>
-      </NextButtonBox>
-    </Wrapper>
+        <NextButtonBox>
+          <Link to="/address">
+            <NextButton>돌보미 찾기</NextButton>
+          </Link>
+        </NextButtonBox>
+      </Wrapper>
+    </>
   );
 }
 

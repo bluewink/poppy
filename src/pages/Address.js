@@ -10,6 +10,7 @@ export default function Address() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [addressText, setAddressText] = useState('');
   const [nextBool, setNextBool] = useState(false);
+  const [messageBool, setMessageBool] = useState(false);
   const closeModal = () => {
     setIsModalOpen(false);
   };
@@ -18,6 +19,9 @@ export default function Address() {
     setIsModalOpen(true);
   };
 
+  const handleButtonClick = () => {
+    setMessageBool(true);
+  };
   return (
     <Wrapper>
       {!isModalOpen && (
@@ -31,7 +35,7 @@ export default function Address() {
 
           <AddressBox>
             <LocationIc src={LocationIcon} />
-            <AddressInput type="text" value={addressText} disabled></AddressInput>
+            <AddressInput type="text" value={addressText} onClick={openModal}></AddressInput>
 
             <AddressButton onClick={openModal}>주소검색</AddressButton>
           </AddressBox>
@@ -44,26 +48,56 @@ export default function Address() {
             건물명 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <Example>예) 역삼동푸르지오,텐즈힐</Example>
           </ExampleTitle>
+          {messageBool ? <ErrorMessage>주소를 입력하세요.</ErrorMessage> : <EmptyBox />}
           <NextBox>
-            <Link
-              to={{
-                pathname: '/takeoffer',
-                state: {
-                  address: addressText,
-                },
-              }}
-            >
-              {nextBool && <NextButton>확인</NextButton>}
-            </Link>
+            {nextBool ? (
+              <Link
+                to={{
+                  pathname: '/takeoffer',
+                  state: {
+                    address: addressText,
+                  },
+                }}
+              >
+                <NextButton>확인</NextButton>
+              </Link>
+            ) : (
+              <NextButton onClick={handleButtonClick}>확인</NextButton>
+            )}
           </NextBox>
           <PoppyImage src={address_poppy} />
         </>
       )}
 
-      <DaumAPI isOpen={isModalOpen} close={closeModal} {...{ setAddressText, setNextBool }} />
+      <DaumAPI isOpen={isModalOpen} close={closeModal} {...{ setAddressText, setNextBool, setMessageBool }} />
     </Wrapper>
   );
 }
+
+const EmptyBox = styled.div`
+  height: 48px;
+`;
+
+const ErrorMessage = styled.div`
+  margin-top: 37px;
+
+  font-family: Noto Sans KR;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 20px;
+  /* or 154% */
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  letter-spacing: -1px;
+
+  /* 주황 */
+
+  color: #ff9777;
+`;
 
 const LocationIc = styled.img`
   width: 20px;
@@ -208,7 +242,7 @@ const NextBox = styled.div`
 `;
 
 const NextButton = styled.button`
-  margin: 23px auto;
+  margin: 9px auto;
   text-decoration: none;
 
   width: 96px;
