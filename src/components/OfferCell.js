@@ -35,11 +35,13 @@ export default function OfferCell({ offerList, startDate, endDate }) {
             <CellWrapper>
               <OfferPicture bg={offer.room_img} />
               <OfferLocation>
-                {" "}
-                {parseAddress(offer.address)} &nbsp;
-                <span style={{ fontFamily: "Work Sans" }}>
-                  {offer.distance}
-                </span>{" "}
+                <OfferLocationDistance>
+                  {" "}
+                  {parseAddress(offer.address)} &nbsp;
+                  <span style={{ fontFamily: "Work Sans" }}>
+                    {offer.distance}
+                  </span>{" "}
+                </OfferLocationDistance>
               </OfferLocation>
               <OfferInfo>
                 <OfferTitle>{offer.title}</OfferTitle>
@@ -136,15 +138,20 @@ const OfferInfo = styled.div`
   display: flex;
   flex-direction: column;
   height: 130px;
+  width: 191px;
+  /* width: 100%; */
   padding-left: 9px;
 `;
 
+const OfferLocationDistance = styled.div`
+  padding-left: 5px;
+`;
 const OfferLocation = styled.div`
   position: absolute;
 
   top: 90px;
   border-radius: 0 0 4px 4px;
-  width: 133px;
+  width: 138px;
   height: 21px;
   font-family: "Noto Sans KR";
   font-size: 11px;
@@ -155,7 +162,8 @@ const OfferLocation = styled.div`
   letter-spacing: -0.5px;
   text-align: left;
   color: #ffffff;
-  padding-left: 5px;
+
+  /* padding-left: 5px; */
   background-color: rgba(0, 0, 0, 0.62);
 `;
 const OfferTitle = styled.div`
@@ -192,15 +200,18 @@ const OfferScore = styled.div`
 const ScoreInfo = styled.div``;
 
 const OfferPriceBox = styled.div`
+  /* position: absolute; */
   display: flex;
   flex-direction: column;
 
   padding-top: 24px;
   padding-left: 85px;
   width: 103px;
-
+  /* width: 100%; */
   height: 35px;
-  margin-right: 18px;
+
+  /* margin-right: 18px; */
+  right: 18px;
 `;
 const OfferPriceRow = styled.div`
   height: 13px;
