@@ -855,7 +855,7 @@ const ServiceTable = styled.img`
 
   // position: relative;
   width: 100%;
-  height: 159px;
+  // height: 159px;
   object-fit: contain;
 `;
 
@@ -979,6 +979,8 @@ const ExpertCard = styled.div`
   line-height: normal;
   letter-spacing: -0.5px;
   text-align: left;
+
+  white-space: nowrap;
   color: #ff9777;
 `;
 
