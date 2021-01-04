@@ -980,6 +980,7 @@ const ExpertCard = styled.div`
   letter-spacing: -0.5px;
   text-align: left;
 
+  word-break: nowrap;
   white-space: nowrap;
   color: #ff9777;
 `;
@@ -991,6 +992,9 @@ const ExpertDate = styled.div`
   font-size: 13px;
   line-height: 24px;
   /* or 188% */
+
+  word-break: nowrap;
+  white-space: nowrap;
 
   display: flex;
   align-items: center;
