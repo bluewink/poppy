@@ -22,6 +22,7 @@ import {
   detailButtonIc,
   ser,
   star,
+  service6,
 } from '../resources/images';
 
 const EXPERT_API = 'http://ec2-3-35-187-250.ap-northeast-2.compute.amazonaws.com:8000/expert/';
@@ -263,8 +264,9 @@ export default function Detail({ location }) {
       </WarningSign>
       <ServiceBox>
         <ServiceTitle>이용 가능 서비스</ServiceTitle>
-        <ServiceTable src={ser}>
-          {/* <ServiceRow>
+        {isExpert ? <ServiceTable src={service6} /> : <ServiceTable src={ser} />}
+        {/* <ServiceTable src={ser}> */}
+        {/* <ServiceRow>
             <ServiceFirstColumn>
               <ServiceCellIcon src={detailIc1} />
               <ServiceCellTitle>오래 맡겨주세요</ServiceCellTitle>
@@ -294,7 +296,7 @@ export default function Detail({ location }) {
               <ServiceCellTitle>픽업 해드려요</ServiceCellTitle>
             </ServiceSecondeColumn>
           </ServiceRow> */}
-        </ServiceTable>
+        {/* </ServiceTable> */}
       </ServiceBox>
       {isExpert === 0 ? (
         <EmptyBox />

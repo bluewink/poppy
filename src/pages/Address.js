@@ -173,9 +173,6 @@ const AddressBox = styled.div`
 const AddressButton = styled.button`
   margin: 0 0 0 5px;
 
-  // padding: 12px 13px 13px 13px;
-
-  width: 83px;
   height: 40px;
 
   font-family: Noto Sans KR;
@@ -189,6 +186,9 @@ const AddressButton = styled.button`
   align-items: center;
   text-align: center;
   letter-spacing: -0.5px;
+
+  white-space: nowrap;
+  text-align: center;
 
   color: #2c2c2c;
 
