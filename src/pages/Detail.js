@@ -150,6 +150,16 @@ export default function Detail({ location }) {
     }
   };
 
+  const parseAddress = (address) => {
+    const words = address.split(' ');
+
+    if (isExpert) {
+      return words[0] + ' ' + words[1];
+    } else {
+      return words[0] + ' ' + words[1] + ' ' + words[2];
+    }
+  };
+
   return (
     <Wrapper>
       <Header isAddress={false} />
@@ -159,7 +169,7 @@ export default function Detail({ location }) {
         <ProfileTextBox>
           <ProfileContent>
             <ProfileTitle>{title}</ProfileTitle>
-            &nbsp;{name}&nbsp;&nbsp;<ProfileAddress>{address}</ProfileAddress>
+            &nbsp;{name}&nbsp;&nbsp;<ProfileAddress>{parseAddress(address)}</ProfileAddress>
           </ProfileContent>
         </ProfileTextBox>
       </ProfileBox>
