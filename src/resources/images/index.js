@@ -39,3 +39,4 @@ export { default as FullStar } from './FullStar.png';
 export { default as EmptyStar } from './EmptyStar.png';
 export { default as ser } from './ser.png';
 export { default as star } from './star.png';
+export { default as service6 } from './service6.png';
