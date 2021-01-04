@@ -30,7 +30,7 @@ export default function Confirm({ location }) {
                 돌봄 이웃 : <Lighter>{name}</Lighter>
               </InformationSubTitle>
               <InformationSubTitle>
-                이용할 서비스 : <Lighter>소형견 / {oneDay ? ' 당일케어' : diffDate + ' 박돌봄'}</Lighter>
+                이용할 서비스 : <Lighter>소형견 / {oneDay ? ' 당일케어' : diffDate + '박 돌봄'}</Lighter>
               </InformationSubTitle>
               <InformationSubTitle>
                 날짜 :{' '}
