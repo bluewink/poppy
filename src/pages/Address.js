@@ -22,6 +22,7 @@ export default function Address() {
   const handleButtonClick = () => {
     setMessageBool(true);
   };
+
   return (
     <Wrapper>
       {!isModalOpen && (

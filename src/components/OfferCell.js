@@ -1,17 +1,21 @@
-import React, { useEffect } from "react";
-import styled, { css } from "styled-components";
-import { Link } from "react-router-dom";
+import React, { useEffect } from 'react';
+import styled, { css } from 'styled-components';
+import { Link } from 'react-router-dom';
 
-import Rating from "react-rating";
-import { EmptyStar, FullStar } from "../resources/images";
+import Rating from 'react-rating';
+import { EmptyStar, FullStar } from '../resources/images';
 
 export default function OfferCell({ offerList, startDate, endDate }) {
   useEffect(() => {}, [offerList]);
 
-  const parseAddress = (address) => {
-    const words = address.split(" ");
+  const parseAddress = (isExpert, address) => {
+    const words = address.split(' ');
 
-    return words[words.length - 1];
+    if (isExpert) {
+      return words[words.length - 2];
+    } else {
+      return words[words.length - 1];
+    }
   };
 
   return (
@@ -21,7 +25,7 @@ export default function OfferCell({ offerList, startDate, endDate }) {
         return (
           <Link
             to={{
-              pathname: "/takeofferdetail",
+              pathname: '/takeofferdetail',
               state: {
                 address: offer.address,
                 expert: offer.expert_or_not,
@@ -30,17 +34,15 @@ export default function OfferCell({ offerList, startDate, endDate }) {
                 endDate: endDate,
               },
             }}
-            style={{ textDecoration: "none" }}
+            style={{ textDecoration: 'none' }}
           >
             <CellWrapper>
               <OfferPicture bg={offer.room_img} />
               <OfferLocation>
                 <OfferLocationDistance>
-                  {" "}
-                  {parseAddress(offer.address)} &nbsp;
-                  <span style={{ fontFamily: "Work Sans" }}>
-                    {offer.distance}
-                  </span>{" "}
+                  {' '}
+                  {parseAddress(offer.expert_or_not, offer.address)} &nbsp;
+                  <span style={{ fontFamily: 'Work Sans' }}>{offer.distance}</span>{' '}
                 </OfferLocationDistance>
               </OfferLocation>
               <OfferInfo>
@@ -54,27 +56,25 @@ export default function OfferCell({ offerList, startDate, endDate }) {
                   />
 
                   <ScoreInfo>
-                    <span style={{ marginLeft: "1px" }}></span>
+                    <span style={{ marginLeft: '1px' }}></span>
                     {offer.score.score}
-                    <span style={{ marginLeft: "2px", fontWeight: "400" }}>
-                      ({offer.score.num})
-                    </span>
+                    <span style={{ marginLeft: '2px', fontWeight: '400' }}>({offer.score.num})</span>
                   </ScoreInfo>
                 </OfferScore>
                 <OfferPriceBox>
-                  <OfferPriceRow style={{ paddingBottom: "7px" }}>
+                  <OfferPriceRow style={{ paddingBottom: '7px' }}>
                     <OfferPriceDescription>당일 </OfferPriceDescription>
                     <OfferPrice>
                       {offer.small_dog_cost[0]}
                       <span
                         style={{
-                          fontFamily: "Noto Sans KR",
-                          fontSize: "13px",
-                          color: "#2c2c2c",
-                          fontWeight: "400",
+                          fontFamily: 'Noto Sans KR',
+                          fontSize: '13px',
+                          color: '#2c2c2c',
+                          fontWeight: '400',
                         }}
                       >
-                        원{" "}
+                        원{' '}
                       </span>
                     </OfferPrice>
                   </OfferPriceRow>
@@ -85,13 +85,13 @@ export default function OfferCell({ offerList, startDate, endDate }) {
                       {offer.small_dog_cost[1]}
                       <span
                         style={{
-                          fontFamily: "Noto Sans KR",
-                          fontSize: "13px",
-                          color: "#2c2c2c",
-                          fontWeight: "400",
+                          fontFamily: 'Noto Sans KR',
+                          fontSize: '13px',
+                          color: '#2c2c2c',
+                          fontWeight: '400',
                         }}
                       >
-                        원{" "}
+                        원{' '}
                       </span>
                     </OfferPrice>
                   </OfferPriceRow>
@@ -153,7 +153,7 @@ const OfferLocation = styled.div`
   border-radius: 0 0 4px 4px;
   width: 138px;
   height: 21px;
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 11px;
   font-weight: 500;
   font-stretch: normal;
@@ -170,7 +170,7 @@ const OfferTitle = styled.div`
   height: 15px;
   padding-top: 18px;
 
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 16px;
   font-weight: 500;
   font-stretch: normal;
@@ -186,7 +186,7 @@ const OfferScore = styled.div`
   margin-top: 5px;
   height: 15px;
 
-  font-family: "Work Sans";
+  font-family: 'Work Sans';
   font-size: 13px;
   font-weight: 700;
   font-stretch: normal;
@@ -222,7 +222,7 @@ const OfferPriceRow = styled.div`
 const OfferPrice = styled.div`
   margin-left: 5px;
   width: 81px;
-  font-family: "Work Sans";
+  font-family: 'Work Sans';
   font-size: 18px;
   font-weight: 600;
   font-stretch: normal;
@@ -235,7 +235,7 @@ const OfferPrice = styled.div`
 const OfferPriceDescription = styled.div`
   width: 23px;
 
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 12px;
   font-weight: normal;
   font-stretch: normal;
