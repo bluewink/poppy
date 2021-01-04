@@ -198,6 +198,7 @@ const OfferPriceBox = styled.div`
   padding-top: 24px;
   padding-left: 85px;
   width: 103px;
+
   height: 35px;
   margin-right: 18px;
 `;

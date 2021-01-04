@@ -66,7 +66,7 @@ export default function Landing() {
 }
 
 const Wrapper = styled.div`
-  height: 1150px;
+  height: 100%;
   margin-left: 15px;
 `;
 
