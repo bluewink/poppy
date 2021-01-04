@@ -175,13 +175,13 @@ const AddressButton = styled.button`
 
   // padding: 12px 13px 13px 13px;
 
-  width: 78px;
+  width: 83px;
   height: 40px;
 
   font-family: Noto Sans KR;
   font-style: normal;
   font-weight: 500;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 20px;
 
   display: flex;
