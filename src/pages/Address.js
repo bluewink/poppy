@@ -22,6 +22,7 @@ export default function Address() {
   const handleButtonClick = () => {
     setMessageBool(true);
   };
+
   return (
     <Wrapper>
       {!isModalOpen && (
@@ -173,6 +174,7 @@ const AddressBox = styled.div`
 const AddressButton = styled.button`
   margin: 0 0 0 5px;
 
+  width: 83px;
   height: 40px;
 
   font-family: Noto Sans KR;
@@ -186,10 +188,7 @@ const AddressButton = styled.button`
   align-items: center;
   text-align: center;
   letter-spacing: -0.5px;
-
   white-space: nowrap;
-  text-align: center;
-
   color: #2c2c2c;
 
   background: #f2f2f2;

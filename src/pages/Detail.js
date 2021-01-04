@@ -119,7 +119,7 @@ export default function Detail({ location }) {
       if (e_year === year && e_month === month && e_day === day) {
         setDates(year + '년 ' + month + '월 ' + day + '일');
       } else {
-        setDates(year + '년 ' + month + '월 ' + day + '일 ~ ' + e_year + '년' + e_month + '월' + e_day + '일');
+        setDates(year + '년 ' + month + '월 ' + day + '일 ~ ' + e_year + '년 ' + e_month + '월 ' + e_day + '일');
         const startDateMoment = moment(startDate);
         const endDateMoment = moment(endDate);
         const diff = endDateMoment.diff(startDateMoment, 'days') + 1;
@@ -150,6 +150,16 @@ export default function Detail({ location }) {
     }
   };
 
+  const parseAddress = (address) => {
+    const words = address.split(' ');
+
+    if (isExpert) {
+      return words[0] + ' ' + words[1];
+    } else {
+      return words[0] + ' ' + words[1] + ' ' + words[2];
+    }
+  };
+
   return (
     <Wrapper>
       <Header isAddress={false} />
@@ -159,7 +169,7 @@ export default function Detail({ location }) {
         <ProfileTextBox>
           <ProfileContent>
             <ProfileTitle>{title}</ProfileTitle>
-            &nbsp;{name}&nbsp;&nbsp;<ProfileAddress>{address}</ProfileAddress>
+            &nbsp;{name}&nbsp;&nbsp;<ProfileAddress>{parseAddress(address)}</ProfileAddress>
           </ProfileContent>
         </ProfileTextBox>
       </ProfileBox>
@@ -178,7 +188,7 @@ export default function Detail({ location }) {
           {puppy.map((dog) => {
             return (
               <FamilyCell>
-                <DogImage src={dog.img} />
+                {server && <DogImage src={dog.img} />}
                 <DogText>
                   <DogName>{dog.name}</DogName>
                   <DogSubDetail>
