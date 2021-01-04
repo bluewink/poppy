@@ -38,6 +38,7 @@ const HamburgerButton = styled.button`
   background-color: #ffffff;
   flex: 1;
   margin-top: 4px;
+  margin-left: 10px;
 `;
 
 const Hamburger = styled.img`

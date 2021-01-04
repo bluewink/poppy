@@ -124,59 +124,61 @@ export default function Search({ location }) {
   }
 
   return (
-    <Wrapper>
+    <>
       <Header isAddress={false} />
-      <SearchPageHeader>
-        강아지를 돌봐줄
-        <br />
-        이웃을 찾아보세요.
-      </SearchPageHeader>
-      <SearchOptionBox>
-        <SearchPageAddress>
-          <img
-            src={LocationIcon}
-            style={{
-              width: "18px",
-              height: "18px",
-              marginLeft: "7px",
-              marginRight: "1.7px",
-            }}
-          />{" "}
-          {parseAddress(location.state.address)}
-        </SearchPageAddress>
-        <SearchPageDate>
-          <DatePicker
-            locale="ko"
-            shouldCloseOnSelect={!selectionComplete}
-            customInput={<SearchDateCustomInput />}
-            selected={startDate}
-            onChange={handleDateChange}
-            onSelect={handleSelect}
-            selectsEnd={Boolean(startDate)}
+      <Wrapper>
+        <SearchPageHeader>
+          강아지를 돌봐줄
+          <br />
+          이웃을 찾아보세요.
+        </SearchPageHeader>
+        <SearchOptionBox>
+          <SearchPageAddress>
+            <img
+              src={LocationIcon}
+              style={{
+                width: "18px",
+                height: "18px",
+                marginLeft: "7px",
+                marginRight: "1.7px",
+              }}
+            />{" "}
+            {parseAddress(location.state.address)}
+          </SearchPageAddress>
+          <SearchPageDate>
+            <DatePicker
+              locale="ko"
+              shouldCloseOnSelect={!selectionComplete}
+              customInput={<SearchDateCustomInput />}
+              selected={startDate}
+              onChange={handleDateChange}
+              onSelect={handleSelect}
+              selectsEnd={Boolean(startDate)}
+              startDate={startDate}
+              endDate={endDate}
+              popperPlacement="bottom-end"
+            />
+          </SearchPageDate>
+        </SearchOptionBox>
+
+        <SearchTabBox>
+          <SearchTab clicked={neighbor} onClick={handleNeighborTabClick}>
+            <NeighborTab>이웃 반려인</NeighborTab>
+          </SearchTab>
+          <SearchTab clicked={!neighbor} onClick={handleProTabClick}>
+            <ProTab>전문 펫시터</ProTab>
+          </SearchTab>
+        </SearchTabBox>
+        <FilterBox>{/* <FilterOption> 거리순 </FilterOption> */}</FilterBox>
+        <OfferList>
+          <OfferCell
+            {...{ offerList }}
             startDate={startDate}
             endDate={endDate}
-            popperPlacement="bottom-end"
-          />
-        </SearchPageDate>
-      </SearchOptionBox>
-
-      <SearchTabBox>
-        <SearchTab clicked={neighbor} onClick={handleNeighborTabClick}>
-          <NeighborTab>이웃 반려인</NeighborTab>
-        </SearchTab>
-        <SearchTab clicked={!neighbor} onClick={handleProTabClick}>
-          <ProTab>전문 펫시터</ProTab>
-        </SearchTab>
-      </SearchTabBox>
-      <FilterBox>{/* <FilterOption> 거리순 </FilterOption> */}</FilterBox>
-      <OfferList>
-        <OfferCell
-          {...{ offerList }}
-          startDate={startDate}
-          endDate={endDate}
-        ></OfferCell>
-      </OfferList>
-    </Wrapper>
+          ></OfferCell>
+        </OfferList>
+      </Wrapper>
+    </>
   );
 }
 const Wrapper = styled.div`
@@ -202,12 +204,12 @@ const SearchPageHeader = styled.div`
 `;
 
 const SearchPageAddress = styled.div`
-  width: 167.2px;
+  /* width: 167.2px; */
   height: 36px;
   margin-right: 6.8px;
   display: flex;
   align-items: center;
-
+  width: 100%;
   font-family: "Noto Sans KR";
   font-size: 13px;
   //regular
@@ -223,8 +225,9 @@ const SearchPageAddress = styled.div`
   border: solid 1px lightgray;
 `;
 const SearchPageDate = styled.div`
-  width: 167.2px;
+  /* width: 167.2px; */
   height: 36px;
+  width: 100%;
   display: flex;
   align-items: center;
 
@@ -263,7 +266,8 @@ const SearchPageDatePicker = styled.div`
 const FilterBox = styled.div`
   margin-left: -17px;
 
-  height: 38px;
+  /* height: 38px; */
+  height: 10px;
   box-shadow: inset 0 1px 2px 0 rgba(165, 159, 150, 0.22),
     0 1px 2px 0 rgba(170, 170, 170, 0.31);
   background-color: #f9f9f9;
@@ -345,6 +349,7 @@ const OfferList = styled.div`
 `;
 
 const SearchOptionBox = styled.div`
+  /* width: 100%; */
   padding-top: 19px;
 
   margin-right: 16.8px;

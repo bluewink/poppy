@@ -29,6 +29,7 @@ const MobileSize = styled.div`
   background-color: #ffffff;
   width: 100%;
   max-width: 27rem;
+  /* max-width: 375px; */
   height: fit-content;
   min-height: 100vh;
   margin: 0px auto;
