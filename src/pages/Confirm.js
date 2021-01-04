@@ -150,13 +150,14 @@ const PageTitle = styled.div`
 
 const NextBox = styled.div`
   position: absolute;
-  bottom: 6.7%;
+  bottom: 10px;
   left: 50%;
   transform: translate(-50%, -50%);
 
   display: flex;
   flex-direction: column;
 
+  width: 300px;
   align-items: center;
   justify-content: center;
 `;
