@@ -47,6 +47,7 @@ export default function Detail({ location }) {
   const [moreContent, setMoreContent] = useState();
   const [title, setTitle] = useState();
   const [name, setName] = useState();
+  const [profileImg, setProfileImg] = useState();
   const [largeCost, setLargeCost] = useState(['40,000원', '50,000원']);
   const [middleCost, setMiddleCost] = useState(['40,000원', '50,000원']);
   const [smallCost, setSmallCost] = useState(['40,000원', '50,000원']);
@@ -90,6 +91,7 @@ export default function Detail({ location }) {
       setLargeCost(response.data.large_dog_cost);
       setMiddleCost(response.data.middle_dog_cost);
       setSmallCost(response.data.small_dog_cost);
+      setProfileImg(response.data.profile_img);
       setServer(true);
 
       if (isExpert) {
@@ -152,7 +154,7 @@ export default function Detail({ location }) {
       <Header isAddress={false} />
       <Thumbnail src={roomImg} />
       <ProfileBox>
-        <ProfileThumbnail src={img2} />
+        <ProfileThumbnail src={profileImg} />
         <ProfileTextBox>
           <ProfileContent>
             <ProfileTitle>{title}</ProfileTitle>
@@ -841,7 +843,7 @@ const ServiceTable = styled.img`
 
   // position: relative;
   width: 100%;
-  // height: 159px;
+  height: 159px;
   object-fit: contain;
 `;
 
