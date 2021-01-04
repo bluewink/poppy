@@ -32,7 +32,7 @@ export default function Search({ location }) {
 
       <div onClick={onClick}>
         {startDate ? moment(startDate).format("MM.DD(ddd)") : "??/??/????"} -{" "}
-        {endDate ? moment(endDate).format("MM.DD(ddd)") : null}
+        {endDate >= startDate ? moment(endDate).format("MM.DD(ddd)") : null}
       </div>
     </SearchPageDatePicker>
   );
