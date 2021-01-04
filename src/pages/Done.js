@@ -97,13 +97,13 @@ const Bold = styled.span`
 
 const PoppyImage = styled.img`
   position: absolute;
-  bottom: 152px;
+  bottom: 100px;
   right: 16px;
 `;
 
 const NextBox = styled.div`
   position: absolute;
-  bottom: 50px;
+  bottom: 10px;
   left: 50%;
   transform: translate(-50%, -50%);
 
