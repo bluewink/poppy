@@ -9,7 +9,7 @@ import DaumAPI from '../components/DaumAPI';
 export default function Address() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [addressText, setAddressText] = useState('');
-  const [nextBool, setNextBool] = useState(0);
+  const [nextBool, setNextBool] = useState(false);
   const [messageBool, setMessageBool] = useState(false);
   const closeModal = () => {
     setIsModalOpen(false);
@@ -35,7 +35,7 @@ export default function Address() {
 
           <AddressBox>
             <LocationIc src={LocationIcon} />
-            <AddressInput type="text" value={addressText} disabled></AddressInput>
+            <AddressInput type="text" value={addressText} onClick={openModal}></AddressInput>
 
             <AddressButton onClick={openModal}>주소검색</AddressButton>
           </AddressBox>

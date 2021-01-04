@@ -39,7 +39,7 @@ const Wrapper = styled.div`
 `;
 
 const PageTitle = styled.div`
-  margin: 3px 28px 0 16px;
+  margin: 3px 10px 0 16px;
 
   font-family: Noto Sans KR;
   font-style: normal;
@@ -53,7 +53,7 @@ const PageTitle = styled.div`
 `;
 
 const SubLabel1 = styled.div`
-  margin: 21px 156px 0 16px;
+  margin: 21px 100px 0 16px;
 
   font-family: Noto Sans KR;
   font-style: normal;
@@ -68,7 +68,7 @@ const SubLabel1 = styled.div`
 `;
 
 const SubLabel2 = styled.div`
-  margin: 10px 156px 0 16px;
+  margin: 10px 100px 0 16px;
 
   font-family: Noto Sans KR;
   font-style: normal;
@@ -97,13 +97,13 @@ const Bold = styled.span`
 
 const PoppyImage = styled.img`
   position: absolute;
-  bottom: 102px;
+  bottom: 152px;
   right: 16px;
 `;
 
 const NextBox = styled.div`
   position: absolute;
-  bottom: 0;
+  bottom: 50px;
   left: 50%;
   transform: translate(-50%, -50%);
 
