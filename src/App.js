@@ -8,7 +8,7 @@ import Done from "./pages/Done";
 import Detail from "./pages/Detail";
 import { BrowserRouter, Route } from "react-router-dom";
 import DaumAPI from "./components/DaumAPI.js";
-
+import Term from "./pages/Term";
 export default function App() {
   return (
     <BrowserRouter>
@@ -20,6 +20,7 @@ export default function App() {
         <Route path="/survey" exact component={Done} />
         <Route path="/takeofferdetail" exact component={Detail} />
         <Route path="/daum-address" exact component={DaumAPI} />
+        <Route path="/join" exact component={Term} />
       </MobileSize>
     </BrowserRouter>
   );
