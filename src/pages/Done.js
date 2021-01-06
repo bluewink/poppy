@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
 
-import Header from '../components/Header';
-import { survey_poppy } from '../resources/images';
+import Header from "../components/Header";
+import { survey_poppy } from "../resources/images";
 
 export default function Confirm() {
   return (
@@ -25,7 +25,7 @@ export default function Confirm() {
       <NextBox>
         <a
           target="_blank"
-          href="https://docs.google.com/forms/d/e/1FAIpQLSeo49pXpxFmNd7lx2wSVk1RHdFieODjTyGLdRpyYBvGIehKAA/viewform?usp=sf_link"
+          href="https://docs.google.com/forms/d/e/1FAIpQLSdsXC6qAmTe00x3ysuc54NNrcjB69_5Xhh7exh49j4AmTXNQA/viewform?usp=sf_link"
         >
           <NextButton>설문하기</NextButton>
         </a>
