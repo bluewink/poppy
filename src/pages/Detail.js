@@ -160,123 +160,126 @@ export default function Detail({ location }) {
     }
   };
 
+  const [background, setBackground] = useState(false);
+
   return (
-    <Wrapper>
-      <Header isAddress={false} />
-      <Thumbnail src={roomImg} />
-      <ProfileBox>
-        <ProfileThumbnail src={profileImg} />
-        <ProfileTextBox>
-          <ProfileContent>
-            <ProfileTitle>{title}</ProfileTitle>
-            &nbsp;{name}&nbsp;&nbsp;<ProfileAddress>{parseAddress(address)}</ProfileAddress>
-          </ProfileContent>
-        </ProfileTextBox>
-      </ProfileBox>
-      <ShadowView></ShadowView>
-      <IntroduceBox>
-        <IntroduceTitle>{isExpert === 0 ? '이웃집돌보미 소개' : '전문펫시터 소개'}</IntroduceTitle>
-        <IntroduceText>
-          {moreSwitch ? moreContent : content}
-          <MoreButton onClick={handleMore}>{moreText}</MoreButton>
-        </IntroduceText>
-      </IntroduceBox>
-      <ShadowView></ShadowView>
-      <FamilyBox>
-        <FamilyTitle>가족 소개</FamilyTitle>
-        <FamilyTable>
-          {puppy.map((dog) => {
-            return (
-              <FamilyCell>
-                {server && <DogImage src={dog.img} />}
-                <DogText>
-                  <DogName>{dog.name}</DogName>
-                  <DogSubDetail>
-                    {dog.breed} · {dog.age}
-                  </DogSubDetail>
-                  <DogIntroduce>{dog.character}</DogIntroduce>
-                </DogText>
-              </FamilyCell>
-            );
-          })}
-        </FamilyTable>
-      </FamilyBox>
-      <FeeBox>
-        <FeeTitle>요금 소개</FeeTitle>
-        <FeeTable>
-          <TitleRow>
-            <FirstColumnTitle>반려견 사이즈 </FirstColumnTitle>
-            <SecondColumnTitle>
-              <DayCostTitle>당일돌봄</DayCostTitle>
-              <MonthCostTitle>1박돌봄</MonthCostTitle>
-            </SecondColumnTitle>
-          </TitleRow>
-          <LineView />
-          <ElementRow>
-            <FirstColumn>
-              <WhichDog>소형견</WhichDog>&nbsp;&nbsp;
-              <WhichWeight>
-                7kg<Noto>미만</Noto>
-              </WhichWeight>
-            </FirstColumn>
-            <SecondColumn>
-              <DayCost>
-                {numberWithCommas(smallCost[0])}
-                <Noto>원</Noto>
-              </DayCost>
-              <MonthCost>
-                {numberWithCommas(smallCost[1])}
-                <Noto>원</Noto>
-              </MonthCost>
-            </SecondColumn>
-          </ElementRow>
+    <>
+      <Wrapper>
+        <Header isAddress={false} background={background} setBackground={setBackground} />
+        <Thumbnail src={roomImg} />
+        <ProfileBox>
+          <ProfileThumbnail src={profileImg} />
+          <ProfileTextBox>
+            <ProfileContent>
+              <ProfileTitle>{title}</ProfileTitle>
+              &nbsp;{name}&nbsp;&nbsp;<ProfileAddress>{parseAddress(address)}</ProfileAddress>
+            </ProfileContent>
+          </ProfileTextBox>
+        </ProfileBox>
+        <ShadowView></ShadowView>
+        <IntroduceBox>
+          <IntroduceTitle>{isExpert === 0 ? '이웃집돌보미 소개' : '전문펫시터 소개'}</IntroduceTitle>
+          <IntroduceText>
+            {moreSwitch ? moreContent : content}
+            <MoreButton onClick={handleMore}>{moreText}</MoreButton>
+          </IntroduceText>
+        </IntroduceBox>
+        <ShadowView></ShadowView>
+        <FamilyBox>
+          <FamilyTitle>가족 소개</FamilyTitle>
+          <FamilyTable>
+            {puppy.map((dog) => {
+              return (
+                <FamilyCell>
+                  {server && <DogImage src={dog.img} />}
+                  <DogText>
+                    <DogName>{dog.name}</DogName>
+                    <DogSubDetail>
+                      {dog.breed} · {dog.age}
+                    </DogSubDetail>
+                    <DogIntroduce>{dog.character}</DogIntroduce>
+                  </DogText>
+                </FamilyCell>
+              );
+            })}
+          </FamilyTable>
+        </FamilyBox>
+        <FeeBox>
+          <FeeTitle>요금 소개</FeeTitle>
+          <FeeTable>
+            <TitleRow>
+              <FirstColumnTitle>반려견 사이즈 </FirstColumnTitle>
+              <SecondColumnTitle>
+                <DayCostTitle>당일돌봄</DayCostTitle>
+                <MonthCostTitle>1박돌봄</MonthCostTitle>
+              </SecondColumnTitle>
+            </TitleRow>
+            <LineView />
+            <ElementRow>
+              <FirstColumn>
+                <WhichDog>소형견</WhichDog>&nbsp;&nbsp;
+                <WhichWeight>
+                  7kg<Noto>미만</Noto>
+                </WhichWeight>
+              </FirstColumn>
+              <SecondColumn>
+                <DayCost>
+                  {numberWithCommas(smallCost[0])}
+                  <Noto>원</Noto>
+                </DayCost>
+                <MonthCost>
+                  {numberWithCommas(smallCost[1])}
+                  <Noto>원</Noto>
+                </MonthCost>
+              </SecondColumn>
+            </ElementRow>
 
-          <ElementRow>
-            <FirstColumn>
-              <WhichDog>중형견</WhichDog>&nbsp;&nbsp;
-              <WhichWeight>7kg~15kg</WhichWeight>
-            </FirstColumn>
-            <SecondColumn>
-              <DayCost>
-                {numberWithCommas(middleCost[0])}
-                <Noto>원</Noto>
-              </DayCost>
-              <MonthCost>
-                {numberWithCommas(middleCost[1])}
-                <Noto>원</Noto>
-              </MonthCost>
-            </SecondColumn>
-          </ElementRow>
+            <ElementRow>
+              <FirstColumn>
+                <WhichDog>중형견</WhichDog>&nbsp;&nbsp;
+                <WhichWeight>7kg~15kg</WhichWeight>
+              </FirstColumn>
+              <SecondColumn>
+                <DayCost>
+                  {numberWithCommas(middleCost[0])}
+                  <Noto>원</Noto>
+                </DayCost>
+                <MonthCost>
+                  {numberWithCommas(middleCost[1])}
+                  <Noto>원</Noto>
+                </MonthCost>
+              </SecondColumn>
+            </ElementRow>
 
-          <ElementRow>
-            <FirstColumn>
-              <WhichDog>대형견</WhichDog>&nbsp;&nbsp;
-              <WhichWeight>
-                15kg<Noto>이상</Noto>
-              </WhichWeight>
-            </FirstColumn>
-            <SecondColumn>
-              <DayCost>
-                {numberWithCommas(largeCost[0])}
-                <Noto>원</Noto>
-              </DayCost>
-              <MonthCost>
-                {numberWithCommas(largeCost[1])}
-                <Noto>원</Noto>
-              </MonthCost>
-            </SecondColumn>
-          </ElementRow>
-        </FeeTable>
-      </FeeBox>
-      <WarningSign>
-        <WarningImage src={detail_warning_sign} />
-        <WarningLabel>현재는 소형견만 예약이 가능합니다.</WarningLabel>
-      </WarningSign>
-      <ServiceBox>
-        <ServiceTitle>이용 가능 서비스</ServiceTitle>
-        {isExpert ? <ServiceTable src={service6} /> : <ServiceTable src={ser} />}
-        {/* <ServiceTable src={ser}> */}
-        {/* <ServiceRow>
+            <ElementRow>
+              <FirstColumn>
+                <WhichDog>대형견</WhichDog>&nbsp;&nbsp;
+                <WhichWeight>
+                  15kg<Noto>이상</Noto>
+                </WhichWeight>
+              </FirstColumn>
+              <SecondColumn>
+                <DayCost>
+                  {numberWithCommas(largeCost[0])}
+                  <Noto>원</Noto>
+                </DayCost>
+                <MonthCost>
+                  {numberWithCommas(largeCost[1])}
+                  <Noto>원</Noto>
+                </MonthCost>
+              </SecondColumn>
+            </ElementRow>
+          </FeeTable>
+        </FeeBox>
+        <WarningSign>
+          <WarningImage src={detail_warning_sign} />
+          <WarningLabel>현재는 소형견만 예약이 가능합니다.</WarningLabel>
+        </WarningSign>
+        <ServiceBox>
+          <ServiceTitle>이용 가능 서비스</ServiceTitle>
+          {isExpert ? <ServiceTable src={service6} /> : <ServiceTable src={ser} />}
+          {/* <ServiceTable src={ser}> */}
+          {/* <ServiceRow>
             <ServiceFirstColumn>
               <ServiceCellIcon src={detailIc1} />
               <ServiceCellTitle>오래 맡겨주세요</ServiceCellTitle>
@@ -306,78 +309,95 @@ export default function Detail({ location }) {
               <ServiceCellTitle>픽업 해드려요</ServiceCellTitle>
             </ServiceSecondeColumn>
           </ServiceRow> */}
-        {/* </ServiceTable> */}
-      </ServiceBox>
-      {isExpert === 0 ? (
-        <EmptyBox />
-      ) : (
-        <ExpertBox>
-          <ExpertTitle>전문 자격증</ExpertTitle>
-          {certification.map((certi) => {
-            return (
-              <ExpertTable>
-                <ExpertColumn>
-                  <ExpertCard>{certi.name}</ExpertCard>
-                  <ExpertDate>취득일 {certi.acquisition_date}</ExpertDate>
-                </ExpertColumn>
-                <ExpertPlace>한국반려동물관리협회</ExpertPlace>
-              </ExpertTable>
-            );
-          })}
-        </ExpertBox>
-      )}
-      <ShadowView></ShadowView>
-      <ReviewBox>
-        <ReviewTitle>
-          <ReviewTitleBox>
-            돌봄 후기
-            <ReviewNumber>({score.num})</ReviewNumber>
-          </ReviewTitleBox>
-          {/* <ReviewMoreButton img={detailButtonIc} /> */}
-        </ReviewTitle>
-        <StarReviewScore>
-          <StarImage src={star} />
-          <ReviewScore>
-            <Score>{score.score}</Score>
-            <GrayScore>&nbsp;/ 5</GrayScore>
-          </ReviewScore>
-        </StarReviewScore>
-        <BestReview>
-          <BestTitle>BEST</BestTitle>
-          <BestReviewArticle>
-            <BestReviewDetail>
-              <BestReviewImage src={detail_no_one} />
-              <BestReviewText>
-                <BestColumn>
-                  <BestReviewName>{comment.name}</BestReviewName>
-                  <BestReviewStar src={detail_five_start} />
-                </BestColumn>
-                <BestReviewDate>{comment.date}</BestReviewDate>
-              </BestReviewText>
-            </BestReviewDetail>
-            <BestArticle>{comment.content}</BestArticle>
-          </BestReviewArticle>
-        </BestReview>
-      </ReviewBox>
-      <NextBox>
-        <Link
-          to={{
-            pathname: '/confirm',
-            state: {
-              oneDay: oneDay,
-              name: name,
-              date: dates,
-              cost: diffDate * smallCost[0],
-              diffDate: diffDate,
-            },
+          {/* </ServiceTable> */}
+        </ServiceBox>
+        {isExpert === 0 ? (
+          <EmptyBox />
+        ) : (
+          <ExpertBox>
+            <ExpertTitle>전문 자격증</ExpertTitle>
+            {certification.map((certi) => {
+              return (
+                <ExpertTable>
+                  <ExpertColumn>
+                    <ExpertCard>{certi.name}</ExpertCard>
+                    <ExpertDate>취득일 {certi.acquisition_date}</ExpertDate>
+                  </ExpertColumn>
+                  <ExpertPlace>한국반려동물관리협회</ExpertPlace>
+                </ExpertTable>
+              );
+            })}
+          </ExpertBox>
+        )}
+        <ShadowView></ShadowView>
+        <ReviewBox>
+          <ReviewTitle>
+            <ReviewTitleBox>
+              돌봄 후기
+              <ReviewNumber>({score.num})</ReviewNumber>
+            </ReviewTitleBox>
+            {/* <ReviewMoreButton img={detailButtonIc} /> */}
+          </ReviewTitle>
+          <StarReviewScore>
+            <StarImage src={star} />
+            <ReviewScore>
+              <Score>{score.score}</Score>
+              <GrayScore>&nbsp;/ 5</GrayScore>
+            </ReviewScore>
+          </StarReviewScore>
+          <BestReview>
+            <BestTitle>BEST</BestTitle>
+            <BestReviewArticle>
+              <BestReviewDetail>
+                <BestReviewImage src={detail_no_one} />
+                <BestReviewText>
+                  <BestColumn>
+                    <BestReviewName>{comment.name}</BestReviewName>
+                    <BestReviewStar src={detail_five_start} />
+                  </BestColumn>
+                  <BestReviewDate>{comment.date}</BestReviewDate>
+                </BestReviewText>
+              </BestReviewDetail>
+              <BestArticle>{comment.content}</BestArticle>
+            </BestReviewArticle>
+          </BestReview>
+        </ReviewBox>
+        <NextBox>
+          <Link
+            to={{
+              pathname: '/confirm',
+              state: {
+                oneDay: oneDay,
+                name: name,
+                date: dates,
+                cost: diffDate * smallCost[0],
+                diffDate: diffDate,
+              },
+            }}
+          >
+            <NextButton>예약하기</NextButton>
+          </Link>
+        </NextBox>
+      </Wrapper>
+      {background && (
+        <DarkBackground
+          onClick={() => {
+            setBackground(false);
           }}
-        >
-          <NextButton>예약하기</NextButton>
-        </Link>
-      </NextBox>
-    </Wrapper>
+        />
+      )}
+    </>
   );
 }
+
+const DarkBackground = styled.div`
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgb(0, 0, 0, 0.45);
+`;
 
 const ReviewMoreButton = styled.img`
   width: 22px;

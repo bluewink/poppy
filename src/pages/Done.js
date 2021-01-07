@@ -6,34 +6,52 @@ import Header from '../components/Header';
 import { survey_poppy } from '../resources/images';
 
 export default function Confirm() {
+  const [background, setBackground] = useState(false);
   return (
-    <Wrapper>
-      <Header isAddress={false} />
-      <PageTitle>
-        예약해주셔서 <br />
-        감사합니다!
-      </PageTitle>
-      <SubLabel1>
-        추가적으로 <Bold>1분</Bold>안에 끝나는 <br />
-        <Bold>설문조사</Bold>를 진행해주시면 <br />
-      </SubLabel1>
-      <SubLabel2>
-        추첨을 통하여 <br />
-        <Bold>기프티콘</Bold>을 선물로 드립니다.
-      </SubLabel2>
-      <PoppyImage src={survey_poppy} />
-      <NextBox>
-        <a
-          target="_blank"
-          href="https://docs.google.com/forms/d/e/1FAIpQLSeo49pXpxFmNd7lx2wSVk1RHdFieODjTyGLdRpyYBvGIehKAA/viewform?usp=sf_link"
-        >
-          <NextButton>설문하기</NextButton>
-        </a>
-      </NextBox>
-    </Wrapper>
+    <>
+      <Wrapper>
+        <Header isAddress={false} background={background} setBackground={setBackground} />
+        <PageTitle>
+          예약해주셔서 <br />
+          감사합니다!
+        </PageTitle>
+        <SubLabel1>
+          추가적으로 <Bold>1분</Bold>안에 끝나는 <br />
+          <Bold>설문조사</Bold>를 진행해주시면 <br />
+        </SubLabel1>
+        <SubLabel2>
+          추첨을 통하여 <br />
+          <Bold>기프티콘</Bold>을 선물로 드립니다.
+        </SubLabel2>
+        <PoppyImage src={survey_poppy} />
+        <NextBox>
+          <a
+            target="_blank"
+            href="https://docs.google.com/forms/d/e/1FAIpQLSeo49pXpxFmNd7lx2wSVk1RHdFieODjTyGLdRpyYBvGIehKAA/viewform?usp=sf_link"
+          >
+            <NextButton>설문하기</NextButton>
+          </a>
+        </NextBox>
+      </Wrapper>
+      {background && (
+        <DarkBackground
+          onClick={() => {
+            setBackground(false);
+          }}
+        />
+      )}
+    </>
   );
 }
 
+const DarkBackground = styled.div`
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgb(0, 0, 0, 0.45);
+`;
 const Wrapper = styled.div`
   height: 100%;
 `;

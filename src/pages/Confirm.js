@@ -8,57 +8,75 @@ import { confirmIc1, confirmIc } from '../resources/images';
 export default function Confirm({ location }) {
   const { name, date, oneDay, diffDate, cost } = location.state;
   console.log('diff Date', diffDate);
+  const [background, setBackground] = useState(false);
 
   const numberWithCommas = (price) => {
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   };
 
   return (
-    <Wrapper>
-      <>
-        <Header isAddress={false} />
-        <PageTitle>
-          예약을 <br />
-          확정해주세요!
-        </PageTitle>
-        <ReservationBox image={confirmIc}>
-          <PaddingBox>
-            {/* <Icon src={confirmIc1} /> */}
-            <InformationTitle>예약 정보</InformationTitle>
-            <InformationGroup>
-              <InformationSubTitle>
-                돌봄 이웃 : <Lighter>{name}</Lighter>
-              </InformationSubTitle>
-              <InformationSubTitle>
-                이용할 서비스 : <Lighter>소형견 / {oneDay ? ' 당일케어' : diffDate + '박 돌봄'}</Lighter>
-              </InformationSubTitle>
-              <InformationSubTitle>
-                날짜 :{' '}
-                <Lighter>
-                  <WorkSans>{date}</WorkSans>
-                </Lighter>
-              </InformationSubTitle>
-              <InformationSubTitle>
-                요금 :{' '}
-                <Lighter>
-                  <WorkSans>{numberWithCommas(cost)}</WorkSans>원
-                </Lighter>
-              </InformationSubTitle>
-            </InformationGroup>
-          </PaddingBox>
-        </ReservationBox>
+    <>
+      <Wrapper>
+        <>
+          <Header isAddress={false} background={background} setBackground={setBackground} />
+          <PageTitle>
+            예약을 <br />
+            확정해주세요!
+          </PageTitle>
+          <ReservationBox image={confirmIc}>
+            <PaddingBox>
+              {/* <Icon src={confirmIc1} /> */}
+              <InformationTitle>예약 정보</InformationTitle>
+              <InformationGroup>
+                <InformationSubTitle>
+                  돌봄 이웃 : <Lighter>{name}</Lighter>
+                </InformationSubTitle>
+                <InformationSubTitle>
+                  이용할 서비스 : <Lighter>소형견 / {oneDay ? ' 당일케어' : diffDate + '박 돌봄'}</Lighter>
+                </InformationSubTitle>
+                <InformationSubTitle>
+                  날짜 :{' '}
+                  <Lighter>
+                    <WorkSans>{date}</WorkSans>
+                  </Lighter>
+                </InformationSubTitle>
+                <InformationSubTitle>
+                  요금 :{' '}
+                  <Lighter>
+                    <WorkSans>{numberWithCommas(cost)}</WorkSans>원
+                  </Lighter>
+                </InformationSubTitle>
+              </InformationGroup>
+            </PaddingBox>
+          </ReservationBox>
 
-        <NextBox>
-          <WarnLabel>예약 정보를 다시 한 번 확인해 주세요.</WarnLabel>
-          <Link to="/survey">
-            <NextButton>예약 확정</NextButton>
-          </Link>
-        </NextBox>
-      </>
-    </Wrapper>
+          <NextBox>
+            <WarnLabel>예약 정보를 다시 한 번 확인해 주세요.</WarnLabel>
+            <Link to="/survey">
+              <NextButton>예약 확정</NextButton>
+            </Link>
+          </NextBox>
+        </>
+      </Wrapper>
+      {background && (
+        <DarkBackground
+          onClick={() => {
+            setBackground(false);
+          }}
+        />
+      )}
+    </>
   );
 }
 
+const DarkBackground = styled.div`
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgb(0, 0, 0, 0.45);
+`;
 const InformationGroup = styled.div`
   margin-top: 14px;
 `;

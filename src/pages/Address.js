@@ -11,6 +11,8 @@ export default function Address() {
   const [addressText, setAddressText] = useState('');
   const [nextBool, setNextBool] = useState(false);
   const [messageBool, setMessageBool] = useState(false);
+  const [background, setBackground] = useState(false);
+
   const closeModal = () => {
     setIsModalOpen(false);
   };
@@ -24,56 +26,77 @@ export default function Address() {
   };
 
   return (
-    <Wrapper>
-      {!isModalOpen && (
-        <>
-          <Header isAddress={true} />
-          <Title>
-            현 지역이
-            <br />
-            어디인가요?
-          </Title>
+    <>
+      <Wrapper>
+        {!isModalOpen && (
+          <>
+            <Header isAddress={false} background={background} setBackground={setBackground} />
+            <Title>
+              현 지역이
+              <br />
+              어디인가요?
+            </Title>
 
-          <AddressBox>
-            <LocationIc src={LocationIcon} />
-            <AddressInput type="text" value={addressText} onClick={openModal}></AddressInput>
+            <AddressBox>
+              <LocationIc src={LocationIcon} />
+              <AddressInput type="text" value={addressText} onClick={openModal}></AddressInput>
 
-            <AddressButton onClick={openModal}>주소검색</AddressButton>
-          </AddressBox>
-          <ExampleTitle>
-            도로명 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <Example>예) 무학로33,도산대로 8길23</Example>
-            <br></br>
-            동주소 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<Example>예) 논현동11-1</Example>
-            <br></br>
-            건물명 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <Example>예) 역삼동푸르지오,텐즈힐</Example>
-          </ExampleTitle>
-          {messageBool ? <ErrorMessage>주소를 입력하세요.</ErrorMessage> : <EmptyBox />}
-          <NextBox>
-            {nextBool ? (
-              <Link
-                to={{
-                  pathname: '/takeoffer',
-                  state: {
-                    address: addressText,
-                  },
-                }}
-              >
-                <NextButton>확인</NextButton>
-              </Link>
-            ) : (
-              <NextButton onClick={handleButtonClick}>확인</NextButton>
-            )}
-          </NextBox>
-          <PoppyImage src={address_poppy} />
-        </>
+              <AddressButton background onClick={openModal}>
+                주소검색
+              </AddressButton>
+            </AddressBox>
+            <ExampleTitle>
+              도로명 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <Example>예) 무학로33,도산대로 8길23</Example>
+              <br></br>
+              동주소 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<Example>예) 논현동11-1</Example>
+              <br></br>
+              건물명 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <Example>예) 역삼동푸르지오,텐즈힐</Example>
+            </ExampleTitle>
+            {messageBool ? <ErrorMessage>주소를 입력하세요.</ErrorMessage> : <EmptyBox />}
+            <NextBox>
+              {nextBool ? (
+                <Link
+                  to={{
+                    pathname: '/takeoffer',
+                    state: {
+                      address: addressText,
+                    },
+                  }}
+                >
+                  <NextButton>확인</NextButton>
+                </Link>
+              ) : (
+                <NextButton onClick={handleButtonClick}>확인</NextButton>
+              )}
+            </NextBox>
+            <PoppyImage src={address_poppy} />
+          </>
+        )}
+
+        <DaumAPI isOpen={isModalOpen} close={closeModal} {...{ setAddressText, setNextBool, setMessageBool }} />
+      </Wrapper>
+      {background && (
+        <DarkBackground
+          onClick={() => {
+            setBackground(false);
+          }}
+        />
       )}
-
-      <DaumAPI isOpen={isModalOpen} close={closeModal} {...{ setAddressText, setNextBool, setMessageBool }} />
-    </Wrapper>
+    </>
   );
 }
+
+const DarkBackground = styled.div`
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  background: rgb(0, 0, 0, 0.45);
+`;
 
 const EmptyBox = styled.div`
   height: 48px;
@@ -193,7 +216,6 @@ const AddressButton = styled.button`
   color: #2c2c2c;
 
   background: #f2f2f2;
-  /* light gray */
 
   border: 1px solid #d1d1d1;
   box-sizing: border-box;

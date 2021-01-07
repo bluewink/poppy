@@ -38,7 +38,7 @@ const TopHeader = styled.div`
 
   position: sticky;
   top: 0;
-  z-index: ${(props) => (props.isAddress === true ? '0' : '100')};
+  z-index: ${(props) => (props.isAddress === true ? '0' : '99')};
   width: 100%;
   padding-top: 10px;
   background: #ffffff;
