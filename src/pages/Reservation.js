@@ -109,77 +109,78 @@ export default function Reservation({ location }) {
   };
   const handleNineClock = (e) => {
     console.log(e.target.textContent);
-    calculateIndex(3);
+    calculateIndex(3, e.target.textContent);
   };
   const handleTenClock = (e) => {
     console.log(e.target.textContent);
-    calculateIndex(4);
+    calculateIndex(4, e.target.textContent);
   };
   const handleElevenClock = (e) => {
     console.log(e.target.textContent);
-    calculateIndex(5);
+    calculateIndex(5, e.target.textContent);
   };
   const handleTwelveClock = (e) => {
     console.log(e.target.textContent);
-    calculateIndex(6);
+    calculateIndex(6, e.target.textContent);
   };
   const handleThirteenClock = (e) => {
     console.log(e.target.textContent);
-    calculateIndex(7);
+    calculateIndex(7, e.target.textContent);
   };
   const handleFourteenClock = (e) => {
     console.log(e.target.textContent);
-    calculateIndex(8);
+    calculateIndex(8, e.target.textContent);
   };
   const handleFifteenClock = (e) => {
     console.log(e.target.textContent);
-    calculateIndex(9);
+    calculateIndex(9, e.target.textContent);
   };
   const handleSixteenClock = (e) => {
     console.log(e.target.textContent);
-    calculateIndex(10);
+    calculateIndex(10, e.target.textContent);
   };
   const handleSeventeenClock = (e) => {
     console.log(e.target.textContent);
-    calculateIndex(11);
+    calculateIndex(11, e.target.textContent);
   };
   const handleEighteenClock = (e) => {
     console.log(e.target.textContent);
-    calculateIndex(12);
+    calculateIndex(12, e.target.textContent);
   };
   const handleNineteenClock = (e) => {
     console.log(e.target.textContent);
-    calculateIndex(13);
+    calculateIndex(13, e.target.textContent);
   };
   const handleTwentyClock = (e) => {
     console.log(e.target.textContent);
-    calculateIndex(14);
+    calculateIndex(14, e.target.textContent);
   };
   const handleTwentyOneClock = (e) => {
     console.log(e.target.textContent);
-    calculateIndex(15);
+    calculateIndex(15, e.target.textContent);
   };
   const handleTwentyTwoClock = (e) => {
     console.log(e.target.textContent);
-    calculateIndex(16);
+    calculateIndex(16, e.target.textContent);
   };
   const handleTwentyThreeClock = (e) => {
     console.log(e.target.textContent);
-    calculateIndex(17);
+    calculateIndex(17, e.target.textContent);
   };
   const handleTwentyFourClock = (e) => {
     console.log(e.target.textContent);
-    calculateIndex(18);
+    calculateIndex(18, e.target.textContent);
   };
 
   function calculateIndex(idx, text) {
     if (startTimeIndex == -1 && endTimeIndex == -1) {
       setStartTimeIndex(idx);
       setEndTimeIndex(idx);
+      setTimeStart(text);
     } else if (startTimeIndex != -1 && startTimeIndex == endTimeIndex) {
       // 다 눌리는 로직
       setEndTimeIndex(idx);
-
+      setTimeEnd(text);
       let timeArray = [
         sixBool,
         sevenBool,
@@ -205,6 +206,8 @@ export default function Reservation({ location }) {
       // 초기화 로직 및 다시 눌리는 로직
       setStartTimeIndex(idx);
       setEndTimeIndex(idx);
+      setTimeStart(text);
+      setTimeEnd(text);
     }
   }
 
