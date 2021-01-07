@@ -365,7 +365,7 @@ export default function Detail({ location }) {
         <NextBox>
           <Link
             to={{
-              pathname: '/confirm',
+              pathname: '/reservation',
               state: {
                 oneDay: oneDay,
                 name: name,

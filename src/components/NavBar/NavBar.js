@@ -2,14 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 import { backBtn, PoppyLogoPng } from '../../resources/images';
 export default function NavBar({ backTo, titleName }) {
+  const handleBackButton = () => [window.history.back()];
   return (
     <Navbar>
       <Empty>
-        <Back>
+        <Back onClick={handleBackButton}>
           <img src={backBtn} width="24px" height="24px" />
         </Back>
       </Empty>
-      <Title>돌봄 예약</Title>
+      <Title>{titleName}</Title>
 
       <Empty />
     </Navbar>

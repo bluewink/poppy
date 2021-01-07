@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import Header from '../components/Header';
+import NavBar from '../components/NavBar';
 
 export default function Reservation() {
   return (
     <Wrapper>
-      <Header isAddress={false} background={background} setBackground={setBackground} />
+      <NavBar backTo="/take" titleName="돌봄 예약" />
     </Wrapper>
   );
 }
+
+const Wrapper = styled.div``;
