@@ -44,3 +44,4 @@ export { default as login } from './login.png';
 export { default as logo_ham } from './logo_ham.png';
 export { default as next } from './next.png';
 export { default as settingIc } from './settingIc.png';
+export { default as backBtn } from './backBtn.png';

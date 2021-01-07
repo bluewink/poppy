@@ -8,20 +8,21 @@ import Done from './pages/Done';
 import Detail from './pages/Detail';
 import { BrowserRouter, Route } from 'react-router-dom';
 import DaumAPI from './components/DaumAPI.js';
-
+import NavBar from './components/NavBar';
 export default function App() {
   return (
-    <BrowserRouter>
-      <MobileSize>
-        <Route path={['/landingpage', '/']} exact component={Landing} />
+    // <BrowserRouter>
+    <MobileSize>
+      <NavBar />
+      {/* <Route path={['/landingpage', '/']} exact component={Landing} />
         <Route path="/takeoffer" exact component={Search} />
         <Route path="/address" exact component={Address} />
         <Route path="/confirm" exact component={Confirm} />
         <Route path="/survey" exact component={Done} />
         <Route path="/takeofferdetail" exact component={Detail} />
-        <Route path="/daum-address" exact component={DaumAPI} />
-      </MobileSize>
-    </BrowserRouter>
+        <Route path="/daum-address" exact component={DaumAPI} /> */}
+    </MobileSize>
+    // </BrowserRouter>
   );
 }
 
