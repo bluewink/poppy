@@ -7,7 +7,6 @@ import Menu from './Menu';
 export default function Header({ isAddress, background, setBackground }) {
   const [open, setOpen] = useState(!background);
 
-  // console.log(open);
   return (
     <TopHeader {...{ isAddress }}>
       <Empty>
@@ -16,9 +15,19 @@ export default function Header({ isAddress, background, setBackground }) {
       </Empty>
       <HeaderLogo src={PoppyLogoPng} />
       <Empty />
+      {!open && <DarkBackground background={background} />}
     </TopHeader>
   );
 }
+
+const DarkBackground = styled.div`
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: ${(props) => (props.background === false ? 'rgb(255,255,255,0);' : 'rgb(0,0,0,0.45);')};
+`;
 
 const TopHeader = styled.div`
   width: 105px;
