@@ -172,7 +172,8 @@ export default function Detail({ location }) {
           <ProfileTextBox>
             <ProfileContent>
               <ProfileTitle>{title}</ProfileTitle>
-              &nbsp;{name}&nbsp;&nbsp;<ProfileAddress>{parseAddress(address)}</ProfileAddress>
+              &nbsp;{name}&nbsp;&nbsp;
+              <ProfileAddress>{parseAddress(address)}</ProfileAddress>
             </ProfileContent>
           </ProfileTextBox>
         </ProfileBox>
@@ -367,11 +368,14 @@ export default function Detail({ location }) {
             to={{
               pathname: '/reservation',
               state: {
+                title: title,
+                address: address,
                 oneDay: oneDay,
                 name: name,
                 date: dates,
-                cost: diffDate * smallCost[0],
+                cost: [smallCost, middleCost, largeCost],
                 diffDate: diffDate,
+                isExpert: isExpert,
               },
             }}
           >
