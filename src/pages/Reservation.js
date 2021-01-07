@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import NavBar from '../components/NavBar';
 
@@ -9,23 +9,45 @@ export default function Reservation({ location }) {
 
   const [userName, setUserName] = useState('');
   const [userPhone, setUserPhone] = useState('');
-  const [doBreed, setDogBreed] = useState('');
+  const [dogBreed, setDogBreed] = useState('');
   const [dogBreedIndex, setDogBreedIndex] = useState(0);
   const [nameError, setNameError] = useState(false);
   const [phoneError, setPhoneError] = useState(false);
   const [breedError, setBreedError] = useState(false);
+  const [startTimeIndex, setStartTimeIndex] = useState(-1);
+  const [endTimeIndex, setEndTimeIndex] = useState(-1);
+  const [sixBool, setSixBool] = useState(false);
+  const [sevenBool, setSevenBool] = useState(false);
+  const [eightBool, setEightBool] = useState(false);
+  const [nineBool, setNineBool] = useState(false);
+  const [tenBool, setTenBool] = useState(false);
+  const [elevenBool, setElevenBool] = useState(false);
+  const [twelveBool, setTwelveBool] = useState(false);
+  const [thirteenBool, setThirteenBool] = useState(false);
+  const [fourteenBool, setFourteenBool] = useState(false);
+  const [fifteenBool, setFifteenBool] = useState(false);
+  const [sixteenBool, setSixteenBool] = useState(false);
+  const [seventeenBool, setSeventeenBool] = useState(false);
+  const [eighteenBool, setEighteenBool] = useState(false);
+  const [nineteenBool, setNineteenBool] = useState(false);
+  const [twentyBool, setTwentyBool] = useState(false);
+  const [twentyOneBool, setTwentyOneBool] = useState(false);
+  const [twentyTwoBool, setTwentyTwoBool] = useState(false);
+  const [twentyThreeBool, setTwentyThreeBool] = useState(false);
+  const [twentyFourBool, setTwentyFourBool] = useState(false);
 
-  console.log(name);
-  console.log(date);
-  console.log(oneDay);
-  console.log(diffDate);
-  console.log(cost);
-  console.log(title);
-  console.log(address);
+  const [timeStart, setTimeStart] = useState('9:00');
+  const [timeEnd, setTimeEnd] = useState('10:00');
+  //   console.log(name);
+  //   console.log(date);
+  //   console.log(oneDay);
+  //   console.log(diffDate);
+  //   console.log(cost);
+  //   console.log(title);
+  //   console.log(address);
 
   const parseAddress = (address) => {
     const words = address.split(' ');
-
     if (isExpert) {
       return words[0] + ' ' + words[1];
     } else {
@@ -33,9 +55,182 @@ export default function Reservation({ location }) {
     }
   };
 
-  const handleNextStep = () => {
-    let un = userName.trim('');
+  const handleUserNameChanged = (e) => {
+    setUserName(e.target.value);
+    if (userName == '') {
+      setNameError(true);
+    } else {
+      setNameError(false);
+    }
   };
+
+  const handleUserPhoneChanged = (e) => {
+    setUserPhone(e.target.value);
+    if (userPhone == '') {
+      setPhoneError(true);
+    } else {
+      setPhoneError(false);
+    }
+  };
+
+  const handleDogBrredChanged = (e) => {
+    setDogBreed(e.target.value);
+
+    if (dogBreed == '') {
+      setBreedError(true);
+    } else {
+      setBreedError(false);
+    }
+  };
+
+  const handleSmall = (e) => {
+    setDogBreedIndex(0);
+  };
+
+  const handleMiddle = (e) => {
+    setDogBreedIndex(1);
+  };
+
+  const handleBig = (e) => {
+    setDogBreedIndex(2);
+  };
+
+  const handleSixClock = (e) => {
+    console.log(e.target.textContent);
+    calculateIndex(0, e.target.textContent);
+  };
+  const handleSevenClock = (e) => {
+    console.log(e.target.textContent);
+    calculateIndex(1, e.target.textContent);
+  };
+  const handleEightClock = (e) => {
+    console.log(e.target.textContent);
+    calculateIndex(2, e.target.textContent);
+  };
+  const handleNineClock = (e) => {
+    console.log(e.target.textContent);
+    calculateIndex(3);
+  };
+  const handleTenClock = (e) => {
+    console.log(e.target.textContent);
+    calculateIndex(4);
+  };
+  const handleElevenClock = (e) => {
+    console.log(e.target.textContent);
+    calculateIndex(5);
+  };
+  const handleTwelveClock = (e) => {
+    console.log(e.target.textContent);
+    calculateIndex(6);
+  };
+  const handleThirteenClock = (e) => {
+    console.log(e.target.textContent);
+    calculateIndex(7);
+  };
+  const handleFourteenClock = (e) => {
+    console.log(e.target.textContent);
+    calculateIndex(8);
+  };
+  const handleFifteenClock = (e) => {
+    console.log(e.target.textContent);
+    calculateIndex(9);
+  };
+  const handleSixteenClock = (e) => {
+    console.log(e.target.textContent);
+    calculateIndex(10);
+  };
+  const handleSeventeenClock = (e) => {
+    console.log(e.target.textContent);
+    calculateIndex(11);
+  };
+  const handleEighteenClock = (e) => {
+    console.log(e.target.textContent);
+    calculateIndex(12);
+  };
+  const handleNineteenClock = (e) => {
+    console.log(e.target.textContent);
+    calculateIndex(13);
+  };
+  const handleTwentyClock = (e) => {
+    console.log(e.target.textContent);
+    calculateIndex(14);
+  };
+  const handleTwentyOneClock = (e) => {
+    console.log(e.target.textContent);
+    calculateIndex(15);
+  };
+  const handleTwentyTwoClock = (e) => {
+    console.log(e.target.textContent);
+    calculateIndex(16);
+  };
+  const handleTwentyThreeClock = (e) => {
+    console.log(e.target.textContent);
+    calculateIndex(17);
+  };
+  const handleTwentyFourClock = (e) => {
+    console.log(e.target.textContent);
+    calculateIndex(18);
+  };
+
+  function calculateIndex(idx, text) {
+    if (startTimeIndex == -1 && endTimeIndex == -1) {
+      setStartTimeIndex(idx);
+      setEndTimeIndex(idx);
+    } else if (startTimeIndex != -1 && startTimeIndex == endTimeIndex) {
+      // 다 눌리는 로직
+      setEndTimeIndex(idx);
+
+      let timeArray = [
+        sixBool,
+        sevenBool,
+        eightBool,
+        nineBool,
+        tenBool,
+        elevenBool,
+        twelveBool,
+        thirteenBool,
+        fourteenBool,
+        fifteenBool,
+        sixteenBool,
+        seventeenBool,
+        eighteenBool,
+        nineteenBool,
+        twentyBool,
+        twentyOneBool,
+        twentyTwoBool,
+        twentyThreeBool,
+        twentyFourBool,
+      ];
+    } else if (startTimeIndex != -1 && endTimeIndex != -1 && startTimeIndex != endTimeIndex) {
+      // 초기화 로직 및 다시 눌리는 로직
+      setStartTimeIndex(idx);
+      setEndTimeIndex(idx);
+    }
+  }
+
+  const handleNextStep = () => {
+    console.log(userName);
+    console.log(userPhone);
+    console.log(dogBreed);
+    if (userName == '') {
+      setNameError(true);
+    } else {
+      setNameError(false);
+    }
+
+    if (userPhone == '') {
+      setPhoneError(true);
+    } else {
+      setPhoneError(false);
+    }
+
+    if (dogBreed == '') {
+      setBreedError(true);
+    } else {
+      setBreedError(false);
+    }
+  };
+
   return (
     <Wrapper>
       <NavBar backTo titleName="돌봄 예약" />
@@ -50,31 +245,111 @@ export default function Reservation({ location }) {
         <DateBox>
           <Label>돌봄 시작</Label>
           <Date>2021.01.23 (토)</Date>
-          <Time>09:00</Time>
+          <Time>{timeStart}</Time>
         </DateBox>
         <Arrow src={arrowRightIc} width="20px" height="20px" />
         <DateBox2>
-          <Label>돌봄 시작</Label>
+          <Label>돌봄 끝</Label>
           <Date>2021.01.23(토)</Date>
-          <Time>09:00</Time>
+          <Time>{timeEnd}</Time>
         </DateBox2>
       </CalendarWrapper>
       <TimeWrapper>
-        <TimeBox>6:00</TimeBox>
-        <TimeBox>7:00</TimeBox>
-        <TimeBox>8:00</TimeBox>
-        <TimeBox>9:00</TimeBox>
-        <TimeBox>10:00</TimeBox>
-        <TimeBox>11:00</TimeBox>
-        <TimeBox>12:00</TimeBox>
-        <TimeBox>13:00</TimeBox>
-        <TimeBox>14:00</TimeBox>
-        <TimeBox>15:00</TimeBox>
-        <TimeBox>16:00</TimeBox>
-        <TimeBox>17:00</TimeBox>
-        <TimeBox>18:00</TimeBox>
-        <TimeBox>19:00</TimeBox>
-        <TimeBox>20:00</TimeBox>
+        {startTimeIndex <= 0 && 0 <= endTimeIndex ? (
+          <SelectedTimeBox onClick={handleSixClock}>6:00</SelectedTimeBox>
+        ) : (
+          <TimeBox onClick={handleSixClock}>6:00</TimeBox>
+        )}
+        {startTimeIndex <= 1 && 1 <= endTimeIndex ? (
+          <SelectedTimeBox onClick={handleSevenClock}>7:00</SelectedTimeBox>
+        ) : (
+          <TimeBox onClick={handleSevenClock}>7:00</TimeBox>
+        )}
+        {startTimeIndex <= 2 && 2 <= endTimeIndex ? (
+          <SelectedTimeBox onClick={handleEightClock}>8:00</SelectedTimeBox>
+        ) : (
+          <TimeBox onClick={handleEightClock}>8:00</TimeBox>
+        )}
+        {startTimeIndex <= 3 && 3 <= endTimeIndex ? (
+          <SelectedTimeBox onClick={handleNineClock}>9:00</SelectedTimeBox>
+        ) : (
+          <TimeBox onClick={handleNineClock}>9:00</TimeBox>
+        )}
+        {startTimeIndex <= 4 && 4 <= endTimeIndex ? (
+          <SelectedTimeBox onClick={handleTenClock}>10:00</SelectedTimeBox>
+        ) : (
+          <TimeBox onClick={handleTenClock}>10:00</TimeBox>
+        )}
+        {startTimeIndex <= 5 && 5 <= endTimeIndex ? (
+          <SelectedTimeBox onClick={handleElevenClock}>11:00</SelectedTimeBox>
+        ) : (
+          <TimeBox onClick={handleElevenClock}>11:00</TimeBox>
+        )}
+        {startTimeIndex <= 6 && 6 <= endTimeIndex ? (
+          <SelectedTimeBox onClick={handleTwelveClock}>12:00</SelectedTimeBox>
+        ) : (
+          <TimeBox onClick={handleTwelveClock}>12:00</TimeBox>
+        )}
+        {startTimeIndex <= 7 && 7 <= endTimeIndex ? (
+          <SelectedTimeBox onClick={handleThirteenClock}>13:00</SelectedTimeBox>
+        ) : (
+          <TimeBox onClick={handleThirteenClock}>13:00</TimeBox>
+        )}
+        {startTimeIndex <= 8 && 8 <= endTimeIndex ? (
+          <SelectedTimeBox onClick={handleFourteenClock}>14:00</SelectedTimeBox>
+        ) : (
+          <TimeBox onClick={handleFourteenClock}>14:00</TimeBox>
+        )}
+        {startTimeIndex <= 9 && 9 <= endTimeIndex ? (
+          <SelectedTimeBox onClick={handleFifteenClock}>15:00</SelectedTimeBox>
+        ) : (
+          <TimeBox onClick={handleFifteenClock}>15:00</TimeBox>
+        )}
+        {startTimeIndex <= 10 && 10 <= endTimeIndex ? (
+          <SelectedTimeBox onClick={handleSixteenClock}>:1600</SelectedTimeBox>
+        ) : (
+          <TimeBox onClick={handleSixteenClock}>16:00</TimeBox>
+        )}
+        {startTimeIndex <= 11 && 11 <= endTimeIndex ? (
+          <SelectedTimeBox onClick={handleSeventeenClock}>17:00</SelectedTimeBox>
+        ) : (
+          <TimeBox onClick={handleSeventeenClock}>17:00</TimeBox>
+        )}
+        {startTimeIndex <= 12 && 12 <= endTimeIndex ? (
+          <SelectedTimeBox onClick={handleEighteenClock}>18:00</SelectedTimeBox>
+        ) : (
+          <TimeBox onClick={handleEighteenClock}>18:00</TimeBox>
+        )}
+        {startTimeIndex <= 13 && 13 <= endTimeIndex ? (
+          <SelectedTimeBox onClick={handleNineteenClock}>19:00</SelectedTimeBox>
+        ) : (
+          <TimeBox onClick={handleNineteenClock}>19:00</TimeBox>
+        )}
+        {startTimeIndex <= 14 && 14 <= endTimeIndex ? (
+          <SelectedTimeBox onClick={handleTwentyClock}>20:00</SelectedTimeBox>
+        ) : (
+          <TimeBox onClick={handleTwentyClock}>20:00</TimeBox>
+        )}
+        {startTimeIndex <= 15 && 15 <= endTimeIndex ? (
+          <SelectedTimeBox onClick={handleTwentyOneClock}>21:00</SelectedTimeBox>
+        ) : (
+          <TimeBox onClick={handleTwentyOneClock}>21:00</TimeBox>
+        )}
+        {startTimeIndex <= 16 && 16 <= endTimeIndex ? (
+          <SelectedTimeBox onClick={handleTwentyTwoClock}>22:00</SelectedTimeBox>
+        ) : (
+          <TimeBox onClick={handleTwentyTwoClock}>22:00</TimeBox>
+        )}
+        {startTimeIndex <= 17 && 17 <= endTimeIndex ? (
+          <SelectedTimeBox onClick={handleTwentyThreeClock}>23:00</SelectedTimeBox>
+        ) : (
+          <TimeBox onClick={handleTwentyThreeClock}>23:00</TimeBox>
+        )}
+        {startTimeIndex <= 18 && 18 <= endTimeIndex ? (
+          <SelectedTimeBox onClick={handleTwentyFourClock}>24:00</SelectedTimeBox>
+        ) : (
+          <TimeBox onClick={handleTwentyFourClock}>24:00</TimeBox>
+        )}
       </TimeWrapper>
       <WarningLabel>새벽 시간대 돌봄의 경우, 돌보미와 상의해주세요.</WarningLabel>
       <ShadowView />
@@ -85,14 +360,18 @@ export default function Reservation({ location }) {
             <HorizontalStackView>
               <InfoLabel>예약자 이름</InfoLabel>
               <VerticalStackView>
-                <UserNameTextField placeholder="예약 시 필요합니다" />
+                <UserNameTextField text={userName} onChange={handleUserNameChanged} placeholder="예약 시 필요합니다" />
                 {nameError && <ErrorMessage>예약자 이름항목은 필수 정보입니다</ErrorMessage>}
               </VerticalStackView>
             </HorizontalStackView>
             <HorizontalStackView>
               <InfoLabel>예약자 번호</InfoLabel>
               <VerticalStackView>
-                <UserPhoneTextField placeholder="예약 시 필요합니다" />
+                <UserPhoneTextField
+                  text={userPhone}
+                  onChange={handleUserPhoneChanged}
+                  placeholder="예약 시 필요합니다"
+                />
                 {phoneError && <ErrorMessage>올바른 휴대전화번호 형식이 아닙니다</ErrorMessage>}
               </VerticalStackView>
             </HorizontalStackView>
@@ -104,16 +383,34 @@ export default function Reservation({ location }) {
             <HorizontalStackView>
               <InfoLabel>반려견 견종</InfoLabel>
               <VerticalStackView>
-                <DogBreedTextField placeholder="예약 시 필요합니다" />
+                <DogBreedTextField text={dogBreed} onChange={handleDogBrredChanged} placeholder="예약 시 필요합니다" />
                 {breedError && <ErrorMessage>올바른 휴대전화번호 형식이 아닙니다</ErrorMessage>}
               </VerticalStackView>
             </HorizontalStackView>
             <HorizontalStackView>
               <InfoLabel>반려견 사이즈</InfoLabel>
               <DogSizeBox>
-                <Button>소형견</Button>
-                <Button>중형견</Button>
-                <Button>대형견</Button>
+                {dogBreedIndex == 0 ? (
+                  <SelectedButton id="clicked" className="clicked" onClick={handleSmall}>
+                    소형견
+                  </SelectedButton>
+                ) : (
+                  <Button onClick={handleSmall}>소형견</Button>
+                )}
+                {dogBreedIndex == 1 ? (
+                  <SelectedButton id="clicked" className="clicked" onClick={handleMiddle}>
+                    중형견
+                  </SelectedButton>
+                ) : (
+                  <Button onClick={handleMiddle}>중형견</Button>
+                )}
+                {dogBreedIndex == 2 ? (
+                  <SelectedButton id="clicked" className="clicked" onClick={handleBig}>
+                    대형견
+                  </SelectedButton>
+                ) : (
+                  <Button onClick={handleBig}>대형견</Button>
+                )}
               </DogSizeBox>
             </HorizontalStackView>
           </TextView>
@@ -218,6 +515,7 @@ const DogSizeBox = styled.div`
 `;
 
 const Button = styled.div`
+  outline: none;
   width: 68px;
   height: 32px;
 
@@ -261,6 +559,36 @@ const Button = styled.div`
     box-shadow: 2px 2px 3px rgba(255, 170, 122, 0.39), inset 2px 2px 5px rgba(248, 110, 33, 0.64);
     border-radius: 37px;
   }
+`;
+
+const SelectedButton = styled.button`
+  width: 68px;
+  height: 32px;
+
+  margin-right: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-family: Noto Sans KR;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 22px;
+  display: flex;
+  align-items: center;
+  letter-spacing: -1px;
+
+  /* 화이트 */
+
+  color: #ffffff;
+
+  background: #ff9777;
+  box-shadow: 2px 2px 3px rgba(255, 170, 122, 0.39), inset 2px 2px 5px rgba(248, 110, 33, 0.64);
+  border-radius: 37px;
+
+  border: none;
+  outline: none;
 `;
 
 const ErrorMessage = styled.div`
@@ -471,6 +799,47 @@ const TimeWrapper = styled.div`
   overflow: auto;
   padding-left: 9px;
   display: flex;
+`;
+
+const SelectedTimeBox = styled.button`
+  outline: none;
+  border: none;
+
+  width: 40px;
+  height: 40px;
+  margin: 0 5px;
+
+  background: #f2f2f2;
+  /* 찐연회색 */
+
+  border: 1px solid #f2f2f2;
+  box-sizing: border-box;
+  border-radius: 3px;
+
+  /* Inside Auto Layout */
+
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+
+  font-family: Work Sans;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 17px;
+  /* or 142% */
+
+  display: flex;
+  align-items: center;
+  text-align: center;
+  letter-spacing: -0.5px;
+
+  /* 화이트 */
+
+  color: #ffffff;
+
+  background: #ff9777;
+  box-shadow: 2px 2px 3px rgba(255, 170, 122, 0.39), inset 2px 2px 5px rgba(248, 110, 33, 0.64);
 `;
 
 const TimeBox = styled.button`
