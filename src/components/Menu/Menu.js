@@ -6,7 +6,7 @@ import { StyledMenu } from './Menu.styled';
 
 import { logo_ham, login, next, settingIc } from '../../resources/images';
 
-const Menu = ({ open, setOpen }) => {
+const Menu = ({ open, setOpen, background, setBackground }) => {
   return (
     <StyledMenu open={open}>
       <TopView>
@@ -15,6 +15,7 @@ const Menu = ({ open, setOpen }) => {
           width="105px;"
           onClick={() => {
             setOpen(!open);
+            setBackground(!background);
             console.log('눌림');
           }}
         />

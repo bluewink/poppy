@@ -4,15 +4,15 @@ import { PoppyLogoPng, hamburgerIc } from '../resources/images';
 import Burger from './Burger';
 import Menu from './Menu';
 
-export default function Header({ isAddress }) {
-  const [open, setOpen] = useState(true);
+export default function Header({ isAddress, background, setBackground }) {
+  const [open, setOpen] = useState(!background);
 
   // console.log(open);
   return (
     <TopHeader {...{ isAddress }}>
       <Empty>
-        <Menu open={open} setOpen={setOpen} />
-        <Burger open={open} setOpen={setOpen} />
+        <Menu open={open} setOpen={setOpen} background={background} setBackground={setBackground} />
+        <Burger open={open} setOpen={setOpen} background={background} setBackground={setBackground} />
       </Empty>
       <HeaderLogo src={PoppyLogoPng} />
       <Empty />

@@ -10,13 +10,13 @@ const Hamburger = styled.img`
   margin-left: 3px; */
 `;
 
-const Burger = ({ open, setOpen, handleBurger }) => {
+const Burger = ({ open, setOpen, background, setBackground }) => {
   return (
     <StyledBurger
       open={open}
       onClick={() => {
         setOpen(!open);
-        console.log(open);
+        setBackground(!background);
       }}
     >
       <Hamburger src={hamburgerIc} />
