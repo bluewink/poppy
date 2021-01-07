@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled, { useTheme } from 'styled-components';
 import { PoppyLogoPng, hamburgerIc } from '../resources/images';
 import Burger from './Burger';
@@ -7,6 +7,9 @@ import Menu from './Menu';
 export default function Header({ isAddress, background, setBackground }) {
   const [open, setOpen] = useState(!background);
 
+  useEffect(() => {
+    setOpen(!background);
+  }, [background]);
   return (
     <TopHeader {...{ isAddress }}>
       <Empty>

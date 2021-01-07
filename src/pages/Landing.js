@@ -57,7 +57,13 @@ export default function Landing() {
           </Link>
         </NextButtonBox>
       </Wrapper>
-      {background && <DarkBackground />}
+      {background && (
+        <DarkBackground
+          onClick={() => {
+            setBackground(false);
+          }}
+        />
+      )}
     </>
   );
 }
