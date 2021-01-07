@@ -10,7 +10,14 @@ const Menu = ({ open, setOpen }) => {
   return (
     <StyledMenu open={open}>
       <TopView>
-        <img src={logo_ham} width="105px;" />
+        <img
+          src={logo_ham}
+          width="105px;"
+          onClick={() => {
+            setOpen(!open);
+            console.log('눌림');
+          }}
+        />
 
         <LoginBox>
           <LoginWrapper>
