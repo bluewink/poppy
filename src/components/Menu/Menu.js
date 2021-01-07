@@ -7,6 +7,11 @@ import { StyledMenu } from './Menu.styled';
 import { logo_ham, login, next, settingIc } from '../../resources/images';
 
 const Menu = ({ open, setOpen, background, setBackground }) => {
+  const handleLink = () => {
+    setOpen(!open);
+    setBackground(!background);
+  };
+
   return (
     <StyledMenu open={open}>
       <TopView>
@@ -29,7 +34,7 @@ const Menu = ({ open, setOpen, background, setBackground }) => {
         </LoginBox>
         <LineView />
         <MenuWrapper>
-          <Link to="/address">
+          <Link to="/" style={{ textDecoration: 'none' }} onClick={handleLink}>
             <MenuBox>
               <MenuLabel>이웃집뽀삐 소개</MenuLabel>
               <img src={next} width="6px" height="12px" />
@@ -58,12 +63,17 @@ const MenuWrapper = styled.div`
 const MenuBox = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
+
+  outline: none;
+  border: none;
+  text-decoration: none;
 `;
 
 const MenuLabel = styled.div`
   outline: none;
   border: none;
-  text-decoration: none !important;
+  text-decoration: none;
 
   font-family: Noto Sans KR;
   font-style: normal;
