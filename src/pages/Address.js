@@ -166,6 +166,7 @@ const AddressBox = styled.div`
 
   display: flex;
   position: relative;
+  z-index: 1;
   justify-content: flex-start;
   align-content: center;
   align-items: stretch;

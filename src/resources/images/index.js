@@ -40,3 +40,7 @@ export { default as EmptyStar } from './EmptyStar.png';
 export { default as ser } from './ser.png';
 export { default as star } from './star.png';
 export { default as service6 } from './service6.png';
+export { default as login } from './login.png';
+export { default as logo_ham } from './logo_ham.png';
+export { default as next } from './next.png';
+export { default as settingIc } from './settingIc.png';

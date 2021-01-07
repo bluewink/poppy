@@ -1,14 +1,18 @@
-import React from "react";
-import styled from "styled-components";
-import { PoppyLogoPng, hamburgerIc } from "../resources/images";
+import React, { useState } from 'react';
+import styled, { useTheme } from 'styled-components';
+import { PoppyLogoPng, hamburgerIc } from '../resources/images';
+import Burger from './Burger';
+import Menu from './Menu';
 
 export default function Header({ isAddress }) {
+  const [open, setOpen] = useState(true);
+
+  // console.log(open);
   return (
     <TopHeader {...{ isAddress }}>
       <Empty>
-        <HamburgerButton>
-          <Hamburger src={hamburgerIc} />
-        </HamburgerButton>
+        <Menu open={open} setOpen={setOpen} />
+        <Burger open={open} setOpen={setOpen} />
       </Empty>
       <HeaderLogo src={PoppyLogoPng} />
       <Empty />
@@ -22,7 +26,7 @@ const TopHeader = styled.div`
 
   position: sticky;
   top: 0;
-  z-index: ${(props) => (props.isAddress === true ? "0" : "100")};
+  z-index: ${(props) => (props.isAddress === true ? '0' : '100')};
   width: 100%;
   padding-top: 10px;
   background: #ffffff;
