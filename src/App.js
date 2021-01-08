@@ -13,19 +13,25 @@ import Reservation from './pages/Reservation';
 export default function App() {
   return (
     <BrowserRouter>
-      <MobileSize>
-        <Route path={['/landingpage', '/']} exact component={Landing} />
-        <Route path="/takeoffer" exact component={Search} />
-        <Route path="/address" exact component={Address} />
-        <Route path="/confirm" exact component={Confirm} />
-        <Route path="/survey" exact component={Done} />
-        <Route path="/takeofferdetail" exact component={Detail} />
-        <Route path="/daum-address" exact component={DaumAPI} />
-        <Route path="/reservation" exact component={Reservation} />
-      </MobileSize>
+      <>
+        <White>
+          <MobileSize>
+            <Route path={['/landingpage', '/']} exact component={Landing} />
+            <Route path="/takeoffer" exact component={Search} />
+            <Route path="/address" exact component={Address} />
+            <Route path="/confirm" exact component={Confirm} />
+            <Route path="/survey" exact component={Done} />
+            <Route path="/takeofferdetail" exact component={Detail} />
+            <Route path="/daum-address" exact component={DaumAPI} />
+            <Route path="/reservation" exact component={Reservation} />
+          </MobileSize>
+        </White>
+      </>
     </BrowserRouter>
   );
 }
+
+const White = styled.div``;
 
 const MobileSize = styled.div`
   background-color: #ffffff;

@@ -40,4 +40,7 @@ export const StyledMenu = styled.div`
 
     transform: ${({ open }) => (!open ? 'translateX(0)' : 'translateX(-100%)')};
   }
+
+  display: ${({ open }) => (open ? 'none' : 'flex')}
+  ;
 `;
