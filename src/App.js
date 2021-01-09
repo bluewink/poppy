@@ -10,6 +10,7 @@ import { BrowserRouter, Route } from "react-router-dom";
 import DaumAPI from "./components/DaumAPI.js";
 import Term from "./pages/Term";
 import Register from "./pages/Register";
+import Login from "./pages/Login";
 export default function App() {
   return (
     <BrowserRouter>
@@ -23,6 +24,7 @@ export default function App() {
         <Route path="/daum-address" exact component={DaumAPI} />
         <Route path="/join" exact component={Term} />
         <Route path="/register" exact component={Register} />
+        <Route path="/login" exact component={Login} />
       </MobileSize>
     </BrowserRouter>
   );

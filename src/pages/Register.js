@@ -1,6 +1,75 @@
-import React from "react";
-import styled from "styled-components";
+import React, { useState, useEffect } from "react";
+import styled, { css } from "styled-components";
+import Timer from "../components/Timer";
+import { PasswordEye } from "../resources/images/index";
 export default function Register() {
+  const [nameInputFlag, setNameInputFlag] = useState(false);
+  const [nameInput, setNameInput] = useState("");
+  const [emailInputFlag, setEmailInputFlag] = useState(false);
+  const [emailInput, setEmailInput] = useState("");
+  const [emailInputCorrection, setEmailInputCorrection] = useState(false);
+  const [codeInputFlag, setCodeInputFlag] = useState(false);
+  const [codeInput, setCodeInput] = useState("");
+  const [passwordInputFlag, setPasswordInputFlag] = useState(false);
+  const [passwordInput, setPasswordInput] = useState("");
+  const [passwordInputCorrection, setPasswordInputCorrection] = useState(false);
+  const [passwordConfirmInputFlag, setPasswordConfirmInputFlag] = useState(
+    false
+  );
+  const [passwordconfirmInput, setPasswordconfirmInput] = useState("");
+  const [passwordEyeFlag, setPasswordEyeFlag] = useState(false);
+  const [passwordConfirmEyeFlag, setPasswordConfirmEyeFlag] = useState(false);
+  const [submitCodeTime, setSubmitCodeTime] = useState(600);
+  const [timerTrigger, setTimerTrigger] = useState(false);
+  const PW_TYPE = /^[A-Za-z0-9+]{8,16}$/;
+
+  const handleNameInput = (event) => {
+    if (event.target.value === "") setNameInputFlag(false);
+    else setNameInputFlag(true);
+  };
+
+  const handleEmailInput = (event) => {
+    setEmailInput(event.target.value);
+    if (event.target.value === "") setEmailInputFlag(false);
+    else setEmailInputFlag(true);
+    if (event.target.value.includes("@")) {
+      setEmailInputCorrection(true);
+    } else setEmailInputCorrection(false);
+  };
+
+  const handleCodeInput = (event) => {
+    if (event.target.value === "") setCodeInputFlag(false);
+    else setCodeInputFlag(true);
+  };
+
+  var passwordNumberCheck;
+  var passwordLetterCheck;
+
+  const handlePasswordInput = (event) => {
+    if (event.target.value === "") setPasswordInputFlag(false);
+    else setPasswordInputFlag(true);
+    passwordNumberCheck = event.target.value.search(/[0-9]/g);
+    passwordLetterCheck = event.target.value.search(/[A-Za-z]/g);
+    if (
+      PW_TYPE.test(event.target.value) &&
+      passwordNumberCheck !== -1 &&
+      passwordLetterCheck !== -1
+    ) {
+      setPasswordInputCorrection(true);
+    } else setPasswordInputCorrection(false);
+  };
+
+  const handlePasswordConfirmInput = (event) => {
+    if (event.target.value === "") setPasswordConfirmInputFlag(false);
+    else setPasswordConfirmInputFlag(true);
+  };
+
+  const handleSendCodeButton = (event) => {
+    event.preventDefault();
+
+    setTimerTrigger(!timerTrigger);
+  };
+
   return (
     <Wrapper>
       <RegisterHeader>
@@ -9,20 +78,86 @@ export default function Register() {
         정보를 입력해주세요.
       </RegisterHeader>
       <RegisterForm>
-        <RegisterInput type="text" placeholder="이름" />
-        <RequiredMessage>필수 입력 항목입니다.</RequiredMessage>
-        <RegisterInput type="email" placeholder="이메일 주소" />
-        <RequiredMessage>필수 입력 항목입니다.</RequiredMessage>
-        <RegisterInput type="text" placeholder="인증코드" />
-        <RequiredMessage>필수 입력 항목입니다.</RequiredMessage>
-        <RegisterInput type="password" placeholder="비밀번호" />
-        <RegisterInput type="password" placeholder="비밀번호 확인" />
+        <InputRow onChange={handleNameInput} inputCheck={nameInputFlag}>
+          <RegisterInput type="text" placeholder="이름" />
+        </InputRow>
+        <RequiredMessage inputCheck={nameInputFlag}>
+          필수 입력 항목입니다.
+        </RequiredMessage>
+        <InputRow
+          onChange={handleEmailInput}
+          inputCheck={emailInputFlag}
+          style={{ marginTop: "10px" }}
+        >
+          <RegisterInput type="text" placeholder="이메일 주소" />
+          <SendCodeButton onClick={handleSendCodeButton}>
+            인증코드 전송
+          </SendCodeButton>
+        </InputRow>
+        <RequiredMessage>
+          {emailInputFlag ? null : "필수 입력 항목입니다."}
+          {!emailInputFlag || emailInputCorrection
+            ? null
+            : "이메일 형태로 입력해 주세요."}
+        </RequiredMessage>
+        <InputRow
+          onChange={handleCodeInput}
+          inputCheck={codeInputFlag}
+          style={{ marginTop: "10px" }}
+        >
+          <RegisterInput type="text" placeholder="인증코드" />
+          <CodeTimer>
+            <Timer
+              mm="3"
+              ss="0"
+              timerTrigger={timerTrigger}
+              {...{ setTimerTrigger }}
+            />
+          </CodeTimer>
+        </InputRow>
+        <RequiredMessage inputCheck={codeInputFlag}>
+          필수 입력 항목입니다.
+        </RequiredMessage>
+        <InputRow
+          onChange={handlePasswordInput}
+          inputCheck={passwordInputFlag}
+          style={{ marginTop: "51px" }}
+        >
+          <RegisterInput
+            type={passwordEyeFlag ? "text" : "password"}
+            placeholder="비밀번호"
+          />
+          <PasswordEyeIcon
+            src={PasswordEye}
+            onClick={() => setPasswordEyeFlag(!passwordEyeFlag)}
+          />
+        </InputRow>
+        <RequiredMessage>
+          {passwordInputCorrection
+            ? null
+            : "영문/숫자 8-16자 조합으로 입력해주세요."}
+        </RequiredMessage>
+        <InputRow
+          onChange={handlePasswordConfirmInput}
+          inputCheck={passwordConfirmInputFlag}
+          style={{ marginTop: "31px" }}
+        >
+          <RegisterInput
+            type={passwordConfirmEyeFlag ? "text" : "password"}
+            placeholder="비밀번호 확인"
+          />
+          <PasswordEyeIcon
+            src={PasswordEye}
+            onClick={() => setPasswordConfirmEyeFlag(!passwordConfirmEyeFlag)}
+          />
+        </InputRow>
       </RegisterForm>
     </Wrapper>
   );
 }
 const Wrapper = styled.div`
   margin-left: 17px;
+  margin-right: 17px;
 `;
 
 const RegisterHeader = styled.div`
@@ -45,9 +180,10 @@ const RegisterForm = styled.form`
 `;
 const RegisterInput = styled.input`
   //padding-bottom 얼마인지 물어보기.
-  padding-bottom: 10px;
+  padding-bottom: 13px;
+  padding-left: 7.5px;
   border: none;
-  border-bottom: 1px solid;
+
   height: 23px;
 
   font-family: "Noto Sans KR";
@@ -75,7 +211,9 @@ const RegisterInput = styled.input`
     color: #d1d1d1;
   }
 `;
+
 const RequiredMessage = styled.div`
+  margin-top: 7px;
   height: 15px;
   font-family: "Noto Sans KR";
   font-size: 13px;
@@ -85,5 +223,71 @@ const RequiredMessage = styled.div`
   line-height: 1.54;
   letter-spacing: -1px;
   text-align: left;
+
   color: #ff9777;
+
+  ${(props) =>
+    props.inputCheck &&
+    css`
+      color: #ffffff;
+    `}
+`;
+const InputRow = styled.div`
+  display: flex;
+  position: relative;
+  transition: 0.4s ease-in-out;
+  border-bottom: 1px solid #d1d1d1;
+
+  ${(props) =>
+    props.inputCheck &&
+    css`
+      transition: 0.4s ease-in-out;
+      border-bottom: 1px solid #505050;
+    `}
+`;
+
+const SendCodeButton = styled.button`
+  position: absolute;
+  right: 0px;
+  width: 90px;
+  height: 26px;
+  border: none;
+  border-radius: 15px;
+  background-color: #ff9777;
+
+  font-family: "Noto Sans KR";
+  font-size: 12px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.67;
+  letter-spacing: -1px;
+  text-align: center;
+  color: #ffffff;
+  :focus {
+    outline: none;
+  }
+`;
+
+const CodeTimer = styled.div`
+  padding-top: 5px;
+  position: absolute;
+  right: 0px;
+  height: 15px;
+
+  font-family: "Noto Sans KR";
+  font-size: 13px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.54;
+  letter-spacing: -1px;
+  text-align: right;
+  color: #787878;
+`;
+const PasswordEyeIcon = styled.img`
+  position: absolute;
+  right: 0px;
+  width: 24px;
+  height: 24px;
 `;
