@@ -88,7 +88,7 @@ export default function Register() {
         <InputRow
           onChange={handleEmailInput}
           inputCheck={emailInputFlag}
-          style={{ marginTop: "10px" }}
+          style={{ marginTop: "17px" }}
         >
           <RegisterInput type="text" placeholder="이메일 주소" />
           <SendCodeButton onClick={handleSendCodeButton}>
@@ -104,7 +104,7 @@ export default function Register() {
         <InputRow
           onChange={handleCodeInput}
           inputCheck={codeInputFlag}
-          style={{ marginTop: "10px" }}
+          style={{ marginTop: "17px" }}
         >
           <RegisterInput type="text" placeholder="인증코드" />
           <CodeTimer>
@@ -141,7 +141,7 @@ export default function Register() {
         <InputRow
           onChange={handlePasswordConfirmInput}
           inputCheck={passwordConfirmInputFlag}
-          style={{ marginTop: "31px" }}
+          style={{ marginTop: "17px" }}
         >
           <RegisterInput
             type={passwordConfirmEyeFlag ? "text" : "password"}
@@ -219,7 +219,8 @@ const RegisterInput = styled.input`
 `;
 
 const RequiredMessage = styled.div`
-  margin-top: 7px;
+  margin-top: 5px;
+  margin-left: 7.5px;
   height: 15px;
   font-family: "Noto Sans KR";
   font-size: 13px;
@@ -276,7 +277,7 @@ const SendCodeButton = styled.button`
 `;
 
 const CodeTimer = styled.div`
-  padding-top: 5px;
+  padding-top: 4px;
   position: absolute;
   right: 0px;
   height: 15px;

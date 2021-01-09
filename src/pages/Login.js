@@ -32,7 +32,7 @@ export default function Login() {
 
   return (
     <Wrapper>
-      <LoginHeader>로그인 해주세요</LoginHeader>
+      <LoginHeader>로그인 해주세요.</LoginHeader>
       <InputRow
         onChange={handleEmailInput}
         inputCheck={emailInputFlag}
