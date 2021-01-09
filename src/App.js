@@ -9,6 +9,7 @@ import Detail from './pages/Detail';
 import { BrowserRouter, Route } from 'react-router-dom';
 import DaumAPI from './components/DaumAPI.js';
 import Reservation from './pages/Reservation';
+import Term from './pages/Term';
 
 export default function App() {
   return (
@@ -24,6 +25,7 @@ export default function App() {
             <Route path="/takeofferdetail" exact component={Detail} />
             <Route path="/daum-address" exact component={DaumAPI} />
             <Route path="/reservation" exact component={Reservation} />
+            <Route path="/join" exact component={Term} />
           </MobileSize>
         </White>
       </>

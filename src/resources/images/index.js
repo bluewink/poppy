@@ -46,3 +46,5 @@ export { default as next } from './next.png';
 export { default as settingIc } from './settingIc.png';
 export { default as backBtn } from './backBtn.png';
 export { default as arrowRightIc } from './arrowRightIc.png';
+export { default as CheckSign } from './CheckSignPng.png';
+export { default as TermDetail } from './TermDetailPng.png';
