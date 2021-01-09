@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import { PasswordEye } from "../resources/images/index";
+import { Link } from "react-router-dom";
 export default function Login() {
   const [passwordEyeFlag, setPasswordEyeFlag] = useState(false);
   const [emailInputFlag, setEmailInputFlag] = useState(false);
@@ -53,6 +54,14 @@ export default function Login() {
           onClick={() => setPasswordEyeFlag(!passwordEyeFlag)}
         />
       </InputRow>
+      <ButtonContainer>
+        <NextButton type="submit">로그인</NextButton>
+      </ButtonContainer>
+      <ButtonContainer style={{ marginTop: "15px" }}>
+        <Link to="/register">
+          <RegisterButton>회원가입</RegisterButton>
+        </Link>
+      </ButtonContainer>
     </Wrapper>
   );
 }
@@ -127,4 +136,53 @@ const PasswordEyeIcon = styled.img`
   right: 0px;
   width: 24px;
   height: 24px;
+`;
+
+const NextButton = styled.button`
+  text-decoration: none;
+
+  width: 106px;
+  height: 46px;
+  outline: none;
+  border: none;
+
+  padding: 0 25px;
+
+  font-family: Noto Sans KR;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 48px;
+  /* or 240% */
+
+  color: #ffffff;
+
+  background: #ff9777;
+  box-shadow: 0px 4px 10px rgba(191, 170, 114, 0.35);
+  border-radius: 5px;
+`;
+const RegisterButton = styled.button`
+  background: none;
+  border: none;
+  height: 20px;
+
+  font-family: "Noto Sans KR";
+  font-size: 16px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.25;
+  letter-spacing: -1px;
+  text-align: center;
+  color: #9d9d9d;
+
+  :focus {
+    outline: none;
+  }
+`;
+const ButtonContainer = styled.div`
+  margin-left: -17px;
+  margin-top: 323px;
+  display: flex;
+  justify-content: center;
 `;

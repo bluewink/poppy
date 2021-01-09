@@ -17,6 +17,7 @@ export { default as TermDetail } from "./TermDetailPng.png";
 export { default as LocationBackground } from "./LocationBackground.png";
 export { default as img1 } from "./img1.png";
 export { default as img2 } from "./img2.png";
+export { default as PoppyRegCompletePng } from "./PoppyRegCompletePng.png";
 export { default as PasswordEye } from "./PasswordEyeIcon.png";
 export { default as detailIc1 } from "./detailIc1.png";
 export { default as detailIc2 } from "./detailIc2.png";

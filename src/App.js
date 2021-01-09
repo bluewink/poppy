@@ -11,6 +11,7 @@ import DaumAPI from "./components/DaumAPI.js";
 import Term from "./pages/Term";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
+import RegisterDone from "./pages/RegisterDone";
 export default function App() {
   return (
     <BrowserRouter>
@@ -25,6 +26,7 @@ export default function App() {
         <Route path="/join" exact component={Term} />
         <Route path="/register" exact component={Register} />
         <Route path="/login" exact component={Login} />
+        <Route path="/registerdone" exact component={RegisterDone} />
       </MobileSize>
     </BrowserRouter>
   );

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled, { css } from "styled-components";
 import Timer from "../components/Timer";
 import { PasswordEye } from "../resources/images/index";
+import { Link } from "react-router-dom";
 export default function Register() {
   const [nameInputFlag, setNameInputFlag] = useState(false);
   const [nameInput, setNameInput] = useState("");
@@ -152,6 +153,11 @@ export default function Register() {
           />
         </InputRow>
       </RegisterForm>
+      <ButtonContainer>
+        <Link to="/login">
+          <NextButton>회원가입</NextButton>
+        </Link>
+      </ButtonContainer>
     </Wrapper>
   );
 }
@@ -290,4 +296,37 @@ const PasswordEyeIcon = styled.img`
   right: 0px;
   width: 24px;
   height: 24px;
+`;
+
+// 68px
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-left: -17px;
+`;
+
+const NextButton = styled.button`
+  text-decoration: none;
+  margin-top: 68px;
+
+  width: 124px;
+  height: 46px;
+
+  outline: none;
+  border: none;
+
+  padding: 0 25px;
+
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 48px;
+  /* or 240% */
+
+  color: #ffffff;
+
+  background: #ff9777;
+  box-shadow: 0px 4px 10px rgba(191, 170, 114, 0.35);
+  border-radius: 5px;
 `;
