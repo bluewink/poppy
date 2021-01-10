@@ -4,6 +4,8 @@ import Checkbox from "../components/Checkbox";
 import NextButton from "../components/NextButton";
 import { TermDetail } from "../resources/images";
 import NavBar from "../components/NavBar";
+import PinkButton from "../components/PinkButton";
+import { Link } from "react-router-dom";
 export default function Term() {
   const [allChecked, setAllChecked] = useState(false);
   const [locationChecked, setLocationChecked] = useState(false);
@@ -66,7 +68,18 @@ export default function Term() {
             </CheckRow>
           </TermCheckBox>
         </TermCheckContainer>
-        <NextButton>확인</NextButton>
+        {locationChecked && privateChecked ? (
+          <Link to="/register" style={{ textDecoration: "none" }}>
+            <PinkButton
+              content="확인"
+              wid="87px"
+              hgt="46px"
+              marginTop="219px"
+            />
+          </Link>
+        ) : (
+          <PinkButton content="확인" wid="87px" hgt="46px" marginTop="219px" />
+        )}
       </Wrapper>
     </>
   );
