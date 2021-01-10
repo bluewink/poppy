@@ -1,35 +1,37 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-
+import NavBar from "../components/NavBar";
 import Header from "../components/Header";
 import { survey_poppy } from "../resources/images";
 
 export default function Confirm() {
   return (
-    <Wrapper>
-      <Header isAddress={false} />
-      <PageTitle>
-        회원가입이 <br />
-        완료되었습니다!
-      </PageTitle>
-      <SubLabel1>
-        지금 바로 우리 강아지를
-        <br />
-        돌봐줄 이웃을 찾아보세요!
-        <br />
-      </SubLabel1>
+    <>
+      <NavBar backTo titleName="회원가입" />
+      <Wrapper>
+        <PageTitle>
+          회원가입이 <br />
+          완료되었습니다!
+        </PageTitle>
+        <SubLabel1>
+          지금 바로 우리 강아지를
+          <br />
+          돌봐줄 이웃을 찾아보세요!
+          <br />
+        </SubLabel1>
 
-      <PoppyImage src={survey_poppy} />
-      <NextBox>
-        <Link to="/">
-          <NextButton style={{ marginRight: "14px" }}>홈으로</NextButton>
-        </Link>
-        <Link to="/login">
-          <NextButton>로그인</NextButton>
-        </Link>
-      </NextBox>
-    </Wrapper>
+        <PoppyImage src={survey_poppy} />
+        <NextBox>
+          <Link to="/">
+            <NextButton style={{ marginRight: "14px" }}>홈으로</NextButton>
+          </Link>
+          <Link to="/login">
+            <NextButton>로그인</NextButton>
+          </Link>
+        </NextBox>
+      </Wrapper>
+    </>
   );
 }
 

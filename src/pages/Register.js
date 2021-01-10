@@ -3,6 +3,7 @@ import styled, { css } from "styled-components";
 import Timer from "../components/Timer";
 import { PasswordEye } from "../resources/images/index";
 import { Link } from "react-router-dom";
+import NavBar from "../components/NavBar";
 export default function Register() {
   const [nameInputFlag, setNameInputFlag] = useState(false);
   const [nameInput, setNameInput] = useState("");
@@ -72,6 +73,8 @@ export default function Register() {
   };
 
   return (
+    <>
+      <NavBar backTo titleName="회원가입" />
     <Wrapper>
       <RegisterHeader>
         회원님의
@@ -154,11 +157,13 @@ export default function Register() {
         </InputRow>
       </RegisterForm>
       <ButtonContainer>
-        <Link to="/login">
+        <Link to="/registerdone">
           <NextButton>회원가입</NextButton>
         </Link>
       </ButtonContainer>
     </Wrapper>
+</>
+
   );
 }
 const Wrapper = styled.div`

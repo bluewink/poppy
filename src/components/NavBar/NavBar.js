@@ -1,6 +1,6 @@
-import React from 'react';
-import styled from 'styled-components';
-import { backBtn, PoppyLogoPng } from '../../resources/images';
+import React from "react";
+import styled from "styled-components";
+import { backBtn, PoppyLogoPng } from "../../resources/images";
 export default function NavBar({ backTo, titleName }) {
   const handleBackButton = () => [window.history.back()];
   return (
@@ -18,17 +18,20 @@ export default function NavBar({ backTo, titleName }) {
 }
 
 const Title = styled.div`
-  font-family: Noto Sans KR;
-  font-style: normal;
-  font-weight: 500;
+  height: 24px;
+
+  font-family: "Noto Sans KR";
   font-size: 18px;
-  line-height: 20px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.11;
+  letter-spacing: 0.3px;
+  text-align: center;
   /* or 111% */
 
-  display: flex;
-  align-items: center;
-  text-align: center;
-  letter-spacing: 0.3px;
+  /* display: flex;
+  align-items: center; */
 
   color: #4d4d4d;
 `;
@@ -47,28 +50,15 @@ const Navbar = styled.div`
 
   position: sticky;
   top: 0;
-  z-index: ${(props) => (props.isAddress === true ? '0' : '99')};
+  z-index: ${(props) => (props.isAddress === true ? "0" : "99")};
   width: 100%;
   padding-top: 10px;
   background: #ffffff;
 
   display: flex;
   align-items: center;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
   /* justify-content: center; */
-`;
-
-const HamburgerButton = styled.button`
-  border: 0;
-  outline: 0;
-  background-color: #ffffff;
-  flex: 1;
-  margin-top: 4px;
-  margin-left: 10px;
-`;
-
-const HeaderLogo = styled.img`
-  width: 105px;
-  height: 44px;
 `;
 
 const Empty = styled.div`

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import { PasswordEye } from "../resources/images/index";
 import { Link } from "react-router-dom";
+import NavBar from "../components/NavBar";
 export default function Login() {
   const [passwordEyeFlag, setPasswordEyeFlag] = useState(false);
   const [emailInputFlag, setEmailInputFlag] = useState(false);
@@ -31,38 +32,42 @@ export default function Login() {
   };
 
   return (
-    <Wrapper>
-      <LoginHeader>로그인 해주세요.</LoginHeader>
-      <InputRow
-        onChange={handleEmailInput}
-        inputCheck={emailInputFlag}
-        style={{ marginTop: "46px" }}
-      >
-        <LoginInput type="text" placeholder="이메일 주소" />
-      </InputRow>
-      <InputRow
-        onChange={handlePasswordInput}
-        inputCheck={passwordInputFlag}
-        style={{ marginTop: "31px" }}
-      >
-        <LoginInput
-          type={passwordEyeFlag ? "text" : "password"}
-          placeholder="비밀번호"
-        />
-        <PasswordEyeIcon
-          src={PasswordEye}
-          onClick={() => setPasswordEyeFlag(!passwordEyeFlag)}
-        />
-      </InputRow>
-      <ButtonContainer>
-        <NextButton type="submit">로그인</NextButton>
-      </ButtonContainer>
-      <ButtonContainer style={{ marginTop: "15px" }}>
-        <Link to="/register">
-          <RegisterButton>회원가입</RegisterButton>
-        </Link>
-      </ButtonContainer>
-    </Wrapper>
+    <>
+      <NavBar backTo titleName="로그인" />
+      <Wrapper>
+        <LoginHeader>로그인 해주세요</LoginHeader>
+        <InputRow
+          onChange={handleEmailInput}
+          inputCheck={emailInputFlag}
+          style={{ marginTop: "46px" }}
+        >
+          <LoginInput type="text" placeholder="이메일 주소" />
+        </InputRow>
+        <InputRow
+          onChange={handlePasswordInput}
+          inputCheck={passwordInputFlag}
+          style={{ marginTop: "31px" }}
+        >
+          <LoginInput
+            type={passwordEyeFlag ? "text" : "password"}
+            placeholder="비밀번호"
+          />
+          <PasswordEyeIcon
+            src={PasswordEye}
+            onClick={() => setPasswordEyeFlag(!passwordEyeFlag)}
+          />
+        </InputRow>
+        <ButtonContainer>
+          <NextButton type="submit">로그인</NextButton>
+        </ButtonContainer>
+        <ButtonContainer style={{ marginTop: "15px" }}>
+          <Link to="/register">
+            <RegisterButton>회원가입</RegisterButton>
+          </Link>
+        </ButtonContainer>
+      </Wrapper>
+    </>
+
   );
 }
 const Wrapper = styled.div`
