@@ -28,9 +28,12 @@ export default function App() {
         <Route path="/login" exact component={Login} />
         <Route path="/registerdone" exact component={RegisterDone} />
       </MobileSize>
+
     </BrowserRouter>
   );
 }
+
+const White = styled.div``;
 
 const MobileSize = styled.div`
   background-color: #ffffff;
@@ -41,6 +44,6 @@ const MobileSize = styled.div`
   min-height: 100vh;
   margin: 0px auto;
   position: relative;
-  z-index: 100;
+  z-index: 99;
   border: 0.1px solid gray;
 `;
