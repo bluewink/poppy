@@ -3,6 +3,7 @@ import styled, { css } from "styled-components";
 import Checkbox from "../components/Checkbox";
 import NextButton from "../components/NextButton";
 import { TermDetail } from "../resources/images";
+import NavBar from "../components/NavBar";
 export default function Term() {
   const [allChecked, setAllChecked] = useState(false);
   const [locationChecked, setLocationChecked] = useState(false);
@@ -22,49 +23,52 @@ export default function Term() {
   }, [marketingChecked, locationChecked, privateChecked]);
 
   return (
-    <Wrapper>
-      <TermHeader>
-        안녕하세요!
-        <br />
-        이용약관에 동의해주세요.
-      </TermHeader>
-      <TermCheckContainer>
-        <CheckAllRow>
-          <Checkbox
-            checked={allChecked}
-            onChange={(value) => setAllChecked(value)}
-          ></Checkbox>
-          <CheckTitle>약관 전체동의</CheckTitle>
-        </CheckAllRow>
-        <TermCheckBox>
-          <CheckRow style={{ paddingTop: "16px" }}>
+    <>
+      <NavBar backTo titleName="회원가입" />
+      <Wrapper>
+        <TermHeader>
+          안녕하세요!
+          <br />
+          이용약관에 동의해주세요.
+        </TermHeader>
+        <TermCheckContainer>
+          <CheckAllRow>
             <Checkbox
-              checked={locationChecked}
-              onChange={(value) => setLocationChecked(value)}
+              checked={allChecked}
+              onChange={(value) => setAllChecked(value)}
             ></Checkbox>
-            <CheckTitle>(필수) 위치기반 서비스 이용약관 동의</CheckTitle>
-            <TermDetailIcon src={TermDetail} />
-          </CheckRow>
-          <CheckRow style={{ paddingTop: "22px" }}>
-            <Checkbox
-              checked={privateChecked}
-              onChange={(value) => setPrivateChecked(value)}
-            ></Checkbox>
-            <CheckTitle>(필수) 개인정보 처리방침 동의</CheckTitle>
-            <TermDetailIcon src={TermDetail} />
-          </CheckRow>
-          <CheckRow style={{ paddingTop: "20px", paddingBottom: "27px" }}>
-            <Checkbox
-              checked={marketingChecked}
-              onChange={(value) => setMarketingChecked(value)}
-            ></Checkbox>
-            <CheckTitle>(선택) 이벤트 및 마케팅 정보 수신 동의</CheckTitle>
-            <TermDetailIcon src={TermDetail} />
-          </CheckRow>
-        </TermCheckBox>
-      </TermCheckContainer>
-      <NextButton>확인</NextButton>
-    </Wrapper>
+            <CheckTitle>약관 전체동의</CheckTitle>
+          </CheckAllRow>
+          <TermCheckBox>
+            <CheckRow style={{ paddingTop: "16px" }}>
+              <Checkbox
+                checked={locationChecked}
+                onChange={(value) => setLocationChecked(value)}
+              ></Checkbox>
+              <CheckTitle>(필수) 위치기반 서비스 이용약관 동의</CheckTitle>
+              <TermDetailIcon src={TermDetail} />
+            </CheckRow>
+            <CheckRow style={{ paddingTop: "22px" }}>
+              <Checkbox
+                checked={privateChecked}
+                onChange={(value) => setPrivateChecked(value)}
+              ></Checkbox>
+              <CheckTitle>(필수) 개인정보 처리방침 동의</CheckTitle>
+              <TermDetailIcon src={TermDetail} />
+            </CheckRow>
+            <CheckRow style={{ paddingTop: "20px", paddingBottom: "27px" }}>
+              <Checkbox
+                checked={marketingChecked}
+                onChange={(value) => setMarketingChecked(value)}
+              ></Checkbox>
+              <CheckTitle>(선택) 이벤트 및 마케팅 정보 수신 동의</CheckTitle>
+              <TermDetailIcon src={TermDetail} />
+            </CheckRow>
+          </TermCheckBox>
+        </TermCheckContainer>
+        <NextButton>확인</NextButton>
+      </Wrapper>
+    </>
   );
 }
 const Wrapper = styled.div`

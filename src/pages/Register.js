@@ -3,6 +3,7 @@ import styled, { css } from "styled-components";
 import Timer from "../components/Timer";
 import { PasswordEye } from "../resources/images/index";
 import { Link } from "react-router-dom";
+import NavBar from "../components/NavBar";
 export default function Register() {
   const [nameInputFlag, setNameInputFlag] = useState(false);
   const [nameInput, setNameInput] = useState("");
@@ -72,93 +73,96 @@ export default function Register() {
   };
 
   return (
-    <Wrapper>
-      <RegisterHeader>
-        회원님의
-        <br />
-        정보를 입력해주세요.
-      </RegisterHeader>
-      <RegisterForm>
-        <InputRow onChange={handleNameInput} inputCheck={nameInputFlag}>
-          <RegisterInput type="text" placeholder="이름" />
-        </InputRow>
-        <RequiredMessage inputCheck={nameInputFlag}>
-          필수 입력 항목입니다.
-        </RequiredMessage>
-        <InputRow
-          onChange={handleEmailInput}
-          inputCheck={emailInputFlag}
-          style={{ marginTop: "10px" }}
-        >
-          <RegisterInput type="text" placeholder="이메일 주소" />
-          <SendCodeButton onClick={handleSendCodeButton}>
-            인증코드 전송
-          </SendCodeButton>
-        </InputRow>
-        <RequiredMessage>
-          {emailInputFlag ? null : "필수 입력 항목입니다."}
-          {!emailInputFlag || emailInputCorrection
-            ? null
-            : "이메일 형태로 입력해 주세요."}
-        </RequiredMessage>
-        <InputRow
-          onChange={handleCodeInput}
-          inputCheck={codeInputFlag}
-          style={{ marginTop: "10px" }}
-        >
-          <RegisterInput type="text" placeholder="인증코드" />
-          <CodeTimer>
-            <Timer
-              mm="3"
-              ss="0"
-              timerTrigger={timerTrigger}
-              {...{ setTimerTrigger }}
+    <>
+      <NavBar backTo titleName="회원가입" />
+      <Wrapper>
+        <RegisterHeader>
+          회원님의
+          <br />
+          정보를 입력해주세요.
+        </RegisterHeader>
+        <RegisterForm>
+          <InputRow onChange={handleNameInput} inputCheck={nameInputFlag}>
+            <RegisterInput type="text" placeholder="이름" />
+          </InputRow>
+          <RequiredMessage inputCheck={nameInputFlag}>
+            필수 입력 항목입니다.
+          </RequiredMessage>
+          <InputRow
+            onChange={handleEmailInput}
+            inputCheck={emailInputFlag}
+            style={{ marginTop: "10px" }}
+          >
+            <RegisterInput type="text" placeholder="이메일 주소" />
+            <SendCodeButton onClick={handleSendCodeButton}>
+              인증코드 전송
+            </SendCodeButton>
+          </InputRow>
+          <RequiredMessage>
+            {emailInputFlag ? null : "필수 입력 항목입니다."}
+            {!emailInputFlag || emailInputCorrection
+              ? null
+              : "이메일 형태로 입력해 주세요."}
+          </RequiredMessage>
+          <InputRow
+            onChange={handleCodeInput}
+            inputCheck={codeInputFlag}
+            style={{ marginTop: "10px" }}
+          >
+            <RegisterInput type="text" placeholder="인증코드" />
+            <CodeTimer>
+              <Timer
+                mm="3"
+                ss="0"
+                timerTrigger={timerTrigger}
+                {...{ setTimerTrigger }}
+              />
+            </CodeTimer>
+          </InputRow>
+          <RequiredMessage inputCheck={codeInputFlag}>
+            필수 입력 항목입니다.
+          </RequiredMessage>
+          <InputRow
+            onChange={handlePasswordInput}
+            inputCheck={passwordInputFlag}
+            style={{ marginTop: "51px" }}
+          >
+            <RegisterInput
+              type={passwordEyeFlag ? "text" : "password"}
+              placeholder="비밀번호"
             />
-          </CodeTimer>
-        </InputRow>
-        <RequiredMessage inputCheck={codeInputFlag}>
-          필수 입력 항목입니다.
-        </RequiredMessage>
-        <InputRow
-          onChange={handlePasswordInput}
-          inputCheck={passwordInputFlag}
-          style={{ marginTop: "51px" }}
-        >
-          <RegisterInput
-            type={passwordEyeFlag ? "text" : "password"}
-            placeholder="비밀번호"
-          />
-          <PasswordEyeIcon
-            src={PasswordEye}
-            onClick={() => setPasswordEyeFlag(!passwordEyeFlag)}
-          />
-        </InputRow>
-        <RequiredMessage>
-          {passwordInputCorrection
-            ? null
-            : "영문/숫자 8-16자 조합으로 입력해주세요."}
-        </RequiredMessage>
-        <InputRow
-          onChange={handlePasswordConfirmInput}
-          inputCheck={passwordConfirmInputFlag}
-          style={{ marginTop: "31px" }}
-        >
-          <RegisterInput
-            type={passwordConfirmEyeFlag ? "text" : "password"}
-            placeholder="비밀번호 확인"
-          />
-          <PasswordEyeIcon
-            src={PasswordEye}
-            onClick={() => setPasswordConfirmEyeFlag(!passwordConfirmEyeFlag)}
-          />
-        </InputRow>
-      </RegisterForm>
-      <ButtonContainer>
-        <Link to="/login">
-          <NextButton>회원가입</NextButton>
-        </Link>
-      </ButtonContainer>
-    </Wrapper>
+            <PasswordEyeIcon
+              src={PasswordEye}
+              onClick={() => setPasswordEyeFlag(!passwordEyeFlag)}
+            />
+          </InputRow>
+          <RequiredMessage>
+            {passwordInputCorrection
+              ? null
+              : "영문/숫자 8-16자 조합으로 입력해주세요."}
+          </RequiredMessage>
+          <InputRow
+            onChange={handlePasswordConfirmInput}
+            inputCheck={passwordConfirmInputFlag}
+            style={{ marginTop: "31px" }}
+          >
+            <RegisterInput
+              type={passwordConfirmEyeFlag ? "text" : "password"}
+              placeholder="비밀번호 확인"
+            />
+            <PasswordEyeIcon
+              src={PasswordEye}
+              onClick={() => setPasswordConfirmEyeFlag(!passwordConfirmEyeFlag)}
+            />
+          </InputRow>
+        </RegisterForm>
+        <ButtonContainer>
+          <Link to="/registerdone">
+            <NextButton>회원가입</NextButton>
+          </Link>
+        </ButtonContainer>
+      </Wrapper>
+    </>
   );
 }
 const Wrapper = styled.div`
