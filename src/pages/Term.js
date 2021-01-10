@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styled, { css } from "styled-components";
 import Checkbox from "../components/Checkbox";
-import NextButton from "../components/NextButton";
 import { TermDetail } from "../resources/images";
+
 import NavBar from "../components/NavBar";
 import PinkButton from "../components/PinkButton";
 import { Link } from "react-router-dom";
@@ -39,6 +39,7 @@ export default function Term() {
               checked={allChecked}
               onChange={(value) => setAllChecked(value)}
             ></Checkbox>
+
             <CheckTitle>약관 전체동의</CheckTitle>
           </CheckAllRow>
           <TermCheckBox>
@@ -154,4 +155,35 @@ const TermDetailIcon = styled.img`
 `;
 const CheckTitle = styled.span`
   margin-left: 10px;
+`;
+
+const NextButton = styled.button`
+  text-decoration: none;
+
+  width: 87px;
+  height: 46px;
+  outline: none;
+  border: none;
+
+  padding: 0 25px;
+
+  font-family: Noto Sans KR;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 48px;
+  /* or 240% */
+
+  color: #ffffff;
+
+  background: #ff9777;
+  box-shadow: 0px 4px 10px rgba(191, 170, 114, 0.35);
+  border-radius: 5px;
+`;
+
+const ButtonContainer = styled.div`
+  margin-left: -16px;
+  margin-top: 219px;
+  display: flex;
+  justify-content: center;
 `;

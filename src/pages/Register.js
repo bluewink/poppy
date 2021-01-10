@@ -75,94 +75,95 @@ export default function Register() {
   return (
     <>
       <NavBar backTo titleName="회원가입" />
-      <Wrapper>
-        <RegisterHeader>
-          회원님의
-          <br />
-          정보를 입력해주세요.
-        </RegisterHeader>
-        <RegisterForm>
-          <InputRow onChange={handleNameInput} inputCheck={nameInputFlag}>
-            <RegisterInput type="text" placeholder="이름" />
-          </InputRow>
-          <RequiredMessage inputCheck={nameInputFlag}>
-            필수 입력 항목입니다.
-          </RequiredMessage>
-          <InputRow
-            onChange={handleEmailInput}
-            inputCheck={emailInputFlag}
-            style={{ marginTop: "10px" }}
-          >
-            <RegisterInput type="text" placeholder="이메일 주소" />
-            <SendCodeButton onClick={handleSendCodeButton}>
-              인증코드 전송
-            </SendCodeButton>
-          </InputRow>
-          <RequiredMessage>
-            {emailInputFlag ? null : "필수 입력 항목입니다."}
-            {!emailInputFlag || emailInputCorrection
-              ? null
-              : "이메일 형태로 입력해 주세요."}
-          </RequiredMessage>
-          <InputRow
-            onChange={handleCodeInput}
-            inputCheck={codeInputFlag}
-            style={{ marginTop: "10px" }}
-          >
-            <RegisterInput type="text" placeholder="인증코드" />
-            <CodeTimer>
-              <Timer
-                mm="3"
-                ss="0"
-                timerTrigger={timerTrigger}
-                {...{ setTimerTrigger }}
-              />
-            </CodeTimer>
-          </InputRow>
-          <RequiredMessage inputCheck={codeInputFlag}>
-            필수 입력 항목입니다.
-          </RequiredMessage>
-          <InputRow
-            onChange={handlePasswordInput}
-            inputCheck={passwordInputFlag}
-            style={{ marginTop: "51px" }}
-          >
-            <RegisterInput
-              type={passwordEyeFlag ? "text" : "password"}
-              placeholder="비밀번호"
+    <Wrapper>
+      <RegisterHeader>
+        회원님의
+        <br />
+        정보를 입력해주세요.
+      </RegisterHeader>
+      <RegisterForm>
+        <InputRow onChange={handleNameInput} inputCheck={nameInputFlag}>
+          <RegisterInput type="text" placeholder="이름" />
+        </InputRow>
+        <RequiredMessage inputCheck={nameInputFlag}>
+          필수 입력 항목입니다.
+        </RequiredMessage>
+        <InputRow
+          onChange={handleEmailInput}
+          inputCheck={emailInputFlag}
+          style={{ marginTop: "17px" }}
+        >
+          <RegisterInput type="text" placeholder="이메일 주소" />
+          <SendCodeButton onClick={handleSendCodeButton}>
+            인증코드 전송
+          </SendCodeButton>
+        </InputRow>
+        <RequiredMessage>
+          {emailInputFlag ? null : "필수 입력 항목입니다."}
+          {!emailInputFlag || emailInputCorrection
+            ? null
+            : "이메일 형태로 입력해 주세요."}
+        </RequiredMessage>
+        <InputRow
+          onChange={handleCodeInput}
+          inputCheck={codeInputFlag}
+          style={{ marginTop: "17px" }}
+        >
+          <RegisterInput type="text" placeholder="인증코드" />
+          <CodeTimer>
+            <Timer
+              mm="3"
+              ss="0"
+              timerTrigger={timerTrigger}
+              {...{ setTimerTrigger }}
             />
-            <PasswordEyeIcon
-              src={PasswordEye}
-              onClick={() => setPasswordEyeFlag(!passwordEyeFlag)}
-            />
-          </InputRow>
-          <RequiredMessage>
-            {passwordInputCorrection
-              ? null
-              : "영문/숫자 8-16자 조합으로 입력해주세요."}
-          </RequiredMessage>
-          <InputRow
-            onChange={handlePasswordConfirmInput}
-            inputCheck={passwordConfirmInputFlag}
-            style={{ marginTop: "31px" }}
-          >
-            <RegisterInput
-              type={passwordConfirmEyeFlag ? "text" : "password"}
-              placeholder="비밀번호 확인"
-            />
-            <PasswordEyeIcon
-              src={PasswordEye}
-              onClick={() => setPasswordConfirmEyeFlag(!passwordConfirmEyeFlag)}
-            />
-          </InputRow>
-        </RegisterForm>
-        <ButtonContainer>
-          <Link to="/registerdone">
-            <NextButton>회원가입</NextButton>
-          </Link>
-        </ButtonContainer>
-      </Wrapper>
-    </>
+          </CodeTimer>
+        </InputRow>
+        <RequiredMessage inputCheck={codeInputFlag}>
+          필수 입력 항목입니다.
+        </RequiredMessage>
+        <InputRow
+          onChange={handlePasswordInput}
+          inputCheck={passwordInputFlag}
+          style={{ marginTop: "51px" }}
+        >
+          <RegisterInput
+            type={passwordEyeFlag ? "text" : "password"}
+            placeholder="비밀번호"
+          />
+          <PasswordEyeIcon
+            src={PasswordEye}
+            onClick={() => setPasswordEyeFlag(!passwordEyeFlag)}
+          />
+        </InputRow>
+        <RequiredMessage>
+          {passwordInputCorrection
+            ? null
+            : "영문/숫자 8-16자 조합으로 입력해주세요."}
+        </RequiredMessage>
+        <InputRow
+          onChange={handlePasswordConfirmInput}
+          inputCheck={passwordConfirmInputFlag}
+          style={{ marginTop: "17px" }}
+        >
+          <RegisterInput
+            type={passwordConfirmEyeFlag ? "text" : "password"}
+            placeholder="비밀번호 확인"
+          />
+          <PasswordEyeIcon
+            src={PasswordEye}
+            onClick={() => setPasswordConfirmEyeFlag(!passwordConfirmEyeFlag)}
+          />
+        </InputRow>
+      </RegisterForm>
+      <ButtonContainer>
+        <Link to="/registerdone">
+          <NextButton>회원가입</NextButton>
+        </Link>
+      </ButtonContainer>
+    </Wrapper>
+</>
+
   );
 }
 const Wrapper = styled.div`
@@ -223,7 +224,8 @@ const RegisterInput = styled.input`
 `;
 
 const RequiredMessage = styled.div`
-  margin-top: 7px;
+  margin-top: 5px;
+  margin-left: 7.5px;
   height: 15px;
   font-family: "Noto Sans KR";
   font-size: 13px;
@@ -280,7 +282,7 @@ const SendCodeButton = styled.button`
 `;
 
 const CodeTimer = styled.div`
-  padding-top: 5px;
+  padding-top: 4px;
   position: absolute;
   right: 0px;
   height: 15px;
