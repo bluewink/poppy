@@ -1,10 +1,24 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import Calendar from '../components/Calendar';
+
+import { DateRange } from 'react-date-range';
+
+import 'react-date-range/dist/styles.css'; // main css file
+import 'react-date-range/dist/theme/default.css'; // theme css file
 
 import { backIc, aaaa, dog1 } from '../resources/images';
 export default function Register() {
   const handleBackButton = () => [window.history.back()];
+
+  const [state, setState] = useState([
+    {
+      startDate: new Date(),
+      endDate: null,
+      color: '#FFF8EB',
+      dayNumberColor: '#000000',
+      key: 'selection',
+    },
+  ]);
 
   const [titleInput, setTitleInput] = useState('');
   const [introduceInput, setIntroduceInput] = useState('');
@@ -46,6 +60,12 @@ export default function Register() {
 
   const handleBigDogOneDayCostInput = (e) => {
     setBigDogOneDayCostInput(e.target.value);
+  };
+
+  const handleChangeDates = (item) => {
+    setState([item.selection]);
+    console.log(state);
+    console.log(item.ranges);
   };
 
   return (
@@ -151,14 +171,32 @@ export default function Register() {
       </DogBox>
       <CalendarBox>
         <CalendarTitle>돌봄 가능 날짜를 설정해주세요.</CalendarTitle>
-        <Calendar />
+        <DateRange
+          editableDateInputs={false}
+          onChange={handleChangeDates}
+          dateDisplayFormat={'yyyy-MM'}
+          moveRangeOnFirstSelection={false}
+          ranges={state}
+          showDateDisplay={false}
+          showSelectionPreview={false}
+          showMonthAndYearPickers={false}
+          minDate={new Date()}
+          showMonthArrow={false}
+        />
       </CalendarBox>
+      <ServiceBox>
+        <ServiceTitle>이용 가능 서비스를 선택해주세요.</ServiceTitle>
+      </ServiceBox>
     </Wrapper>
   );
 }
 
+const ServiceBox = styled.div``;
+
+const ServiceTitle = styled.div``;
+
 const DogBox = styled.div`
-  margin: 46px 16px 0 24px;
+  margin: 46px 16px 0 16px;
 `;
 
 const DogTitle = styled.div`
@@ -182,7 +220,7 @@ const DogCard = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-left: -8px;
+  margin-left: 0px;
   margin-top: 19px;
 
   // height: 106px;
@@ -419,6 +457,7 @@ const CalendarBox = styled.div`
 
 const WarningLabel = styled.div`
   margin-top: 15px;
+  margin-left: 8px;
 
   font-family: Noto Sans KR;
   font-style: normal;
@@ -541,7 +580,9 @@ const SmallDogTodayCostInput = styled.input`
     color: #d5d5d5;
   }
 `;
-const FeeTable = styled.div``;
+const FeeTable = styled.div`
+  margin-left: 8px;
+`;
 
 const FirstRowTitle = styled.div``;
 
@@ -574,7 +615,7 @@ const FirstRow = styled.div`
 `;
 
 const FeeBox = styled.div`
-  margin: 46px 32px 0 24px;
+  margin: 46px 32px 0 16px;
 `;
 
 const FeeTitle = styled.div`
