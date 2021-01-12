@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { backIc, aaaa } from '../resources/images';
+import Calendar from '../components/Calendar';
+
+import { backIc, aaaa, dog1 } from '../resources/images';
 export default function Register() {
   const handleBackButton = () => [window.history.back()];
 
@@ -12,6 +14,7 @@ export default function Register() {
   const [middleDogOneDayCostInput, setMiddleDogOneDayCostInput] = useState('');
   const [bigDogTodayCostInput, setBigDogTodayCostInput] = useState('');
   const [bigDogOneDayCostInput, setBigDogOneDayCostInput] = useState('');
+  const [dogIntroduceInput, setDogIntroduceInput] = useState('');
 
   const handleTitleChanged = (e) => {
     setTitleInput(e.target.value);
@@ -132,12 +135,266 @@ export default function Register() {
           원하시지 않으시는 경우, 공란으로 설정해주세요.
         </WarningLabel>
       </FeeBox>
+      <DogBox>
+        <DogTitle>반려견을 등록해주세요.</DogTitle>
+        <DogCard>
+          <DogImg src={dog1} />
+          <VerticalStackView>
+            <DogNameInput placeholder="반려견 이름" />
+            <StackView>
+              <DogBreedInput placeholder="종" />
+              <DogAgeInput placeholder="나이" />
+            </StackView>
+            <DogIntroduceInput text={dogIntroduceInput} placeholder="한줄 소개" />
+          </VerticalStackView>
+        </DogCard>
+      </DogBox>
       <CalendarBox>
         <CalendarTitle>돌봄 가능 날짜를 설정해주세요.</CalendarTitle>
+        <Calendar />
       </CalendarBox>
     </Wrapper>
   );
 }
+
+const DogBox = styled.div`
+  margin: 46px 16px 0 24px;
+`;
+
+const DogTitle = styled.div`
+  font-family: Noto Sans KR;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 25px;
+  /* or 139% */
+
+  display: flex;
+  align-items: center;
+  letter-spacing: -1px;
+
+  /* 찐회색 */
+
+  color: #505050;
+`;
+
+const DogCard = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: -8px;
+  margin-top: 19px;
+
+  // height: 106px;
+  padding: 11px 15px 11px 15px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px 0 rgba(129, 129, 129, 0.18);
+  background-color: #fafafa;
+`;
+
+const DogImg = styled.img`
+  width: 130px;
+  border-radius: 65px;
+  border: solid 1px #bebebe;
+  background-color: #ffffff;
+`;
+
+const VerticalStackView = styled.div`
+  margin-left: 12px;
+`;
+
+const StackView = styled.div`
+  display: flex;
+`;
+const DogNameInput = styled.input`
+  width: 100%;
+  outline: none;
+  background: #ffffff;
+  /* light gray */
+
+  margin-bottom: 5px;
+  padding: 3px 10px 3px 7px;
+  border: 1px solid #dbdbdb;
+  box-sizing: border-box;
+  border-radius: 4px;
+
+  font-family: Noto Sans KR;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 0px;
+  /* or 0% */
+
+  display: flex;
+  align-items: center;
+  letter-spacing: -0.02em;
+
+  /* gray */
+
+  color: #9d9d9d;
+
+  ::placeholder {
+    font-family: Noto Sans KR;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    /* or 121% */
+
+    display: flex;
+    align-items: center;
+    // text-align: center;
+    letter-spacing: -0.5px;
+
+    color: #d5d5d5;
+  }
+`;
+
+const DogBreedInput = styled.input`
+  width: 100%;
+  outline: none;
+  background: #ffffff;
+  /* light gray */
+  padding: 3px 13px 3px 7px;
+
+  margin-bottom: 5px;
+  border: 1px solid #dbdbdb;
+  box-sizing: border-box;
+  border-radius: 4px;
+
+  font-family: Noto Sans KR;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 0px;
+  /* or 0% */
+
+  display: flex;
+  align-items: center;
+  letter-spacing: -0.02em;
+
+  /* gray */
+
+  color: #9d9d9d;
+
+  ::placeholder {
+    font-family: Noto Sans KR;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    /* or 121% */
+
+    display: flex;
+    align-items: center;
+    // text-align: center;
+    letter-spacing: -0.5px;
+
+    color: #d5d5d5;
+  }
+`;
+
+const DogAgeInput = styled.input`
+  width: 100%;
+  outline: none;
+  background: #ffffff;
+  /* light gray */
+
+  padding: 3px 13px 3px 9px;
+  margin-bottom: 5px;
+  margin-left: 5px;
+  border: 1px solid #dbdbdb;
+  box-sizing: border-box;
+  border-radius: 4px;
+
+  font-family: Noto Sans KR;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 0px;
+  /* or 0% */
+
+  display: flex;
+  align-items: center;
+  letter-spacing: -0.02em;
+
+  /* gray */
+
+  color: #9d9d9d;
+  font-family: Noto Sans KR;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 0px;
+  /* or 0% */
+
+  display: flex;
+  align-items: center;
+  letter-spacing: -0.02em;
+
+  /* gray */
+
+  color: #9d9d9d;
+  ::placeholder {
+    font-family: Noto Sans KR;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    /* or 121% */
+
+    display: flex;
+    align-items: center;
+    // text-align: center;
+    letter-spacing: -0.5px;
+
+    color: #d5d5d5;
+  }
+`;
+
+const DogIntroduceInput = styled.input`
+  width: 100%;
+  outline: none;
+  background: #ffffff;
+  /* light gray */
+
+  padding: 3px 10px 3px 7px;
+  border: 1px solid #dbdbdb;
+  box-sizing: border-box;
+  border-radius: 4px;
+
+  font-family: Noto Sans KR;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 0px;
+  /* or 0% */
+
+  display: flex;
+  align-items: center;
+  letter-spacing: -0.02em;
+
+  /* gray */
+
+  color: #9d9d9d;
+
+  ::placeholder {
+    font-family: Noto Sans KR;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 0px;
+    /* or 0% */
+
+    display: flex;
+    align-items: center;
+    letter-spacing: -0.02em;
+
+    /* light gray */
+
+    color: #dbdbdb;
+  }
+`;
 
 const CalendarTitle = styled.div`
   font-family: Noto Sans KR;
