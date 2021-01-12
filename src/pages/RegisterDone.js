@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import { Link } from "react-router-dom";
-import NavBar from "../components/NavBar";
-import Header from "../components/Header";
-import { survey_poppy } from "../resources/images";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import NavBar from '../components/NavBar';
+import Header from '../components/Header';
+import { survey_poppy } from '../resources/images';
 
 export default function Confirm() {
   return (
@@ -24,7 +24,7 @@ export default function Confirm() {
         <PoppyImage src={survey_poppy} />
         <NextBox>
           <Link to="/">
-            <NextButton style={{ marginRight: "14px" }}>홈으로</NextButton>
+            <NextButton style={{ marginRight: '14px' }}>홈으로</NextButton>
           </Link>
           <Link to="/login">
             <NextButton>로그인</NextButton>
@@ -44,7 +44,7 @@ const PageTitle = styled.div`
   margin-top: 32px;
   height: 61px;
 
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 24px;
   font-weight: bold;
   font-stretch: normal;
@@ -58,7 +58,7 @@ const PageTitle = styled.div`
 const SubLabel1 = styled.div`
   margin-top: 36px;
 
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 18px;
   font-weight: 500;
   font-stretch: normal;
@@ -72,22 +72,9 @@ const SubLabel1 = styled.div`
 const SubLabel2 = styled.div`
   margin: 10px 100px 0 16px;
 
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-style: normal;
   font-weight: normal;
-  font-size: 17px;
-  line-height: 24px;
-  /* or 141% */
-
-  letter-spacing: 0.15px;
-
-  color: #393939;
-`;
-
-const Bold = styled.span`
-  font-family: "Noto Sans KR";
-  font-style: normal;
-  font-weight: bold;
   font-size: 17px;
   line-height: 24px;
   /* or 141% */

@@ -18,8 +18,7 @@ export default function App() {
       <>
         <White>
           <MobileSize>
-            <Register />
-            {/* <Route path={['/landingpage', '/']} exact component={Landing} />
+            <Route path={['/landingpage', '/']} exact component={Landing} />
             <Route path="/takeoffer" exact component={Search} />
             <Route path="/address" exact component={Address} />
             <Route path="/confirm" exact component={Confirm} />
@@ -27,7 +26,8 @@ export default function App() {
             <Route path="/takeofferdetail" exact component={Detail} />
             <Route path="/daum-address" exact component={DaumAPI} />
             <Route path="/reservation" exact component={Reservation} />
-            <Route path="/join" exact component={Term} /> */}
+            <Route path="/join" exact component={Term} />
+            <Route path="/myregister" exact component={Register} />
           </MobileSize>
         </White>
       </>
