@@ -10,7 +10,7 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import DaumAPI from './components/DaumAPI.js';
 import Reservation from './pages/Reservation';
 import Term from './pages/Term';
-import Register from './pages/Register';
+import Register from './pages/MyArticleRegister';
 
 export default function App() {
   return (
