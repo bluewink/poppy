@@ -42,6 +42,7 @@ export default function App() {
         />
         <Route path="/firstterm" exact component={FirstTerm} />
       </MobileSize>
+
     </BrowserRouter>
   );
 }
