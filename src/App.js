@@ -12,6 +12,11 @@ import Term from "./pages/Term";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import RegisterDone from "./pages/RegisterDone";
+import PetsitterMenu from "./pages/PetsitterMenu";
+import EmptyOffer from "./pages/EmptyOffer";
+import RequestHistory from "./pages/RequestHistory";
+import RequestHistoryDetail from "./pages/RequestHistoryDetail";
+import FirstTerm from "./pages/FirstTerm";
 export default function App() {
   return (
     <BrowserRouter>
@@ -27,8 +32,16 @@ export default function App() {
         <Route path="/register" exact component={Register} />
         <Route path="/login" exact component={Login} />
         <Route path="/registerdone" exact component={RegisterDone} />
+        <Route path="/petsittermenu" exact component={PetsitterMenu} />
+        <Route path="/emptyoffer" exact component={EmptyOffer} />
+        <Route path="/requesthistory" exact component={RequestHistory} />
+        <Route
+          path="/requesthistorydetail"
+          exact
+          component={RequestHistoryDetail}
+        />
+        <Route path="/firstterm" exact component={FirstTerm} />
       </MobileSize>
-
     </BrowserRouter>
   );
 }

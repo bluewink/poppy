@@ -1,12 +1,12 @@
 export { default as PoppyRegCompletePng } from "./PoppyRegCompletePng.png";
 export { default as PasswordEye } from "./PasswordEyeIcon.png";
-
+export { default as poppyProfileMenu } from "./poppy-profile-menu.png";
 export { default as serviceIc1 } from "./serviceIc1.png";
 export { default as TextUnderLine } from "./TextUnderLine.png";
 export { default as HeaderLogoPng } from "./headerLogo.png";
 export { default as PoppyLogoPng } from "./PoppyLogo.png";
 export { default as Poppy } from "./poppy.png";
-
+export { default as MenuRight } from "./menu-right.png";
 export { default as LandingPageDogPng2 } from "./LandingPageDog2.png";
 export { default as LandingPageDogPng1 } from "./LandingPageDogPng1.png";
 export { default as PoppyBackPng } from "./PoppyBack.png";

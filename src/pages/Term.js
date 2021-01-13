@@ -70,7 +70,13 @@ export default function Term() {
           </TermCheckBox>
         </TermCheckContainer>
         {locationChecked && privateChecked ? (
-          <Link to="/register" style={{ textDecoration: "none" }}>
+          <Link
+            to={{
+              pathname: "/register",
+              state: { marketing: marketingChecked },
+            }}
+            style={{ textDecoration: "none" }}
+          >
             <PinkButton
               content="확인"
               wid="87px"
@@ -85,6 +91,7 @@ export default function Term() {
     </>
   );
 }
+
 const Wrapper = styled.div`
   margin-left: 16px;
 `;

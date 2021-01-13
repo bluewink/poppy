@@ -3,11 +3,13 @@ import styled, { css } from "styled-components";
 import { PasswordEye } from "../resources/images/index";
 import { Link } from "react-router-dom";
 import NavBar from "../components/NavBar";
+import axios from "axios";
 export default function Login() {
   const [passwordEyeFlag, setPasswordEyeFlag] = useState(false);
   const [emailInputFlag, setEmailInputFlag] = useState(false);
   const [emailInput, setEmailInput] = useState("");
   const [passwordInputFlag, setPasswordInputFlag] = useState(false);
+  const [passwordInput, setPasswordInput] = useState("");
 
   const handleEmailInput = (event) => {
     setEmailInput(event.target.value);
@@ -18,6 +20,7 @@ export default function Login() {
     // } else setEmailInputCorrection(false);
   };
   const handlePasswordInput = (event) => {
+    setPasswordInput(event.target.value);
     if (event.target.value === "") setPasswordInputFlag(false);
     else setPasswordInputFlag(true);
     // passwordNumberCheck = event.target.value.search(/[0-9]/g);
@@ -30,6 +33,20 @@ export default function Login() {
     //   setPasswordInputCorrection(true);
     // } else setPasswordInputCorrection(false);
   };
+
+  const handleLoginSubmit = async (event) => {
+    event.preventDefault();
+    const dataToSend = {
+      method: "POST",
+      url: "login/" + emailInput + "/" + passwordInput,
+    };
+
+    await axios(dataToSend).then((res) => {
+      console.log("로그인 성공!");
+    });
+  };
+
+  //login/<str:e_mail>/<str:password>
 
   return (
     <>
@@ -58,7 +75,9 @@ export default function Login() {
           />
         </InputRow>
         <ButtonContainer>
-          <NextButton type="submit">로그인</NextButton>
+          <NextButton type="submit" onSubmit={handleLoginSubmit}>
+            로그인
+          </NextButton>
         </ButtonContainer>
         <ButtonContainer style={{ marginTop: "15px" }}>
           <Link to="/register">
@@ -67,7 +86,6 @@ export default function Login() {
         </ButtonContainer>
       </Wrapper>
     </>
-
   );
 }
 const Wrapper = styled.div`
