@@ -1,16 +1,20 @@
-import React, { useState } from 'react';
-import styled, { css } from 'styled-components';
+import React, { useState } from "react";
+import styled, { css } from "styled-components";
 
-import Header from '../components/Header';
-import { Poppy, LandingPageBackgroundPng } from '../resources/images';
-import { Link } from 'react-router-dom';
+import Header from "../components/Header";
+import { Poppy, LandingPageBackgroundPng } from "../resources/images";
+import { Link } from "react-router-dom";
 
 export default function Landing() {
   const [background, setBackground] = useState(false);
 
   return (
     <>
-      <Header isAddress={false} background={background} setBackground={setBackground} />
+      <Header
+        isAddress={false}
+        background={background}
+        setBackground={setBackground}
+      />
       <Wrapper>
         <LandingPageHeader>
           우리 동네 반려견
@@ -29,11 +33,14 @@ export default function Landing() {
         </LandingPageHeader>
         <LandingPageDescription>
           오랜 시간 혼자 집을 지키는 우리<br></br>
-          강아지에게 <span style={{ fontWeight: '700' }}>이웃 친구</span>를 만들어주세요.
+          강아지에게 <span style={{ fontWeight: "700" }}>이웃 친구</span>를
+          만들어주세요.
           <br /> <br />
           이웃집 뽀삐에서 <br />
-          <span style={{ fontWeight: '700' }}>믿을 수 있는 이웃</span> 반려인에게 <br />
-          <span style={{ fontWeight: '700' }}>가격 부담없이</span> 강아지를 맡길 수 있어요.
+          <span style={{ fontWeight: "700" }}>믿을 수 있는 이웃</span>{" "}
+          반려인에게 <br />
+          <span style={{ fontWeight: "700" }}>가격 부담없이</span> 강아지를 맡길
+          수 있어요.
         </LandingPageDescription>
 
         <LandingPageBackground src={LandingPageBackgroundPng} />
@@ -44,7 +51,10 @@ export default function Landing() {
         </LandingPageHeader>
         <LandingPageDescription second>
           이웃집 강아지를 부담없이 돌봐주며 <br />
-          <span style={{ fontWeight: '700' }}>우리 강아지에게도 친구를</span> 만들어주세요.
+          <span style={{ fontWeight: "700" }}>
+            우리 강아지에게도 친구를
+          </span>{" "}
+          만들어주세요.
           <br />
           <br />
           명예 이웃이 되면
@@ -52,7 +62,12 @@ export default function Landing() {
         </LandingPageDescription>
 
         <NextButtonBox>
-          <Link to="/address">
+          <Link
+            to={{
+              pathname: "/takeoffer",
+              state: { address: "서울시 마포구 백범로 35" },
+            }}
+          >
             <NextButton>돌보미 찾기</NextButton>
           </Link>
         </NextButtonBox>
@@ -88,7 +103,7 @@ const LandingPageHeader = styled.div`
   /* left: 15px; */
   padding-top: 25.8px;
 
-  font-family: 'Noto Sans KR';
+  font-family: "Noto Sans KR";
   font-size: 22px;
 
   font-weight: 700;
@@ -121,7 +136,7 @@ const LandingPageTitle = styled.div`
   width: 169px;
   height: 55px;
 
-  font-family: 'Noto Sans KR';
+  font-family: "Noto Sans KR";
   font-style: normal;
   font-weight: 700;
   font-size: 36px;
@@ -137,7 +152,7 @@ const LandingPageTitle = styled.div`
     css`
       height: 36px;
       padding-top: 45.3px;
-      font-family: 'Work Sans';
+      font-family: "Work Sans";
     `}
   ${(props) =>
     props.second &&
@@ -145,7 +160,7 @@ const LandingPageTitle = styled.div`
       height: 36px;
 
       padding-top: 12.4px;
-      font-family: 'Work Sans';
+      font-family: "Work Sans";
     `}
 `;
 const PoppyImg = styled.img`
@@ -160,7 +175,7 @@ const LandingPageDescription = styled.div`
   width: 100%;
   height: 303.99px;
 
-  font-family: 'Noto Sans KR';
+  font-family: "Noto Sans KR";
   font-style: normal;
   font-weight: 500;
 
@@ -176,7 +191,7 @@ const LandingPageDescription = styled.div`
     css`
       height: 304px;
 
-      font-family: 'Work Sans';
+      font-family: "Work Sans";
     `}
 
   ${(props) =>
@@ -204,7 +219,7 @@ const NextButton = styled.button`
   width: 141.2px;
   height: 46.9px;
 
-  font-family: 'Noto Sans KR';
+  font-family: "Noto Sans KR";
   font-size: 20px;
 
   font-weight: 700;

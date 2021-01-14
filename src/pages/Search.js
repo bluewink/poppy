@@ -1,20 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import styled, { css } from 'styled-components';
-import { Link, useHistory } from 'react-router-dom';
-import axios from 'axios';
-import 'react-datepicker/dist/react-datepicker.css';
-import 'react-datepicker/dist/react-datepicker-cssmodules.css';
-import { LocationIcon, CalendarIcon } from '../resources/images';
-import OfferCell from '../components/OfferCell';
-import Header from '../components/Header';
-import DatePicker, { registerLocale } from 'react-datepicker';
-import { ko } from 'date-fns/esm/locale';
-import moment from 'moment';
-import 'moment/locale/ko';
+import React, { useState, useEffect } from "react";
+import styled, { css } from "styled-components";
+import { Link, useHistory } from "react-router-dom";
+import axios from "axios";
+import "react-datepicker/dist/react-datepicker.css";
+import "react-datepicker/dist/react-datepicker-cssmodules.css";
+import { LocationIcon, CalendarIcon } from "../resources/images";
+import OfferCell from "../components/OfferCell";
+import Header from "../components/Header";
+import DatePicker, { registerLocale } from "react-datepicker";
+import { ko } from "date-fns/esm/locale";
+import moment from "moment";
+import "moment/locale/ko";
 
 export default function Search({ location }) {
-  const SERVER_API = 'http://ec2-13-209-159-94.ap-northeast-2.compute.amazonaws.com:5432/';
-  const GET_URL = 'petsitters_nearby/';
+  const SERVER_API =
+    "http://ec2-13-209-159-94.ap-northeast-2.compute.amazonaws.com:5432/";
+  const GET_URL = "petsitters_nearby/";
   const API = SERVER_API + GET_URL;
 
   const [filterStatus, setFilterStatus] = useState(0);
@@ -25,19 +26,13 @@ export default function Search({ location }) {
   const [selectionComplete, toggleSelectionComplete] = useState(false);
 
   const [background, setBackground] = useState(false);
-  const [addressInfo, setAddressInfo] = useState('서울시 마포구 백범로 35');
-  const [dataToSend, setDataToSend] = useState({
-    method: 'get',
-    url: API + addressInfo + '/' + filterStatus,
-  });
-  const history = useHistory();
+  const addressInfo = location.state.address;
 
-  useEffect(() => {
-    if (location.state !== undefined) {
-      setAddressInfo(location.state.address);
-    }
-    fetchAddressData();
-  }, []);
+  // const [dataToSend, setDataToSend] = useState({
+  //   method: "get",
+  //   url: API + location.state.address + "/" + filterStatus,
+  // });
+  const history = useHistory();
 
   // var dataToSend;
   const SearchDateCustomInput = ({ onClick }) => (
@@ -45,38 +40,22 @@ export default function Search({ location }) {
       <img
         src={CalendarIcon}
         style={{
-          width: '16px',
-          height: '16px',
-          marginLeft: '8px',
-          marginRight: '4px',
+          width: "16px",
+          height: "16px",
+          marginLeft: "8px",
+          marginRight: "4px",
         }}
       />
 
       <div onClick={onClick}>
-        {startDate ? moment(startDate).format('MM.DD(ddd)') : '??/??/????'} -{' '}
-        {endDate >= startDate ? moment(endDate).format('MM.DD(ddd)') : null}
+        {startDate ? moment(startDate).format("MM.DD(ddd)") : "??/??/????"} -{" "}
+        {endDate >= startDate ? moment(endDate).format("MM.DD(ddd)") : null}
       </div>
     </SearchPageDatePicker>
   );
 
-  useEffect(() => {
-    console.log(location);
-
-    if (location.state === undefined) {
-      console.log('undefined!!!');
-    } else {
-      setAddressInfo(location.state.address);
-      console.log('addressInfo: ', addressInfo);
-    }
-    setDataToSend({
-      method: 'get',
-      url: API + addressInfo + '/' + filterStatus,
-    });
-    fetchAddressData();
-  }, []);
-
-  registerLocale('ko', ko);
-  moment.locale('ko');
+  registerLocale("ko", ko);
+  moment.locale("ko");
   let res;
   let tmpList = [];
   //petsitters_nearby/<str:address>/<int:dist_or_fee>
@@ -107,12 +86,21 @@ export default function Search({ location }) {
   };
 
   const handleSelect = (date) => {
-    if (!selectionComplete && startDate && !endDate && sameDay(date, startDate)) {
+    if (
+      !selectionComplete &&
+      startDate &&
+      !endDate &&
+      sameDay(date, startDate)
+    ) {
       handleDateChange(date);
     }
   };
   const sameDay = (d1, d2) => {
-    return d1.getFullYear() === d2.getFullYear() && d1.getMonth() === d2.getMonth() && d1.getDate() === d2.getDate();
+    return (
+      d1.getFullYear() === d2.getFullYear() &&
+      d1.getMonth() === d2.getMonth() &&
+      d1.getDate() === d2.getDate()
+    );
   };
 
   // const handleNeighborTabClick = () => {
@@ -123,19 +111,19 @@ export default function Search({ location }) {
   // };
 
   const handleAddressClick = () => {
-    history.push('/address');
+    history.push("/address");
   };
 
   const parseAddress = (address) => {
-    const words = address.split(' ');
-    return words[1] + ' ' + words[2];
+    const words = address.split(" ");
+    return words[1] + " " + words[2];
   };
 
   const fetchAddressData = async () => {
     try {
       const dataToSend = {
-        method: 'get',
-        url: API + addressInfo + '/' + filterStatus,
+        method: "get",
+        url: API + addressInfo + "/" + filterStatus,
       };
 
       res = await axios(dataToSend);
@@ -155,7 +143,11 @@ export default function Search({ location }) {
 
   return (
     <>
-      <Header isAddress={false} background={background} setBackground={setBackground} />
+      <Header
+        isAddress={false}
+        background={background}
+        setBackground={setBackground}
+      />
       <Wrapper>
         <SearchPageHeader>
           강아지를 돌봐줄
@@ -168,12 +160,12 @@ export default function Search({ location }) {
             <img
               src={LocationIcon}
               style={{
-                width: '18px',
-                height: '18px',
-                marginLeft: '7px',
-                marginRight: '1.7px',
+                width: "18px",
+                height: "18px",
+                marginLeft: "7px",
+                marginRight: "1.7px",
               }}
-            />{' '}
+            />{" "}
             {parseAddress(addressInfo)}
           </SearchPageAddress>
 
@@ -203,14 +195,22 @@ export default function Search({ location }) {
         </SearchTabBox> */}
         <FilterBox>
           <FilterOption>
-            <FilterSelect onChange={(event) => setFilterStatus(parseInt(event.target.value))}>
+            <FilterSelect
+              onChange={(event) =>
+                setFilterStatus(parseInt(event.target.value))
+              }
+            >
               <option value="0">거리순</option>
               <option value="1">가격순</option>
             </FilterSelect>
           </FilterOption>
         </FilterBox>
         <OfferList>
-          <OfferCell {...{ offerList }} startDate={startDate} endDate={endDate}></OfferCell>
+          <OfferCell
+            {...{ offerList }}
+            startDate={startDate}
+            endDate={endDate}
+          ></OfferCell>
         </OfferList>
       </Wrapper>
       {background && (
@@ -243,7 +243,7 @@ const SearchPageHeader = styled.div`
   padding-top: 7px;
   display: flex;
 
-  font-family: 'Noto Sans KR';
+  font-family: "Noto Sans KR";
   font-style: normal;
   //bold
   font-weight: 700;
@@ -262,7 +262,7 @@ const SearchPageAddress = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
-  font-family: 'Noto Sans KR';
+  font-family: "Noto Sans KR";
   font-size: 13px;
   //regular
   font-weight: 400;
@@ -283,7 +283,7 @@ const SearchPageDate = styled.div`
   display: flex;
   align-items: center;
 
-  font-family: 'Work Sans';
+  font-family: "Work Sans";
   font-size: 13px;
   //reg
   font-weight: 400;
@@ -303,7 +303,7 @@ const SearchPageDatePicker = styled.div`
   display: flex;
   align-items: center;
 
-  font-family: 'Work Sans', sans-serif;
+  font-family: "Work Sans", sans-serif;
   font-size: 13px;
   //reg
   font-weight: 400;
@@ -320,14 +320,15 @@ const FilterBox = styled.div`
   margin-top: 16px;
   height: 38px;
 
-  box-shadow: inset 0 1px 2px 0 rgba(165, 159, 150, 0.22), 0 1px 2px 0 rgba(170, 170, 170, 0.31);
+  box-shadow: inset 0 1px 2px 0 rgba(165, 159, 150, 0.22),
+    0 1px 2px 0 rgba(170, 170, 170, 0.31);
   background-color: #f9f9f9;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
 
-  font-family: 'Work Sans', sans-serif;
+  font-family: "Work Sans", sans-serif;
   font-size: 13px;
 
   font-weight: 400;
@@ -339,7 +340,7 @@ const FilterBox = styled.div`
   color: gray;
 `;
 const FilterSelect = styled.select`
-  font-family: 'Noto Sans KR';
+  font-family: "Noto Sans KR";
   font-size: 13px;
   font-weight: normal;
   font-stretch: normal;
@@ -379,7 +380,7 @@ const SearchTabBox = styled.div`
   margin-left: -17px;
   display: flex;
   justify-content: space-around;
-  font-family: 'Noto Sans KR';
+  font-family: "Noto Sans KR";
   font-style: normal;
 
   //bold

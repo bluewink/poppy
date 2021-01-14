@@ -1,36 +1,44 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
 
-import Header from '../components/Header';
-import { survey_poppy } from '../resources/images';
+import Header from "../components/Header";
+import { survey_poppy } from "../resources/images";
 
 export default function Confirm() {
   const [background, setBackground] = useState(false);
   return (
     <>
       <Wrapper>
-        <Header isAddress={false} background={background} setBackground={setBackground} />
+        <Header
+          isAddress={false}
+          background={background}
+          setBackground={setBackground}
+        />
         <PageTitle>
-          예약해주셔서 <br />
-          감사합니다!
+          예약이 <br />
+          완료되었습니다!
         </PageTitle>
         <SubLabel1>
-          추가적으로 <Bold>1분</Bold>안에 끝나는 <br />
-          <Bold>설문조사</Bold>를 진행해주시면 <br />
+          돌보미가
+          <br /> <Bold>예약 내용을 확인한 뒤에</Bold>
+          <br />
         </SubLabel1>
         <SubLabel2>
-          추첨을 통하여 <br />
-          <Bold>기프티콘</Bold>을 선물로 드립니다.
+          예약자분께 직접
+          <br />
+          연락을 드릴거예요.
         </SubLabel2>
         <PoppyImage src={survey_poppy} />
         <NextBox>
-          <a
-            target="_blank"
-            href="https://docs.google.com/forms/d/e/1FAIpQLSeo49pXpxFmNd7lx2wSVk1RHdFieODjTyGLdRpyYBvGIehKAA/viewform?usp=sf_link"
+          <Link
+            to={{
+              pathname: "/takeoffer",
+              state: { address: "서울시 마포구 백범로 35" },
+            }}
           >
-            <NextButton>설문하기</NextButton>
-          </a>
+            <NextButton>홈으로</NextButton>
+          </Link>
         </NextBox>
       </Wrapper>
       {background && (
@@ -103,7 +111,7 @@ const SubLabel2 = styled.div`
 const Bold = styled.span`
   font-family: Noto Sans KR;
   font-style: normal;
-  font-weight: bold;
+  font-weight: 500;
   font-size: 17px;
   line-height: 24px;
   /* or 141% */
