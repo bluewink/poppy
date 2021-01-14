@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import styled, { css } from 'styled-components';
-import axios from 'axios';
-import 'react-datepicker/dist/react-datepicker.css';
-import 'react-datepicker/dist/react-datepicker-cssmodules.css';
-import { LocationIcon, CalendarIcon } from '../resources/images';
-import OfferCell from '../components/OfferCell';
-import Header from '../components/Header';
-import DatePicker, { registerLocale } from 'react-datepicker';
-import { ko } from 'date-fns/esm/locale';
-import moment from 'moment';
-import 'moment/locale/ko';
+import React, { useState, useEffect } from "react";
+import styled, { css } from "styled-components";
+import axios from "axios";
+import "react-datepicker/dist/react-datepicker.css";
+import "react-datepicker/dist/react-datepicker-cssmodules.css";
+import { LocationIcon, CalendarIcon } from "../resources/images";
+import OfferCell from "../components/OfferCell";
+import Header from "../components/Header";
+import DatePicker, { registerLocale } from "react-datepicker";
+import { ko } from "date-fns/esm/locale";
+import moment from "moment";
+import "moment/locale/ko";
 
 export default function Search({ location }) {
-  const [neighbor, setNeighbor] = useState(1);
+  const [filterStatus, setFilterStatus] = useState(0);
   const [offerList, setOfferList] = useState([]);
 
   const [startDate, setStartDate] = useState(new Date());
@@ -26,33 +26,33 @@ export default function Search({ location }) {
       <img
         src={CalendarIcon}
         style={{
-          width: '16px',
-          height: '16px',
-          marginLeft: '8px',
-          marginRight: '4px',
+          width: "16px",
+          height: "16px",
+          marginLeft: "8px",
+          marginRight: "4px",
         }}
       />
 
       <div onClick={onClick}>
-        {startDate ? moment(startDate).format('MM.DD(ddd)') : '??/??/????'} -{' '}
-        {endDate >= startDate ? moment(endDate).format('MM.DD(ddd)') : null}
+        {startDate ? moment(startDate).format("MM.DD(ddd)") : "??/??/????"} -{" "}
+        {endDate >= startDate ? moment(endDate).format("MM.DD(ddd)") : null}
       </div>
     </SearchPageDatePicker>
   );
 
-  registerLocale('ko', ko);
-  moment.locale('ko');
+  registerLocale("ko", ko);
+  moment.locale("ko");
   let res;
   let tmpList = [];
-
-  const EXPERT_API =
-    'http://ec2-3-35-187-250.ap-northeast-2.compute.amazonaws.com:8000/expert/?order_by=distance&&address=';
-  const NEIGHBOR_API =
-    'http://ec2-3-35-187-250.ap-northeast-2.compute.amazonaws.com:8000/non_expert/?order_by=distance&&address=';
+  //petsitters_nearby/<str:address>/<int:dist_or_fee>
+  const ORDER_BY_DISTANCE_API =
+    "http://ec2-3-35-187-250.ap-northeast-2.compute.amazonaws.com:8000/expert/?order_by=distance&&address=";
+  const ORDER_BY_PRICE_API =
+    "http://ec2-3-35-187-250.ap-northeast-2.compute.amazonaws.com:8000/non_expert/?order_by=distance&&address=";
 
   useEffect(() => {
     fetchAddressData();
-  }, [neighbor]);
+  }, [filterStatus]);
 
   const handleDateChange = (date) => {
     if (!selectionComplete && !startDate) {
@@ -75,38 +75,50 @@ export default function Search({ location }) {
   };
 
   const handleSelect = (date) => {
-    if (!selectionComplete && startDate && !endDate && sameDay(date, startDate)) {
+    if (
+      !selectionComplete &&
+      startDate &&
+      !endDate &&
+      sameDay(date, startDate)
+    ) {
       handleDateChange(date);
     }
   };
   const sameDay = (d1, d2) => {
-    return d1.getFullYear() === d2.getFullYear() && d1.getMonth() === d2.getMonth() && d1.getDate() === d2.getDate();
+    return (
+      d1.getFullYear() === d2.getFullYear() &&
+      d1.getMonth() === d2.getMonth() &&
+      d1.getDate() === d2.getDate()
+    );
   };
 
-  const handleNeighborTabClick = () => {
-    setNeighbor(1);
-  };
-  const handleProTabClick = () => {
-    setNeighbor(0);
-  };
+  // const handleNeighborTabClick = () => {
+  //   setNeighbor(1);
+  // };
+  // const handleProTabClick = () => {
+  //   setNeighbor(0);
+  // };
 
   const parseAddress = (address) => {
-    const words = address.split(' ');
-    return words[1] + ' ' + words[2];
+    const words = address.split(" ");
+    return words[1] + " " + words[2];
   };
 
   const dataToSend = {
-    method: 'get',
-    url: neighbor ? NEIGHBOR_API + location.state.address : EXPERT_API + location.state.address,
+    method: "get",
+    url: filterStatus
+      ? ORDER_BY_DISTANCE_API + location.state.address + "/" + filterStatus
+      : ORDER_BY_PRICE_API + location.state.address + "/" + filterStatus,
   };
   const fetchAddressData = async () => {
     try {
       res = await axios(dataToSend);
-      tmpList = neighbor ? res.data.non_experts : res.data.experts;
+      //이 부분 수정되어야함. 주호형이 넘겨주면 res.data 확인해보자. 예상으로는 non_experts, experts 구분이 사라질듯?
+      tmpList = filterStatus ? res.data.non_experts : res.data.experts;
       setOfferList(tmpList);
       console.log(offerList);
     } catch (e) {
-      console.log('fetch failed!!!');
+      console.log("fetch failed!!!");
       console.log(e);
     }
   };
@@ -117,7 +129,11 @@ export default function Search({ location }) {
 
   return (
     <>
-      <Header isAddress={false} background={background} setBackground={setBackground} />
+      <Header
+        isAddress={false}
+        background={background}
+        setBackground={setBackground}
+      />
       <Wrapper>
         <SearchPageHeader>
           강아지를 돌봐줄
@@ -129,12 +145,12 @@ export default function Search({ location }) {
             <img
               src={LocationIcon}
               style={{
-                width: '18px',
-                height: '18px',
-                marginLeft: '7px',
-                marginRight: '1.7px',
+                width: "18px",
+                height: "18px",
+                marginLeft: "7px",
+                marginRight: "1.7px",
               }}
-            />{' '}
+            />{" "}
             {parseAddress(location.state.address)}
           </SearchPageAddress>
           <SearchPageDate>
@@ -153,17 +169,32 @@ export default function Search({ location }) {
           </SearchPageDate>
         </SearchOptionBox>
 
-        <SearchTabBox>
+        {/* <SearchTabBox>
           <SearchTab clicked={neighbor} onClick={handleNeighborTabClick}>
             <NeighborTab>이웃 반려인</NeighborTab>
           </SearchTab>
           <SearchTab clicked={!neighbor} onClick={handleProTabClick}>
             <ProTab>전문 펫시터</ProTab>
           </SearchTab>
-        </SearchTabBox>
-        <FilterBox>{/* <FilterOption> 거리순 </FilterOption> */}</FilterBox>
+        </SearchTabBox> */}
+        <FilterBox>
+          <FilterOption>
+            <FilterSelect
+              onChange={(event) =>
+                setFilterStatus(parseInt(event.target.value))
+              }
+            >
+              <option value="0">거리순</option>
+              <option value="1">가격순</option>
+            </FilterSelect>
+          </FilterOption>
+        </FilterBox>
         <OfferList>
-          <OfferCell {...{ offerList }} startDate={startDate} endDate={endDate}></OfferCell>
+          <OfferCell
+            {...{ offerList }}
+            startDate={startDate}
+            endDate={endDate}
+          ></OfferCell>
         </OfferList>
       </Wrapper>
       {background && (
@@ -196,7 +227,7 @@ const SearchPageHeader = styled.div`
   padding-top: 7px;
   display: flex;
 
-  font-family: 'Noto Sans KR';
+  font-family: "Noto Sans KR";
   font-style: normal;
   //bold
   font-weight: 700;
@@ -215,7 +246,7 @@ const SearchPageAddress = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
-  font-family: 'Noto Sans KR';
+  font-family: "Noto Sans KR";
   font-size: 13px;
   //regular
   font-weight: 400;
@@ -236,7 +267,7 @@ const SearchPageDate = styled.div`
   display: flex;
   align-items: center;
 
-  font-family: 'Work Sans';
+  font-family: "Work Sans";
   font-size: 13px;
   //reg
   font-weight: 400;
@@ -256,7 +287,7 @@ const SearchPageDatePicker = styled.div`
   display: flex;
   align-items: center;
 
-  font-family: 'Work Sans', sans-serif;
+  font-family: "Work Sans", sans-serif;
   font-size: 13px;
   //reg
   font-weight: 400;
@@ -270,17 +301,18 @@ const SearchPageDatePicker = styled.div`
 
 const FilterBox = styled.div`
   margin-left: -17px;
+  margin-top: 16px;
+  height: 38px;
 
-  /* height: 38px; */
-  height: 10px;
-  box-shadow: inset 0 1px 2px 0 rgba(165, 159, 150, 0.22), 0 1px 2px 0 rgba(170, 170, 170, 0.31);
+  box-shadow: inset 0 1px 2px 0 rgba(165, 159, 150, 0.22),
+    0 1px 2px 0 rgba(170, 170, 170, 0.31);
   background-color: #f9f9f9;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
 
-  font-family: 'Work Sans', sans-serif;
+  font-family: "Work Sans", sans-serif;
   font-size: 13px;
 
   font-weight: 400;
@@ -291,6 +323,24 @@ const FilterBox = styled.div`
   text-align: right;
   color: gray;
 `;
+const FilterSelect = styled.select`
+  font-family: "Noto Sans KR";
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.54;
+  letter-spacing: -1px;
+  text-align: right;
+  color: #9d9d9d;
+  background: #f9f9f9;
+  border: none;
+
+  &:focus {
+    outline: none;
+  }
+`;
+
 const FilterOption = styled.div`
   margin-right: 20px;
 `;
@@ -314,7 +364,7 @@ const SearchTabBox = styled.div`
   margin-left: -17px;
   display: flex;
   justify-content: space-around;
-  font-family: 'Noto Sans KR';
+  font-family: "Noto Sans KR";
   font-style: normal;
 
   //bold
