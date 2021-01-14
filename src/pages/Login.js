@@ -95,7 +95,7 @@ export default function Login() {
           <NextButton onClick={handleLoginSubmit}>로그인</NextButton>
         </ButtonContainer>
         <ButtonContainer style={{ marginTop: "15px" }}>
-          <Link to="/register">
+          <Link to="/join">
             <RegisterButton>회원가입</RegisterButton>
           </Link>
         </ButtonContainer>

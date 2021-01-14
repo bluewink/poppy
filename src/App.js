@@ -22,6 +22,7 @@ import ThirdTerm from "./pages/ThirdTerm";
 import CancelRequest from "./pages/CancelRequest";
 import PetsittingDone from "./pages/PetsittingDone";
 import PetsittingComplete from "./pages/PetsittingComplete";
+import Reservation from "./pages/Reservation";
 export default function App() {
   return (
     <BrowserRouter>
@@ -55,6 +56,7 @@ export default function App() {
           exact
           component={PetsittingComplete}
         />
+        <Route path="/reservation" exact component={Reservation} />
       </MobileSize>
     </BrowserRouter>
   );

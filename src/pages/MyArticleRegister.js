@@ -14,7 +14,7 @@ export default function Register() {
     {
       startDate: new Date(),
       endDate: null,
-      color: '#FFF8EB',
+      color: '#ff9777',
       dayNumberColor: '#000000',
       key: 'selection',
     },
@@ -29,6 +29,16 @@ export default function Register() {
   const [bigDogTodayCostInput, setBigDogTodayCostInput] = useState('');
   const [bigDogOneDayCostInput, setBigDogOneDayCostInput] = useState('');
   const [dogIntroduceInput, setDogIntroduceInput] = useState('');
+  const [certificationNameInput, setCertificationNameInput] = useState('');
+  const [organizationInput, setOrganizationInput] = useState('');
+  const [certificationDateInput, setCertificationDateInput] = useState('');
+
+  const [button1, setButton1] = useState(false);
+  const [button2, setButton2] = useState(false);
+  const [button3, setButton3] = useState(false);
+  const [button4, setButton4] = useState(false);
+  const [button5, setButton5] = useState(false);
+  const [button6, setButton6] = useState(false);
 
   const handleTitleChanged = (e) => {
     setTitleInput(e.target.value);
@@ -60,6 +70,43 @@ export default function Register() {
 
   const handleBigDogOneDayCostInput = (e) => {
     setBigDogOneDayCostInput(e.target.value);
+  };
+
+  // 자격증
+  const handleCertificationNameInput = (e) => {
+    setCertificationNameInput(e.target.value);
+  };
+
+  const handleOrganizationInput = (e) => {
+    setOrganizationInput(e.target.value);
+  };
+
+  const handleCertificationDateInput = (e) => {
+    setCertificationDateInput(e.target.value);
+  };
+
+  const handleButton1 = (e) => {
+    setButton1(!button1);
+  };
+
+  const handleButton2 = (e) => {
+    setButton2(!button2);
+  };
+
+  const handleButton3 = (e) => {
+    setButton3(!button3);
+  };
+
+  const handleButton4 = (e) => {
+    setButton4(!button4);
+  };
+
+  const handleButton5 = (e) => {
+    setButton5(!button5);
+  };
+
+  const handleButton6 = (e) => {
+    setButton6(!button6);
   };
 
   const handleChangeDates = (item) => {
@@ -156,7 +203,9 @@ export default function Register() {
         </WarningLabel>
       </FeeBox>
       <DogBox>
-        <DogTitle>반려견을 등록해주세요.</DogTitle>
+        <DogTitle>
+          <Red>* </Red>&nbsp;반려견을 등록해주세요.
+        </DogTitle>
         <DogCard>
           <DogImg src={dog1} />
           <VerticalStackView>
@@ -171,29 +220,307 @@ export default function Register() {
       </DogBox>
       <CalendarBox>
         <CalendarTitle>돌봄 가능 날짜를 설정해주세요.</CalendarTitle>
-        <DateRange
-          editableDateInputs={false}
-          onChange={handleChangeDates}
-          dateDisplayFormat={'yyyy-MM'}
-          moveRangeOnFirstSelection={false}
-          ranges={state}
-          showDateDisplay={false}
-          showSelectionPreview={false}
-          showMonthAndYearPickers={false}
-          minDate={new Date()}
-          showMonthArrow={false}
-        />
+        <ShadowBox>
+          <DateRange
+            editableDateInputs={false}
+            onChange={handleChangeDates}
+            dateDisplayFormat={'yyyy-MM'}
+            moveRangeOnFirstSelection={false}
+            ranges={state}
+            showDateDisplay={false}
+            showSelectionPreview={false}
+            showMonthAndYearPickers={false}
+            minDate={new Date()}
+            showMonthArrow={false}
+          />
+        </ShadowBox>
       </CalendarBox>
       <ServiceBox>
         <ServiceTitle>이용 가능 서비스를 선택해주세요.</ServiceTitle>
+        <ServiceButtonTable>
+          <ServiceStackView>
+            {!button1 ? (
+              <ServiceButton onClick={handleButton1}>장기 예약</ServiceButton>
+            ) : (
+              <SelectedServiceButton onClick={handleButton1}>장기 예약</SelectedServiceButton>
+            )}
+            {!button2 ? (
+              <ServiceButton onClick={handleButton2}>실내 놀이</ServiceButton>
+            ) : (
+              <SelectedServiceButton onClick={handleButton2}>실내 놀이</SelectedServiceButton>
+            )}
+            {!button3 ? (
+              <ServiceButton onClick={handleButton3}>약물 복용</ServiceButton>
+            ) : (
+              <SelectedServiceButton onClick={handleButton3}>약물 복용</SelectedServiceButton>
+            )}
+          </ServiceStackView>
+          <ServiceStackView>
+            {!button4 ? (
+              <ServiceButton onClick={handleButton4}>목욕 가능</ServiceButton>
+            ) : (
+              <SelectedServiceButton onClick={handleButton4}>목욕 가능</SelectedServiceButton>
+            )}
+            {!button5 ? (
+              <ServiceButton onClick={handleButton5}>산책 가능</ServiceButton>
+            ) : (
+              <SelectedServiceButton onClick={handleButton5}>산책 가능</SelectedServiceButton>
+            )}
+            {!button6 ? (
+              <ServiceButton onClick={handleButton6}>집앞 픽업</ServiceButton>
+            ) : (
+              <SelectedServiceButton onClick={handleButton6}>집앞 픽업</SelectedServiceButton>
+            )}
+          </ServiceStackView>
+        </ServiceButtonTable>
       </ServiceBox>
+      <CertificationBox>
+        <CertificationTitle>자격증을 등록해주세요.</CertificationTitle>
+        <CertificationTable>
+          <CertificationNameInput
+            text={certificationNameInput}
+            onChange={handleCertificationNameInput}
+            placeholder="자격증 이름"
+          />
+          <OrganizationInput text={organizationInput} onChange={handleOrganizationInput} placeholder="인증기관" />
+          <CertificationDateInput
+            text={certificationDateInput}
+            onChange={handleCertificationDateInput}
+            placeholder="취득일 (ex: 20190507)"
+          />
+        </CertificationTable>
+        <CertificationWarning>
+          * 표시 항목은 필수 입력 항목으로 , 미기재 시 등록을 완료할 수 없습니다.
+        </CertificationWarning>
+      </CertificationBox>
     </Wrapper>
   );
 }
 
-const ServiceBox = styled.div``;
+const SelectedServiceButton = styled.div`
+  border-radius: 37px;
+  border: solid 2px #efefef;
 
-const ServiceTitle = styled.div``;
+  padding: 8px 19px;
+
+  background: #f9f9f9;
+  /* light gray */
+
+  border: 1px solid #dbdbdb;
+  box-sizing: border-box;
+  border-radius: 37px;
+
+  /* Inside Auto Layout */
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  margin: 5px 0px;
+
+  font-family: Noto Sans KR;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  /* or 121% */
+
+  display: flex;
+  align-items: center;
+  text-align: center;
+  letter-spacing: -0.5px;
+
+  /* light gray */
+
+  color: #ffffff;
+  background-color: #ff9777;
+`;
+
+const Red = styled.span`
+  font-family: Noto Sans KR;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 25px;
+  /* or 139% */
+
+  display: flex;
+  align-items: center;
+  letter-spacing: -1px;
+  color: #ff9777;
+`;
+
+const CertificationWarning = styled.div`
+  margin-top: 11px;
+  margin-bottom: 50px;
+
+  font-family: Noto Sans KR;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 16px;
+  /* or 137% */
+
+  letter-spacing: -1px;
+
+  /* 주황 */
+
+  color: #ff9777;
+`;
+
+const CertificationTitle = styled.div`
+  font-family: Noto Sans KR;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 25px;
+  /* or 139% */
+
+  display: flex;
+  align-items: center;
+  letter-spacing: -1px;
+
+  /* 찐회색 */
+
+  color: #505050;
+`;
+
+const CertificationTable = styled.div`
+  margin-top: 16px;
+
+  padding: 12px 16px 7px 16px;
+
+  background: #fafafa;
+  box-shadow: 0px 1px 3px rgba(129, 129, 129, 0.18);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: Column;
+`;
+
+const CertificationNameInput = styled.input`
+  padding: 4px 28px 5px 10px;
+
+  margin-bottom: 5px;
+  background: #ffffff;
+  /* light gray */
+
+  border: 1px solid #dbdbdb;
+  box-sizing: border-box;
+  border-radius: 4px;
+  outline: none;
+  ::placeholder {
+    color: #dbdbdb;
+  }
+`;
+
+const OrganizationInput = styled.input`
+  padding: 4px 28px 5px 10px;
+  background: #ffffff;
+  /* light gray */
+  margin-bottom: 5px;
+  outline: none;
+  border: 1px solid #dbdbdb;
+  box-sizing: border-box;
+  border-radius: 4px;
+
+  ::placeholder {
+    color: #dbdbdb;
+  }
+`;
+
+const CertificationDateInput = styled.input`
+  padding: 4px 28px 5px 10px;
+  background: #ffffff;
+  outline: none;
+  /* light gray */
+  margin-bottom: 5px;
+
+  border: 1px solid #dbdbdb;
+  box-sizing: border-box;
+  border-radius: 4px;
+
+  ::placeholder {
+    color: #dbdbdb;
+  }
+`;
+
+const CertificationBox = styled.div`
+  margin: 51px 16px 0 16px;
+`;
+
+const ServiceStackView = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const ServiceButton = styled.div`
+  border-radius: 37px;
+  border: solid 2px #efefef;
+  background-color: #f9f9f9;
+
+  padding: 8px 19px;
+
+  background: #f9f9f9;
+  /* light gray */
+
+  border: 1px solid #dbdbdb;
+  box-sizing: border-box;
+  border-radius: 37px;
+
+  /* Inside Auto Layout */
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  margin: 5px 0px;
+
+  font-family: Noto Sans KR;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  /* or 121% */
+
+  display: flex;
+  align-items: center;
+  text-align: center;
+  letter-spacing: -0.5px;
+
+  /* light gray */
+
+  color: #dbdbdb;
+`;
+
+const ServiceButtonTable = styled.div`
+  margin: 18px 13px 0 13px;
+`;
+
+const ShadowBox = styled.div`
+  background: #ffffff;
+  box-shadow: 2px 2px 17px rgba(164, 164, 164, 0.22);
+  border-radius: 15px;
+  margin-top: 20px;
+`;
+
+const ServiceBox = styled.div`
+  margin: 51px 16px 0 16px;
+`;
+
+const ServiceTitle = styled.div`
+  font-family: Noto Sans KR;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 25px;
+  /* or 139% */
+
+  display: flex;
+  align-items: center;
+  letter-spacing: -1px;
+
+  /* 찐회색 */
+
+  color: #505050;
+`;
 
 const DogBox = styled.div`
   margin: 46px 16px 0 16px;

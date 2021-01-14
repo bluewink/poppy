@@ -8,18 +8,9 @@ import Header from "../components/Header";
 import ARTICLE_DATA from "../resources/Json/article.json";
 
 import {
-  img2,
-  detailIc1,
-  detailIc2,
-  detailIc3,
-  detailIc4,
-  detailIc5,
-  detailIc6,
   detail_warning_sign,
-  detail_star,
   detail_no_one,
   detail_five_start,
-  detailButtonIc,
   ser,
   star,
   service6,
@@ -398,7 +389,8 @@ export default function Detail({ location }) {
                 address: address,
                 oneDay: oneDay,
                 name: name,
-                date: dates,
+                startDate: startDate,
+                endDate: endDate,
                 cost: [smallCost, middleCost, largeCost],
                 diffDate: diffDate,
                 isExpert: isExpert,
