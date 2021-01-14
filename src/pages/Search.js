@@ -54,22 +54,6 @@ export default function Search({ location }) {
     </SearchPageDatePicker>
   );
 
-  useEffect(() => {
-    console.log(location);
-
-    if (location.state === undefined) {
-      console.log("undefined!!!");
-    } else {
-      setAddressInfo(location.state.address);
-      console.log("addressInfo: ", addressInfo);
-    }
-    setDataToSend({
-      method: "get",
-      url: API + addressInfo + "/" + filterStatus,
-    });
-    fetchAddressData();
-  }, []);
-
   registerLocale("ko", ko);
   moment.locale("ko");
   let res;
