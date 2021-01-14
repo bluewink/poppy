@@ -55,3 +55,4 @@ export { default as backBt } from './backBt.png';
 export { default as PasswordEye } from './PasswordEyeIcon.png';
 
 export { default as poppyProfileMenu } from './poppy-profile-menu.png';
+export { default as backback } from './backback.png';

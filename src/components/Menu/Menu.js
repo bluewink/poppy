@@ -30,14 +30,14 @@ const Menu = ({ open, setOpen, background, setBackground }) => {
             <ProfileImg src={login} width="42px" height="42px" />
             <LoginLabel>로그인 해주세요.</LoginLabel>
           </LoginWrapper>
-          <img src={next} width="6px" height="12px" />
+          <NextImg src={next} width="6px" height="12px" />
         </LoginBox>
         <LineView />
         <MenuWrapper>
           <Link to="/" style={{ textDecoration: 'none' }} onClick={handleLink}>
             <MenuBox>
               <MenuLabel>이웃집뽀삐 소개</MenuLabel>
-              <img src={next} width="6px" height="12px" />
+              <NextImg src={next} width="6px" height="12px" />
             </MenuBox>
           </Link>
         </MenuWrapper>
@@ -55,6 +55,10 @@ const Menu = ({ open, setOpen, background, setBackground }) => {
   );
 };
 export default Menu;
+
+const NextImg = styled.img`
+  margin-top: 2px;
+`;
 
 const MenuWrapper = styled.div`
   margin: 28px 0 0 16px;
