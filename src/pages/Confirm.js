@@ -1,19 +1,64 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-
+import axios from 'axios';
 import Header from '../components/Header';
 import { confirmIc1, confirmIc } from '../resources/images';
+import { useHistory } from 'react-router-dom';
 
 export default function Confirm({ location }) {
-  const { name, date, oneDay, diffDate, cost } = location.state;
+  console.log(location);
+  const {
+    name,
+    date,
+    oneDay,
+    diffDate,
+    cost,
+    target_petsitterID,
+    phone_num,
+    pet_breed,
+    pet_size,
+    start_time,
+    end_time,
+    total_fee,
+  } = location.state;
   console.log('diff Date', diffDate);
   const [background, setBackground] = useState(false);
-
+  const history = useHistory();
   const numberWithCommas = (price) => {
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   };
 
+  const postServer = async () => {
+    await axios({
+      method: 'POST',
+      url: 'http://ec2-13-209-159-94.ap-northeast-2.compute.amazonaws.com:5432/apply/',
+      headers: {
+        Authorization: 'Token 8f79775656f32458dfbb9c826dd89276477cec85',
+      },
+      data: {
+        target_petsitterID: target_petsitterID,
+        phone_num: phone_num,
+        pet_breed: pet_breed,
+        pet_size: pet_size,
+        start_time: start_time,
+        end_time: end_time,
+        total_fee: total_fee,
+      },
+    }).then((res) => {
+      console.log(res);
+      console.log('등록 성공');
+      // history.push('/confirm');
+      //const { name, date, oneDay, diffDate, cost } = location.state;
+      history.push({
+        pathname: '/survey',
+      });
+    });
+  };
+
+  const handleNextButton = () => {
+    postServer();
+  };
   return (
     <>
       <Wrapper>
@@ -52,9 +97,9 @@ export default function Confirm({ location }) {
 
           <NextBox>
             <WarnLabel>예약 정보를 다시 한 번 확인해 주세요.</WarnLabel>
-            <Link to="/survey">
-              <NextButton>예약 확정</NextButton>
-            </Link>
+            {/* <Link to="/survey"> */}
+            <NextButton onClick={handleNextButton}>예약 확정</NextButton>
+            {/* </Link> */}
           </NextBox>
         </>
       </Wrapper>
