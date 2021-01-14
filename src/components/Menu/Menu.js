@@ -45,7 +45,6 @@ const Menu = ({ open, setOpen, background, setBackground }) => {
             console.log("눌림");
           }}
         />
-
         <LoginBox>
           <LoginWrapper>
             <ProfileImg src={login} width="42px" height="42px" />

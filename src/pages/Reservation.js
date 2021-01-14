@@ -225,22 +225,27 @@ export default function Reservation({ location }) {
     console.log(e.target.textContent);
     calculateIndex(10, e.target.textContent);
   };
+
   const handleSeventeenClock = (e) => {
     console.log(e.target.textContent);
     calculateIndex(11, e.target.textContent);
   };
+
   const handleEighteenClock = (e) => {
     console.log(e.target.textContent);
     calculateIndex(12, e.target.textContent);
   };
+
   const handleNineteenClock = (e) => {
     console.log(e.target.textContent);
     calculateIndex(13, e.target.textContent);
   };
+
   const handleTwentyClock = (e) => {
     console.log(e.target.textContent);
     calculateIndex(14, e.target.textContent);
   };
+
   const handleTwentyOneClock = (e) => {
     console.log(e.target.textContent);
     calculateIndex(15, e.target.textContent);

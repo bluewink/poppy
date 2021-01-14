@@ -54,6 +54,22 @@ export default function Search({ location }) {
     </SearchPageDatePicker>
   );
 
+  useEffect(() => {
+    console.log(location);
+
+    if (location.state === undefined) {
+      console.log("undefined!!!");
+    } else {
+      setAddressInfo(location.state.address);
+      console.log("addressInfo: ", addressInfo);
+    }
+    setDataToSend({
+      method: "get",
+      url: API + addressInfo + "/" + filterStatus,
+    });
+    fetchAddressData();
+  }, []);
+
   registerLocale("ko", ko);
   moment.locale("ko");
   let res;
@@ -133,8 +149,6 @@ export default function Search({ location }) {
       setOfferList(tmpList);
       // console.log(offerList);
     } catch (e) {
-      // console.log(dataToSend);
-      console.log("fetch failed!!!");
       console.log(e);
     }
   };
