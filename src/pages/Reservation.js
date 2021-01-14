@@ -27,9 +27,11 @@ export default function Reservation({ location }) {
     console.log(name);
 
     const year = startDate.getFullYear();
-    const month = startDate.getMonth() + 1;
+    var month = startDate.getMonth() + 1;
     const day = startDate.getDate();
     setDiffDateServer();
+
+    var month = month < 10 ? `0${month}` : month;
 
     setStartDateView(year + "년 " + month + "월 " + day + "일 ");
     setEndDateView(year + "년 " + month + "월 " + day + "일 ");
@@ -38,7 +40,8 @@ export default function Reservation({ location }) {
     // setTotalCost(cost);
     if (endDate !== null) {
       const e_year = endDate.getFullYear();
-      const e_month = endDate.getMonth() + 1;
+      var e_month = endDate.getMonth() + 1;
+      e_month = e_month < 10 ? `0${e_month}` : e_month;
       const e_day = endDate.getDate();
 
       setEndDateServer(e_year + "-" + e_month + "-" + e_day);
@@ -84,7 +87,7 @@ export default function Reservation({ location }) {
   const [twentyThreeBool, setTwentyThreeBool] = useState(false);
   const [twentyFourBool, setTwentyFourBool] = useState(false);
 
-  const [timeStart, setTimeStart] = useState("9:00");
+  const [timeStart, setTimeStart] = useState("09:00");
   const [timeEnd, setTimeEnd] = useState("11:00");
 
   const parseAddress = (address) => {
@@ -217,10 +220,12 @@ export default function Reservation({ location }) {
     if (startTimeIndex == -1 && endTimeIndex == -1) {
       setStartTimeIndex(idx);
       setEndTimeIndex(idx);
+      text = parseInt(text) < 10 ? `0${text}` : text;
       setTimeStart(text);
     } else if (startTimeIndex != -1 && startTimeIndex == endTimeIndex) {
       // 다 눌리는 로직
       setEndTimeIndex(idx);
+      text = parseInt(text) < 10 ? `0${text}` : text;
       setTimeEnd(text);
       let timeArray = [
         sixBool,
@@ -329,7 +334,6 @@ export default function Reservation({ location }) {
         "http://ec2-13-209-159-94.ap-northeast-2.compute.amazonaws.com:5432/apply/",
       headers: {
         Authorization: "Token 8f79775656f32458dfbb9c826dd89276477cec85",
-        "Content-Type": "application/json",
       },
       data: {
         target_petsitterID: "2",
@@ -344,6 +348,14 @@ export default function Reservation({ location }) {
       console.log(res);
       console.log("등록 성공");
       history.push("/confirm");
+      //const { name, date, oneDay, diffDate, cost } = location.state;
+      history.push({pathname:'/confirm',state:{
+        name:userName,
+        date:
+        oneDay:
+        diffDate:
+        cost:
+      }})
     });
   };
 
