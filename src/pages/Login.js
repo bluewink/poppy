@@ -5,6 +5,7 @@ import { Link, useHistory } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import axios from 'axios';
 import { useCookies } from 'react-cookie';
+
 export default function Login() {
   const [passwordEyeFlag, setPasswordEyeFlag] = useState(false);
   const [emailInputFlag, setEmailInputFlag] = useState(false);
@@ -13,7 +14,6 @@ export default function Login() {
   const [passwordInput, setPasswordInput] = useState('');
 
   const [cookies, setCookie] = useCookies(['token']);
-
   const history = useHistory();
 
   const SERVER_API = 'http://ec2-13-209-159-94.ap-northeast-2.compute.amazonaws.com:5432/';
@@ -58,6 +58,8 @@ export default function Login() {
       console.log('로그인 성공!');
       console.log(res);
       setCookie('token', res.data.Token, '/');
+      setCookie('name');
+      console.log(cookies);
       history.push('/');
     });
   };
