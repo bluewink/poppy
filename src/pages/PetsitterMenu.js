@@ -1,8 +1,8 @@
-import React from "react";
-import styled from "styled-components";
-import { Link } from "react-router-dom";
-import { MenuRight, poppyProfileMenu } from "../resources/images";
-import NavBar from "../components/NavBar";
+import React from 'react';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import { MenuRight, poppyProfileMenu } from '../resources/images';
+import NavBar from '../components/NavBar';
 
 export default function PetsitterMenu() {
   return (
@@ -16,11 +16,13 @@ export default function PetsitterMenu() {
             이웃반려견을 도와요!
           </ProfileBoxHeader>
           <ProfileButtonBox>
-            <ProfileButton>내 돌봄 프로필</ProfileButton>
+            <Link to="/myArticleRegister">
+              <ProfileButton>내 돌봄 프로필</ProfileButton>
+            </Link>
           </ProfileButtonBox>
         </ProfileBox>
         <Link to="requesthistory">
-          <MenuRow style={{ marginTop: "23px" }}>
+          <MenuRow style={{ marginTop: '23px' }}>
             <MenuContent>내게 온 신청</MenuContent>
             <MenuRightImg src={MenuRight} />
           </MenuRow>
@@ -58,7 +60,7 @@ const ProfileBoxHeader = styled.div`
   width: 202px;
   height: 56px;
 
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 20px;
   font-weight: bold;
   font-stretch: normal;
@@ -79,7 +81,7 @@ const ProfileButton = styled.button`
   border-radius: 45px;
   border: solid 1px #ff9777;
 
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 15px;
   font-weight: 500;
   font-stretch: normal;
@@ -99,7 +101,7 @@ const ProfileButtonBox = styled.div`
   width: 115px;
   height: 34px;
 
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 15px;
   font-weight: 500;
   font-stretch: normal;
@@ -131,7 +133,7 @@ const MenuContent = styled.div`
   width: 245px;
   height: 21px;
 
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 18px;
   font-weight: 500;
   font-stretch: normal;
