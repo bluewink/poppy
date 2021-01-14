@@ -1,29 +1,28 @@
-import React, { useState } from "react";
-import styled, { css } from "styled-components";
-import { PasswordEye } from "../resources/images/index";
-import { Link, useHistory } from "react-router-dom";
-import NavBar from "../components/NavBar";
-import axios from "axios";
-import { useCookies } from "react-cookie";
+import React, { useState } from 'react';
+import styled, { css } from 'styled-components';
+import { PasswordEye } from '../resources/images/index';
+import { Link, useHistory } from 'react-router-dom';
+import NavBar from '../components/NavBar';
+import axios from 'axios';
+import { useCookies } from 'react-cookie';
+
 export default function Login() {
   const [passwordEyeFlag, setPasswordEyeFlag] = useState(false);
   const [emailInputFlag, setEmailInputFlag] = useState(false);
-  const [emailInput, setEmailInput] = useState("");
+  const [emailInput, setEmailInput] = useState('');
   const [passwordInputFlag, setPasswordInputFlag] = useState(false);
-  const [passwordInput, setPasswordInput] = useState("");
+  const [passwordInput, setPasswordInput] = useState('');
 
-  const [cookies, setCookie] = useCookies(["token"]);
-
+  const [cookies, setCookie] = useCookies(['token']);
   const history = useHistory();
 
-  const SERVER_API =
-    "http://ec2-13-209-159-94.ap-northeast-2.compute.amazonaws.com:5432/";
-  const GET_URL = "login/";
+  const SERVER_API = 'http://ec2-13-209-159-94.ap-northeast-2.compute.amazonaws.com:5432/';
+  const GET_URL = 'login/';
   const API = SERVER_API + GET_URL;
 
   const handleEmailInput = (event) => {
     setEmailInput(event.target.value);
-    if (event.target.value === "") setEmailInputFlag(false);
+    if (event.target.value === '') setEmailInputFlag(false);
     else setEmailInputFlag(true);
     // if (event.target.value.includes("@")) {
     //   setEmailInputCorrection(true);
@@ -31,7 +30,7 @@ export default function Login() {
   };
   const handlePasswordInput = (event) => {
     setPasswordInput(event.target.value);
-    if (event.target.value === "") setPasswordInputFlag(false);
+    if (event.target.value === '') setPasswordInputFlag(false);
     else setPasswordInputFlag(true);
     // passwordNumberCheck = event.target.value.search(/[0-9]/g);
     // passwordLetterCheck = event.target.value.search(/[A-Za-z]/g);
@@ -47,7 +46,7 @@ export default function Login() {
   const handleLoginSubmit = async (event) => {
     event.preventDefault();
     const dataToSend = {
-      method: "POST",
+      method: 'POST',
       url: API,
       data: {
         password: passwordInput,
@@ -56,10 +55,12 @@ export default function Login() {
     };
 
     await axios(dataToSend).then((res) => {
-      console.log("로그인 성공!");
+      console.log('로그인 성공!');
       console.log(res);
-      setCookie("token", res.data.Token, "/");
-      history.push("/");
+      setCookie('token', res.data.Token, '/');
+      setCookie('name');
+      console.log(cookies);
+      history.push('/');
     });
   };
 
@@ -70,31 +71,17 @@ export default function Login() {
       <NavBar backTo titleName="로그인" />
       <Wrapper>
         <LoginHeader>로그인 해주세요</LoginHeader>
-        <InputRow
-          onChange={handleEmailInput}
-          inputCheck={emailInputFlag}
-          style={{ marginTop: "46px" }}
-        >
+        <InputRow onChange={handleEmailInput} inputCheck={emailInputFlag} style={{ marginTop: '46px' }}>
           <LoginInput type="text" placeholder="이메일 주소" />
         </InputRow>
-        <InputRow
-          onChange={handlePasswordInput}
-          inputCheck={passwordInputFlag}
-          style={{ marginTop: "31px" }}
-        >
-          <LoginInput
-            type={passwordEyeFlag ? "text" : "password"}
-            placeholder="비밀번호"
-          />
-          <PasswordEyeIcon
-            src={PasswordEye}
-            onClick={() => setPasswordEyeFlag(!passwordEyeFlag)}
-          />
+        <InputRow onChange={handlePasswordInput} inputCheck={passwordInputFlag} style={{ marginTop: '31px' }}>
+          <LoginInput type={passwordEyeFlag ? 'text' : 'password'} placeholder="비밀번호" />
+          <PasswordEyeIcon src={PasswordEye} onClick={() => setPasswordEyeFlag(!passwordEyeFlag)} />
         </InputRow>
         <ButtonContainer>
           <NextButton onClick={handleLoginSubmit}>로그인</NextButton>
         </ButtonContainer>
-        <ButtonContainer style={{ marginTop: "15px" }}>
+        <ButtonContainer style={{ marginTop: '15px' }}>
           <Link to="/join">
             <RegisterButton>회원가입</RegisterButton>
           </Link>
@@ -110,7 +97,7 @@ const Wrapper = styled.div`
 const LoginHeader = styled.div`
   margin-top: 32px;
   height: 52px;
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 24px;
   font-weight: bold;
   font-stretch: normal;
@@ -129,7 +116,7 @@ const LoginInput = styled.input`
 
   height: 23px;
 
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 18px;
   font-weight: normal;
   font-stretch: normal;
@@ -143,7 +130,7 @@ const LoginInput = styled.input`
     outline: none;
   }
   ::placeholder {
-    font-family: "Noto Sans KR";
+    font-family: 'Noto Sans KR';
     font-size: 18px;
     font-weight: normal;
     font-stretch: normal;
@@ -204,7 +191,7 @@ const RegisterButton = styled.button`
   border: none;
   height: 20px;
 
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 16px;
   font-weight: 500;
   font-stretch: normal;

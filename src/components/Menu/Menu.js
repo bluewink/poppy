@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 
 import { StyledMenu } from './Menu.styled';
 
-import { logo_ham, login, next, settingIc } from '../../resources/images';
+import { logo_ham, login, next, settingIc, logoutBtn } from '../../resources/images';
 
 const Menu = ({ open, setOpen, background, setBackground }) => {
   const handleLink = () => {
@@ -12,6 +13,20 @@ const Menu = ({ open, setOpen, background, setBackground }) => {
     setBackground(!background);
   };
 
+  const [cookies, setCookie, removeCookie] = useCookies(['token']);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  useEffect(() => {
+    console.log(cookies.token);
+    if (cookies.token) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  });
+
+  const handleLogOut = () => {
+    removeCookie('token');
+  };
   return (
     <StyledMenu open={open}>
       <TopView>
@@ -28,25 +43,50 @@ const Menu = ({ open, setOpen, background, setBackground }) => {
         <LoginBox>
           <LoginWrapper>
             <ProfileImg src={login} width="42px" height="42px" />
-            <LoginLabel>로그인 해주세요.</LoginLabel>
+            <Link to="/login" style={{ textDecoration: 'none' }} onClick={handleLink}>
+              {isLoggedIn ? <LoginLabel>홍길동님</LoginLabel> : <LoginLabel>로그인 해주세요.</LoginLabel>}
+            </Link>
           </LoginWrapper>
-          <img src={next} width="6px" height="12px" />
+          {!isLoggedIn && <NextImg src={next} width="6px" height="12px" />}
         </LoginBox>
         <LineView />
         <MenuWrapper>
           <Link to="/" style={{ textDecoration: 'none' }} onClick={handleLink}>
             <MenuBox>
               <MenuLabel>이웃집뽀삐 소개</MenuLabel>
-              <img src={next} width="6px" height="12px" />
+              <NextImg src={next} width="6px" height="12px" />
             </MenuBox>
           </Link>
+
+          {isLoggedIn && (
+            <Link to="/" style={{ textDecoration: 'none' }} onClick={handleLink}>
+              <MenuBox>
+                <MenuLabel>돌보미 메뉴</MenuLabel>
+                <NextImg src={next} width="6px" height="12px" />
+              </MenuBox>
+            </Link>
+          )}
+          {isLoggedIn && (
+            <Link to="/" style={{ textDecoration: 'none' }} onClick={handleLink}>
+              <MenuBox>
+                <MenuLabel>나의 예약</MenuLabel>
+                <NextImg src={next} width="6px" height="12px" />
+              </MenuBox>
+            </Link>
+          )}
         </MenuWrapper>
       </TopView>
       <BottomView>
         <SettingBox>
+          {isLoggedIn && (
+            <Setting>
+              <img src={logoutBtn} width="23px" height="23px" />
+              <LogOutLabel onClick={handleLogOut}>로그아웃</LogOutLabel>
+            </Setting>
+          )}
+
           <Setting>
             <img src={settingIc} width="23px" height="23px" />
-
             <SettingLabel>이용약관</SettingLabel>
           </Setting>
         </SettingBox>
@@ -55,6 +95,10 @@ const Menu = ({ open, setOpen, background, setBackground }) => {
   );
 };
 export default Menu;
+
+const NextImg = styled.img`
+  margin-top: 2px;
+`;
 
 const MenuWrapper = styled.div`
   margin: 28px 0 0 16px;
@@ -65,6 +109,7 @@ const MenuBox = styled.div`
   justify-content: space-between;
   align-items: center;
 
+  margin-bottom: 20px;
   outline: none;
   border: none;
   text-decoration: none;
@@ -107,9 +152,31 @@ const SettingBox = styled.div`
 const Setting = styled.div`
   display: flex;
   align-items: center;
+  margin-top: 9px;
 `;
 
 const SettingLabel = styled.div`
+  margin-left: 9px;
+  outline: none;
+  border: none;
+
+  font-family: Noto Sans KR;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 27px;
+  /* or 153% */
+
+  display: flex;
+  align-items: center;
+  letter-spacing: -1px;
+
+  /* 찐회색 */
+
+  color: #505050;
+`;
+
+const LogOutLabel = styled.div`
   margin-left: 9px;
   outline: none;
   border: none;
