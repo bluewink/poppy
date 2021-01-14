@@ -363,6 +363,23 @@ export default function Reservation({ location }) {
 
     if (userPhone !== '' && dogBreed !== '' && dogSize !== '' && userName !== '') {
       // postServer();
+      history.push({
+        pathname: '/confirm',
+        state: {
+          name: name,
+          date: dates,
+          oneDay: oneDay,
+          diffDate: diffDate,
+          cost: totalCost,
+          target_petsitterID: target_petsitterID,
+          phone_num: userPhone,
+          pet_breed: dogBreed,
+          pet_size: dogSize,
+          start_time: startDateServer + ' ' + timeStart,
+          end_time: endDateServer + ' ' + timeEnd,
+          total_fee: totalCost,
+        },
+      });
     }
   };
 
@@ -590,28 +607,7 @@ export default function Reservation({ location }) {
           <Low>원</Low>
         </CostLabel>
       </CostWrapper>
-      <Link
-        to={{
-          pathname: '/confirm',
-          state: {
-            name: name,
-            date: dates,
-            oneDay: oneDay,
-            diffDate: diffDate,
-            cost: totalCost,
-            target_petsitterID: target_petsitterID,
-            phone_num: userPhone,
-            pet_breed: dogBreed,
-            pet_size: dogSize,
-            start_time: startDateServer + ' ' + timeStart,
-            end_time: endDateServer + ' ' + timeEnd,
-            total_fee: totalCost,
-          },
-        }}
-        style={{ textDecoration: 'none' }}
-      >
-        <NextButton onClick={handleNextStep}>예약하기</NextButton>
-      </Link>
+      <NextButton onClick={handleNextStep}>예약하기</NextButton>
     </Wrapper>
   );
 }

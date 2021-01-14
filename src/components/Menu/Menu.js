@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
-
+import axios from 'axios';
 import { StyledMenu } from './Menu.styled';
 
 import { logo_ham, login, next, settingIc, logoutBtn } from '../../resources/images';
@@ -13,16 +13,34 @@ const Menu = ({ open, setOpen, background, setBackground }) => {
     setBackground(!background);
   };
 
+  const [userName, setUserName] = useState('');
+
+  const history = useHistory();
   const [cookies, setCookie, removeCookie] = useCookies(['token']);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   useEffect(() => {
     console.log(cookies.token);
+
     if (cookies.token) {
       setIsLoggedIn(true);
+      postServer();
     } else {
       setIsLoggedIn(false);
     }
   });
+
+  const postServer = async () => {
+    await axios({
+      method: 'GET',
+      url: 'http://ec2-13-209-159-94.ap-northeast-2.compute.amazonaws.com:5432/name',
+      headers: {
+        Authorization: 'Token 8f79775656f32458dfbb9c826dd89276477cec85',
+      },
+    }).then((res) => {
+      console.log(res.data.name);
+      setUserName(res.data.name);
+    });
+  };
 
   const handleLogOut = () => {
     removeCookie('token');
@@ -42,9 +60,13 @@ const Menu = ({ open, setOpen, background, setBackground }) => {
         <LoginBox>
           <LoginWrapper>
             <ProfileImg src={login} width="42px" height="42px" />
-            <Link to="/login" style={{ textDecoration: 'none' }} onClick={handleLink}>
-              {isLoggedIn ? <LoginLabel>홍길동님</LoginLabel> : <LoginLabel>로그인 해주세요.</LoginLabel>}
-            </Link>
+            {isLoggedIn ? (
+              <LoginLabel>{userName}님</LoginLabel>
+            ) : (
+              <Link to="/login" style={{ textDecoration: 'none' }} onClick={handleLink}>
+                <LoginLabel>로그인 해주세요.</LoginLabel>
+              </Link>
+            )}
           </LoginWrapper>
           {!isLoggedIn && <NextImg src={next} width="6px" height="12px" />}
         </LoginBox>
