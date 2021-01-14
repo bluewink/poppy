@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import ConfirmBox from "../components/ConfirmBox";
 import NavBar from "../components/NavBar";
 
@@ -19,18 +20,38 @@ export default function ReservationHistory() {
     },
   ];
 
+  //  const {name, dogSize, date, cost} = location.state;
   return (
-    <div>
+    <Wrapper>
       <NavBar titleName="들어온 신청" />
       <Header>최근 신청 내역 순으로 신청 내역이 보여집니다.</Header>
       <ReservationList>
         {reservationList.map((reservation, index) => {
-          return <ConfirmBox reservation={reservation} />;
+          return (
+            <Link
+              to={{
+                pathname: "requesthistorydetail",
+                state: {
+                  name: reservation.target_petsitter,
+                  dogSize: reservation.service[0],
+                  date: reservation.date,
+                  cost: reservation.total_fee,
+                },
+              }}
+            >
+              <ConfirmBox reservation={reservation} />
+            </Link>
+          );
         })}
       </ReservationList>
-    </div>
+    </Wrapper>
   );
 }
+const Wrapper = styled.div`
+  a {
+    text-decoration: none;
+  }
+`;
 
 const Header = styled.div`
   margin-top: 28px;

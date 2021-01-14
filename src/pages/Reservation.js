@@ -349,13 +349,13 @@ export default function Reservation({ location }) {
       console.log("등록 성공");
       history.push("/confirm");
       //const { name, date, oneDay, diffDate, cost } = location.state;
-      history.push({pathname:'/confirm',state:{
-        name:userName,
-        date:
-        oneDay:
-        diffDate:
-        cost:
-      }})
+      // history.push({pathname:'/confirm',state:{
+      //   name:userName,
+      //   date:
+      //   oneDay:
+      //   diffDate:
+      //   cost:
+      // }})
     });
   };
 

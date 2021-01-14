@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { confirmIc } from "../resources/images";
 
 export default function ConfirmBox({ reservation }) {
-  console.log(reservation);
+  // console.log(reservation);
   const name = reservation.target_petsitter;
   const diffDate = reservation.date;
   const oneDay = true;

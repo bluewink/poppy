@@ -4,7 +4,9 @@ import NavBar from "../components/NavBar";
 import PeriodInfo from "../components/PeriodInfo";
 import CheckFooter from "../components/CheckFooter";
 import PinkButton from "../components/PinkButton";
-export default function ReservationHistoryDetail() {
+export default function ReservationHistoryDetail({ location }) {
+  const {name, dogSize, date, cost} = location.state;
+
   return (
     <div>
       <NavBar titleName="들어온 신청" />
@@ -17,7 +19,7 @@ export default function ReservationHistoryDetail() {
       </Header>
       <Shadow />
       <SectionTitle>신청 내역</SectionTitle>
-      <PeriodInfo />
+      <PeriodInfo date= />
       <Shadow style={{ marginTop: "26px" }} />
       <SectionTitle>예약자 정보</SectionTitle>
       <SectionBox>
