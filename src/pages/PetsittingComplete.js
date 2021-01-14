@@ -3,6 +3,7 @@ import styled from "styled-components";
 import NavBar from "../components/NavBar";
 import PinkButton from "../components/PinkButton";
 import { giantPoppy } from "../resources/images";
+import { Link, useHistory } from "react-router-dom";
 export default function PetsittingComplete() {
   return (
     <div>
@@ -20,7 +21,9 @@ export default function PetsittingComplete() {
       </Header>
       <PoppyImg src={giantPoppy} />
       <ButtonContainer>
-        <PinkButton content="홈으로" wid="141.2px" hgt="46.9px" />
+        <Link to="/takeoffer">
+          <PinkButton content="홈으로" wid="141.2px" hgt="46.9px" />
+        </Link>
       </ButtonContainer>
     </div>
   );

@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import NavBar from "../components/NavBar";
 import PinkButton from "../components/PinkButton";
+import { Link, useHistory } from "react-router-dom";
 export default function PetsittingDone() {
   return (
     <div>
@@ -29,7 +30,9 @@ export default function PetsittingDone() {
         </CheckContent>
       </CheckRow>
       <ButtonContainer>
-        <PinkButton content="돌봄 완료" wid="129px" hgt="46px" />
+        <Link to="/petsittingcomplete">
+          <PinkButton content="돌봄 완료" wid="129px" hgt="46px" />
+        </Link>
       </ButtonContainer>
     </div>
   );

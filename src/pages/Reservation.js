@@ -361,6 +361,37 @@ export default function Reservation({ location }) {
     }
   };
 
+  const postServer = async () => {
+    await axios({
+      method: 'POST',
+      url: 'http://ec2-13-209-159-94.ap-northeast-2.compute.amazonaws.com:5432/apply/',
+      headers: {
+        Authorization: 'Token 8f79775656f32458dfbb9c826dd89276477cec85',
+      },
+      data: {
+        target_petsitterID: '2',
+        phone_num: userPhone,
+        pet_breed: dogBreed,
+        pet_size: dogSize,
+        start_time: startDateServer + ' ' + timeStart,
+        end_time: endDateServer + ' ' + timeEnd,
+        total_fee: totalCost,
+      },
+    }).then((res) => {
+      console.log(res);
+      console.log('등록 성공');
+      history.push('/confirm');
+      //const { name, date, oneDay, diffDate, cost } = location.state;
+      // history.push({pathname:'/confirm',state:{
+      //   name:userName,
+      //   date:
+      //   oneDay:
+      //   diffDate:
+      //   cost:
+      // }})
+    });
+  };
+
   return (
     <Wrapper>
       <NavBar backTo titleName="돌봄 예약" />

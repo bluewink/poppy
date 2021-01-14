@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled, { css } from "styled-components";
+import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-datepicker/dist/react-datepicker-cssmodules.css";
@@ -12,6 +13,11 @@ import moment from "moment";
 import "moment/locale/ko";
 
 export default function Search({ location }) {
+  const SERVER_API =
+    "http://ec2-13-209-159-94.ap-northeast-2.compute.amazonaws.com:5432/";
+  const GET_URL = "petsitters_nearby/";
+  const API = SERVER_API + GET_URL;
+
   const [filterStatus, setFilterStatus] = useState(0);
   const [offerList, setOfferList] = useState([]);
 
@@ -20,7 +26,13 @@ export default function Search({ location }) {
   const [selectionComplete, toggleSelectionComplete] = useState(false);
 
   const [background, setBackground] = useState(false);
-
+  const [addressInfo, setAddressInfo] = useState("서울시 마포구 백범로 35");
+  const [dataToSend, setDataToSend] = useState({
+    method: "get",
+    url: API + addressInfo + "/" + filterStatus,
+  });
+  const history = useHistory();
+  // var dataToSend;
   const SearchDateCustomInput = ({ onClick }) => (
     <SearchPageDatePicker>
       <img
@@ -40,17 +52,28 @@ export default function Search({ location }) {
     </SearchPageDatePicker>
   );
 
+  useEffect(() => {
+    console.log(location);
+
+    if (location.state === undefined) {
+      console.log("undefined!!!");
+    } else {
+      setAddressInfo(location.state.address);
+      console.log("addressInfo: ", addressInfo);
+    }
+    setDataToSend({
+      method: "get",
+      url: API + addressInfo + "/" + filterStatus,
+    });
+    fetchAddressData();
+  }, []);
+
   registerLocale("ko", ko);
   moment.locale("ko");
   let res;
   let tmpList = [];
   //petsitters_nearby/<str:address>/<int:dist_or_fee>
   //http://ec2-13-209-159-94.ap-northeast-2.compute.amazonaws.com:5432/
-
-  const SERVER_API =
-    "http://ec2-13-209-159-94.ap-northeast-2.compute.amazonaws.com:5432/";
-  const GET_URL = "petsitters_nearby/";
-  const API = SERVER_API + GET_URL;
 
   useEffect(() => {
     fetchAddressData();
@@ -101,23 +124,23 @@ export default function Search({ location }) {
   //   setNeighbor(0);
   // };
 
+  const handleAddressClick = () => {
+    history.push("/address");
+  };
+
   const parseAddress = (address) => {
     const words = address.split(" ");
     return words[1] + " " + words[2];
   };
 
-  const dataToSend = {
-    method: "get",
-    url: API + location.state.address + "/" + filterStatus,
-  };
   const fetchAddressData = async () => {
     try {
       res = await axios(dataToSend);
-      console.log("response:", res);
+      // console.log("response:", res);
       //이 부분 수정되어야함. 주호형이 넘겨주면 res.data 확인해보자. 예상으로는 non_experts, experts 구분이 사라질듯?
       tmpList = res.data.petsitter_list;
       setOfferList(tmpList);
-      console.log(offerList);
+      // console.log(offerList);
     } catch (e) {
       console.log(dataToSend);
       console.log("fetch failed!!!");
@@ -142,8 +165,9 @@ export default function Search({ location }) {
           <br />
           이웃을 찾아보세요.
         </SearchPageHeader>
+
         <SearchOptionBox>
-          <SearchPageAddress>
+          <SearchPageAddress onClick={handleAddressClick}>
             <img
               src={LocationIcon}
               style={{
@@ -153,8 +177,9 @@ export default function Search({ location }) {
                 marginRight: "1.7px",
               }}
             />{" "}
-            {parseAddress(location.state.address)}
+            {parseAddress(addressInfo)}
           </SearchPageAddress>
+
           <SearchPageDate>
             <DatePicker
               locale="ko"

@@ -19,10 +19,12 @@ export default function PetsitterMenu() {
             <ProfileButton>내 돌봄 프로필</ProfileButton>
           </ProfileButtonBox>
         </ProfileBox>
-        <MenuRow style={{ marginTop: "23px" }}>
-          <MenuContent>내게 온 신청</MenuContent>
-          <MenuRightImg src={MenuRight} />
-        </MenuRow>
+        <Link to="requesthistory">
+          <MenuRow style={{ marginTop: "23px" }}>
+            <MenuContent>내게 온 신청</MenuContent>
+            <MenuRightImg src={MenuRight} />
+          </MenuRow>
+        </Link>
         <MenuRow>
           <MenuContent>받은 후기</MenuContent>
           <MenuRightImg src={MenuRight} />
@@ -31,7 +33,11 @@ export default function PetsitterMenu() {
     </>
   );
 }
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  a {
+    text-decoration: none;
+  }
+`;
 
 const ProfileBox = styled.div`
   position: relative;
