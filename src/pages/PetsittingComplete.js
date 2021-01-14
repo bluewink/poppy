@@ -21,7 +21,12 @@ export default function PetsittingComplete() {
       </Header>
       <PoppyImg src={giantPoppy} />
       <ButtonContainer>
-        <Link to="/takeoffer">
+        <Link
+          to={{
+            pathname: "/takeoffer",
+            state: { address: "서울시 마포구 백범로 35" },
+          }}
+        >
           <PinkButton content="홈으로" wid="141.2px" hgt="46.9px" />
         </Link>
       </ButtonContainer>

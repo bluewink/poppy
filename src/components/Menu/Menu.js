@@ -85,16 +85,16 @@ const Menu = ({ open, setOpen, background, setBackground }) => {
             </Link>
           )}
           {isLoggedIn && (
-            <Link
-              to="/"
-              style={{ textDecoration: "none" }}
-              onClick={handleLink}
-            >
-              <MenuBox>
-                <MenuLabel>나의 예약</MenuLabel>
-                <NextImg src={next} width="6px" height="12px" />
-              </MenuBox>
-            </Link>
+            // <Link
+            //   to="/"
+            //   style={{ textDecoration: "none" }}
+            //   onClick={handleLink}
+            // >
+            <MenuBox>
+              <MenuLabel>나의 예약</MenuLabel>
+              <NextImg src={next} width="6px" height="12px" />
+            </MenuBox>
+            // </Link>
           )}
         </MenuWrapper>
       </TopView>
@@ -106,11 +106,12 @@ const Menu = ({ open, setOpen, background, setBackground }) => {
               <LogOutLabel onClick={handleLogOut}>로그아웃</LogOutLabel>
             </Setting>
           )}
-
-          <Setting>
-            <img src={settingIc} width="23px" height="23px" />
-            <SettingLabel>이용약관</SettingLabel>
-          </Setting>
+          <Link style={{ textDecoration: "none" }} to="/firstterm">
+            <Setting>
+              <img src={settingIc} width="23px" height="23px" />
+              <SettingLabel>이용약관</SettingLabel>
+            </Setting>
+          </Link>
         </SettingBox>
       </BottomView>
     </StyledMenu>

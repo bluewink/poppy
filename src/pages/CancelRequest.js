@@ -3,6 +3,7 @@ import styled from "styled-components";
 import NavBar from "../components/NavBar";
 import PinkButton from "../components/PinkButton";
 import { textareaPoppy } from "../resources/images";
+import { Link } from "react-router-dom";
 
 export default function CancelRequest() {
   return (
@@ -16,7 +17,14 @@ export default function CancelRequest() {
           <ReasonInput cols="10" rows="15" placeholder="취소사유 입력" />
         </TextareaBox>
         <ButtonContainer>
-          <PinkButton content="입력완료" wid="129px" hgt="46px" />
+          <Link
+            to={{
+              pathname: "/takeoffer",
+              state: { address: "서울시 마포구 백범로 35" },
+            }}
+          >
+            <PinkButton content="입력완료" wid="129px" hgt="46px" />
+          </Link>
         </ButtonContainer>
       </Wrapper>
     </>

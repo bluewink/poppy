@@ -26,20 +26,13 @@ export default function Search({ location }) {
   const [selectionComplete, toggleSelectionComplete] = useState(false);
 
   const [background, setBackground] = useState(false);
-  const [addressInfo, setAddressInfo] = useState("서울시 마포구 백범로 35");
+  const addressInfo = location.state.address;
 
   // const [dataToSend, setDataToSend] = useState({
   //   method: "get",
   //   url: API + location.state.address + "/" + filterStatus,
   // });
   const history = useHistory();
-
-  useEffect(() => {
-    if (location.state !== undefined) {
-      setAddressInfo(location.state.address);
-    }
-    fetchAddressData();
-  }, []);
 
   // var dataToSend;
   const SearchDateCustomInput = ({ onClick }) => (
