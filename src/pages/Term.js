@@ -5,12 +5,15 @@ import { TermDetail } from "../resources/images";
 
 import NavBar from "../components/NavBar";
 import PinkButton from "../components/PinkButton";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+
 export default function Term() {
   const [allChecked, setAllChecked] = useState(false);
   const [locationChecked, setLocationChecked] = useState(false);
   const [privateChecked, setPrivateChecked] = useState(false);
   const [marketingChecked, setMarketingChecked] = useState(false);
+
+  const history = useHistory();
 
   useEffect(() => {
     if (allChecked) {
@@ -49,7 +52,10 @@ export default function Term() {
                 onChange={(value) => setLocationChecked(value)}
               ></Checkbox>
               <CheckTitle>(필수) 위치기반 서비스 이용약관 동의</CheckTitle>
-              <TermDetailIcon src={TermDetail} />
+              <TermDetailIcon
+                src={TermDetail}
+                onClick={() => history.push("/firstterm")}
+              />
             </CheckRow>
             <CheckRow style={{ paddingTop: "22px" }}>
               <Checkbox
@@ -57,7 +63,11 @@ export default function Term() {
                 onChange={(value) => setPrivateChecked(value)}
               ></Checkbox>
               <CheckTitle>(필수) 개인정보 처리방침 동의</CheckTitle>
-              <TermDetailIcon src={TermDetail} />
+
+              <TermDetailIcon
+                src={TermDetail}
+                onClick={() => history.push("/secondterm")}
+              />
             </CheckRow>
             <CheckRow style={{ paddingTop: "20px", paddingBottom: "27px" }}>
               <Checkbox
@@ -65,7 +75,11 @@ export default function Term() {
                 onChange={(value) => setMarketingChecked(value)}
               ></Checkbox>
               <CheckTitle>(선택) 이벤트 및 마케팅 정보 수신 동의</CheckTitle>
-              <TermDetailIcon src={TermDetail} />
+
+              <TermDetailIcon
+                src={TermDetail}
+                onClick={() => history.push("/thirdterm")}
+              />
             </CheckRow>
           </TermCheckBox>
         </TermCheckContainer>
@@ -77,15 +91,24 @@ export default function Term() {
             }}
             style={{ textDecoration: "none" }}
           >
+            <ButtonContainer>
+              <PinkButton
+                content="확인"
+                wid="87px"
+                hgt="46px"
+                marginTop="219px"
+              />
+            </ButtonContainer>
+          </Link>
+        ) : (
+          <ButtonContainer>
             <PinkButton
               content="확인"
               wid="87px"
               hgt="46px"
               marginTop="219px"
             />
-          </Link>
-        ) : (
-          <PinkButton content="확인" wid="87px" hgt="46px" marginTop="219px" />
+          </ButtonContainer>
         )}
       </Wrapper>
     </>
@@ -158,10 +181,12 @@ const TermDetailIcon = styled.img`
   position: absolute;
   width: 8px;
   height: 12px;
+
   right: 20.8px;
 `;
 const CheckTitle = styled.span`
   margin-left: 10px;
+  /* height:18px; */
 `;
 
 const NextButton = styled.button`

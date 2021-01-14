@@ -19,7 +19,7 @@ export default function PetsitterMenu() {
             <ProfileButton>내 돌봄 프로필</ProfileButton>
           </ProfileButtonBox>
         </ProfileBox>
-        <MenuRow style={{ marginTop: "44px" }}>
+        <MenuRow style={{ marginTop: "23px" }}>
           <MenuContent>내게 온 신청</MenuContent>
           <MenuRightImg src={MenuRight} />
         </MenuRow>

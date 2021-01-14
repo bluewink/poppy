@@ -52,3 +52,5 @@ export { default as backBtn } from "./backBtn.png";
 export { default as arrowRightIc } from "./arrowRightIc.png";
 export { default as CheckSign } from "./CheckSignPng.png";
 export { default as TermDetail } from "./TermDetailPng.png";
+export { default as giantPoppy } from "./giantPoppy.png";
+export { default as textareaPoppy } from "./textareaPoppy.png";

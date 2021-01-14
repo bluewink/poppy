@@ -17,6 +17,11 @@ import EmptyOffer from "./pages/EmptyOffer";
 import RequestHistory from "./pages/RequestHistory";
 import RequestHistoryDetail from "./pages/RequestHistoryDetail";
 import FirstTerm from "./pages/FirstTerm";
+import SecondTerm from "./pages/SecondTerm";
+import ThirdTerm from "./pages/ThirdTerm";
+import CancelRequest from "./pages/CancelRequest";
+import PetsittingDone from "./pages/PetsittingDone";
+import PetsittingComplete from "./pages/PetsittingComplete";
 export default function App() {
   return (
     <BrowserRouter>
@@ -41,8 +46,16 @@ export default function App() {
           component={RequestHistoryDetail}
         />
         <Route path="/firstterm" exact component={FirstTerm} />
+        <Route path="/secondterm" exact component={SecondTerm} />
+        <Route path="/thirdterm" exact component={ThirdTerm} />
+        <Route path="/cancelrequest" exact component={CancelRequest} />
+        <Route path="/petsittingdone" exact component={PetsittingDone} />
+        <Route
+          path="/petsittingcomplete"
+          exact
+          component={PetsittingComplete}
+        />
       </MobileSize>
-
     </BrowserRouter>
   );
 }

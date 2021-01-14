@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
-import moment from 'moment';
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
+import axios from "axios";
+import moment from "moment";
 
-import Header from '../components/Header';
-import ARTICLE_DATA from '../resources/Json/article.json';
+import Header from "../components/Header";
+import ARTICLE_DATA from "../resources/Json/article.json";
 
 import {
   img2,
@@ -23,50 +23,53 @@ import {
   ser,
   star,
   service6,
-} from '../resources/images';
+} from "../resources/images";
 
-const EXPERT_API = 'http://ec2-3-35-187-250.ap-northeast-2.compute.amazonaws.com:8000/expert/';
-const NEIGHBOR_API = 'http://ec2-3-35-187-250.ap-northeast-2.compute.amazonaws.com:8000/non_expert/';
+const EXPERT_API =
+  "http://ec2-3-35-187-250.ap-northeast-2.compute.amazonaws.com:8000/expert/";
+const NEIGHBOR_API =
+  "http://ec2-3-35-187-250.ap-northeast-2.compute.amazonaws.com:8000/non_expert/";
 
 export default function Detail({ location }) {
   //takeoffer에서 넘어온 data
-  const { address, type, endDate, startDate } = location.state;
+  const { address, type, endDate, startDate, petsitterId } = location.state;
   const isExpert = location.state.expert;
-
+  console.log("petsitterId :", petsitterId);
   // changed information
   const [server, setServer] = useState(false);
   const [diffDate, setDiffDate] = useState(1);
-  const [dates, setDates] = useState('');
+  const [dates, setDates] = useState("");
   const [oneDay, setOneDay] = useState(true);
-  const [roomImg, setRoomImg] = useState('');
+  const [roomImg, setRoomImg] = useState("");
   const [comment, setComment] = useState({
-    content: '',
-    date: '',
-    name: '장*나',
+    content: "",
+    date: "",
+    name: "장*나",
   });
   const [content, setContent] = useState();
   const [moreContent, setMoreContent] = useState();
   const [title, setTitle] = useState();
   const [name, setName] = useState();
   const [profileImg, setProfileImg] = useState();
-  const [largeCost, setLargeCost] = useState(['40,000원', '50,000원']);
-  const [middleCost, setMiddleCost] = useState(['40,000원', '50,000원']);
-  const [smallCost, setSmallCost] = useState(['40,000원', '50,000원']);
+  const [largeCost, setLargeCost] = useState(["40,000원", "50,000원"]);
+  const [middleCost, setMiddleCost] = useState(["40,000원", "50,000원"]);
+  const [smallCost, setSmallCost] = useState(["40,000원", "50,000원"]);
 
   const [puppy, setPuppy] = useState([
     {
-      age: '12살',
-      breed: '닥스훈트',
-      character: '나이 때문인지 느긋하고 온순해요~ 다른 강아지들과 잘 어울려요ㅎㅎ',
+      age: "12살",
+      breed: "닥스훈트",
+      character:
+        "나이 때문인지 느긋하고 온순해요~ 다른 강아지들과 잘 어울려요ㅎㅎ",
       img:
-        'https://github.com/AlphaTechnic/poppy_project_testing_backend/blob/master/PoppyTest/img/dog_expert3.png?raw=true ',
-      name: '구름',
+        "https://github.com/AlphaTechnic/poppy_project_testing_backend/blob/master/PoppyTest/img/dog_expert3.png?raw=true ",
+      name: "구름",
     },
   ]);
   const [certification, setCertification] = useState([
     {
-      acquisition_date: '2016. 9. 27',
-      name: '반려동물관리사 1급',
+      acquisition_date: "2016. 9. 27",
+      name: "반려동물관리사 1급",
     },
   ]);
   const [score, setScore] = useState({
@@ -77,13 +80,13 @@ export default function Detail({ location }) {
   const fetchDatas = async () => {
     try {
       const response = await axios({
-        method: 'get',
+        method: "get",
         url: isExpert ? EXPERT_API + type : NEIGHBOR_API + type,
       });
 
       setComment(response.data.comment);
       setRoomImg(response.data.room_img);
-      setContent(response.data.content.slice(0, 140) + '...');
+      setContent(response.data.content.slice(0, 140) + "...");
       setMoreContent(response.data.content);
       setTitle(response.data.title);
       setName(response.data.name);
@@ -99,7 +102,7 @@ export default function Detail({ location }) {
         setCertification(response.data.certification);
       }
     } catch (e) {
-      console.log('fetch failed!!!');
+      console.log("fetch failed!!!");
       console.log(e);
     }
   };
@@ -109,7 +112,7 @@ export default function Detail({ location }) {
     const month = startDate.getMonth() + 1;
     const day = startDate.getDate();
 
-    setDates(year + '년 ' + month + '월 ' + day + '일 ');
+    setDates(year + "년 " + month + "월 " + day + "일 ");
 
     if (endDate !== null) {
       const e_year = endDate.getFullYear();
@@ -117,12 +120,25 @@ export default function Detail({ location }) {
       const e_day = endDate.getDate();
 
       if (e_year === year && e_month === month && e_day === day) {
-        setDates(year + '년 ' + month + '월 ' + day + '일');
+        setDates(year + "년 " + month + "월 " + day + "일");
       } else {
-        setDates(year + '년 ' + month + '월 ' + day + '일 ~ ' + e_year + '년 ' + e_month + '월 ' + e_day + '일');
+        setDates(
+          year +
+            "년 " +
+            month +
+            "월 " +
+            day +
+            "일 ~ " +
+            e_year +
+            "년 " +
+            e_month +
+            "월 " +
+            e_day +
+            "일"
+        );
         const startDateMoment = moment(startDate);
         const endDateMoment = moment(endDate);
-        const diff = endDateMoment.diff(startDateMoment, 'days') + 1;
+        const diff = endDateMoment.diff(startDateMoment, "days") + 1;
 
         setDiffDate(Math.abs(diff));
 
@@ -133,30 +149,30 @@ export default function Detail({ location }) {
     fetchDatas();
   }, []);
 
-  const [moreText, setMoreText] = useState('더보기');
+  const [moreText, setMoreText] = useState("더보기");
   const [moreSwitch, setMoreSwitch] = useState(false);
 
   const numberWithCommas = (price) => {
-    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
   const handleMore = () => {
     if (moreSwitch) {
       setMoreSwitch(false);
-      setMoreText('더보기');
+      setMoreText("더보기");
     } else {
       setMoreSwitch(true);
-      setMoreText('줄어들기');
+      setMoreText("줄어들기");
     }
   };
 
   const parseAddress = (address) => {
-    const words = address.split(' ');
+    const words = address.split(" ");
 
     if (isExpert) {
-      return words[0] + ' ' + words[1];
+      return words[0] + " " + words[1];
     } else {
-      return words[0] + ' ' + words[1] + ' ' + words[2];
+      return words[0] + " " + words[1] + " " + words[2];
     }
   };
 
@@ -165,7 +181,11 @@ export default function Detail({ location }) {
   return (
     <>
       <Wrapper>
-        <Header isAddress={false} background={background} setBackground={setBackground} />
+        <Header
+          isAddress={false}
+          background={background}
+          setBackground={setBackground}
+        />
         <Thumbnail src={roomImg} />
         <ProfileBox>
           <ProfileThumbnail src={profileImg} />
@@ -179,7 +199,9 @@ export default function Detail({ location }) {
         </ProfileBox>
         <ShadowView></ShadowView>
         <IntroduceBox>
-          <IntroduceTitle>{isExpert === 0 ? '이웃집돌보미 소개' : '전문펫시터 소개'}</IntroduceTitle>
+          <IntroduceTitle>
+            {isExpert === 0 ? "이웃집돌보미 소개" : "전문펫시터 소개"}
+          </IntroduceTitle>
           <IntroduceText>
             {moreSwitch ? moreContent : content}
             <MoreButton onClick={handleMore}>{moreText}</MoreButton>
@@ -278,7 +300,11 @@ export default function Detail({ location }) {
         </WarningSign>
         <ServiceBox>
           <ServiceTitle>이용 가능 서비스</ServiceTitle>
-          {isExpert ? <ServiceTable src={service6} /> : <ServiceTable src={ser} />}
+          {isExpert ? (
+            <ServiceTable src={service6} />
+          ) : (
+            <ServiceTable src={ser} />
+          )}
           {/* <ServiceTable src={ser}> */}
           {/* <ServiceRow>
             <ServiceFirstColumn>
@@ -366,7 +392,7 @@ export default function Detail({ location }) {
         <NextBox>
           <Link
             to={{
-              pathname: '/reservation',
+              pathname: "/reservation",
               state: {
                 title: title,
                 address: address,
@@ -781,7 +807,7 @@ const LineView = styled.div`
 `;
 
 const WhichDog = styled.span`
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   font-size: 16px;
   font-weight: 500;
   font-stretch: normal;
@@ -859,7 +885,7 @@ const ServiceCellIcon = styled.img`
 const ServiceCellTitle = styled.div`
   margin-left: 4px;
 
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   font-size: 14px;
   font-weight: 500;
   font-stretch: normal;
@@ -938,7 +964,7 @@ const WarningSign = styled.div`
   align-items: center;
   align-content: center;
 
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   font-size: 14px;
   font-weight: normal;
   font-stretch: normal;
@@ -969,7 +995,7 @@ const ExpertBox = styled.div`
 const ExpertTitle = styled.div`
   margin-left: 9px;
 
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   font-size: 18px;
   font-weight: bold;
   font-stretch: normal;
@@ -995,7 +1021,7 @@ const ExpertTable = styled.div`
 const ExpertColumn = styled.div``;
 
 const ExpertCard = styled.div`
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   font-size: 16px;
   font-weight: bold;
   font-stretch: normal;
@@ -1058,7 +1084,7 @@ const NextButton = styled.button`
 
   padding: 0 25px;
 
-  font-family: 'DM Sans', sans-serif;
+  font-family: "DM Sans", sans-serif;
   font-size: 18px;
   font-weight: bold;
   font-stretch: normal;
