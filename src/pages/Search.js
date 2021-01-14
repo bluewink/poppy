@@ -27,11 +27,20 @@ export default function Search({ location }) {
 
   const [background, setBackground] = useState(false);
   const [addressInfo, setAddressInfo] = useState("서울시 마포구 백범로 35");
-  const [dataToSend, setDataToSend] = useState({
-    method: "get",
-    url: API + addressInfo + "/" + filterStatus,
-  });
+
+  // const [dataToSend, setDataToSend] = useState({
+  //   method: "get",
+  //   url: API + location.state.address + "/" + filterStatus,
+  // });
   const history = useHistory();
+
+  useEffect(() => {
+    if (location.state !== undefined) {
+      setAddressInfo(location.state.address);
+    }
+    fetchAddressData();
+  }, []);
+
   // var dataToSend;
   const SearchDateCustomInput = ({ onClick }) => (
     <SearchPageDatePicker>
@@ -51,22 +60,6 @@ export default function Search({ location }) {
       </div>
     </SearchPageDatePicker>
   );
-
-  useEffect(() => {
-    console.log(location);
-
-    if (location.state === undefined) {
-      console.log("undefined!!!");
-    } else {
-      setAddressInfo(location.state.address);
-      console.log("addressInfo: ", addressInfo);
-    }
-    setDataToSend({
-      method: "get",
-      url: API + addressInfo + "/" + filterStatus,
-    });
-    fetchAddressData();
-  }, []);
 
   registerLocale("ko", ko);
   moment.locale("ko");
@@ -135,6 +128,11 @@ export default function Search({ location }) {
 
   const fetchAddressData = async () => {
     try {
+      const dataToSend = {
+        method: "get",
+        url: API + addressInfo + "/" + filterStatus,
+      };
+
       res = await axios(dataToSend);
       // console.log("response:", res);
       //이 부분 수정되어야함. 주호형이 넘겨주면 res.data 확인해보자. 예상으로는 non_experts, experts 구분이 사라질듯?
@@ -142,7 +140,7 @@ export default function Search({ location }) {
       setOfferList(tmpList);
       // console.log(offerList);
     } catch (e) {
-      console.log(dataToSend);
+      // console.log(dataToSend);
       console.log("fetch failed!!!");
       console.log(e);
     }
