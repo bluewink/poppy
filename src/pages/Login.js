@@ -60,7 +60,7 @@ export default function Login() {
       setCookie('token', res.data.Token, '/');
       setCookie('name');
       console.log(cookies);
-      history.push('/');
+      history.push('/takeoffer');
     });
   };
 

@@ -1,17 +1,11 @@
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import { Link } from "react-router-dom";
-import { useCookies } from "react-cookie";
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 
-import { StyledMenu } from "./Menu.styled";
+import { StyledMenu } from './Menu.styled';
 
-import {
-  logo_ham,
-  login,
-  next,
-  settingIc,
-  logoutBtn,
-} from "../../resources/images";
+import { logo_ham, login, next, settingIc, logoutBtn } from '../../resources/images';
 
 const Menu = ({ open, setOpen, background, setBackground }) => {
   const handleLink = () => {
@@ -19,7 +13,7 @@ const Menu = ({ open, setOpen, background, setBackground }) => {
     setBackground(!background);
   };
 
-  const [cookies, setCookie, removeCookie] = useCookies(["token"]);
+  const [cookies, setCookie, removeCookie] = useCookies(['token']);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   useEffect(() => {
     console.log(cookies.token);
@@ -31,7 +25,7 @@ const Menu = ({ open, setOpen, background, setBackground }) => {
   });
 
   const handleLogOut = () => {
-    removeCookie("token");
+    removeCookie('token');
   };
   return (
     <StyledMenu open={open}>
@@ -42,30 +36,21 @@ const Menu = ({ open, setOpen, background, setBackground }) => {
           onClick={() => {
             setOpen(!open);
             setBackground(!background);
-            console.log("눌림");
+            console.log('눌림');
           }}
         />
-
         <LoginBox>
           <LoginWrapper>
             <ProfileImg src={login} width="42px" height="42px" />
-            <Link
-              to="/login"
-              style={{ textDecoration: "none" }}
-              onClick={handleLink}
-            >
-              {isLoggedIn ? (
-                <LoginLabel>홍길동님</LoginLabel>
-              ) : (
-                <LoginLabel>로그인 해주세요.</LoginLabel>
-              )}
+            <Link to="/login" style={{ textDecoration: 'none' }} onClick={handleLink}>
+              {isLoggedIn ? <LoginLabel>홍길동님</LoginLabel> : <LoginLabel>로그인 해주세요.</LoginLabel>}
             </Link>
           </LoginWrapper>
           {!isLoggedIn && <NextImg src={next} width="6px" height="12px" />}
         </LoginBox>
         <LineView />
         <MenuWrapper>
-          <Link to="/" style={{ textDecoration: "none" }} onClick={handleLink}>
+          <Link to="/" style={{ textDecoration: 'none' }} onClick={handleLink}>
             <MenuBox>
               <MenuLabel>이웃집뽀삐 소개</MenuLabel>
               <NextImg src={next} width="6px" height="12px" />
@@ -73,11 +58,7 @@ const Menu = ({ open, setOpen, background, setBackground }) => {
           </Link>
 
           {isLoggedIn && (
-            <Link
-              to="/petsittermenu"
-              style={{ textDecoration: "none" }}
-              onClick={handleLink}
-            >
+            <Link to="/petsittermenu" style={{ textDecoration: 'none' }} onClick={handleLink}>
               <MenuBox>
                 <MenuLabel>돌보미 메뉴</MenuLabel>
                 <NextImg src={next} width="6px" height="12px" />
@@ -85,11 +66,7 @@ const Menu = ({ open, setOpen, background, setBackground }) => {
             </Link>
           )}
           {isLoggedIn && (
-            <Link
-              to="/"
-              style={{ textDecoration: "none" }}
-              onClick={handleLink}
-            >
+            <Link to="/" style={{ textDecoration: 'none' }} onClick={handleLink}>
               <MenuBox>
                 <MenuLabel>나의 예약</MenuLabel>
                 <NextImg src={next} width="6px" height="12px" />
