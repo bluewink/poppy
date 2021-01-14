@@ -5,17 +5,18 @@ import ConfirmBox from "../components/ConfirmBox";
 import NavBar from "../components/NavBar";
 
 export default function ReservationHistory() {
+  //2021.01.23
   const reservationList = [
     {
       target_petsitter: "문상빈",
       service: ["소형견", "2박 돌봄"],
-      date: "2021년 01월 13일",
+      date: "2021.01.13",
       total_fee: 30000,
     },
     {
       target_petsitter: "박보검",
       service: ["소형견", "당일 돌봄"],
-      date: "2021년 01월 15일",
+      date: "2021.01.15",
       total_fee: 20000,
     },
   ];

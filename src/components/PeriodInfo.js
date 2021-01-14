@@ -1,13 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import { arrowRightIc } from "../resources/images";
-export default function PeriodInfo() {
+export default function PeriodInfo({ date }) {
   return (
     <CalendarWrapper>
       <DateBox>
         <Label>돌봄 시작</Label>
         <Date>
-          2021.01.23{" "}
+          {date}
           <span style={{ fontFamily: "Noto Sans KR", fontSize: "15px" }}>
             (토)
           </span>
@@ -18,7 +18,8 @@ export default function PeriodInfo() {
       <DateBox2>
         <Label>돌봄 끝</Label>
         <Date>
-          2021.01.23
+          {date}
+
           <span style={{ fontFamily: "Noto Sans KR", fontSize: "15px" }}>
             (토)
           </span>

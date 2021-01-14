@@ -4,34 +4,35 @@ import NavBar from "../components/NavBar";
 import PeriodInfo from "../components/PeriodInfo";
 import CheckFooter from "../components/CheckFooter";
 import PinkButton from "../components/PinkButton";
+import { Link, useHistory } from "react-router-dom";
 export default function ReservationHistoryDetail({ location }) {
-  const {name, dogSize, date, cost} = location.state;
+  const { name, dogSize, date, cost } = location.state;
 
   return (
     <div>
       <NavBar titleName="들어온 신청" />
       <Header>
         <HeaderContent>
-          들어온 신청 내역입니다.
+          예약자 번호로 직접 연락하셔서
           <br />
-          내역을 확인 후에 수락 혹은 거절해주세요.
+          예약자분과 협의하에 돌봄을 진행해주세요.
         </HeaderContent>
       </Header>
       <Shadow />
       <SectionTitle>신청 내역</SectionTitle>
-      <PeriodInfo date= />
+      <PeriodInfo date={date} />
       <Shadow style={{ marginTop: "26px" }} />
       <SectionTitle>예약자 정보</SectionTitle>
       <SectionBox>
         <SectionRow>
           <SectionRequest>예약자 이름</SectionRequest>
-          <SectionResponse>정우림</SectionResponse>
+          <SectionResponse>{name}</SectionResponse>
         </SectionRow>
         <SectionRow style={{ paddingTop: "12px" }}>
           <SectionRequest style={{ height: "14px" }}>
             예약자 번호
           </SectionRequest>
-          <SectionResponse>돌봄수락 후 확인 가능</SectionResponse>
+          <SectionResponse>01012345678</SectionResponse>
         </SectionRow>
       </SectionBox>
 
@@ -45,20 +46,24 @@ export default function ReservationHistoryDetail({ location }) {
           <SectionRequest style={{ height: "14px" }}>
             반려견 사이즈
           </SectionRequest>
-          <SectionResponse>소형견</SectionResponse>
+          <SectionResponse>{dogSize}</SectionResponse>
         </SectionRow>
       </SectionBox>
       <FooterBox>
         <CheckFooter />
         <ButtonRow>
-          <PinkButton
-            bgColor="#d1d1d1"
-            content="돌봄거절"
-            wid="124px"
-            hgt="46px"
-          />
+          <Link to="/cancelrequest">
+            <PinkButton
+              bgColor="#d1d1d1"
+              content="돌봄취소"
+              wid="124px"
+              hgt="46px"
+            />
+          </Link>
           <Empty />
-          <PinkButton content="돌봄수락" wid="124px" hgt="46px" />
+          <Link to="/petsittingdone">
+            <PinkButton content="돌봄완료" wid="124px" hgt="46px" />
+          </Link>
         </ButtonRow>
       </FooterBox>
     </div>
