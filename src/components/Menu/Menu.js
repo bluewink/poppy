@@ -28,7 +28,9 @@ const Menu = ({ open, setOpen, background, setBackground }) => {
         <LoginBox>
           <LoginWrapper>
             <ProfileImg src={login} width="42px" height="42px" />
-            <LoginLabel>로그인 해주세요.</LoginLabel>
+            <Link to="/login" style={{ textDecoration: 'none' }} onClick={handleLink}>
+              <LoginLabel>로그인 해주세요.</LoginLabel>
+            </Link>
           </LoginWrapper>
           <NextImg src={next} width="6px" height="12px" />
         </LoginBox>
@@ -46,7 +48,6 @@ const Menu = ({ open, setOpen, background, setBackground }) => {
         <SettingBox>
           <Setting>
             <img src={settingIc} width="23px" height="23px" />
-
             <SettingLabel>이용약관</SettingLabel>
           </Setting>
         </SettingBox>
