@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
@@ -7,7 +7,6 @@ import { confirmIc1, confirmIc } from '../resources/images';
 import { useHistory } from 'react-router-dom';
 
 export default function Confirm({ location }) {
-  console.log(location);
   const {
     name,
     date,
@@ -22,13 +21,16 @@ export default function Confirm({ location }) {
     end_time,
     total_fee,
   } = location.state;
-  console.log('diff Date', diffDate);
   const [background, setBackground] = useState(false);
   const history = useHistory();
   const numberWithCommas = (price) => {
+    console.log(price);
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   };
 
+  useEffect(() => {
+    console.log(pet_size);
+  });
   const postServer = async () => {
     await axios({
       method: 'POST',
@@ -77,7 +79,10 @@ export default function Confirm({ location }) {
                   돌봄 이웃 : <Lighter>{name}</Lighter>
                 </InformationSubTitle>
                 <InformationSubTitle>
-                  이용할 서비스 : <Lighter>소형견 / {oneDay ? ' 당일케어' : diffDate + '박 돌봄'}</Lighter>
+                  이용할 서비스 :{' '}
+                  <Lighter>
+                    {pet_size} / {oneDay ? ' 당일케어' : diffDate + '박 돌봄'}
+                  </Lighter>
                 </InformationSubTitle>
                 <InformationSubTitle>
                   날짜 :{' '}

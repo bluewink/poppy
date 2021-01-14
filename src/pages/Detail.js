@@ -10,7 +10,7 @@ import ARTICLE_DATA from '../resources/Json/article.json';
 import { detail_warning_sign, detail_no_one, detail_five_start, ser, star, service6 } from '../resources/images';
 
 const EXPERT_API = 'http://ec2-3-35-187-250.ap-northeast-2.compute.amazonaws.com:8000/expert/';
-const NEIGHBOR_API = 'http://ec2-3-35-187-250.ap-northeast-2.compute.amazonaws.com:8000/non_expert/';
+const NEIGHBOR_API = 'http://ec2-13-209-159-94.ap-northeast-2.compute.amazonaws.com:5432/petsitter_detail/';
 
 export default function Detail({ location }) {
   //takeoffer에서 넘어온 data
@@ -26,6 +26,8 @@ export default function Detail({ location }) {
     content: '',
     date: '',
     name: '장*나',
+    score: 4.5,
+    num_of_comments: 15,
   });
   const [content, setContent] = useState();
   const [moreContent, setMoreContent] = useState();
@@ -36,46 +38,37 @@ export default function Detail({ location }) {
   const [middleCost, setMiddleCost] = useState(['40,000원', '50,000원']);
   const [smallCost, setSmallCost] = useState(['40,000원', '50,000원']);
 
-  const [puppy, setPuppy] = useState([
+  const [pets, setPets] = useState([
     {
-      age: '12살',
-      breed: '닥스훈트',
-      character: '나이 때문인지 느긋하고 온순해요~ 다른 강아지들과 잘 어울려요ㅎㅎ',
-      img:
-        'https://github.com/AlphaTechnic/poppy_project_testing_backend/blob/master/PoppyTest/img/dog_expert3.png?raw=true ',
-      name: '구름',
+      pet_img: 'pet_img/default_pet.png',
+      name: '또리',
+      breed: '말티즈',
+      age: '7살',
+      character: '활발하고 강아지들과 잘 어울려요',
     },
   ]);
-  const [certification, setCertification] = useState([
-    {
-      acquisition_date: '2016. 9. 27',
-      name: '반려동물관리사 1급',
-    },
-  ]);
-  const [score, setScore] = useState({
-    num: 11,
-    score: 4.8,
-  });
 
   const fetchDatas = async () => {
     try {
       const response = await axios({
-        method: 'get',
+        method: 'GET',
         url: NEIGHBOR_API + petsitterId,
       });
 
-      setComment(response.data.comment);
       setRoomImg(response.data.room_img);
+      setComment(response.data.comment);
+
       setContent(response.data.content.slice(0, 140) + '...');
       setMoreContent(response.data.content);
       setTitle(response.data.title);
       setName(response.data.name);
-      setScore(response.data.score);
-      setPuppy(response.data.puppy);
-      setLargeCost(response.data.large_dog_cost);
-      setMiddleCost(response.data.middle_dog_cost);
-      setSmallCost(response.data.small_dog_cost);
+      // setScore(response.data.score);
+      setPets(response.data.pets);
+      setLargeCost(response.data.large_dog_fee);
+      setMiddleCost(response.data.middle_dog_fee);
+      setSmallCost(response.data.small_dog_fee);
       setProfileImg(response.data.profile_img);
+
       setServer(true);
 
       // if (isExpert) {
@@ -169,7 +162,7 @@ export default function Detail({ location }) {
         <FamilyBox>
           <FamilyTitle>가족 소개</FamilyTitle>
           <FamilyTable>
-            {puppy.map((dog) => {
+            {pets.map((dog) => {
               return (
                 <FamilyCell>
                   {server && <DogImage src={dog.img} />}
@@ -315,14 +308,14 @@ export default function Detail({ location }) {
           <ReviewTitle>
             <ReviewTitleBox>
               돌봄 후기
-              <ReviewNumber>({score.num})</ReviewNumber>
+              <ReviewNumber>({comment.num_of_comments})</ReviewNumber>
             </ReviewTitleBox>
             {/* <ReviewMoreButton img={detailButtonIc} /> */}
           </ReviewTitle>
           <StarReviewScore>
             <StarImage src={star} />
             <ReviewScore>
-              <Score>{score.score}</Score>
+              <Score>{comment.score}</Score>
               <GrayScore>&nbsp;/ 5</GrayScore>
             </ReviewScore>
           </StarReviewScore>
