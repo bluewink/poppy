@@ -1,11 +1,49 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
+import qs from 'querystring';
 import NavBar from '../components/NavBar';
-
-import { arrowRightIc } from '../resources/images';
+import { arrowRightIc, backBt } from '../resources/images';
+import { useHistory } from 'react-router-dom';
 
 export default function Reservation({ location }) {
-  const { title, address, name, date, oneDay, diffDate, cost, isExpert } = location.state;
+  const { title, address, name, startDate, oneDay, endDate, diffDate, cost, isExpert } = location.state;
+
+  const history = useHistory();
+  useEffect(() => {
+    console.log(diffDate);
+    console.log(endDate);
+    console.log(cost);
+    console.log(name);
+
+    const year = startDate.getFullYear();
+    const month = startDate.getMonth() + 1;
+    const day = startDate.getDate();
+    setDiffDateServer();
+
+    setStartDateView(year + '년 ' + month + '월 ' + day + '일 ');
+    setEndDateView(year + '년 ' + month + '월 ' + day + '일 ');
+    setStartDateServer(year + '-' + month + '-' + day);
+    setEndDateServer(year + '-' + month + '-' + day);
+    // setTotalCost(cost);
+    if (endDate !== null) {
+      const e_year = endDate.getFullYear();
+      const e_month = endDate.getMonth() + 1;
+      const e_day = endDate.getDate();
+
+      setEndDateServer(e_year + '-' + e_month + '-' + e_day);
+      setEndDateView(year + '년 ' + month + '월 ' + day + '일');
+    }
+    return () => {};
+  });
+
+  const [startDateView, setStartDateView] = useState('');
+  const [endDateView, setEndDateView] = useState('');
+  const [startDateServer, setStartDateServer] = useState();
+  const [endDateServer, setEndDateServer] = useState();
+  const [dogSize, setDogSize] = useState();
+  const [totalCost, setTotalCost] = useState();
+  const [diffDateServer, setDiffDateServer] = useState();
 
   const [userName, setUserName] = useState('');
   const [userPhone, setUserPhone] = useState('');
@@ -37,14 +75,7 @@ export default function Reservation({ location }) {
   const [twentyFourBool, setTwentyFourBool] = useState(false);
 
   const [timeStart, setTimeStart] = useState('9:00');
-  const [timeEnd, setTimeEnd] = useState('10:00');
-  //   console.log(name);
-  //   console.log(date);
-  //   console.log(oneDay);
-  //   console.log(diffDate);
-  //   console.log(cost);
-  //   console.log(title);
-  //   console.log(address);
+  const [timeEnd, setTimeEnd] = useState('11:00');
 
   const parseAddress = (address) => {
     const words = address.split(' ');
@@ -232,6 +263,68 @@ export default function Reservation({ location }) {
     } else {
       setBreedError(false);
     }
+
+    var dogSize = '소형견';
+    var totalCost = 0;
+    if (dogBreedIndex == 0) {
+      setDogSize('소형견');
+      if (oneDay) {
+        setTotalCost(cost[0][0]);
+      } else {
+        setTotalCost(cost[0][1] * diffDate);
+      }
+    } else if (dogBreedIndex == 1) {
+      setDogSize('중형견');
+      if (oneDay) {
+        totalCost = cost[1][0];
+      } else {
+        setTotalCost(cost[1][1] * diffDate);
+      }
+    } else {
+      setDogSize('대형견');
+      if (oneDay) {
+        totalCost = cost[2][0];
+      } else {
+        setTotalCost(cost[2][1] * diffDate);
+      }
+    }
+
+    console.log(userPhone);
+    console.log(dogBreed);
+    console.log(String(userPhone));
+    console.log(dogBreed);
+    console.log(dogSize);
+    console.log(startDateServer + ' ' + timeStart);
+    console.log(endDateServer + ' ' + timeEnd);
+    console.log(totalCost);
+
+    if (userPhone !== '' && dogBreed !== '' && dogSize !== '' && userName !== '') {
+      postServer();
+    }
+  };
+
+  const postServer = async () => {
+    await axios({
+      method: 'POST',
+      url: 'http://ec2-13-209-159-94.ap-northeast-2.compute.amazonaws.com:5432/apply/',
+      headers: {
+        Authorization: 'Token 8f79775656f32458dfbb9c826dd89276477cec85',
+        'Content-Type': 'application/json',
+      },
+      data: {
+        target_petsitterID: '2',
+        phone_num: userPhone,
+        pet_breed: dogBreed,
+        pet_size: dogSize,
+        start_time: startDateServer + ' ' + timeStart,
+        end_time: endDateServer + ' ' + timeEnd,
+        total_fee: totalCost,
+      },
+    }).then((res) => {
+      console.log(res);
+      console.log('등록 성공');
+      history.push('/confirm');
+    });
   };
 
   return (
@@ -247,13 +340,13 @@ export default function Reservation({ location }) {
       <CalendarWrapper>
         <DateBox>
           <Label>돌봄 시작</Label>
-          <Date>2021.01.23 (토)</Date>
+          <Date>{startDateView}</Date>
           <Time>{timeStart}</Time>
         </DateBox>
         <Arrow src={arrowRightIc} width="20px" height="20px" />
         <DateBox2>
           <Label>돌봄 끝</Label>
-          <Date>2021.01.23(토)</Date>
+          <Date>{endDateView}</Date>
           <Time>{timeEnd}</Time>
         </DateBox2>
       </CalendarWrapper>
@@ -423,7 +516,8 @@ export default function Reservation({ location }) {
       <CostWrapper>
         <CostTitle>요금 확인</CostTitle>
         <CostLabel>
-          30,000<Low>원</Low>
+          {totalCost}
+          <Low>원</Low>
         </CostLabel>
       </CostWrapper>
       <NextButton onClick={handleNextStep}>예약하기</NextButton>
@@ -655,6 +749,7 @@ const UserNameTextField = styled.input`
   width: 224px;
   outline: none;
 
+  padding-bottom: 5px;
   box-shadow: none;
   font-size: 1em;
   -webkit-appearance: none;
@@ -688,6 +783,7 @@ const UserPhoneTextField = styled.input`
   width: 224px;
   outline: none;
 
+  padding-bottom: 5px;
   box-shadow: none;
   font-size: 1em;
   -webkit-appearance: none;
@@ -721,6 +817,7 @@ const DogBreedTextField = styled.input`
   width: 224px;
   outline: none;
 
+  padding-bottom: 5px;
   box-shadow: none;
   font-size: 1em;
   -webkit-appearance: none;
@@ -957,7 +1054,7 @@ const CalendarWrapper = styled.div`
   display: flex;
   align-items: center;
   //   justify-content: space-between;
-  margin-top: 30px;
+  margin-top: 15px;
   margin-left: 15px;
   margin-right: 14px;
 

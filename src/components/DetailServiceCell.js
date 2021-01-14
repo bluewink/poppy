@@ -5,7 +5,6 @@ import { detailIc1, detailIc2, detailIc3, detailIc4, detailIc5, detailIc6 } from
 export default function DetailServiceCell({ idx }) {
   const [imgName, setImgName] = useState();
 
-  //   const chooseImageName = () => {
   switch (idx) {
     case 1:
       setImgName(detailIc1);
@@ -20,7 +19,7 @@ export default function DetailServiceCell({ idx }) {
     case 6:
       setImgName(detailIc6);
   }
-  //   };
+
   return (
     <Wrapper>
       <Icon src={imgName} />

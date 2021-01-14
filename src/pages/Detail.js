@@ -7,23 +7,7 @@ import moment from 'moment';
 import Header from '../components/Header';
 import ARTICLE_DATA from '../resources/Json/article.json';
 
-import {
-  img2,
-  detailIc1,
-  detailIc2,
-  detailIc3,
-  detailIc4,
-  detailIc5,
-  detailIc6,
-  detail_warning_sign,
-  detail_star,
-  detail_no_one,
-  detail_five_start,
-  detailButtonIc,
-  ser,
-  star,
-  service6,
-} from '../resources/images';
+import { detail_warning_sign, detail_no_one, detail_five_start, ser, star, service6 } from '../resources/images';
 
 const EXPERT_API = 'http://ec2-3-35-187-250.ap-northeast-2.compute.amazonaws.com:8000/expert/';
 const NEIGHBOR_API = 'http://ec2-3-35-187-250.ap-northeast-2.compute.amazonaws.com:8000/non_expert/';
@@ -372,7 +356,8 @@ export default function Detail({ location }) {
                 address: address,
                 oneDay: oneDay,
                 name: name,
-                date: dates,
+                startDate: startDate,
+                endDate: endDate,
                 cost: [smallCost, middleCost, largeCost],
                 diffDate: diffDate,
                 isExpert: isExpert,
