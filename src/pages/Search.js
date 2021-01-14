@@ -45,10 +45,12 @@ export default function Search({ location }) {
   let res;
   let tmpList = [];
   //petsitters_nearby/<str:address>/<int:dist_or_fee>
-  const ORDER_BY_DISTANCE_API =
-    "http://ec2-3-35-187-250.ap-northeast-2.compute.amazonaws.com:8000/expert/?order_by=distance&&address=";
-  const ORDER_BY_PRICE_API =
-    "http://ec2-3-35-187-250.ap-northeast-2.compute.amazonaws.com:8000/non_expert/?order_by=distance&&address=";
+  //http://ec2-13-209-159-94.ap-northeast-2.compute.amazonaws.com:5432/
+
+  const SERVER_API =
+    "http://ec2-13-209-159-94.ap-northeast-2.compute.amazonaws.com:5432/";
+  const GET_URL = "petsitters_nearby/";
+  const API = SERVER_API + GET_URL;
 
   useEffect(() => {
     fetchAddressData();
@@ -106,18 +108,18 @@ export default function Search({ location }) {
 
   const dataToSend = {
     method: "get",
-    url: filterStatus
-      ? ORDER_BY_DISTANCE_API + location.state.address + "/" + filterStatus
-      : ORDER_BY_PRICE_API + location.state.address + "/" + filterStatus,
+    url: API + location.state.address + "/" + filterStatus,
   };
   const fetchAddressData = async () => {
     try {
       res = await axios(dataToSend);
+      console.log("response:", res);
       //이 부분 수정되어야함. 주호형이 넘겨주면 res.data 확인해보자. 예상으로는 non_experts, experts 구분이 사라질듯?
-      tmpList = filterStatus ? res.data.non_experts : res.data.experts;
+      tmpList = res.data.petsitter_list;
       setOfferList(tmpList);
       console.log(offerList);
     } catch (e) {
+      console.log(dataToSend);
       console.log("fetch failed!!!");
       console.log(e);
     }

@@ -1,11 +1,11 @@
 import React from "react";
 import styled, { css } from "styled-components";
 
-export default function PinkButton({ marginTop, content, wid, hgt }) {
+export default function PinkButton({ content, wid, hgt, bgColor }) {
   return (
-    <ButtonContainer style={{ marginTop: marginTop }}>
-      <NextButton style={{ width: wid, height: hgt }}>{content}</NextButton>
-    </ButtonContainer>
+    <NextButton style={{ backgroundColor: bgColor, width: wid, height: hgt }}>
+      {content}
+    </NextButton>
   );
 }
 
@@ -28,10 +28,4 @@ const NextButton = styled.button`
   background: #ff9777;
   box-shadow: 0px 4px 10px rgba(191, 170, 114, 0.35);
   border-radius: 5px;
-`;
-
-const ButtonContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-left: -17px;
 `;

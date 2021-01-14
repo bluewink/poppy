@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled, { css } from "styled-components";
 import Timer from "../components/Timer";
 import { PasswordEye } from "../resources/images/index";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import axios from "axios";
 export default function Register({ location }) {
@@ -13,6 +13,7 @@ export default function Register({ location }) {
   const [emailInputCorrection, setEmailInputCorrection] = useState(false);
   const [codeInputFlag, setCodeInputFlag] = useState(false);
   const [codeInput, setCodeInput] = useState("");
+
   const [passwordInputFlag, setPasswordInputFlag] = useState(false);
   const [passwordInput, setPasswordInput] = useState("");
   const [passwordInputCorrection, setPasswordInputCorrection] = useState(false);
@@ -20,13 +21,25 @@ export default function Register({ location }) {
     false
   );
   const [passwordconfirmInput, setPasswordconfirmInput] = useState("");
+  const [passwordEqualFlag, setPasswordEqualFlag] = useState(false);
   const [passwordEyeFlag, setPasswordEyeFlag] = useState(false);
   const [passwordConfirmEyeFlag, setPasswordConfirmEyeFlag] = useState(false);
-  const [submitCodeTime, setSubmitCodeTime] = useState(600);
+  const [timeOver, setTimeOver] = useState(false);
   const [timerTrigger, setTimerTrigger] = useState(false);
-  const [codePassFlag, setCodePassFlag] = useState(0);
+  const [codePassFlag, setCodePassFlag] = useState(false);
+  const [codeAnswer, setCodeAnswer] = useState("오답");
+  const [codeInstruction, setCodeInstruction] = useState(
+    "필수 입력 항목입니다."
+  );
+
+  const history = useHistory();
 
   const PW_TYPE = /^[A-Za-z0-9+]{8,16}$/;
+
+  const SERVER_API =
+    "http://ec2-13-209-159-94.ap-northeast-2.compute.amazonaws.com:5432/";
+  const GET_URL = "signup/";
+  const API = SERVER_API + GET_URL;
 
   const marketingChecked = location.state.marketing;
 
@@ -46,10 +59,33 @@ export default function Register({ location }) {
     } else setEmailInputCorrection(false);
   };
 
+  useEffect(() => {
+    if (timeOver) {
+      setCodeInstruction("인증 시간이 만료되었습니다.");
+    }
+  }, [timeOver]);
+
+  useEffect(() => {
+    if (!timeOver && codeInput == codeAnswer) {
+      setCodePassFlag(true);
+      setCodeInstruction("인증이 완료되었습니다.");
+      return;
+    }
+    if (codeInput === "") {
+      setCodeInstruction("필수 입력 항목입니다.");
+    }
+  }, [codeInput]);
+
   const handleCodeInput = (event) => {
     setCodeInput(event.target.value);
-    if (event.target.value === "") setCodeInputFlag(false);
-    else setCodeInputFlag(true);
+    if (event.target.value === "") {
+      setCodeInputFlag(false);
+      setCodeInstruction("필수 입력 항목입니다.");
+    } else setCodeInputFlag(true);
+
+    if (codeInput != codeAnswer) {
+      setCodeInstruction("인증코드가 일치하지 않습니다.");
+    }
   };
 
   var passwordNumberCheck;
@@ -70,37 +106,77 @@ export default function Register({ location }) {
     } else setPasswordInputCorrection(false);
   };
 
+  useEffect(() => {
+    if (passwordconfirmInput === passwordInput) {
+      setPasswordEqualFlag(true);
+    } else {
+      setPasswordEqualFlag(false);
+    }
+  }, [passwordconfirmInput]);
+
   const handlePasswordConfirmInput = (event) => {
     setPasswordconfirmInput(event.target.value);
     if (event.target.value === "") setPasswordConfirmInputFlag(false);
     else setPasswordConfirmInputFlag(true);
   };
 
-  const handleSendCodeButton = (event) => {
+  const AUTH_API = SERVER_API + "authenticate/";
+
+  const handleSendCodeButton = async (event) => {
     event.preventDefault();
 
+    if (!emailInputCorrection) return;
+
     setTimerTrigger(!timerTrigger);
+
+    const dataToSend = {
+      method: "POST",
+      url: AUTH_API,
+      data: {
+        name: nameInput,
+        email: emailInput,
+      },
+    };
+
+    await axios(dataToSend).then((res) => {
+      console.log("인증코드:", res);
+      setCodeAnswer(res.data.code);
+    });
   };
 
   const handleRegisterSubmit = async (event) => {
     event.preventDefault();
 
+    if (
+      !codePassFlag ||
+      !emailInputCorrection ||
+      !passwordInputCorrection ||
+      !passwordEqualFlag
+    )
+      return;
+
     const dataToSend = {
       method: "POST",
-      url:
-        "register/" +
-        nameInput +
-        "/" +
-        emailInput +
-        "/" +
-        passwordInput +
-        "/" +
-        codePassFlag,
+      url: API,
+      data: {
+        name: nameInput,
+        email: emailInput,
+        password1: passwordInput,
+        password2: passwordconfirmInput,
+      },
     };
 
-    await axios(dataToSend).then((res) => {
-      console.log("회원가입 성공!");
-    });
+    console.log(dataToSend);
+
+    try {
+      await axios(dataToSend).then((res) => {
+        console.log(res);
+
+        history.push("/registerdone");
+      });
+    } catch (e) {
+      console.log("회원가입 실패");
+    }
   };
 
   return (
@@ -125,8 +201,11 @@ export default function Register({ location }) {
             style={{ marginTop: "17px" }}
           >
             <RegisterInput type="text" placeholder="이메일 주소" />
-            <SendCodeButton onClick={handleSendCodeButton}>
-              인증코드 전송
+            <SendCodeButton
+              clicked={timerTrigger}
+              onClick={handleSendCodeButton}
+            >
+              {timerTrigger ? "재전송" : "인증코드 전송"}
             </SendCodeButton>
           </InputRow>
           <RequiredMessage>
@@ -146,13 +225,13 @@ export default function Register({ location }) {
                 mm="3"
                 ss="0"
                 timerTrigger={timerTrigger}
+                {...{ timeOver }}
                 {...{ setTimerTrigger }}
+                {...{ setTimeOver }}
               />
             </CodeTimer>
           </InputRow>
-          <RequiredMessage inputCheck={codeInputFlag}>
-            필수 입력 항목입니다.
-          </RequiredMessage>
+          <RequiredMessage>{codeInstruction}</RequiredMessage>
           <InputRow
             onChange={handlePasswordInput}
             inputCheck={passwordInputFlag}
@@ -186,13 +265,12 @@ export default function Register({ location }) {
               onClick={() => setPasswordConfirmEyeFlag(!passwordConfirmEyeFlag)}
             />
           </InputRow>
+          <RequiredMessage>
+            {passwordEqualFlag ? null : "비밀번호가 일치하지 않습니다."}
+          </RequiredMessage>
         </RegisterForm>
         <ButtonContainer>
-          <Link to="/registerdone">
-            <NextButton type="submit" onSubmit={handleRegisterSubmit}>
-              회원가입
-            </NextButton>
-          </Link>
+          <NextButton onClick={handleRegisterSubmit}>회원가입</NextButton>
         </ButtonContainer>
       </Wrapper>
     </>
@@ -311,6 +389,11 @@ const SendCodeButton = styled.button`
   :focus {
     outline: none;
   }
+  ${(props) =>
+    props.clicked &&
+    css`
+      background-color: #c4c4c4;
+    `}
 `;
 
 const CodeTimer = styled.div`
@@ -345,7 +428,7 @@ const ButtonContainer = styled.div`
 
 const NextButton = styled.button`
   text-decoration: none;
-  margin-top: 68px;
+  margin-top: 53px;
 
   width: 124px;
   height: 46px;

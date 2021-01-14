@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from "react";
 
-export default function Timer({ mm, ss, timerTrigger, setTimerTrigger }) {
+export default function Timer({
+  mm,
+  ss,
+  timerTrigger,
+  setTimerTrigger,
+  timeOver,
+  setTimeOver,
+}) {
   const [minute, setMinute] = useState(parseInt(mm));
   const [second, setSecond] = useState(parseInt(ss));
   const [timerTriggeredOnce, setTimerTriggeredOnce] = useState(false);
@@ -9,10 +16,13 @@ export default function Timer({ mm, ss, timerTrigger, setTimerTrigger }) {
     const timer = setInterval(() => {
       if (parseInt(second) > 0) {
         setSecond(parseInt(second) - 1);
+        setTimeOver(false);
       }
       if (parseInt(second) === 0) {
-        if (parseInt(minute) === 0) clearInterval(timer);
-        else {
+        if (parseInt(minute) === 0) {
+          clearInterval(timer);
+          setTimeOver(true);
+        } else {
           setMinute(parseInt(minute) - 1);
           setSecond(59);
         }

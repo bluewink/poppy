@@ -1,15 +1,24 @@
 import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
 import { PasswordEye } from '../resources/images/index';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import axios from 'axios';
+import { useCookies } from 'react-cookie';
 export default function Login() {
   const [passwordEyeFlag, setPasswordEyeFlag] = useState(false);
   const [emailInputFlag, setEmailInputFlag] = useState(false);
   const [emailInput, setEmailInput] = useState('');
   const [passwordInputFlag, setPasswordInputFlag] = useState(false);
   const [passwordInput, setPasswordInput] = useState('');
+
+  const [cookies, setCookie] = useCookies(['token']);
+
+  const history = useHistory();
+
+  const SERVER_API = 'http://ec2-13-209-159-94.ap-northeast-2.compute.amazonaws.com:5432/';
+  const GET_URL = 'login/';
+  const API = SERVER_API + GET_URL;
 
   const handleEmailInput = (event) => {
     setEmailInput(event.target.value);
@@ -38,11 +47,18 @@ export default function Login() {
     event.preventDefault();
     const dataToSend = {
       method: 'POST',
-      url: 'login/' + emailInput + '/' + passwordInput,
+      url: API,
+      data: {
+        password: passwordInput,
+        email: emailInput,
+      },
     };
 
     await axios(dataToSend).then((res) => {
       console.log('로그인 성공!');
+      console.log(res);
+      setCookie('token', res.data.Token, '/');
+      history.push('/');
     });
   };
 
@@ -61,9 +77,7 @@ export default function Login() {
           <PasswordEyeIcon src={PasswordEye} onClick={() => setPasswordEyeFlag(!passwordEyeFlag)} />
         </InputRow>
         <ButtonContainer>
-          <NextButton type="submit" onSubmit={handleLoginSubmit}>
-            로그인
-          </NextButton>
+          <NextButton onClick={handleLoginSubmit}>로그인</NextButton>
         </ButtonContainer>
         <ButtonContainer style={{ marginTop: '15px' }}>
           <Link to="/join">
