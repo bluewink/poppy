@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import axios from 'axios';
 import moment from 'moment';
-
+import { useCookies } from 'react-cookie';
 import Header from '../components/Header';
 import ARTICLE_DATA from '../resources/Json/article.json';
 
@@ -15,13 +15,16 @@ const NEIGHBOR_API = 'http://ec2-13-209-159-94.ap-northeast-2.compute.amazonaws.
 export default function Detail({ location }) {
   //takeoffer에서 넘어온 data
   const { address, petsitterId, type, endDate, startDate } = location.state;
-
+  const [cookies, setCookie, removeCookie] = useCookies(['token']);
   // changed information
   const [server, setServer] = useState(false);
   const [diffDate, setDiffDate] = useState(1);
   const [dates, setDates] = useState('');
   const [oneDay, setOneDay] = useState(true);
   const [roomImg, setRoomImg] = useState('');
+
+  const history = useHistory();
+
   const [comment, setComment] = useState({
     content: '',
     date: '',
@@ -79,8 +82,15 @@ export default function Detail({ location }) {
       console.log(e);
     }
   };
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
+    if (cookies.token) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+
     const year = startDate.getFullYear();
     const month = startDate.getMonth() + 1;
     const day = startDate.getDate();
@@ -135,6 +145,30 @@ export default function Detail({ location }) {
 
   const [background, setBackground] = useState(false);
 
+  const handleNextButton = () => {
+    if (isLoggedIn) {
+      history.push({
+        pathname: '/reservation',
+        state: {
+          title: title,
+          address: address,
+          oneDay: oneDay,
+          name: name,
+          startDate: startDate,
+          endDate: endDate,
+          cost: [smallCost, middleCost, largeCost],
+          diffDate: diffDate,
+          dates: dates,
+          target_petsitterID: petsitterId,
+        },
+      });
+    } else {
+      alert('로그인해주세요!');
+      history.push({
+        pathname: '/login',
+      });
+    }
+  };
   return (
     <>
       <Wrapper>
@@ -337,25 +371,7 @@ export default function Detail({ location }) {
           </BestReview>
         </ReviewBox>
         <NextBox>
-          <Link
-            to={{
-              pathname: '/reservation',
-              state: {
-                title: title,
-                address: address,
-                oneDay: oneDay,
-                name: name,
-                startDate: startDate,
-                endDate: endDate,
-                cost: [smallCost, middleCost, largeCost],
-                diffDate: diffDate,
-                dates: dates,
-                target_petsitterID: petsitterId,
-              },
-            }}
-          >
-            <NextButton>예약하기</NextButton>
-          </Link>
+          <NextButton onClick={handleNextButton}>예약하기</NextButton>
         </NextBox>
       </Wrapper>
       {background && (
