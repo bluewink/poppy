@@ -52,6 +52,7 @@ const CalendarWrapper = styled.div`
 
 const Arrow = styled.img`
   margin-bottom: 10px;
+  margin-right: 33px;
 `;
 
 const DateBox = styled.div`

@@ -1,11 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import { useHistory, Link } from 'react-router-dom';
-import { useCookies } from 'react-cookie';
-import axios from 'axios';
-import { StyledMenu } from './Menu.styled';
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import { useHistory, Link } from "react-router-dom";
+import { useCookies } from "react-cookie";
+import axios from "axios";
+import { StyledMenu } from "./Menu.styled";
 
-import { logo_ham, login, next, settingIc, logoutBtn } from '../../resources/images';
+import {
+  logo_ham,
+  login,
+  next,
+  settingIc,
+  logoutBtn,
+} from "../../resources/images";
 
 const Menu = ({ open, setOpen, background, setBackground }) => {
   const handleLink = () => {
@@ -13,10 +19,10 @@ const Menu = ({ open, setOpen, background, setBackground }) => {
     setBackground(!background);
   };
 
-  const [userName, setUserName] = useState('');
+  const [userName, setUserName] = useState("");
 
   const history = useHistory();
-  const [cookies, setCookie, removeCookie] = useCookies(['token']);
+  const [cookies, setCookie, removeCookie] = useCookies(["token"]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   useEffect(() => {
     console.log(cookies.token);
@@ -31,10 +37,11 @@ const Menu = ({ open, setOpen, background, setBackground }) => {
 
   const postServer = async () => {
     await axios({
-      method: 'GET',
-      url: 'http://ec2-13-209-159-94.ap-northeast-2.compute.amazonaws.com:5432/name',
+      method: "GET",
+      url:
+        "http://ec2-13-209-159-94.ap-northeast-2.compute.amazonaws.com:5432/name",
       headers: {
-        Authorization: 'Token 8f79775656f32458dfbb9c826dd89276477cec85',
+        Authorization: "Token 8f79775656f32458dfbb9c826dd89276477cec85",
       },
     }).then((res) => {
       console.log(res.data.name);
@@ -43,7 +50,7 @@ const Menu = ({ open, setOpen, background, setBackground }) => {
   };
 
   const handleLogOut = () => {
-    removeCookie('token');
+    removeCookie("token");
   };
   return (
     <StyledMenu open={open}>
@@ -54,7 +61,7 @@ const Menu = ({ open, setOpen, background, setBackground }) => {
           onClick={() => {
             setOpen(!open);
             setBackground(!background);
-            console.log('눌림');
+            console.log("눌림");
           }}
         />
         <LoginBox>
@@ -63,7 +70,11 @@ const Menu = ({ open, setOpen, background, setBackground }) => {
             {isLoggedIn ? (
               <LoginLabel>{userName}님</LoginLabel>
             ) : (
-              <Link to="/login" style={{ textDecoration: 'none' }} onClick={handleLink}>
+              <Link
+                to="/login"
+                style={{ textDecoration: "none" }}
+                onClick={handleLink}
+              >
                 <LoginLabel>로그인 해주세요.</LoginLabel>
               </Link>
             )}
@@ -72,15 +83,7 @@ const Menu = ({ open, setOpen, background, setBackground }) => {
         </LoginBox>
         <LineView />
         <MenuWrapper>
-<<<<<<< HEAD
-          <Link
-            to="/landingpage"
-            style={{ textDecoration: "none" }}
-            onClick={handleLink}
-          >
-=======
-          <Link to="/" style={{ textDecoration: 'none' }} onClick={handleLink}>
->>>>>>> 6c77609c3105dcd5e309ba7c2d6e7154bfe81b60
+          <Link to="/" style={{ textDecoration: "none" }} onClick={handleLink}>
             <MenuBox>
               <MenuLabel>이웃집뽀삐 소개</MenuLabel>
               <NextImg src={next} width="6px" height="12px" />
@@ -88,7 +91,11 @@ const Menu = ({ open, setOpen, background, setBackground }) => {
           </Link>
 
           {isLoggedIn && (
-            <Link to="/petsittermenu" style={{ textDecoration: 'none' }} onClick={handleLink}>
+            <Link
+              to="/petsittermenu"
+              style={{ textDecoration: "none" }}
+              onClick={handleLink}
+            >
               <MenuBox>
                 <MenuLabel>돌보미 메뉴</MenuLabel>
                 <NextImg src={next} width="6px" height="12px" />
@@ -117,7 +124,7 @@ const Menu = ({ open, setOpen, background, setBackground }) => {
               <LogOutLabel onClick={handleLogOut}>로그아웃</LogOutLabel>
             </Setting>
           )}
-          <Link style={{ textDecoration: 'none' }} to="/firstterm">
+          <Link style={{ textDecoration: "none" }} to="/firstterm">
             <Setting>
               <img src={settingIc} width="23px" height="23px" />
               <SettingLabel>이용약관</SettingLabel>
