@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Header from '../components/Header';
+import { useCookies } from 'react-cookie';
+
 import { confirmIc1, confirmIc } from '../resources/images';
 import { useHistory } from 'react-router-dom';
 
@@ -27,6 +29,7 @@ export default function Confirm({ location }) {
     console.log(price);
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   };
+  const [cookies, setCookie, removeCookie] = useCookies(['token']);
 
   useEffect(() => {
     console.log(pet_size);
@@ -36,7 +39,7 @@ export default function Confirm({ location }) {
       method: 'POST',
       url: 'http://ec2-13-209-159-94.ap-northeast-2.compute.amazonaws.com:5432/apply/',
       headers: {
-        Authorization: 'Token 8f79775656f32458dfbb9c826dd89276477cec85',
+        Authorization: `Token ${cookies.token}`,
       },
       data: {
         target_petsitterID: target_petsitterID,

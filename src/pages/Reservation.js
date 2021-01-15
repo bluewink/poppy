@@ -335,14 +335,14 @@ export default function Reservation({ location }) {
     } else if (dogBreedIndex == 1) {
       setDogSize('중형견');
       if (oneDay) {
-        totalCost = cost[1][0];
+        setTotalCost(cost[1][0]);
       } else {
         setTotalCost(cost[1][1] * diffDate);
       }
     } else {
       setDogSize('대형견');
       if (oneDay) {
-        totalCost = cost[2][0];
+        setTotalCost(cost[2][0]);
       } else {
         setTotalCost(cost[2][1] * diffDate);
       }
