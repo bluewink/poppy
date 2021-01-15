@@ -6,7 +6,7 @@ import { DateRange } from 'react-date-range';
 import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 
-import { backIc, aaaa, dog1 } from '../resources/images';
+import { backIc, aaaa, dog1, asdf } from '../resources/images';
 export default function Register() {
   const handleBackButton = () => [window.history.back()];
 
@@ -207,7 +207,18 @@ export default function Register() {
           <Red>* </Red>&nbsp;반려견을 등록해주세요.
         </DogTitle>
         <DogCard>
-          <DogImg src={dog1} />
+          <DogImg src={asdf} />
+          <VerticalStackView>
+            <DogNameInput placeholder="반려견 이름" />
+            <StackView>
+              <DogBreedInput placeholder="종" />
+              <DogAgeInput placeholder="나이" />
+            </StackView>
+            <DogIntroduceInput text={dogIntroduceInput} placeholder="한줄 소개" />
+          </VerticalStackView>
+        </DogCard>
+        <DogCard>
+          <DogImg src={asdf} />
           <VerticalStackView>
             <DogNameInput placeholder="반려견 이름" />
             <StackView>
@@ -232,6 +243,7 @@ export default function Register() {
             showMonthAndYearPickers={false}
             minDate={new Date()}
             showMonthArrow={false}
+            width="100%"
           />
         </ShadowBox>
       </CalendarBox>
@@ -301,8 +313,7 @@ const SelectedServiceButton = styled.div`
   border-radius: 37px;
   border: solid 2px #efefef;
 
-  padding: 8px 19px;
-
+  padding: 8px 22px;
   background: #f9f9f9;
   /* light gray */
 
@@ -350,7 +361,7 @@ const Red = styled.span`
 `;
 
 const CertificationWarning = styled.div`
-  margin-top: 11px;
+  margin-top: 7px;
   margin-bottom: 50px;
 
   font-family: Noto Sans KR;
@@ -457,8 +468,7 @@ const ServiceButton = styled.div`
   border: solid 2px #efefef;
   background-color: #f9f9f9;
 
-  padding: 8px 19px;
-
+  padding: 8px 22px;
   background: #f9f9f9;
   /* light gray */
 
@@ -499,6 +509,7 @@ const ShadowBox = styled.div`
   box-shadow: 2px 2px 17px rgba(164, 164, 164, 0.22);
   border-radius: 15px;
   margin-top: 20px;
+  margin-right: 10px;
 `;
 
 const ServiceBox = styled.div`
@@ -558,8 +569,9 @@ const DogCard = styled.div`
 `;
 
 const DogImg = styled.img`
-  width: 130px;
-  border-radius: 65px;
+  width: 90px;
+  // height: 100px;
+  border-radius: 45px;
   border: solid 1px #bebebe;
   background-color: #ffffff;
 `;
@@ -748,7 +760,7 @@ const DogIntroduceInput = styled.input`
     font-style: normal;
     font-weight: normal;
     font-size: 14px;
-    line-height: 0px;
+
     /* or 0% */
 
     display: flex;
@@ -982,7 +994,33 @@ const IntroduceInput = styled.textarea`
   border: none;
   background-color: #fafafa;
   outline: none;
+  font-family: Noto Sans KR;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 20px;
+  /* or 133% */
+
+  display: flex;
+  align-items: center;
+  letter-spacing: -1px;
+
+  /* light gray */
+
   ::placeholder {
+    font-family: Noto Sans KR;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 20px;
+    /* or 133% */
+
+    display: flex;
+    align-items: center;
+    letter-spacing: -1px;
+
+    /* light gray */
+
     color: #dbdbdb;
   }
 `;

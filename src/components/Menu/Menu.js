@@ -34,7 +34,7 @@ const Menu = ({ open, setOpen, background, setBackground }) => {
       method: 'GET',
       url: 'http://ec2-13-209-159-94.ap-northeast-2.compute.amazonaws.com:5432/name',
       headers: {
-        Authorization: 'Token 8f79775656f32458dfbb9c826dd89276477cec85',
+        Authorization: `Token ${cookies.token}`,
       },
     }).then((res) => {
       console.log(res.data.name);

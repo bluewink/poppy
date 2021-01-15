@@ -57,5 +57,5 @@ export { default as poppyProfileMenu } from './poppy-profile-menu.png';
 export { default as backback } from './backback.png';
 export { default as giantPoppy } from './giantPoppy.png';
 export { default as textareaPoppy } from './textareaPoppy.png';
-
+export { default as asdf } from './asdf.png';
 export { default as logoutBtn } from './logoutBtn.png';

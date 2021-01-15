@@ -1,13 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
-import { backBtn, backBt } from '../../resources/images';
+import { backBtn, backBt, backIc } from '../../resources/images';
 export default function NavBar({ backTo, titleName }) {
   const handleBackButton = () => [window.history.back()];
   return (
     <Navbar>
       <Empty>
         <Back onClick={handleBackButton}>
-          <img src={backBtn} width="24px" height="24px" />
+          <img src={backIc} width="38px" height="38px" />
         </Back>
       </Empty>
       <Title>{titleName}</Title>
@@ -41,7 +41,7 @@ const Back = styled.button`
   border: none;
   background: white;
 
-  margin-left: 13px;
+  margin-left: 0px;
 `;
 
 const Navbar = styled.div`
