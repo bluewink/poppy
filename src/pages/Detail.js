@@ -165,7 +165,7 @@ export default function Detail({ location }) {
             {pets.map((dog) => {
               return (
                 <FamilyCell>
-                  {server && <DogImage src={dog.img} />}
+                  {server && <DogImage src={dog.pet_img} />}
                   <DogText>
                     <DogName>{dog.name}</DogName>
                     <DogSubDetail>
