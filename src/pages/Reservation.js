@@ -710,6 +710,7 @@ const Button = styled.div`
   justify-content: center;
   align-items: center;
 
+  white-space: nowrap;
   border-radius: 37px;
   border: solid 1px #dadada;
   background-color: #ffffff;
@@ -768,7 +769,7 @@ const SelectedButton = styled.button`
   /* 화이트 */
 
   color: #ffffff;
-
+  white-space: nowrap;
   background: #ff9777;
   box-shadow: 2px 2px 3px rgba(255, 170, 122, 0.39), inset 2px 2px 5px rgba(248, 110, 33, 0.64);
   border-radius: 37px;

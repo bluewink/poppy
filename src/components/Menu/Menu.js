@@ -249,7 +249,7 @@ const LoginWrapper = styled.div`
 `;
 const LoginLabel = styled.div`
   margin-left: 11px;
-
+  white-space: nowrap;
   font-family: Noto Sans KR;
   font-style: normal;
   font-weight: 500;
@@ -262,6 +262,6 @@ const LoginLabel = styled.div`
   letter-spacing: -1px;
 
   /* 찐회색 */
-
+  white-space: nowrap;
   color: #505050;
 `;
