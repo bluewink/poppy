@@ -64,7 +64,11 @@ const Menu = ({ open, setOpen, background, setBackground }) => {
         </LoginBox>
         <LineView />
         <MenuWrapper>
-          <Link to="/" style={{ textDecoration: "none" }} onClick={handleLink}>
+          <Link
+            to="/landingpage"
+            style={{ textDecoration: "none" }}
+            onClick={handleLink}
+          >
             <MenuBox>
               <MenuLabel>이웃집뽀삐 소개</MenuLabel>
               <NextImg src={next} width="6px" height="12px" />
