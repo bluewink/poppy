@@ -1,27 +1,26 @@
-import React from "react";
-import styled from "styled-components";
-import { Link } from "react-router-dom";
-import ConfirmBox from "../components/ConfirmBox";
-import NavBar from "../components/NavBar";
+import React from 'react';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import ConfirmBox from '../components/ConfirmBox';
+import NavBar from '../components/NavBar';
 
 export default function ReservationHistory() {
   //2021.01.23
   const reservationList = [
     {
-      target_petsitter: "문상빈",
-      service: ["소형견", "2박 돌봄"],
-      date: "2021.01.13",
+      target_petsitter: '문상빈',
+      service: ['소형견', '2박 돌봄'],
+      date: '2021.01.13',
       total_fee: 30000,
     },
     {
-      target_petsitter: "박보검",
-      service: ["소형견", "당일 돌봄"],
-      date: "2021.01.15",
+      target_petsitter: '박보검',
+      service: ['소형견', '당일 돌봄'],
+      date: '2021.01.15',
       total_fee: 20000,
     },
   ];
 
-  //  const {name, dogSize, date, cost} = location.state;
   return (
     <Wrapper>
       <NavBar titleName="들어온 신청" />
@@ -31,7 +30,7 @@ export default function ReservationHistory() {
           return (
             <Link
               to={{
-                pathname: "requesthistorydetail",
+                pathname: 'requesthistorydetail',
                 state: {
                   name: reservation.target_petsitter,
                   dogSize: reservation.service[0],
@@ -58,7 +57,7 @@ const Header = styled.div`
   margin-top: 28px;
   height: 34.6px;
 
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 15px;
   font-weight: 500;
   font-stretch: normal;

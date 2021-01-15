@@ -16,48 +16,45 @@ export default function Reservation({ location }) {
     endDate,
     diffDate,
     cost,
-    isExpert,
     dates,
     target_petsitterID,
   } = location.state;
 
   const history = useHistory();
+
+  const [isOneDay, setIsOneDay] = useState(false);
+
   useEffect(() => {
+    setIsOneDay(oneDay);
     var dogSize = '소형견';
     var totalCost = 0;
-    console.log(`title::::::::${title}`);
+    console.log(`title::::::::${diffDate}`);
+
     if (dogBreedIndex == 0) {
       setDogSize('소형견');
       if (oneDay) {
         setTotalCost(cost[0][0]);
       } else {
-        setTotalCost(cost[0][1] * diffDateServer);
+        setTotalCost(cost[0][1] * diffDate);
       }
     } else if (dogBreedIndex == 1) {
       setDogSize('중형견');
       if (oneDay) {
         totalCost = cost[1][0];
       } else {
-        setTotalCost(cost[1][1] * diffDateServer);
+        setTotalCost(cost[1][1] * diffDate);
       }
     } else {
       setDogSize('대형견');
       if (oneDay) {
         totalCost = cost[2][0];
       } else {
-        setTotalCost(cost[2][1] * diffDateServer);
+        setTotalCost(cost[2][1] * diffDate);
       }
     }
-
-    console.log(diffDate);
-    console.log(endDate);
-    console.log(cost);
-    console.log(name);
-
     const year = startDate.getFullYear();
     var month = startDate.getMonth() + 1;
     const day = startDate.getDate();
-    setDiffDateServer();
 
     var month = month < 10 ? `0${month}` : month;
 
@@ -67,16 +64,16 @@ export default function Reservation({ location }) {
     setEndDateServer(year + '-' + month + '-' + day);
     // setTotalCost(cost);
     if (endDate !== null) {
+      console.log(`Helelfasdlkfsdalf:${endDate}`);
       const e_year = endDate.getFullYear();
       var e_month = endDate.getMonth() + 1;
       e_month = e_month < 10 ? `0${e_month}` : e_month;
       const e_day = endDate.getDate();
 
       setEndDateServer(e_year + '-' + e_month + '-' + e_day);
-      setEndDateView(year + '년 ' + month + '월 ' + day + '일');
+      setEndDateView(e_year + '년 ' + e_month + '월 ' + e_day + '일');
     }
-    return () => {};
-  });
+  }, []);
 
   const [startDateView, setStartDateView] = useState('');
   const [endDateView, setEndDateView] = useState('');
@@ -154,30 +151,33 @@ export default function Reservation({ location }) {
   const handleSmall = (e) => {
     setDogBreedIndex(0);
     setDogSize('소형견');
+    console.log(dogSize);
     if (oneDay) {
       setTotalCost(cost[0][0]);
     } else {
-      setTotalCost(cost[0][1] * diffDateServer);
+      setTotalCost(cost[0][1] * diffDate);
     }
   };
 
   const handleMiddle = (e) => {
     setDogBreedIndex(1);
     setDogSize('중형견');
+    console.log(dogSize);
     if (oneDay) {
       setTotalCost(cost[1][0]);
     } else {
-      setTotalCost(cost[1][1] * diffDateServer);
+      setTotalCost(cost[1][1] * diffDate);
     }
   };
 
   const handleBig = (e) => {
     setDogBreedIndex(2);
     setDogSize('대형견');
+    console.log(dogSize);
     if (oneDay) {
       setTotalCost(cost[2][0]);
     } else {
-      setTotalCost(cost[2][1] * diffDateServer);
+      setTotalCost(cost[2][1] * diffDate);
     }
   };
 
@@ -325,29 +325,26 @@ export default function Reservation({ location }) {
     } else {
       setBreedError(false);
     }
-
-    var dogSize = '소형견';
-    var totalCost = 0;
     if (dogBreedIndex == 0) {
       setDogSize('소형견');
       if (oneDay) {
         setTotalCost(cost[0][0]);
       } else {
-        setTotalCost(cost[0][1] * diffDateServer);
+        setTotalCost(cost[0][1] * diffDate);
       }
     } else if (dogBreedIndex == 1) {
       setDogSize('중형견');
       if (oneDay) {
         totalCost = cost[1][0];
       } else {
-        setTotalCost(cost[1][1] * diffDateServer);
+        setTotalCost(cost[1][1] * diffDate);
       }
     } else {
       setDogSize('대형견');
       if (oneDay) {
         totalCost = cost[2][0];
       } else {
-        setTotalCost(cost[2][1] * diffDateServer);
+        setTotalCost(cost[2][1] * diffDate);
       }
     }
 
@@ -363,6 +360,23 @@ export default function Reservation({ location }) {
 
     if (userPhone !== '' && dogBreed !== '' && dogSize !== '' && userName !== '') {
       // postServer();
+      history.push({
+        pathname: '/confirm',
+        state: {
+          name: name,
+          date: dates,
+          oneDay: oneDay,
+          diffDate: diffDate,
+          cost: totalCost,
+          target_petsitterID: target_petsitterID,
+          phone_num: userPhone,
+          pet_breed: dogBreed,
+          pet_size: dogSize,
+          start_time: startDateServer + ' ' + timeStart,
+          end_time: endDateServer + ' ' + timeEnd,
+          total_fee: totalCost,
+        },
+      });
     }
   };
 
@@ -411,113 +425,118 @@ export default function Reservation({ location }) {
         <DateBox>
           <Label>돌봄 시작</Label>
           <Date>{startDateView}</Date>
-          <Time>{timeStart}</Time>
+          {oneDay && <Time>{timeStart}</Time>}
         </DateBox>
         <Arrow src={arrowRightIc} width="20px" height="20px" />
         <DateBox2>
           <Label>돌봄 끝</Label>
           <Date>{endDateView}</Date>
-          <Time>{timeEnd}</Time>
+          {oneDay && <Time>{timeEnd}</Time>}
         </DateBox2>
       </CalendarWrapper>
-      <TimeWrapper>
-        {startTimeIndex <= 0 && 0 <= endTimeIndex ? (
-          <SelectedTimeBox onClick={handleSixClock}>6:00</SelectedTimeBox>
-        ) : (
-          <TimeBox onClick={handleSixClock}>6:00</TimeBox>
-        )}
-        {startTimeIndex <= 1 && 1 <= endTimeIndex ? (
-          <SelectedTimeBox onClick={handleSevenClock}>7:00</SelectedTimeBox>
-        ) : (
-          <TimeBox onClick={handleSevenClock}>7:00</TimeBox>
-        )}
-        {startTimeIndex <= 2 && 2 <= endTimeIndex ? (
-          <SelectedTimeBox onClick={handleEightClock}>8:00</SelectedTimeBox>
-        ) : (
-          <TimeBox onClick={handleEightClock}>8:00</TimeBox>
-        )}
-        {startTimeIndex <= 3 && 3 <= endTimeIndex ? (
-          <SelectedTimeBox onClick={handleNineClock}>9:00</SelectedTimeBox>
-        ) : (
-          <TimeBox onClick={handleNineClock}>9:00</TimeBox>
-        )}
-        {startTimeIndex <= 4 && 4 <= endTimeIndex ? (
-          <SelectedTimeBox onClick={handleTenClock}>10:00</SelectedTimeBox>
-        ) : (
-          <TimeBox onClick={handleTenClock}>10:00</TimeBox>
-        )}
-        {startTimeIndex <= 5 && 5 <= endTimeIndex ? (
-          <SelectedTimeBox onClick={handleElevenClock}>11:00</SelectedTimeBox>
-        ) : (
-          <TimeBox onClick={handleElevenClock}>11:00</TimeBox>
-        )}
-        {startTimeIndex <= 6 && 6 <= endTimeIndex ? (
-          <SelectedTimeBox onClick={handleTwelveClock}>12:00</SelectedTimeBox>
-        ) : (
-          <TimeBox onClick={handleTwelveClock}>12:00</TimeBox>
-        )}
-        {startTimeIndex <= 7 && 7 <= endTimeIndex ? (
-          <SelectedTimeBox onClick={handleThirteenClock}>13:00</SelectedTimeBox>
-        ) : (
-          <TimeBox onClick={handleThirteenClock}>13:00</TimeBox>
-        )}
-        {startTimeIndex <= 8 && 8 <= endTimeIndex ? (
-          <SelectedTimeBox onClick={handleFourteenClock}>14:00</SelectedTimeBox>
-        ) : (
-          <TimeBox onClick={handleFourteenClock}>14:00</TimeBox>
-        )}
-        {startTimeIndex <= 9 && 9 <= endTimeIndex ? (
-          <SelectedTimeBox onClick={handleFifteenClock}>15:00</SelectedTimeBox>
-        ) : (
-          <TimeBox onClick={handleFifteenClock}>15:00</TimeBox>
-        )}
-        {startTimeIndex <= 10 && 10 <= endTimeIndex ? (
-          <SelectedTimeBox onClick={handleSixteenClock}>:1600</SelectedTimeBox>
-        ) : (
-          <TimeBox onClick={handleSixteenClock}>16:00</TimeBox>
-        )}
-        {startTimeIndex <= 11 && 11 <= endTimeIndex ? (
-          <SelectedTimeBox onClick={handleSeventeenClock}>17:00</SelectedTimeBox>
-        ) : (
-          <TimeBox onClick={handleSeventeenClock}>17:00</TimeBox>
-        )}
-        {startTimeIndex <= 12 && 12 <= endTimeIndex ? (
-          <SelectedTimeBox onClick={handleEighteenClock}>18:00</SelectedTimeBox>
-        ) : (
-          <TimeBox onClick={handleEighteenClock}>18:00</TimeBox>
-        )}
-        {startTimeIndex <= 13 && 13 <= endTimeIndex ? (
-          <SelectedTimeBox onClick={handleNineteenClock}>19:00</SelectedTimeBox>
-        ) : (
-          <TimeBox onClick={handleNineteenClock}>19:00</TimeBox>
-        )}
-        {startTimeIndex <= 14 && 14 <= endTimeIndex ? (
-          <SelectedTimeBox onClick={handleTwentyClock}>20:00</SelectedTimeBox>
-        ) : (
-          <TimeBox onClick={handleTwentyClock}>20:00</TimeBox>
-        )}
-        {startTimeIndex <= 15 && 15 <= endTimeIndex ? (
-          <SelectedTimeBox onClick={handleTwentyOneClock}>21:00</SelectedTimeBox>
-        ) : (
-          <TimeBox onClick={handleTwentyOneClock}>21:00</TimeBox>
-        )}
-        {startTimeIndex <= 16 && 16 <= endTimeIndex ? (
-          <SelectedTimeBox onClick={handleTwentyTwoClock}>22:00</SelectedTimeBox>
-        ) : (
-          <TimeBox onClick={handleTwentyTwoClock}>22:00</TimeBox>
-        )}
-        {startTimeIndex <= 17 && 17 <= endTimeIndex ? (
-          <SelectedTimeBox onClick={handleTwentyThreeClock}>23:00</SelectedTimeBox>
-        ) : (
-          <TimeBox onClick={handleTwentyThreeClock}>23:00</TimeBox>
-        )}
-        {startTimeIndex <= 18 && 18 <= endTimeIndex ? (
-          <SelectedTimeBox onClick={handleTwentyFourClock}>24:00</SelectedTimeBox>
-        ) : (
-          <TimeBox onClick={handleTwentyFourClock}>24:00</TimeBox>
-        )}
-      </TimeWrapper>
-      <WarningLabel>새벽 시간대 돌봄의 경우, 돌보미와 상의해주세요.</WarningLabel>
+      {oneDay && (
+        <>
+          <TimeWrapper>
+            {startTimeIndex <= 0 && 0 <= endTimeIndex ? (
+              <SelectedTimeBox onClick={handleSixClock}>6:00</SelectedTimeBox>
+            ) : (
+              <TimeBox onClick={handleSixClock}>6:00</TimeBox>
+            )}
+            {startTimeIndex <= 1 && 1 <= endTimeIndex ? (
+              <SelectedTimeBox onClick={handleSevenClock}>7:00</SelectedTimeBox>
+            ) : (
+              <TimeBox onClick={handleSevenClock}>7:00</TimeBox>
+            )}
+            {startTimeIndex <= 2 && 2 <= endTimeIndex ? (
+              <SelectedTimeBox onClick={handleEightClock}>8:00</SelectedTimeBox>
+            ) : (
+              <TimeBox onClick={handleEightClock}>8:00</TimeBox>
+            )}
+            {startTimeIndex <= 3 && 3 <= endTimeIndex ? (
+              <SelectedTimeBox onClick={handleNineClock}>9:00</SelectedTimeBox>
+            ) : (
+              <TimeBox onClick={handleNineClock}>9:00</TimeBox>
+            )}
+            {startTimeIndex <= 4 && 4 <= endTimeIndex ? (
+              <SelectedTimeBox onClick={handleTenClock}>10:00</SelectedTimeBox>
+            ) : (
+              <TimeBox onClick={handleTenClock}>10:00</TimeBox>
+            )}
+            {startTimeIndex <= 5 && 5 <= endTimeIndex ? (
+              <SelectedTimeBox onClick={handleElevenClock}>11:00</SelectedTimeBox>
+            ) : (
+              <TimeBox onClick={handleElevenClock}>11:00</TimeBox>
+            )}
+            {startTimeIndex <= 6 && 6 <= endTimeIndex ? (
+              <SelectedTimeBox onClick={handleTwelveClock}>12:00</SelectedTimeBox>
+            ) : (
+              <TimeBox onClick={handleTwelveClock}>12:00</TimeBox>
+            )}
+            {startTimeIndex <= 7 && 7 <= endTimeIndex ? (
+              <SelectedTimeBox onClick={handleThirteenClock}>13:00</SelectedTimeBox>
+            ) : (
+              <TimeBox onClick={handleThirteenClock}>13:00</TimeBox>
+            )}
+            {startTimeIndex <= 8 && 8 <= endTimeIndex ? (
+              <SelectedTimeBox onClick={handleFourteenClock}>14:00</SelectedTimeBox>
+            ) : (
+              <TimeBox onClick={handleFourteenClock}>14:00</TimeBox>
+            )}
+            {startTimeIndex <= 9 && 9 <= endTimeIndex ? (
+              <SelectedTimeBox onClick={handleFifteenClock}>15:00</SelectedTimeBox>
+            ) : (
+              <TimeBox onClick={handleFifteenClock}>15:00</TimeBox>
+            )}
+            {startTimeIndex <= 10 && 10 <= endTimeIndex ? (
+              <SelectedTimeBox onClick={handleSixteenClock}>:1600</SelectedTimeBox>
+            ) : (
+              <TimeBox onClick={handleSixteenClock}>16:00</TimeBox>
+            )}
+            {startTimeIndex <= 11 && 11 <= endTimeIndex ? (
+              <SelectedTimeBox onClick={handleSeventeenClock}>17:00</SelectedTimeBox>
+            ) : (
+              <TimeBox onClick={handleSeventeenClock}>17:00</TimeBox>
+            )}
+            {startTimeIndex <= 12 && 12 <= endTimeIndex ? (
+              <SelectedTimeBox onClick={handleEighteenClock}>18:00</SelectedTimeBox>
+            ) : (
+              <TimeBox onClick={handleEighteenClock}>18:00</TimeBox>
+            )}
+            {startTimeIndex <= 13 && 13 <= endTimeIndex ? (
+              <SelectedTimeBox onClick={handleNineteenClock}>19:00</SelectedTimeBox>
+            ) : (
+              <TimeBox onClick={handleNineteenClock}>19:00</TimeBox>
+            )}
+            {startTimeIndex <= 14 && 14 <= endTimeIndex ? (
+              <SelectedTimeBox onClick={handleTwentyClock}>20:00</SelectedTimeBox>
+            ) : (
+              <TimeBox onClick={handleTwentyClock}>20:00</TimeBox>
+            )}
+            {startTimeIndex <= 15 && 15 <= endTimeIndex ? (
+              <SelectedTimeBox onClick={handleTwentyOneClock}>21:00</SelectedTimeBox>
+            ) : (
+              <TimeBox onClick={handleTwentyOneClock}>21:00</TimeBox>
+            )}
+            {startTimeIndex <= 16 && 16 <= endTimeIndex ? (
+              <SelectedTimeBox onClick={handleTwentyTwoClock}>22:00</SelectedTimeBox>
+            ) : (
+              <TimeBox onClick={handleTwentyTwoClock}>22:00</TimeBox>
+            )}
+            {startTimeIndex <= 17 && 17 <= endTimeIndex ? (
+              <SelectedTimeBox onClick={handleTwentyThreeClock}>23:00</SelectedTimeBox>
+            ) : (
+              <TimeBox onClick={handleTwentyThreeClock}>23:00</TimeBox>
+            )}
+            {startTimeIndex <= 18 && 18 <= endTimeIndex ? (
+              <SelectedTimeBox onClick={handleTwentyFourClock}>24:00</SelectedTimeBox>
+            ) : (
+              <TimeBox onClick={handleTwentyFourClock}>24:00</TimeBox>
+            )}
+          </TimeWrapper>
+          <WarningLabel>새벽 시간대 돌봄의 경우, 돌보미와 상의해주세요.</WarningLabel>
+        </>
+      )}
+
       <ShadowView />
       <ReservationWrapper>
         <UserInfo>
@@ -590,28 +609,7 @@ export default function Reservation({ location }) {
           <Low>원</Low>
         </CostLabel>
       </CostWrapper>
-      <Link
-        to={{
-          pathname: '/confirm',
-          state: {
-            name: name,
-            date: dates,
-            oneDay: oneDay,
-            diffDate: diffDate,
-            cost: totalCost,
-            target_petsitterID: target_petsitterID,
-            phone_num: userPhone,
-            pet_breed: dogBreed,
-            pet_size: dogSize,
-            start_time: startDateServer + ' ' + timeStart,
-            end_time: endDateServer + ' ' + timeEnd,
-            total_fee: totalCost,
-          },
-        }}
-        style={{ textDecoration: 'none' }}
-      >
-        <NextButton onClick={handleNextStep}>예약하기</NextButton>
-      </Link>
+      <NextButton onClick={handleNextStep}>예약하기</NextButton>
     </Wrapper>
   );
 }
