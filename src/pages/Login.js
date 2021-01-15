@@ -14,6 +14,7 @@ export default function Login() {
   const [passwordInput, setPasswordInput] = useState("");
 
   const [cookies, setCookie] = useCookies(["token"]);
+
   const history = useHistory();
 
   const SERVER_API =
@@ -43,6 +44,7 @@ export default function Login() {
     //   setPasswordInputCorrection(true);
     // } else setPasswordInputCorrection(false);
   };
+  const handleLoginFail = () => {};
 
   const handleLoginSubmit = async (event) => {
     event.preventDefault();
@@ -54,18 +56,26 @@ export default function Login() {
         email: emailInput,
       },
     };
+    try {
+      await axios(dataToSend).then((res) => {
+        console.log("로그인 성공!");
+        console.log(res);
+        setCookie("token", res.data.Token, "/");
+        setCookie("name");
+        console.log(cookies);
+        if (!res.data.Token) {
+          alert("로그인 실패! 아이디, 패스워드를 확인해 주세요.");
+          return;
+        }
 
-    await axios(dataToSend).then((res) => {
-      console.log("로그인 성공!");
-      console.log(res);
-      setCookie("token", res.data.Token, "/");
-      setCookie("name");
-      console.log(cookies);
-      history.push({
-        pathname: "/takeoffer",
-        state: { address: "서울시 마포구 백범로 35" },
+        history.push({
+          pathname: "/takeoffer",
+          state: { address: "서울시 마포구 백범로 35" },
+        });
       });
-    });
+    } catch (e) {
+      alert("로그인 실패!");
+    }
   };
 
   //login/<str:e_mail>/<str:password>
@@ -228,4 +238,26 @@ const ButtonContainer = styled.div`
   margin-top: 323px;
   display: flex;
   justify-content: center;
+`;
+
+const RequiredMessage = styled.div`
+  margin-top: 5px;
+  margin-left: 7.5px;
+  height: 15px;
+  font-family: "Noto Sans KR";
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.54;
+  letter-spacing: -1px;
+  text-align: left;
+
+  color: #ff9777;
+
+  ${(props) =>
+    props.inputCheck &&
+    css`
+      color: #ffffff;
+    `}
 `;
