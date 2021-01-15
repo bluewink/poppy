@@ -23,6 +23,7 @@ import CancelRequest from './pages/CancelRequest';
 import PetsittingDone from './pages/PetsittingDone';
 import PetsittingComplete from './pages/PetsittingComplete';
 import Reservation from './pages/Reservation';
+import MyArticleRegister from './pages/MyArticleRegister';
 export default function App() {
   return (
     <BrowserRouter>
@@ -42,6 +43,7 @@ export default function App() {
         <Route path="/petsittermenu" exact component={PetsitterMenu} />
         <Route path="/emptyoffer" exact component={EmptyOffer} />
         <Route path="/requesthistory" exact component={RequestHistory} />
+        <Route path="/myarticleregister" exact component={MyArticleRegister} />
         <Route path="/requesthistorydetail" exact component={RequestHistoryDetail} />
         <Route path="/firstterm" exact component={FirstTerm} />
         <Route path="/secondterm" exact component={SecondTerm} />
