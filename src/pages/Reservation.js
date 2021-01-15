@@ -834,7 +834,7 @@ const UserNameTextField = styled.input`
   border-left-width: 0;
   border-right-width: 0;
   border-top-width: 0;
-  border-bottom-width: 1;
+  border-bottom-width: 1px;
   width: 224px;
   outline: none;
 
@@ -868,7 +868,7 @@ const UserPhoneTextField = styled.input`
   border-left-width: 0;
   border-right-width: 0;
   border-top-width: 0;
-  border-bottom-width: 1;
+  border-bottom-width: 1px;
   width: 224px;
   outline: none;
 
@@ -895,6 +895,18 @@ const UserPhoneTextField = styled.input`
 
   ::placeholder {
     color: #d1d1d1;
+    font-family: Noto Sans KR;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 23px;
+    display: flex;
+    align-items: center;
+    letter-spacing: -1px;
+
+    /* 찐찐회색 */
+
+    color: #d1d1d1;
   }
 `;
 
@@ -902,7 +914,7 @@ const DogBreedTextField = styled.input`
   border-left-width: 0;
   border-right-width: 0;
   border-top-width: 0;
-  border-bottom-width: 1;
+  border-bottom-width: 1px;
   width: 224px;
   outline: none;
 

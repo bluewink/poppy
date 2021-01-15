@@ -62,11 +62,6 @@ export default function Search({ location }) {
   //petsitters_nearby/<str:address>/<int:dist_or_fee>
   //http://ec2-13-209-159-94.ap-northeast-2.compute.amazonaws.com:5432/
 
-  const numberWithCommas = (price) => {
-    console.log(price);
-    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  };
-
   useEffect(() => {
     fetchAddressData();
   }, [filterStatus]);

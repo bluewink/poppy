@@ -820,6 +820,21 @@ const DayCost = styled.div`
 `;
 
 const MonthCost = styled.div`
+  font-family: Work Sans;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 20px;
+  /* or 133% */
+
+  display: flex;
+  align-items: center;
+  text-align: center;
+  letter-spacing: -1px;
+
+  /* gray */
+
+  color: #9d9d9d;
   display: flex;
 `;
 
