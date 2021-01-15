@@ -1,35 +1,32 @@
-import React, { Fragment, useEffect } from 'react';
-import styled from 'styled-components';
-import Landing from './pages/Landing.js';
-import Search from './pages/Search.js';
-import Address from './pages/Address';
-import Confirm from './pages/Confirm';
-import Done from './pages/Done';
-import Detail from './pages/Detail';
-import { BrowserRouter, Route } from 'react-router-dom';
-import DaumAPI from './components/DaumAPI.js';
-import Term from './pages/Term';
-import Register from './pages/Register';
-import Login from './pages/Login';
-import RegisterDone from './pages/RegisterDone';
-import PetsitterMenu from './pages/PetsitterMenu';
-import EmptyOffer from './pages/EmptyOffer';
-import RequestHistory from './pages/RequestHistory';
-import RequestHistoryDetail from './pages/RequestHistoryDetail';
-import FirstTerm from './pages/FirstTerm';
-import SecondTerm from './pages/SecondTerm';
-import ThirdTerm from './pages/ThirdTerm';
-import CancelRequest from './pages/CancelRequest';
-import PetsittingDone from './pages/PetsittingDone';
-import PetsittingComplete from './pages/PetsittingComplete';
-import Reservation from './pages/Reservation';
-import MyArticleRegister from './pages/MyArticleRegister';
-
+import React, { Fragment, useEffect } from "react";
+import styled from "styled-components";
+import Landing from "./pages/Landing.js";
+import Search from "./pages/Search.js";
+import Address from "./pages/Address";
+import Confirm from "./pages/Confirm";
+import Done from "./pages/Done";
+import Detail from "./pages/Detail";
+import { BrowserRouter, Route } from "react-router-dom";
+import DaumAPI from "./components/DaumAPI.js";
+import Term from "./pages/Term";
+import Register from "./pages/Register";
+import Login from "./pages/Login";
+import RegisterDone from "./pages/RegisterDone";
+import PetsitterMenu from "./pages/PetsitterMenu";
+import EmptyOffer from "./pages/EmptyOffer";
+import RequestHistory from "./pages/RequestHistory";
+import RequestHistoryDetail from "./pages/RequestHistoryDetail";
+import FirstTerm from "./pages/FirstTerm";
+import SecondTerm from "./pages/SecondTerm";
+import ThirdTerm from "./pages/ThirdTerm";
+import CancelRequest from "./pages/CancelRequest";
+import PetsittingDone from "./pages/PetsittingDone";
+import PetsittingComplete from "./pages/PetsittingComplete";
 export default function App() {
   return (
     <BrowserRouter>
       <MobileSize>
-        <Route path={['/landingpage', '/']} exact component={Landing} />
+        <Route path={["/landingpage", "/"]} exact component={Landing} />
         <Route path="/takeoffer" exact component={Search} />
         <Route path="/address" exact component={Address} />
         <Route path="/confirm" exact component={Confirm} />
@@ -43,15 +40,21 @@ export default function App() {
         <Route path="/petsittermenu" exact component={PetsitterMenu} />
         <Route path="/emptyoffer" exact component={EmptyOffer} />
         <Route path="/requesthistory" exact component={RequestHistory} />
-        <Route path="/myArticleRegister" exact component={MyArticleRegister} />
-        <Route path="/requesthistorydetail" exact component={RequestHistoryDetail} />
+        <Route
+          path="/requesthistorydetail"
+          exact
+          component={RequestHistoryDetail}
+        />
         <Route path="/firstterm" exact component={FirstTerm} />
         <Route path="/secondterm" exact component={SecondTerm} />
         <Route path="/thirdterm" exact component={ThirdTerm} />
         <Route path="/cancelrequest" exact component={CancelRequest} />
         <Route path="/petsittingdone" exact component={PetsittingDone} />
-        <Route path="/petsittingcomplete" exact component={PetsittingComplete} />
-        <Route path="/reservation" exact component={Reservation} />
+        <Route
+          path="/petsittingcomplete"
+          exact
+          component={PetsittingComplete}
+        />
       </MobileSize>
     </BrowserRouter>
   );

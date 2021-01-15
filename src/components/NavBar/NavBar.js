@@ -1,6 +1,6 @@
-import React from 'react';
-import styled from 'styled-components';
-import { backBtn, backBt, backIc } from '../../resources/images';
+import React from "react";
+import styled from "styled-components";
+import { backBtn, backBt, backIc } from "../../resources/images";
 export default function NavBar({ backTo, titleName }) {
   const handleBackButton = () => [window.history.back()];
   return (
@@ -20,7 +20,7 @@ export default function NavBar({ backTo, titleName }) {
 const Title = styled.div`
   height: 24px;
 
-  font-family: 'Noto Sans KR';
+  font-family: "Noto Sans KR";
   font-size: 18px;
   font-weight: 500;
   font-stretch: normal;
@@ -50,7 +50,7 @@ const Navbar = styled.div`
 
   position: sticky;
   top: 0;
-  z-index: ${(props) => (props.isAddress === true ? '0' : '99')};
+  z-index: ${(props) => (props.isAddress === true ? "0" : "99")};
   width: 100%;
   padding-top: 10px;
   background: #ffffff;
